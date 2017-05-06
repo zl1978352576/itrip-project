@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="ItripHotelExtendProperty">
+    <!-- 用户分页查询条件 -->
+    <sql id="whereClauseGetItripHotelExtendPropertyPage">
+        <where>
+            <if test="search != null and search  != ''">
+            </if>
+            <if test="search_1 != null and search_1  != ''">
+
+            </if>
+            <if test="search_2 != null and search_2  != ''">
+
+            </if>
+        </where>
+    </sql>
+
+    <!-- 获取用户列表 -->
+    <select id="getItripHotelExtendPropertyCount" resultType="java.lang.Integer">
+        select count(*) from itrip_hotel_extend_property as table1
+        <include refid="whereClauseGetItripHotelExtendPropertyPage"></include>
+    </select>
+
+    <!-- 获取用户列表 分页-->
+    <select id="getItripHotelExtendPropertyPage" resultType="cn.itrip.beans.pojo.ItripHotelExtendProperty" parameterType="map">
+        SELECT
+                    id as id,
+                    hotelId as hotelId,
+                    extendPropertyId as extendPropertyId
+        FROM
+        itrip_hotel_extend_property table1
+        <include refid="whereClauseGetItripHotelExtendPropertyPage"></include>
+        order by table1.creationDate desc
+    </select>
+</mapper>

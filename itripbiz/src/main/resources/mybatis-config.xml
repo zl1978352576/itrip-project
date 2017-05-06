@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+    <!DOCTYPE configuration   
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+    <configuration>  
+        <settings>  
+            <!-- changes from the defaults -->  
+            <setting name="lazyLoadingEnabled" value="false" />  
+        </settings>  
+
+    <typeAliases>
+        <!--这里给实体类取别名，方便在mapper配置文件中使用-->
+        <package name="cn.itrip.cn.itrip.beans.pojo"/>
+    </typeAliases>
+   <!-- <mappers>
+        <mapper resource="cn/itrip/mapper/itripAreaDic.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripComment.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripHotelExtendProperty.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripHotelOrder.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripHotel.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripHotelKeyword.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripHotelRoom.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripHotelTempStore.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripHotelTradingArea.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripImage.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripLabelDic.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripOrderLinkUser.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripProductStore.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripUser.xml"></mapper>
+        <mapper resource="cn/itrip/mapper/itripUserLinkUser.xml"></mapper>
+    </mappers>-->
+   </configuration>

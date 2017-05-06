@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.itrip.dao.hotel.TestMapper">
+	<select id="getHotelList" resultType="Hotel">
+		select * from itrip_hotel h 
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="hotelName != null and hotelName != ''">
+				and h.hotelName like CONCAT ('%',#{hotelName},'%')
+			</if>
+			<if test="cityId != null">
+				and h.cityId = #{cityId}
+			</if>
+		</trim>
+		order by creationDate DESC 
+	</select>
+</mapper>
