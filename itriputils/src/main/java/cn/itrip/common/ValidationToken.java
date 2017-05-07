@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 
 /**
+ * Token验证
  * Created by hanlu on 2017/5/7.
  */
 public class ValidationToken {
