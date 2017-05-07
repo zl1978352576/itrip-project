@@ -1,4 +1,4 @@
-package cn.itrip.beans.vo;
+package cn.itrip.beans.vo.comment;
 
 import cn.itrip.beans.pojo.ItripComment;
 

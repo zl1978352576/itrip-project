@@ -1,11 +1,14 @@
 package cn.itrip.service.client;
 
+import java.util.List;
 import java.util.Map;
 
+import cn.itrip.beans.pojo.ItripImage;
+import cn.itrip.beans.vo.comment.ItripAddCommentVO;
 import cn.itrip.common.Page;
 import cn.itrip.beans.pojo.ItripComment;
-import cn.itrip.beans.vo.ITripCommentScoreVo;
-import cn.itrip.beans.vo.ITripCommentVo;
+import cn.itrip.beans.vo.comment.ITripCommentScoreVo;
+import cn.itrip.beans.vo.comment.ITripCommentVo;
 
 public interface IClientCommentService {
 
@@ -15,7 +18,19 @@ public interface IClientCommentService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int addItripComment(ItripComment obj) throws Exception;
+	public Long addItripComment(ItripComment obj) throws Exception;
+
+	/**
+	 * 添加点评-add by hanlu
+	 * @param obj
+	 * @param itripImages
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean itriptxAddItripComment(ItripComment obj, List<ItripImage> itripImages)throws  Exception;
+
+
+
 
 	/**
 	 * 根据酒店的id查询所有的点评信息

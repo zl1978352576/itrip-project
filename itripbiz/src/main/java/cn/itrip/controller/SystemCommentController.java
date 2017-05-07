@@ -3,6 +3,9 @@ package cn.itrip.controller;
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.dtos.InputDto;
 import cn.itrip.beans.pojo.ItripComment;
+import cn.itrip.beans.pojo.ItripImage;
+import cn.itrip.beans.vo.comment.ItripAddCommentVO;
+import cn.itrip.common.ValidationToken;
 import cn.itrip.service.client.IClientCommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,13 +13,13 @@ import io.swagger.annotations.ApiOperation;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,12 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-
-import cn.itrip.common.RedisAPI;
 import cn.itrip.common.SystemConfig;
 import cn.itrip.beans.pojo.ItripUser;
 
-import com.alibaba.fastjson.JSONObject;
 
 @Controller
 @Api(value = "API", basePath = "/http://api.itrap.com/api")
@@ -39,32 +39,78 @@ import com.alibaba.fastjson.JSONObject;
 public class SystemCommentController {
 	private Logger logger = Logger.getLogger(SystemCommentController.class);
 	@Resource
-	SystemConfig systemConfig;
-	@Resource
-	RedisAPI redisAPI;
+	private SystemConfig systemConfig;
 	@Resource
 	private IClientCommentService iClientCommentService;
+	@Resource
+	private ValidationToken validationToken;
 
 
-	@ApiOperation(value = "这是一个测试Swagger的一个接口", httpMethod = "POST",
+	@ApiOperation(value = "新增评论接口", httpMethod = "POST",
 			protocols = "HTTP",produces = "application/json",
-			response = ItripComment.class, notes = "添加评论")
-	@RequestMapping(value = "/addComment",method=RequestMethod.POST,produces = "application/json")
+			response = Dto.class,notes = "新增评论信息"+
+			"<p style=‘color:red’>注意：若有评论图片，需要传图片路径</p>"+
+			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+			"<p>错误码：</p>"+
+			"<p>100040 : 新增评论失败 </p>"+
+			"<p>100041 : 不能提交空，请填写评论信息</p>"+
+			"<p>100042 : token失效，请重登录 </p>")
+	@RequestMapping(value = "/addcomment",method=RequestMethod.POST,produces = "application/json")
 	@ResponseBody
-	public Dto<Object> addComment(@RequestBody ItripComment itripComment){
+	public Dto<Object> addComment(@RequestBody ItripAddCommentVO itripAddCommentVO, HttpServletRequest request){
 		//ItripComment
 		Dto<Object> dto = new Dto<Object>();
-		if(null != itripComment){
-			dto.setSuccess("true");
+		String tokenString  = request.getHeader("token");
+		logger.debug("token name is from header : " + tokenString);
+		ItripUser currentUser = validationToken.getCurrentUser(tokenString);
+		if(null != currentUser && null != itripAddCommentVO){
+			List<ItripImage> itripImages = null;
+			ItripComment itripComment = new ItripComment();
+			itripComment.setContent(itripAddCommentVO.getContent());
+			itripComment.setCreatedBy(currentUser.getId());
+			itripComment.setCreationDate(new Date(System.currentTimeMillis()));
+			itripComment.setUserId(currentUser.getId());
+			itripComment.setHotelId(itripAddCommentVO.getHotelId());
+			itripComment.setIsHavingImg(itripAddCommentVO.getIsHavingImg());
+			itripComment.setPositionScore(itripAddCommentVO.getPositionScore());
+			itripComment.setFacilitiesScore(itripAddCommentVO.getFacilitiesScore());
+			itripComment.setHygieneScore(itripAddCommentVO.getHygieneScore());
+			itripComment.setOrderId(itripAddCommentVO.getOrderId());
+			itripComment.setServiceScore(itripAddCommentVO.getServiceScore());
+			itripComment.setProductId(itripAddCommentVO.getProductId());
+			itripComment.setProductType(itripAddCommentVO.getProductType());
 			try {
-				iClientCommentService.addItripComment(itripComment);
+				if(itripAddCommentVO.getIsHavingImg() == 1 ){
+					itripImages = new ArrayList<ItripImage>();
+					//loop input imgs array
+					int i = 1;
+					for (ItripImage itripImage : itripAddCommentVO.getItripImages()) {
+						itripImage.setPosition(i);
+						itripImage.setCreatedBy(currentUser.getId());
+						itripImage.setCreationDate(itripComment.getCreationDate());
+						itripImage.setType("2");
+						itripImages.add(itripImage);
+						i++;
+					}
+				}
+				iClientCommentService.itriptxAddItripComment(itripComment,(null == itripImages?new ArrayList<ItripImage>():itripImages));
 			} catch (Exception e) {
+				e.printStackTrace();
 				dto.setSuccess("false");
+				dto.setErrorCode("100040");
+				dto.setMsg("新增评论失败");
 			}
+			dto.setSuccess("true");
+			dto.setMsg("新增评论成功");
+		}else if(null != currentUser && null == itripAddCommentVO){
+			dto.setSuccess("false");
+			dto.setErrorCode("100041");
+			dto.setMsg("不能提交空，请填写评论信息");
 		}else{
 			dto.setSuccess("false");
+			dto.setErrorCode("100042");
+			dto.setMsg("token失效，请重登录");
 		}
-
 		return dto;
 	}
 
@@ -106,21 +152,7 @@ public class SystemCommentController {
             if(fileCount > 0 && fileCount <= 4 ){
             	String tokenString  = multiRequest.getHeader("token");
                 logger.debug("token name is from header : " + tokenString);
-                //根据token从redis中获取用户信息
-                /*
-                 test token:
-                 key : token:1qaz2wsx
-                 value : {"id":"100078","userCode":"myusercode","userPassword":"78ujsdlkfjoiiewe98r3ejrf","userType":"1","flatID":"10008989"}
-                
-                */
-                ItripUser itripUser = null;
-                try{
-                String userInfoJson = redisAPI.get(tokenString);
-                itripUser = JSONObject.parseObject(userInfoJson,ItripUser.class);
-                }catch(Exception e){
-                	itripUser = null;
-                	logger.error("get userinfo from redis but is error : " + e.getMessage());
-                }
+				ItripUser itripUser = validationToken.getCurrentUser(tokenString);
                 if(null != itripUser){
                 	logger.debug("user not null and id is : " + itripUser.getId());
                 	//取得request中的所有文件名  
@@ -182,7 +214,7 @@ public class SystemCommentController {
 	@ResponseBody
 	@ApiOperation(value = "图片删除接口", httpMethod = "DELETE",
 					protocols = "HTTP",produces = "application/json",
-					response = Dto.class, notes = ""
+					response = Dto.class, notes = "删除传递图片名称"
 				)
 	/*public Dto<Object> delPic(
     		@ApiParam(required = true, name = "imgName", value = "imgName") 

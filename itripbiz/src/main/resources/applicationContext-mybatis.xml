@@ -84,6 +84,10 @@
 		<property name="jedisPool" ref="jedisPool"/>
 	</bean>
 
+	<bean id="validationToken" class="cn.itrip.common.ValidationToken">
+		<property name="redisAPI" ref="redisAPI" />
+	</bean>
+
 	<!-- redis 配置结束 -->
 
 	<!--新增通用的dao配置-->

@@ -1,4 +1,4 @@
-package cn.itrip.beans.vo;
+package cn.itrip.beans.vo.comment;
 
 public class ITripCommentScoreVo {
 	private float avgPositionScore;//点评查询页面酒店的位置得分

@@ -1,4 +1,5 @@
 package cn.itrip.service;
+import cn.itrip.beans.vo.comment.ITripCommentScoreVo;
 import cn.itrip.dao.ItripCommentMapper;
 import cn.itrip.beans.pojo.ItripComment;
 import cn.itrip.beans.pojo.ItripCommentExample;
@@ -21,8 +22,8 @@ public class ItripCommentServiceImpl implements IItripCommentService {
     @Autowired
     private SelectService<ItripComment> selectService;
 
-    public int saveOrUpdateItripComment(ItripComment itripComment) throws Exception{
-        int flag=0;
+    public Long saveOrUpdateItripComment(ItripComment itripComment) throws Exception{
+        Long flag=0l;
         if(EmptyUtils.isNotEmpty(itripComment.getId())){
             itripComment.setModifyDate(new Date());
             flag=itripCommentMapper.updateByPrimaryKeySelective(itripComment);
@@ -63,5 +64,10 @@ public class ItripCommentServiceImpl implements IItripCommentService {
         String listSqlId = "ItripComment.getItripCommentPage";
         Page<ItripComment> result = selectService.getPage(countSqlId, listSqlId, params);
         return result;
+    }
+
+    @Override
+    public ITripCommentScoreVo getAvgAndTotalScore(Integer hotelId) throws Exception {
+        return itripCommentMapper.getCommentAvgScore(hotelId);
     }
 }

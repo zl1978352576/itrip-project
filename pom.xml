@@ -111,13 +111,6 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>4.1.7.RELEASE</version>
-                <scope>compile</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
                 <version>4.1.7.RELEASE</version>
                 <scope>compile</scope>
@@ -152,14 +145,6 @@
                 <version>4.1.7.RELEASE</version>
                 <scope>compile</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-                <version>4.1.7.RELEASE</version>
-                <scope>compile</scope>
-            </dependency>
-
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jms</artifactId>
@@ -195,7 +180,6 @@
                 <artifactId>spring-web</artifactId>
                 <version>4.1.7.RELEASE</version>
             </dependency>
-
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
@@ -207,20 +191,13 @@
                 <version>5.1.18</version>
                 <scope>compile</scope>
             </dependency>
-
-
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.7.12</version>
                 <scope>compile</scope>
             </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>4.1.7.RELEASE</version>
-                <scope>compile</scope>
-            </dependency>
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
@@ -240,12 +217,6 @@
                 <artifactId>mybatis</artifactId>
                 <version>3.2.2</version>
             </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>1.4</version>
-            </dependency>
-
 
             <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
             <dependency>

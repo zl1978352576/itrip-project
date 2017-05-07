@@ -23,7 +23,7 @@
     </select>
 
     <!-- 获取用户列表 分页-->
-    <select id="getItripCommentPage" resultType="cn.itrip.beans.vo.ITripCommentVo" parameterType="map">
+    <select id="getItripCommentPage" resultType="cn.itrip.beans.vo.comment.ITripCommentVo" parameterType="map">
         SELECT
         id as id,
         hotelId as hotelId,

@@ -12,4 +12,12 @@
     <artifactId>itrip-utils</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.itrip</groupId>
+            <artifactId>itrip-beans</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 </project>

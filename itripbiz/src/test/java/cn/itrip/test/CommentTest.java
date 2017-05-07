@@ -3,8 +3,8 @@ package cn.itrip.test;
 import java.util.*;
 
 import cn.itrip.common.Page;
-import cn.itrip.beans.vo.ITripCommentScoreVo;
-import cn.itrip.beans.vo.ITripCommentVo;
+import cn.itrip.beans.vo.comment.ITripCommentScoreVo;
+import cn.itrip.beans.vo.comment.ITripCommentVo;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -42,7 +42,7 @@ public class CommentTest {
         comment.setContent("1231231");
 
         try {
-            int i = clientCommentServiceImpl.addItripComment(comment);
+            Long i = clientCommentServiceImpl.addItripComment(comment);
             System.out.println("添加点评的数量为：" + i);
         } catch (Exception e) {
             e.printStackTrace();

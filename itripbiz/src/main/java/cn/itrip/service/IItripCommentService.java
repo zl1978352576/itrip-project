@@ -3,13 +3,14 @@ import cn.itrip.beans.pojo.ItripComment;
 import java.util.List;
 import java.util.Map;
 import cn.itrip.beans.pojo.ItripCommentExample;
+import cn.itrip.beans.vo.comment.ITripCommentScoreVo;
 import cn.itrip.common.Page;
 /**
 * Created by shang-pc on 2015/11/7.
 */
 public interface IItripCommentService {
 
-    public int saveOrUpdateItripComment(ItripComment obj)throws Exception;
+    public Long saveOrUpdateItripComment(ItripComment obj)throws Exception;
 
     public ItripComment queryItripCommentById(Long id)throws Exception;
 
@@ -18,4 +19,6 @@ public interface IItripCommentService {
     public List<ItripComment> queryItripCommentList(ItripCommentExample example)throws Exception;
 
     public Page<ItripComment> queryItripCommentPage(Map params)throws Exception;
+
+    public ITripCommentScoreVo getAvgAndTotalScore(Integer hotelId) throws Exception;
 }
