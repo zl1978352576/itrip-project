@@ -28,6 +28,9 @@ public class ValidationToken {
 
 			*/
         ItripUser itripUser = null;
+        if(null == tokenString || "".equals(tokenString)){
+            return null;
+        }
         try{
             String userInfoJson = redisAPI.get(tokenString);
             itripUser = JSONObject.parseObject(userInfoJson,ItripUser.class);
