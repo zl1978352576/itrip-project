@@ -30,7 +30,7 @@ public class ItripUserServiceImpl implements ItripUserService {
 
     public Integer itriptxAddItripUser(ItripUser itripUser)throws Exception{
             itripUser.setCreationDate(new Date());
-            return itripUserMapper.updateItripUser(itripUser);
+            return itripUserMapper.insertItripUser(itripUser);
     }
 
     public Integer itriptxModifyItripUser(ItripUser itripUser)throws Exception{

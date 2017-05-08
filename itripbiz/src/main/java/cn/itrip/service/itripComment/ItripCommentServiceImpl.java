@@ -30,7 +30,7 @@ public class ItripCommentServiceImpl implements ItripCommentService {
 
     public Integer itriptxAddItripComment(ItripComment itripComment)throws Exception{
             itripComment.setCreationDate(new Date());
-            return itripCommentMapper.updateItripComment(itripComment);
+            return itripCommentMapper.insertItripComment(itripComment);
     }
 
     public Integer itriptxModifyItripComment(ItripComment itripComment)throws Exception{

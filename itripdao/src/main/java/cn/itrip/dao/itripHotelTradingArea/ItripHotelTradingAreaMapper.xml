@@ -82,21 +82,19 @@
 
     <insert id="insertItripHotelTradingArea" parameterType="cn.itrip.beans.pojo.ItripHotelTradingArea">
         insert into itrip_hotel_trading_area(
-                id,
-                hotelId,
-                areaId,
-                creationDate,
-                createdBy,
-                modifyDate,
-                modifiedBy)
+                        hotelId,
+                        areaId,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
         values(
-               #{id},
-               #{hotelId},
-               #{areaId},
-               #{creationDate},
-               #{createdBy},
-               #{modifyDate},
-               #{modifiedBy})
+                     #{hotelId},
+                     #{areaId},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
     </insert>
 
     <update id="updateItripHotelTradingArea" parameterType="cn.itrip.beans.pojo.ItripHotelTradingArea">

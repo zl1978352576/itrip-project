@@ -30,7 +30,7 @@ public class ItripHotelTradingAreaServiceImpl implements ItripHotelTradingAreaSe
 
     public Integer itriptxAddItripHotelTradingArea(ItripHotelTradingArea itripHotelTradingArea)throws Exception{
             itripHotelTradingArea.setCreationDate(new Date());
-            return itripHotelTradingAreaMapper.updateItripHotelTradingArea(itripHotelTradingArea);
+            return itripHotelTradingAreaMapper.insertItripHotelTradingArea(itripHotelTradingArea);
     }
 
     public Integer itriptxModifyItripHotelTradingArea(ItripHotelTradingArea itripHotelTradingArea)throws Exception{

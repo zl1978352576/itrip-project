@@ -30,7 +30,7 @@ public class ItripUserLinkUserServiceImpl implements ItripUserLinkUserService {
 
     public Integer itriptxAddItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
             itripUserLinkUser.setCreationDate(new Date());
-            return itripUserLinkUserMapper.updateItripUserLinkUser(itripUserLinkUser);
+            return itripUserLinkUserMapper.insertItripUserLinkUser(itripUserLinkUser);
     }
 
     public Integer itriptxModifyItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{

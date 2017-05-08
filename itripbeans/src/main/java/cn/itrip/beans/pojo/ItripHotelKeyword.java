@@ -7,6 +7,10 @@ public class ItripHotelKeyword implements Serializable {
             private Long id;
             private Long hotelId;
             private Long keywordId;
+            private Date creationDate;
+            private Long createdBy;
+            private Date modifyDate;
+            private Long modifiedBy;
 
             public void setId (Long  id){
                 this.id=id;
@@ -28,6 +32,34 @@ public class ItripHotelKeyword implements Serializable {
 
             public  Long getKeywordId(){
                 return this.keywordId;
+            }
+            public void setCreationDate (Date  creationDate){
+                this.creationDate=creationDate;
+            }
+
+            public  Date getCreationDate(){
+                return this.creationDate;
+            }
+            public void setCreatedBy (Long  createdBy){
+                this.createdBy=createdBy;
+            }
+
+            public  Long getCreatedBy(){
+                return this.createdBy;
+            }
+            public void setModifyDate (Date  modifyDate){
+                this.modifyDate=modifyDate;
+            }
+
+            public  Date getModifyDate(){
+                return this.modifyDate;
+            }
+            public void setModifiedBy (Long  modifiedBy){
+                this.modifiedBy=modifiedBy;
+            }
+
+            public  Long getModifiedBy(){
+                return this.modifiedBy;
             }
 
 }

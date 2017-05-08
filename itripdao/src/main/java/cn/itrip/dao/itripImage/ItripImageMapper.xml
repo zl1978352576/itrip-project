@@ -98,25 +98,23 @@
 
     <insert id="insertItripImage" parameterType="cn.itrip.beans.pojo.ItripImage">
         insert into itrip_image(
-                id,
-                type,
-                targetId,
-                position,
-                imgUrl,
-                creationDate,
-                createdBy,
-                modifyDate,
-                modifiedBy)
+                        type,
+                        targetId,
+                        position,
+                        imgUrl,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
         values(
-               #{id},
-               #{type},
-               #{targetId},
-               #{position},
-               #{imgUrl},
-               #{creationDate},
-               #{createdBy},
-               #{modifyDate},
-               #{modifiedBy})
+                     #{type},
+                     #{targetId},
+                     #{position},
+                     #{imgUrl},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
     </insert>
 
     <update id="updateItripImage" parameterType="cn.itrip.beans.pojo.ItripImage">

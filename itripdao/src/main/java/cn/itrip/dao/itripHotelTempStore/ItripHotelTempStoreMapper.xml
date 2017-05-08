@@ -98,25 +98,23 @@
 
     <insert id="insertItripHotelTempStore" parameterType="cn.itrip.beans.pojo.ItripHotelTempStore">
         insert into itrip_hotel_temp_store(
-                id,
-                hotelId,
-                roomId,
-                recordDate,
-                store,
-                creationDate,
-                createdBy,
-                modifyDate,
-                modifiedBy)
+                        hotelId,
+                        roomId,
+                        recordDate,
+                        store,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
         values(
-               #{id},
-               #{hotelId},
-               #{roomId},
-               #{recordDate},
-               #{store},
-               #{creationDate},
-               #{createdBy},
-               #{modifyDate},
-               #{modifiedBy})
+                     #{hotelId},
+                     #{roomId},
+                     #{recordDate},
+                     #{store},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
     </insert>
 
     <update id="updateItripHotelTempStore" parameterType="cn.itrip.beans.pojo.ItripHotelTempStore">

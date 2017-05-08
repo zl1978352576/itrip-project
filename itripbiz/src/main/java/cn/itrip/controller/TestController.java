@@ -22,10 +22,12 @@ public class TestController {
 
     @RequestMapping("/example")
     public void testExample() throws Exception {
-        ItripAreaDic itripAreaDic = iItripAreaDicService.getItripAreaDicById(new Long(1));
+        ItripAreaDic itripAreaDic =new ItripAreaDic();
         itripAreaDic.setName("北京市");
         itripAreaDic.setParent(new Long(1));
-        int flag=iItripAreaDicService.itriptxDeleteItripAreaDicById(new Long(3653));
+        itripAreaDic.setIsActivated(1);
+        itripAreaDic.setIsHot(1);
+        int flag=iItripAreaDicService.itriptxAddItripAreaDic(itripAreaDic);
         System.out.println(flag);
     }
 

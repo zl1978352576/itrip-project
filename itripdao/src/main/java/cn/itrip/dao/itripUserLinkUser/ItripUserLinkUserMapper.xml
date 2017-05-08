@@ -98,25 +98,23 @@
 
     <insert id="insertItripUserLinkUser" parameterType="cn.itrip.beans.pojo.ItripUserLinkUser">
         insert into itrip_user_link_user(
-                id,
-                linkUserName,
-                linkIdCard,
-                linkPhone,
-                userId,
-                creationDate,
-                createdBy,
-                modifyDate,
-                modifiedBy)
+                        linkUserName,
+                        linkIdCard,
+                        linkPhone,
+                        userId,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
         values(
-               #{id},
-               #{linkUserName},
-               #{linkIdCard},
-               #{linkPhone},
-               #{userId},
-               #{creationDate},
-               #{createdBy},
-               #{modifyDate},
-               #{modifiedBy})
+                     #{linkUserName},
+                     #{linkIdCard},
+                     #{linkPhone},
+                     #{userId},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
     </insert>
 
     <update id="updateItripUserLinkUser" parameterType="cn.itrip.beans.pojo.ItripUserLinkUser">

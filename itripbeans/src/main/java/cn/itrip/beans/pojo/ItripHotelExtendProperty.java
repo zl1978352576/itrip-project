@@ -7,6 +7,10 @@ public class ItripHotelExtendProperty implements Serializable {
             private Long id;
             private Long hotelId;
             private Long extendPropertyId;
+            private Date creationDate;
+            private Long createdBy;
+            private Date modifyDate;
+            private Long modifiedBy;
 
             public void setId (Long  id){
                 this.id=id;
@@ -28,6 +32,34 @@ public class ItripHotelExtendProperty implements Serializable {
 
             public  Long getExtendPropertyId(){
                 return this.extendPropertyId;
+            }
+            public void setCreationDate (Date  creationDate){
+                this.creationDate=creationDate;
+            }
+
+            public  Date getCreationDate(){
+                return this.creationDate;
+            }
+            public void setCreatedBy (Long  createdBy){
+                this.createdBy=createdBy;
+            }
+
+            public  Long getCreatedBy(){
+                return this.createdBy;
+            }
+            public void setModifyDate (Date  modifyDate){
+                this.modifyDate=modifyDate;
+            }
+
+            public  Date getModifyDate(){
+                return this.modifyDate;
+            }
+            public void setModifiedBy (Long  modifiedBy){
+                this.modifiedBy=modifiedBy;
+            }
+
+            public  Long getModifiedBy(){
+                return this.modifiedBy;
             }
 
 }

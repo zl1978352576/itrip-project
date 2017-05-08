@@ -1,8 +1,11 @@
 package cn.itrip.service.itripAreaDic;
 import cn.itrip.dao.itripAreaDic.ItripAreaDicMapper;
 import cn.itrip.beans.pojo.ItripAreaDic;
+import cn.itrip.common.EmptyUtils;
+import cn.itrip.common.Page;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +30,7 @@ public class ItripAreaDicServiceImpl implements ItripAreaDicService {
 
     public Integer itriptxAddItripAreaDic(ItripAreaDic itripAreaDic)throws Exception{
             itripAreaDic.setCreationDate(new Date());
-            return itripAreaDicMapper.updateItripAreaDic(itripAreaDic);
+            return itripAreaDicMapper.insertItripAreaDic(itripAreaDic);
     }
 
     public Integer itriptxModifyItripAreaDic(ItripAreaDic itripAreaDic)throws Exception{

@@ -30,7 +30,7 @@ public class ItripLabelDicServiceImpl implements ItripLabelDicService {
 
     public Integer itriptxAddItripLabelDic(ItripLabelDic itripLabelDic)throws Exception{
             itripLabelDic.setCreationDate(new Date());
-            return itripLabelDicMapper.updateItripLabelDic(itripLabelDic);
+            return itripLabelDicMapper.insertItripLabelDic(itripLabelDic);
     }
 
     public Integer itriptxModifyItripLabelDic(ItripLabelDic itripLabelDic)throws Exception{

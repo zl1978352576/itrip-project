@@ -30,7 +30,7 @@ public class ItripImageServiceImpl implements ItripImageService {
 
     public Integer itriptxAddItripImage(ItripImage itripImage)throws Exception{
             itripImage.setCreationDate(new Date());
-            return itripImageMapper.updateItripImage(itripImage);
+            return itripImageMapper.insertItripImage(itripImage);
     }
 
     public Integer itriptxModifyItripImage(ItripImage itripImage)throws Exception{

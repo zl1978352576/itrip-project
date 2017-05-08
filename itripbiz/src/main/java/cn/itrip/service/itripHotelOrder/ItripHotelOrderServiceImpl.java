@@ -30,7 +30,7 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
 
     public Integer itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception{
             itripHotelOrder.setCreationDate(new Date());
-            return itripHotelOrderMapper.updateItripHotelOrder(itripHotelOrder);
+            return itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder);
     }
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception{

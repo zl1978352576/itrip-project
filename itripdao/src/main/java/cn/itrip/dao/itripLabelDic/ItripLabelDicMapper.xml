@@ -106,27 +106,25 @@
 
     <insert id="insertItripLabelDic" parameterType="cn.itrip.beans.pojo.ItripLabelDic">
         insert into itrip_label_dic(
-                id,
-                name,
-                value,
-                description,
-                parentId,
-                pic,
-                creationDate,
-                createdBy,
-                modifyDate,
-                modifiedBy)
+                        name,
+                        value,
+                        description,
+                        parentId,
+                        pic,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
         values(
-               #{id},
-               #{name},
-               #{value},
-               #{description},
-               #{parentId},
-               #{pic},
-               #{creationDate},
-               #{createdBy},
-               #{modifyDate},
-               #{modifiedBy})
+                     #{name},
+                     #{value},
+                     #{description},
+                     #{parentId},
+                     #{pic},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
     </insert>
 
     <update id="updateItripLabelDic" parameterType="cn.itrip.beans.pojo.ItripLabelDic">

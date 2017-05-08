@@ -8,7 +8,11 @@
         select
                 id as id,
                 hotelId as hotelId,
-                keywordId as keywordId
+                keywordId as keywordId,
+                creationDate as creationDate,
+                createdBy as createdBy,
+                modifyDate as modifyDate,
+                modifiedBy as modifiedBy
         from itrip_hotel_keyword
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
@@ -21,7 +25,11 @@
         select
                 id as id,
                 hotelId as hotelId,
-                keywordId as keywordId
+                keywordId as keywordId,
+                creationDate as creationDate,
+                createdBy as createdBy,
+                modifyDate as modifyDate,
+                modifiedBy as modifiedBy
         from itrip_hotel_keyword
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
@@ -29,6 +37,18 @@
                     </if>
                     <if test="hotelId != null and hotelId!=''">
                         and hotelId=#{hotelId}
+                    </if>
+                    <if test="keywordId != null and keywordId!=''">
+                        and keywordId=#{keywordId}
+                    </if>
+                    <if test="creationDate != null and creationDate!=''">
+                        and creationDate=#{creationDate}
+                    </if>
+                    <if test="createdBy != null and createdBy!=''">
+                        and createdBy=#{createdBy}
+                    </if>
+                    <if test="modifyDate != null and modifyDate!=''">
+                        and modifyDate=#{modifyDate}
                     </if>
         </trim>
     </select>
@@ -45,18 +65,36 @@
                 <if test="keywordId != null and keywordId!=''">
                     and keywordId=#{keywordId}
                 </if>
+                <if test="creationDate != null and creationDate!=''">
+                    and creationDate=#{creationDate}
+                </if>
+                <if test="createdBy != null and createdBy!=''">
+                    and createdBy=#{createdBy}
+                </if>
+                <if test="modifyDate != null and modifyDate!=''">
+                    and modifyDate=#{modifyDate}
+                </if>
+                <if test="modifiedBy != null and modifiedBy!=''">
+                    and modifiedBy=#{modifiedBy}
+                </if>
         </trim>
     </select>
 
     <insert id="insertItripHotelKeyword" parameterType="cn.itrip.beans.pojo.ItripHotelKeyword">
         insert into itrip_hotel_keyword(
-                id,
-                hotelId,
-                keywordId)
+                        hotelId,
+                        keywordId,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
         values(
-               #{id},
-               #{hotelId},
-               #{keywordId})
+                     #{hotelId},
+                     #{keywordId},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
     </insert>
 
     <update id="updateItripHotelKeyword" parameterType="cn.itrip.beans.pojo.ItripHotelKeyword">
@@ -69,7 +107,19 @@
                         hotelId=#{hotelId},
                     </if>
                     <if test="keywordId != null and keywordId!=''">
-                        keywordId=#{keywordId}
+                        keywordId=#{keywordId},
+                    </if>
+                    <if test="creationDate != null and creationDate!=''">
+                        creationDate=#{creationDate},
+                    </if>
+                    <if test="createdBy != null and createdBy!=''">
+                        createdBy=#{createdBy},
+                    </if>
+                    <if test="modifyDate != null and modifyDate!=''">
+                        modifyDate=#{modifyDate},
+                    </if>
+                    <if test="modifiedBy != null and modifiedBy!=''">
+                        modifiedBy=#{modifiedBy}
                     </if>
         </trim>
     </update>

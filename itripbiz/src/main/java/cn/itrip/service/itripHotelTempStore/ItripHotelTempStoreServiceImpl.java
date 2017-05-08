@@ -30,7 +30,7 @@ public class ItripHotelTempStoreServiceImpl implements ItripHotelTempStoreServic
 
     public Integer itriptxAddItripHotelTempStore(ItripHotelTempStore itripHotelTempStore)throws Exception{
             itripHotelTempStore.setCreationDate(new Date());
-            return itripHotelTempStoreMapper.updateItripHotelTempStore(itripHotelTempStore);
+            return itripHotelTempStoreMapper.insertItripHotelTempStore(itripHotelTempStore);
     }
 
     public Integer itriptxModifyItripHotelTempStore(ItripHotelTempStore itripHotelTempStore)throws Exception{

@@ -138,35 +138,33 @@
 
     <insert id="insertItripUser" parameterType="cn.itrip.beans.pojo.ItripUser">
         insert into itrip_user(
-                id,
-                userCode,
-                userPassword,
-                userType,
-                flatID,
-                userName,
-                weChat,
-                QQ,
-                weibo,
-                baidu,
-                creationDate,
-                createdBy,
-                modifyDate,
-                modifiedBy)
+                        userCode,
+                        userPassword,
+                        userType,
+                        flatID,
+                        userName,
+                        weChat,
+                        QQ,
+                        weibo,
+                        baidu,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
         values(
-               #{id},
-               #{userCode},
-               #{userPassword},
-               #{userType},
-               #{flatID},
-               #{userName},
-               #{weChat},
-               #{QQ},
-               #{weibo},
-               #{baidu},
-               #{creationDate},
-               #{createdBy},
-               #{modifyDate},
-               #{modifiedBy})
+                     #{userCode},
+                     #{userPassword},
+                     #{userType},
+                     #{flatID},
+                     #{userName},
+                     #{weChat},
+                     #{QQ},
+                     #{weibo},
+                     #{baidu},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
     </insert>
 
     <update id="updateItripUser" parameterType="cn.itrip.beans.pojo.ItripUser">

@@ -30,7 +30,7 @@ public class ItripProductStoreServiceImpl implements ItripProductStoreService {
 
     public Integer itriptxAddItripProductStore(ItripProductStore itripProductStore)throws Exception{
             itripProductStore.setCreationDate(new Date());
-            return itripProductStoreMapper.updateItripProductStore(itripProductStore);
+            return itripProductStoreMapper.insertItripProductStore(itripProductStore);
     }
 
     public Integer itriptxModifyItripProductStore(ItripProductStore itripProductStore)throws Exception{

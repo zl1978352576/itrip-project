@@ -90,23 +90,21 @@
 
     <insert id="insertItripProductStore" parameterType="cn.itrip.beans.pojo.ItripProductStore">
         insert into itrip_product_store(
-                id,
-                productType,
-                productId,
-                store,
-                creationDate,
-                createdBy,
-                modifyDate,
-                modifiedBy)
+                        productType,
+                        productId,
+                        store,
+                        creationDate,
+                        createdBy,
+                        modifyDate,
+                        modifiedBy)
         values(
-               #{id},
-               #{productType},
-               #{productId},
-               #{store},
-               #{creationDate},
-               #{createdBy},
-               #{modifyDate},
-               #{modifiedBy})
+                     #{productType},
+                     #{productId},
+                     #{store},
+                     #{creationDate},
+                     #{createdBy},
+                     #{modifyDate},
+                    #{modifiedBy})
     </insert>
 
     <update id="updateItripProductStore" parameterType="cn.itrip.beans.pojo.ItripProductStore">
