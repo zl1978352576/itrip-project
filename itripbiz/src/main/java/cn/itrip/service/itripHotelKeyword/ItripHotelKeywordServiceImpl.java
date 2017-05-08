@@ -29,12 +29,12 @@ public class ItripHotelKeywordServiceImpl implements ItripHotelKeywordService {
     }
 
     public Integer insertItripHotelKeyword(ItripHotelKeyword itripHotelKeyword)throws Exception{
-            itripHotelKeyword.setCreationDate(new Date());
+            //itripHotelKeyword.setCreationDate(new Date());
             return itripHotelKeywordMapper.updateItripHotelKeyword(itripHotelKeyword);
     }
 
     public Integer updateItripHotelKeyword(ItripHotelKeyword itripHotelKeyword)throws Exception{
-        itripHotelKeyword.setModifyDate(new Date());
+        //itripHotelKeyword.setModifyDate(new Date());
         return itripHotelKeywordMapper.updateItripHotelKeyword(itripHotelKeyword);
     }
 

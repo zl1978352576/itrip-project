@@ -29,12 +29,12 @@ public class ItripOrderLinkUserServiceImpl implements ItripOrderLinkUserService 
     }
 
     public Integer insertItripOrderLinkUser(ItripOrderLinkUser itripOrderLinkUser)throws Exception{
-            itripOrderLinkUser.setCreationDate(new Date());
+            //itripOrderLinkUser.setCreationDate(new Date());
             return itripOrderLinkUserMapper.updateItripOrderLinkUser(itripOrderLinkUser);
     }
 
     public Integer updateItripOrderLinkUser(ItripOrderLinkUser itripOrderLinkUser)throws Exception{
-        itripOrderLinkUser.setModifyDate(new Date());
+        //itripOrderLinkUser.setModifyDate(new Date());
         return itripOrderLinkUserMapper.updateItripOrderLinkUser(itripOrderLinkUser);
     }
 
