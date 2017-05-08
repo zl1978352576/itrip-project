@@ -22,4 +22,5 @@ public interface ItripLabelDicService {
 
     public Integer itriptxDeleteItripLabelDicById(Long id)throws Exception;
 
+    public Page<ItripLabelDic> queryItripLabelDicPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 }

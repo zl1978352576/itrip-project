@@ -22,4 +22,5 @@ public interface ItripImageService {
 
     public Integer itriptxDeleteItripImageById(Long id)throws Exception;
 
+    public Page<ItripImage> queryItripImagePageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 }

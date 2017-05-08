@@ -22,4 +22,5 @@ public interface ItripCommentService {
 
     public Integer itriptxDeleteItripCommentById(Long id)throws Exception;
 
+    public Page<ItripComment> queryItripCommentPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import cn.itrip.common.Constants;
 @Service
 public class ItripUserLinkUserServiceImpl implements ItripUserLinkUserService {
 
@@ -40,6 +40,18 @@ public class ItripUserLinkUserServiceImpl implements ItripUserLinkUserService {
 
     public Integer itriptxDeleteItripUserLinkUserById(Long id)throws Exception{
         return itripUserLinkUserMapper.deleteItripUserLinkUserById(id);
+    }
+
+    public Page<ItripUserLinkUser> queryItripUserLinkUserPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+        Integer total = itripUserLinkUserMapper.getItripUserLinkUserCountByMap(param);
+        pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
+        pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
+        Page page = new Page(pageNo, pageSize, total);
+        param.put("beginPos", page.getBeginPos());
+        param.put("pageSize", page.getPageSize());
+        List<ItripUserLinkUser> itripUserLinkUserList = itripUserLinkUserMapper.getItripUserLinkUserListByMap(param);
+        page.setRows(itripUserLinkUserList);
+        return page;
     }
 
 }

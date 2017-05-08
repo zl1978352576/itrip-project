@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import cn.itrip.common.Constants;
 @Service
 public class ItripHotelTradingAreaServiceImpl implements ItripHotelTradingAreaService {
 
@@ -40,6 +40,18 @@ public class ItripHotelTradingAreaServiceImpl implements ItripHotelTradingAreaSe
 
     public Integer itriptxDeleteItripHotelTradingAreaById(Long id)throws Exception{
         return itripHotelTradingAreaMapper.deleteItripHotelTradingAreaById(id);
+    }
+
+    public Page<ItripHotelTradingArea> queryItripHotelTradingAreaPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+        Integer total = itripHotelTradingAreaMapper.getItripHotelTradingAreaCountByMap(param);
+        pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
+        pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
+        Page page = new Page(pageNo, pageSize, total);
+        param.put("beginPos", page.getBeginPos());
+        param.put("pageSize", page.getPageSize());
+        List<ItripHotelTradingArea> itripHotelTradingAreaList = itripHotelTradingAreaMapper.getItripHotelTradingAreaListByMap(param);
+        page.setRows(itripHotelTradingAreaList);
+        return page;
     }
 
 }

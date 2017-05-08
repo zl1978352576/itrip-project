@@ -1,10 +1,12 @@
 package cn.itrip.controller;
 
 import cn.itrip.beans.pojo.ItripAreaDic;
+import cn.itrip.common.Page;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +41,14 @@ public class TestController {
         for (ItripAreaDic itripAreaDic:itripAreaDics){
             System.out.println(itripAreaDic.getName());
         }
+    }
+
+    @RequestMapping("/page")
+    @ResponseBody
+    public Page<ItripAreaDic> page() throws Exception {
+        Map<String,Object> param=new HashMap<String,Object>();
+        Page<ItripAreaDic> itripAreaDicPage=iItripAreaDicService.queryItripAreaDicPageByMap(param,2,5);
+        return  itripAreaDicPage;
     }
 }
 

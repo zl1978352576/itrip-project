@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import cn.itrip.common.Constants;
 @Service
 public class ItripCommentServiceImpl implements ItripCommentService {
 
@@ -40,6 +40,18 @@ public class ItripCommentServiceImpl implements ItripCommentService {
 
     public Integer itriptxDeleteItripCommentById(Long id)throws Exception{
         return itripCommentMapper.deleteItripCommentById(id);
+    }
+
+    public Page<ItripComment> queryItripCommentPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+        Integer total = itripCommentMapper.getItripCommentCountByMap(param);
+        pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
+        pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
+        Page page = new Page(pageNo, pageSize, total);
+        param.put("beginPos", page.getBeginPos());
+        param.put("pageSize", page.getPageSize());
+        List<ItripComment> itripCommentList = itripCommentMapper.getItripCommentListByMap(param);
+        page.setRows(itripCommentList);
+        return page;
     }
 
 }

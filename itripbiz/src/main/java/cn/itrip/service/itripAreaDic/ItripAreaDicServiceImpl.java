@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import cn.itrip.common.Constants;
 @Service
 public class ItripAreaDicServiceImpl implements ItripAreaDicService {
 
@@ -40,6 +40,18 @@ public class ItripAreaDicServiceImpl implements ItripAreaDicService {
 
     public Integer itriptxDeleteItripAreaDicById(Long id)throws Exception{
         return itripAreaDicMapper.deleteItripAreaDicById(id);
+    }
+
+    public Page<ItripAreaDic> queryItripAreaDicPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+        Integer total = itripAreaDicMapper.getItripAreaDicCountByMap(param);
+        pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
+        pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
+        Page page = new Page(pageNo, pageSize, total);
+        param.put("beginPos", page.getBeginPos());
+        param.put("pageSize", page.getPageSize());
+        List<ItripAreaDic> itripAreaDicList = itripAreaDicMapper.getItripAreaDicListByMap(param);
+        page.setRows(itripAreaDicList);
+        return page;
     }
 
 }

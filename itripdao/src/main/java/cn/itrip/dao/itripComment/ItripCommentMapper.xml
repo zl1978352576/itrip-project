@@ -111,6 +111,10 @@
                         and modifyDate=#{modifyDate}
                     </if>
         </trim>
+         order by creationDate desc
+        <if test="beginPos != null and beginPos!='' and pageSize != null  and pageSize !='' ">
+            limit #{beginPos},#{pageSize}
+        </if>
     </select>
 
     <select id="getItripCommentCountByMap" resultType="Integer"  parameterType="java.util.Map">

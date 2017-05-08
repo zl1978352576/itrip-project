@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import cn.itrip.common.Constants;
 @Service
 public class ItripProductStoreServiceImpl implements ItripProductStoreService {
 
@@ -40,6 +40,18 @@ public class ItripProductStoreServiceImpl implements ItripProductStoreService {
 
     public Integer itriptxDeleteItripProductStoreById(Long id)throws Exception{
         return itripProductStoreMapper.deleteItripProductStoreById(id);
+    }
+
+    public Page<ItripProductStore> queryItripProductStorePageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+        Integer total = itripProductStoreMapper.getItripProductStoreCountByMap(param);
+        pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
+        pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
+        Page page = new Page(pageNo, pageSize, total);
+        param.put("beginPos", page.getBeginPos());
+        param.put("pageSize", page.getPageSize());
+        List<ItripProductStore> itripProductStoreList = itripProductStoreMapper.getItripProductStoreListByMap(param);
+        page.setRows(itripProductStoreList);
+        return page;
     }
 
 }

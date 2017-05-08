@@ -22,4 +22,5 @@ public interface ItripUserLinkUserService {
 
     public Integer itriptxDeleteItripUserLinkUserById(Long id)throws Exception;
 
+    public Page<ItripUserLinkUser> queryItripUserLinkUserPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 }

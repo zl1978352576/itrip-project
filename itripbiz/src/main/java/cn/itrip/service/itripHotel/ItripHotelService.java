@@ -22,4 +22,5 @@ public interface ItripHotelService {
 
     public Integer itriptxDeleteItripHotelById(Long id)throws Exception;
 
+    public Page<ItripHotel> queryItripHotelPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 }
