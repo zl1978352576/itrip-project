@@ -9,10 +9,10 @@
 #### [Localhost API](http://localhost:8080/swagger-ui.html?_blank)
 
 
-
 ####lua自动裁剪图片(按需裁剪，初始化上传只有原始图)：
 e.g：
 http://imgs.itrip.com/comment/100078-1493694934624-5129266.jpg
 http://imgs.itrip.com/comment/100078-1493694934624-5129266.jpg_500x500.jpg
 
 test
+
