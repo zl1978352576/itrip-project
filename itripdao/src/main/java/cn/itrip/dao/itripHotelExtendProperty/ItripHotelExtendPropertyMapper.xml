@@ -12,7 +12,7 @@
         from itrip_hotel_extend_property
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
-                and id=# {id}
+                and id=#{id}
             </if>
         </trim>
     </select>
@@ -25,10 +25,10 @@
         from itrip_hotel_extend_property
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
-                        and id=# {id}
+                        and id=#{id}
                     </if>
                     <if test="hotelId != null and hotelId!=''">
-                        and hotelId=# {hotelId}
+                        and hotelId=#{hotelId}
                     </if>
         </trim>
     </select>
@@ -37,13 +37,13 @@
         select count(*) from itrip_hotel_extend_property
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">
-                    and id=# {id};
+                    and id=#{id}
                 </if>
                 <if test="hotelId != null and hotelId!=''">
-                    and hotelId=# {hotelId};
+                    and hotelId=#{hotelId}
                 </if>
                 <if test="extendPropertyId != null and extendPropertyId!=''">
-                    and extendPropertyId=# {extendPropertyId};
+                    and extendPropertyId=#{extendPropertyId}
                 </if>
         </trim>
     </select>
@@ -54,27 +54,27 @@
                 hotelId,
                 extendPropertyId)
         values(
-               # {id},
-               # {hotelId},
-               # {extendPropertyId)}
+               #{id},
+               #{hotelId},
+               #{extendPropertyId)}
     </insert>
 
     <update id="updateItripHotelExtendProperty" parameterType="cn.itrip.beans.pojo.ItripHotelExtendProperty">
         update itrip_hotel_extend_property
-        <trim prefix="set" suffixOverrides="," suffix="where id=# {id}">
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
                     <if test="id != null and id!=''">
-                        id=# {id},
+                        id=#{id},
                     </if>
                     <if test="hotelId != null and hotelId!=''">
-                        hotelId=# {hotelId},
+                        hotelId=#{hotelId},
                     </if>
                     <if test="extendPropertyId != null and extendPropertyId!=''">
-                        extendPropertyId=# {extendPropertyId}
+                        extendPropertyId=#{extendPropertyId}
                     </if>
         </trim>
     </update>
 
     <delete id="deleteItripHotelExtendPropertyById" parameterType="Long">
-        delete from itrip_hotel_extend_property where id = # {id}
+        delete from itrip_hotel_extend_property where id = #{id}
     </delete>
 </mapper>

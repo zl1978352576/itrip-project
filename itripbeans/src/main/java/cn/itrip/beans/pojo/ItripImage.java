@@ -7,6 +7,7 @@ public class ItripImage implements Serializable {
             private Long id;
             private String type;
             private Long targetId;
+            private Integer position;
             private String imgUrl;
             private Date creationDate;
             private Long createdBy;
@@ -33,6 +34,13 @@ public class ItripImage implements Serializable {
 
             public  Long getTargetId(){
                 return this.targetId;
+            }
+            public void setPosition (Integer  position){
+                this.position=position;
+            }
+
+            public  Integer getPosition(){
+                return this.position;
             }
             public void setImgUrl (String  imgUrl){
                 this.imgUrl=imgUrl;

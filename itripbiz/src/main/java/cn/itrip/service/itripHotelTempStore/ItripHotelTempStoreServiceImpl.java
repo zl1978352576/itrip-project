@@ -28,17 +28,17 @@ public class ItripHotelTempStoreServiceImpl implements ItripHotelTempStoreServic
         return itripHotelTempStoreMapper.getItripHotelTempStoreCountByMap(param);
     }
 
-    public Integer insertItripHotelTempStore(ItripHotelTempStore itripHotelTempStore)throws Exception{
+    public Integer itriptxAddItripHotelTempStore(ItripHotelTempStore itripHotelTempStore)throws Exception{
             itripHotelTempStore.setCreationDate(new Date());
             return itripHotelTempStoreMapper.updateItripHotelTempStore(itripHotelTempStore);
     }
 
-    public Integer updateItripHotelTempStore(ItripHotelTempStore itripHotelTempStore)throws Exception{
+    public Integer itriptxModifyItripHotelTempStore(ItripHotelTempStore itripHotelTempStore)throws Exception{
         itripHotelTempStore.setModifyDate(new Date());
         return itripHotelTempStoreMapper.updateItripHotelTempStore(itripHotelTempStore);
     }
 
-    public Integer deleteItripHotelTempStoreById(Long id)throws Exception{
+    public Integer itriptxDeleteItripHotelTempStoreById(Long id)throws Exception{
         return itripHotelTempStoreMapper.deleteItripHotelTempStoreById(id);
     }
 

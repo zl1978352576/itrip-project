@@ -28,17 +28,17 @@ public class ItripProductStoreServiceImpl implements ItripProductStoreService {
         return itripProductStoreMapper.getItripProductStoreCountByMap(param);
     }
 
-    public Integer insertItripProductStore(ItripProductStore itripProductStore)throws Exception{
+    public Integer itriptxAddItripProductStore(ItripProductStore itripProductStore)throws Exception{
             itripProductStore.setCreationDate(new Date());
             return itripProductStoreMapper.updateItripProductStore(itripProductStore);
     }
 
-    public Integer updateItripProductStore(ItripProductStore itripProductStore)throws Exception{
+    public Integer itriptxModifyItripProductStore(ItripProductStore itripProductStore)throws Exception{
         itripProductStore.setModifyDate(new Date());
         return itripProductStoreMapper.updateItripProductStore(itripProductStore);
     }
 
-    public Integer deleteItripProductStoreById(Long id)throws Exception{
+    public Integer itriptxDeleteItripProductStoreById(Long id)throws Exception{
         return itripProductStoreMapper.deleteItripProductStoreById(id);
     }
 

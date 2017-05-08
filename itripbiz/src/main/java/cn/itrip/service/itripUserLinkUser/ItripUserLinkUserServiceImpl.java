@@ -28,17 +28,17 @@ public class ItripUserLinkUserServiceImpl implements ItripUserLinkUserService {
         return itripUserLinkUserMapper.getItripUserLinkUserCountByMap(param);
     }
 
-    public Integer insertItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
+    public Integer itriptxAddItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
             itripUserLinkUser.setCreationDate(new Date());
             return itripUserLinkUserMapper.updateItripUserLinkUser(itripUserLinkUser);
     }
 
-    public Integer updateItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
+    public Integer itriptxModifyItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
         itripUserLinkUser.setModifyDate(new Date());
         return itripUserLinkUserMapper.updateItripUserLinkUser(itripUserLinkUser);
     }
 
-    public Integer deleteItripUserLinkUserById(Long id)throws Exception{
+    public Integer itriptxDeleteItripUserLinkUserById(Long id)throws Exception{
         return itripUserLinkUserMapper.deleteItripUserLinkUserById(id);
     }
 

@@ -28,17 +28,17 @@ public class ItripImageServiceImpl implements ItripImageService {
         return itripImageMapper.getItripImageCountByMap(param);
     }
 
-    public Integer insertItripImage(ItripImage itripImage)throws Exception{
+    public Integer itriptxAddItripImage(ItripImage itripImage)throws Exception{
             itripImage.setCreationDate(new Date());
             return itripImageMapper.updateItripImage(itripImage);
     }
 
-    public Integer updateItripImage(ItripImage itripImage)throws Exception{
+    public Integer itriptxModifyItripImage(ItripImage itripImage)throws Exception{
         itripImage.setModifyDate(new Date());
         return itripImageMapper.updateItripImage(itripImage);
     }
 
-    public Integer deleteItripImageById(Long id)throws Exception{
+    public Integer itriptxDeleteItripImageById(Long id)throws Exception{
         return itripImageMapper.deleteItripImageById(id);
     }
 

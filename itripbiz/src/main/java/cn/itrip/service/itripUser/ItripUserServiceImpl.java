@@ -28,17 +28,17 @@ public class ItripUserServiceImpl implements ItripUserService {
         return itripUserMapper.getItripUserCountByMap(param);
     }
 
-    public Integer insertItripUser(ItripUser itripUser)throws Exception{
+    public Integer itriptxAddItripUser(ItripUser itripUser)throws Exception{
             itripUser.setCreationDate(new Date());
             return itripUserMapper.updateItripUser(itripUser);
     }
 
-    public Integer updateItripUser(ItripUser itripUser)throws Exception{
+    public Integer itriptxModifyItripUser(ItripUser itripUser)throws Exception{
         itripUser.setModifyDate(new Date());
         return itripUserMapper.updateItripUser(itripUser);
     }
 
-    public Integer deleteItripUserById(Long id)throws Exception{
+    public Integer itriptxDeleteItripUserById(Long id)throws Exception{
         return itripUserMapper.deleteItripUserById(id);
     }
 

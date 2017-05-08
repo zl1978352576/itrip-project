@@ -16,10 +16,10 @@ public interface ItripUserLinkUserService {
 
     public Integer getItripUserLinkUserCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer insertItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception;
+    public Integer itriptxAddItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception;
 
-    public Integer updateItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception;
+    public Integer itriptxModifyItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception;
 
-    public Integer deleteItripUserLinkUserById(Long id)throws Exception;
+    public Integer itriptxDeleteItripUserLinkUserById(Long id)throws Exception;
 
 }

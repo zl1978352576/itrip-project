@@ -16,10 +16,10 @@ public interface ItripUserService {
 
     public Integer getItripUserCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer insertItripUser(ItripUser itripUser)throws Exception;
+    public Integer itriptxAddItripUser(ItripUser itripUser)throws Exception;
 
-    public Integer updateItripUser(ItripUser itripUser)throws Exception;
+    public Integer itriptxModifyItripUser(ItripUser itripUser)throws Exception;
 
-    public Integer deleteItripUserById(Long id)throws Exception;
+    public Integer itriptxDeleteItripUserById(Long id)throws Exception;
 
 }

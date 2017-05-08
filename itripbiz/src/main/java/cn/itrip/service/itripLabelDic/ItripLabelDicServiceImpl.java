@@ -28,17 +28,17 @@ public class ItripLabelDicServiceImpl implements ItripLabelDicService {
         return itripLabelDicMapper.getItripLabelDicCountByMap(param);
     }
 
-    public Integer insertItripLabelDic(ItripLabelDic itripLabelDic)throws Exception{
+    public Integer itriptxAddItripLabelDic(ItripLabelDic itripLabelDic)throws Exception{
             itripLabelDic.setCreationDate(new Date());
             return itripLabelDicMapper.updateItripLabelDic(itripLabelDic);
     }
 
-    public Integer updateItripLabelDic(ItripLabelDic itripLabelDic)throws Exception{
+    public Integer itriptxModifyItripLabelDic(ItripLabelDic itripLabelDic)throws Exception{
         itripLabelDic.setModifyDate(new Date());
         return itripLabelDicMapper.updateItripLabelDic(itripLabelDic);
     }
 
-    public Integer deleteItripLabelDicById(Long id)throws Exception{
+    public Integer itriptxDeleteItripLabelDicById(Long id)throws Exception{
         return itripLabelDicMapper.deleteItripLabelDicById(id);
     }
 

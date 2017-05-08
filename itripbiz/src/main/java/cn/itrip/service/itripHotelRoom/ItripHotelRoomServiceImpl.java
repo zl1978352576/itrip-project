@@ -28,17 +28,17 @@ public class ItripHotelRoomServiceImpl implements ItripHotelRoomService {
         return itripHotelRoomMapper.getItripHotelRoomCountByMap(param);
     }
 
-    public Integer insertItripHotelRoom(ItripHotelRoom itripHotelRoom)throws Exception{
+    public Integer itriptxAddItripHotelRoom(ItripHotelRoom itripHotelRoom)throws Exception{
             itripHotelRoom.setCreationDate(new Date());
             return itripHotelRoomMapper.updateItripHotelRoom(itripHotelRoom);
     }
 
-    public Integer updateItripHotelRoom(ItripHotelRoom itripHotelRoom)throws Exception{
+    public Integer itriptxModifyItripHotelRoom(ItripHotelRoom itripHotelRoom)throws Exception{
         itripHotelRoom.setModifyDate(new Date());
         return itripHotelRoomMapper.updateItripHotelRoom(itripHotelRoom);
     }
 
-    public Integer deleteItripHotelRoomById(Long id)throws Exception{
+    public Integer itriptxDeleteItripHotelRoomById(Long id)throws Exception{
         return itripHotelRoomMapper.deleteItripHotelRoomById(id);
     }
 

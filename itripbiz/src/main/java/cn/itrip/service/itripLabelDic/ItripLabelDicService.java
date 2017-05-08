@@ -16,10 +16,10 @@ public interface ItripLabelDicService {
 
     public Integer getItripLabelDicCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer insertItripLabelDic(ItripLabelDic itripLabelDic)throws Exception;
+    public Integer itriptxAddItripLabelDic(ItripLabelDic itripLabelDic)throws Exception;
 
-    public Integer updateItripLabelDic(ItripLabelDic itripLabelDic)throws Exception;
+    public Integer itriptxModifyItripLabelDic(ItripLabelDic itripLabelDic)throws Exception;
 
-    public Integer deleteItripLabelDicById(Long id)throws Exception;
+    public Integer itriptxDeleteItripLabelDicById(Long id)throws Exception;
 
 }

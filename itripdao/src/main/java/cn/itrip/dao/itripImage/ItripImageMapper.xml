@@ -9,6 +9,7 @@
                 id as id,
                 type as type,
                 targetId as targetId,
+                position as position,
                 imgUrl as imgUrl,
                 creationDate as creationDate,
                 createdBy as createdBy,
@@ -17,7 +18,7 @@
         from itrip_image
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
-                and id=# {id}
+                and id=#{id}
             </if>
         </trim>
     </select>
@@ -27,6 +28,7 @@
                 id as id,
                 type as type,
                 targetId as targetId,
+                position as position,
                 imgUrl as imgUrl,
                 creationDate as creationDate,
                 createdBy as createdBy,
@@ -35,25 +37,28 @@
         from itrip_image
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
-                        and id=# {id}
+                        and id=#{id}
                     </if>
                     <if test="type != null and type!=''">
-                        and type=# {type}
+                        and type=#{type}
                     </if>
                     <if test="targetId != null and targetId!=''">
-                        and targetId=# {targetId}
+                        and targetId=#{targetId}
+                    </if>
+                    <if test="position != null and position!=''">
+                        and position=#{position}
                     </if>
                     <if test="imgUrl != null and imgUrl!=''">
-                        and imgUrl=# {imgUrl}
+                        and imgUrl=#{imgUrl}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
-                        and creationDate=# {creationDate}
+                        and creationDate=#{creationDate}
                     </if>
                     <if test="createdBy != null and createdBy!=''">
-                        and createdBy=# {createdBy}
+                        and createdBy=#{createdBy}
                     </if>
                     <if test="modifyDate != null and modifyDate!=''">
-                        and modifyDate=# {modifyDate}
+                        and modifyDate=#{modifyDate}
                     </if>
         </trim>
     </select>
@@ -62,28 +67,31 @@
         select count(*) from itrip_image
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">
-                    and id=# {id};
+                    and id=#{id}
                 </if>
                 <if test="type != null and type!=''">
-                    and type=# {type};
+                    and type=#{type}
                 </if>
                 <if test="targetId != null and targetId!=''">
-                    and targetId=# {targetId};
+                    and targetId=#{targetId}
+                </if>
+                <if test="position != null and position!=''">
+                    and position=#{position}
                 </if>
                 <if test="imgUrl != null and imgUrl!=''">
-                    and imgUrl=# {imgUrl};
+                    and imgUrl=#{imgUrl}
                 </if>
                 <if test="creationDate != null and creationDate!=''">
-                    and creationDate=# {creationDate};
+                    and creationDate=#{creationDate}
                 </if>
                 <if test="createdBy != null and createdBy!=''">
-                    and createdBy=# {createdBy};
+                    and createdBy=#{createdBy}
                 </if>
                 <if test="modifyDate != null and modifyDate!=''">
-                    and modifyDate=# {modifyDate};
+                    and modifyDate=#{modifyDate}
                 </if>
                 <if test="modifiedBy != null and modifiedBy!=''">
-                    and modifiedBy=# {modifiedBy};
+                    and modifiedBy=#{modifiedBy}
                 </if>
         </trim>
     </select>
@@ -93,53 +101,58 @@
                 id,
                 type,
                 targetId,
+                position,
                 imgUrl,
                 creationDate,
                 createdBy,
                 modifyDate,
                 modifiedBy)
         values(
-               # {id},
-               # {type},
-               # {targetId},
-               # {imgUrl},
-               # {creationDate},
-               # {createdBy},
-               # {modifyDate},
-               # {modifiedBy)}
+               #{id},
+               #{type},
+               #{targetId},
+               #{position},
+               #{imgUrl},
+               #{creationDate},
+               #{createdBy},
+               #{modifyDate},
+               #{modifiedBy)}
     </insert>
 
     <update id="updateItripImage" parameterType="cn.itrip.beans.pojo.ItripImage">
         update itrip_image
-        <trim prefix="set" suffixOverrides="," suffix="where id=# {id}">
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
                     <if test="id != null and id!=''">
-                        id=# {id},
+                        id=#{id},
                     </if>
                     <if test="type != null and type!=''">
-                        type=# {type},
+                        type=#{type},
                     </if>
                     <if test="targetId != null and targetId!=''">
-                        targetId=# {targetId},
+                        targetId=#{targetId},
+                    </if>
+                    <if test="position != null and position!=''">
+                        position=#{position},
                     </if>
                     <if test="imgUrl != null and imgUrl!=''">
-                        imgUrl=# {imgUrl},
+                        imgUrl=#{imgUrl},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
-                        creationDate=# {creationDate},
+                        creationDate=#{creationDate},
                     </if>
                     <if test="createdBy != null and createdBy!=''">
-                        createdBy=# {createdBy},
+                        createdBy=#{createdBy},
                     </if>
                     <if test="modifyDate != null and modifyDate!=''">
-                        modifyDate=# {modifyDate},
+                        modifyDate=#{modifyDate},
                     </if>
                     <if test="modifiedBy != null and modifiedBy!=''">
-                        modifiedBy=# {modifiedBy}
+                        modifiedBy=#{modifiedBy}
                     </if>
         </trim>
     </update>
 
     <delete id="deleteItripImageById" parameterType="Long">
-        delete from itrip_image where id = # {id}
+        delete from itrip_image where id = #{id}
     </delete>
 </mapper>

@@ -17,7 +17,7 @@
         from itrip_product_store
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
-                and id=# {id}
+                and id=#{id}
             </if>
         </trim>
     </select>
@@ -35,25 +35,25 @@
         from itrip_product_store
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
-                        and id=# {id}
+                        and id=#{id}
                     </if>
                     <if test="productType != null and productType!=''">
-                        and productType=# {productType}
+                        and productType=#{productType}
                     </if>
                     <if test="productId != null and productId!=''">
-                        and productId=# {productId}
+                        and productId=#{productId}
                     </if>
                     <if test="store != null and store!=''">
-                        and store=# {store}
+                        and store=#{store}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
-                        and creationDate=# {creationDate}
+                        and creationDate=#{creationDate}
                     </if>
                     <if test="createdBy != null and createdBy!=''">
-                        and createdBy=# {createdBy}
+                        and createdBy=#{createdBy}
                     </if>
                     <if test="modifyDate != null and modifyDate!=''">
-                        and modifyDate=# {modifyDate}
+                        and modifyDate=#{modifyDate}
                     </if>
         </trim>
     </select>
@@ -62,28 +62,28 @@
         select count(*) from itrip_product_store
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">
-                    and id=# {id};
+                    and id=#{id}
                 </if>
                 <if test="productType != null and productType!=''">
-                    and productType=# {productType};
+                    and productType=#{productType}
                 </if>
                 <if test="productId != null and productId!=''">
-                    and productId=# {productId};
+                    and productId=#{productId}
                 </if>
                 <if test="store != null and store!=''">
-                    and store=# {store};
+                    and store=#{store}
                 </if>
                 <if test="creationDate != null and creationDate!=''">
-                    and creationDate=# {creationDate};
+                    and creationDate=#{creationDate}
                 </if>
                 <if test="createdBy != null and createdBy!=''">
-                    and createdBy=# {createdBy};
+                    and createdBy=#{createdBy}
                 </if>
                 <if test="modifyDate != null and modifyDate!=''">
-                    and modifyDate=# {modifyDate};
+                    and modifyDate=#{modifyDate}
                 </if>
                 <if test="modifiedBy != null and modifiedBy!=''">
-                    and modifiedBy=# {modifiedBy};
+                    and modifiedBy=#{modifiedBy}
                 </if>
         </trim>
     </select>
@@ -99,47 +99,47 @@
                 modifyDate,
                 modifiedBy)
         values(
-               # {id},
-               # {productType},
-               # {productId},
-               # {store},
-               # {creationDate},
-               # {createdBy},
-               # {modifyDate},
-               # {modifiedBy)}
+               #{id},
+               #{productType},
+               #{productId},
+               #{store},
+               #{creationDate},
+               #{createdBy},
+               #{modifyDate},
+               #{modifiedBy)}
     </insert>
 
     <update id="updateItripProductStore" parameterType="cn.itrip.beans.pojo.ItripProductStore">
         update itrip_product_store
-        <trim prefix="set" suffixOverrides="," suffix="where id=# {id}">
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
                     <if test="id != null and id!=''">
-                        id=# {id},
+                        id=#{id},
                     </if>
                     <if test="productType != null and productType!=''">
-                        productType=# {productType},
+                        productType=#{productType},
                     </if>
                     <if test="productId != null and productId!=''">
-                        productId=# {productId},
+                        productId=#{productId},
                     </if>
                     <if test="store != null and store!=''">
-                        store=# {store},
+                        store=#{store},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
-                        creationDate=# {creationDate},
+                        creationDate=#{creationDate},
                     </if>
                     <if test="createdBy != null and createdBy!=''">
-                        createdBy=# {createdBy},
+                        createdBy=#{createdBy},
                     </if>
                     <if test="modifyDate != null and modifyDate!=''">
-                        modifyDate=# {modifyDate},
+                        modifyDate=#{modifyDate},
                     </if>
                     <if test="modifiedBy != null and modifiedBy!=''">
-                        modifiedBy=# {modifiedBy}
+                        modifiedBy=#{modifiedBy}
                     </if>
         </trim>
     </update>
 
     <delete id="deleteItripProductStoreById" parameterType="Long">
-        delete from itrip_product_store where id = # {id}
+        delete from itrip_product_store where id = #{id}
     </delete>
 </mapper>

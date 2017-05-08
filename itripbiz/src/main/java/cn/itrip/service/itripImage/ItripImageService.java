@@ -16,10 +16,10 @@ public interface ItripImageService {
 
     public Integer getItripImageCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer insertItripImage(ItripImage itripImage)throws Exception;
+    public Integer itriptxAddItripImage(ItripImage itripImage)throws Exception;
 
-    public Integer updateItripImage(ItripImage itripImage)throws Exception;
+    public Integer itriptxModifyItripImage(ItripImage itripImage)throws Exception;
 
-    public Integer deleteItripImageById(Long id)throws Exception;
+    public Integer itriptxDeleteItripImageById(Long id)throws Exception;
 
 }

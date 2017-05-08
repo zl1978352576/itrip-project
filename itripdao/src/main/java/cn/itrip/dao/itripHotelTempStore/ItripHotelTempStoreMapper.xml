@@ -18,7 +18,7 @@
         from itrip_hotel_temp_store
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
-                and id=# {id}
+                and id=#{id}
             </if>
         </trim>
     </select>
@@ -37,28 +37,28 @@
         from itrip_hotel_temp_store
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
-                        and id=# {id}
+                        and id=#{id}
                     </if>
                     <if test="hotelId != null and hotelId!=''">
-                        and hotelId=# {hotelId}
+                        and hotelId=#{hotelId}
                     </if>
                     <if test="roomId != null and roomId!=''">
-                        and roomId=# {roomId}
+                        and roomId=#{roomId}
                     </if>
                     <if test="recordDate != null and recordDate!=''">
-                        and recordDate=# {recordDate}
+                        and recordDate=#{recordDate}
                     </if>
                     <if test="store != null and store!=''">
-                        and store=# {store}
+                        and store=#{store}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
-                        and creationDate=# {creationDate}
+                        and creationDate=#{creationDate}
                     </if>
                     <if test="createdBy != null and createdBy!=''">
-                        and createdBy=# {createdBy}
+                        and createdBy=#{createdBy}
                     </if>
                     <if test="modifyDate != null and modifyDate!=''">
-                        and modifyDate=# {modifyDate}
+                        and modifyDate=#{modifyDate}
                     </if>
         </trim>
     </select>
@@ -67,31 +67,31 @@
         select count(*) from itrip_hotel_temp_store
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">
-                    and id=# {id};
+                    and id=#{id}
                 </if>
                 <if test="hotelId != null and hotelId!=''">
-                    and hotelId=# {hotelId};
+                    and hotelId=#{hotelId}
                 </if>
                 <if test="roomId != null and roomId!=''">
-                    and roomId=# {roomId};
+                    and roomId=#{roomId}
                 </if>
                 <if test="recordDate != null and recordDate!=''">
-                    and recordDate=# {recordDate};
+                    and recordDate=#{recordDate}
                 </if>
                 <if test="store != null and store!=''">
-                    and store=# {store};
+                    and store=#{store}
                 </if>
                 <if test="creationDate != null and creationDate!=''">
-                    and creationDate=# {creationDate};
+                    and creationDate=#{creationDate}
                 </if>
                 <if test="createdBy != null and createdBy!=''">
-                    and createdBy=# {createdBy};
+                    and createdBy=#{createdBy}
                 </if>
                 <if test="modifyDate != null and modifyDate!=''">
-                    and modifyDate=# {modifyDate};
+                    and modifyDate=#{modifyDate}
                 </if>
                 <if test="modifiedBy != null and modifiedBy!=''">
-                    and modifiedBy=# {modifiedBy};
+                    and modifiedBy=#{modifiedBy}
                 </if>
         </trim>
     </select>
@@ -108,51 +108,51 @@
                 modifyDate,
                 modifiedBy)
         values(
-               # {id},
-               # {hotelId},
-               # {roomId},
-               # {recordDate},
-               # {store},
-               # {creationDate},
-               # {createdBy},
-               # {modifyDate},
-               # {modifiedBy)}
+               #{id},
+               #{hotelId},
+               #{roomId},
+               #{recordDate},
+               #{store},
+               #{creationDate},
+               #{createdBy},
+               #{modifyDate},
+               #{modifiedBy)}
     </insert>
 
     <update id="updateItripHotelTempStore" parameterType="cn.itrip.beans.pojo.ItripHotelTempStore">
         update itrip_hotel_temp_store
-        <trim prefix="set" suffixOverrides="," suffix="where id=# {id}">
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
                     <if test="id != null and id!=''">
-                        id=# {id},
+                        id=#{id},
                     </if>
                     <if test="hotelId != null and hotelId!=''">
-                        hotelId=# {hotelId},
+                        hotelId=#{hotelId},
                     </if>
                     <if test="roomId != null and roomId!=''">
-                        roomId=# {roomId},
+                        roomId=#{roomId},
                     </if>
                     <if test="recordDate != null and recordDate!=''">
-                        recordDate=# {recordDate},
+                        recordDate=#{recordDate},
                     </if>
                     <if test="store != null and store!=''">
-                        store=# {store},
+                        store=#{store},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
-                        creationDate=# {creationDate},
+                        creationDate=#{creationDate},
                     </if>
                     <if test="createdBy != null and createdBy!=''">
-                        createdBy=# {createdBy},
+                        createdBy=#{createdBy},
                     </if>
                     <if test="modifyDate != null and modifyDate!=''">
-                        modifyDate=# {modifyDate},
+                        modifyDate=#{modifyDate},
                     </if>
                     <if test="modifiedBy != null and modifiedBy!=''">
-                        modifiedBy=# {modifiedBy}
+                        modifiedBy=#{modifiedBy}
                     </if>
         </trim>
     </update>
 
     <delete id="deleteItripHotelTempStoreById" parameterType="Long">
-        delete from itrip_hotel_temp_store where id = # {id}
+        delete from itrip_hotel_temp_store where id = #{id}
     </delete>
 </mapper>

@@ -28,17 +28,17 @@ public class ItripHotelTradingAreaServiceImpl implements ItripHotelTradingAreaSe
         return itripHotelTradingAreaMapper.getItripHotelTradingAreaCountByMap(param);
     }
 
-    public Integer insertItripHotelTradingArea(ItripHotelTradingArea itripHotelTradingArea)throws Exception{
+    public Integer itriptxAddItripHotelTradingArea(ItripHotelTradingArea itripHotelTradingArea)throws Exception{
             itripHotelTradingArea.setCreationDate(new Date());
             return itripHotelTradingAreaMapper.updateItripHotelTradingArea(itripHotelTradingArea);
     }
 
-    public Integer updateItripHotelTradingArea(ItripHotelTradingArea itripHotelTradingArea)throws Exception{
+    public Integer itriptxModifyItripHotelTradingArea(ItripHotelTradingArea itripHotelTradingArea)throws Exception{
         itripHotelTradingArea.setModifyDate(new Date());
         return itripHotelTradingAreaMapper.updateItripHotelTradingArea(itripHotelTradingArea);
     }
 
-    public Integer deleteItripHotelTradingAreaById(Long id)throws Exception{
+    public Integer itriptxDeleteItripHotelTradingAreaById(Long id)throws Exception{
         return itripHotelTradingAreaMapper.deleteItripHotelTradingAreaById(id);
     }
 

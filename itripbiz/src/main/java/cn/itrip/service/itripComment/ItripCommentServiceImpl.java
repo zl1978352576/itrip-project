@@ -28,17 +28,17 @@ public class ItripCommentServiceImpl implements ItripCommentService {
         return itripCommentMapper.getItripCommentCountByMap(param);
     }
 
-    public Integer insertItripComment(ItripComment itripComment)throws Exception{
+    public Integer itriptxAddItripComment(ItripComment itripComment)throws Exception{
             itripComment.setCreationDate(new Date());
             return itripCommentMapper.updateItripComment(itripComment);
     }
 
-    public Integer updateItripComment(ItripComment itripComment)throws Exception{
+    public Integer itriptxModifyItripComment(ItripComment itripComment)throws Exception{
         itripComment.setModifyDate(new Date());
         return itripCommentMapper.updateItripComment(itripComment);
     }
 
-    public Integer deleteItripCommentById(Long id)throws Exception{
+    public Integer itriptxDeleteItripCommentById(Long id)throws Exception{
         return itripCommentMapper.deleteItripCommentById(id);
     }
 

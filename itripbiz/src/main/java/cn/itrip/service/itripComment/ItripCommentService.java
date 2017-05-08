@@ -16,10 +16,10 @@ public interface ItripCommentService {
 
     public Integer getItripCommentCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer insertItripComment(ItripComment itripComment)throws Exception;
+    public Integer itriptxAddItripComment(ItripComment itripComment)throws Exception;
 
-    public Integer updateItripComment(ItripComment itripComment)throws Exception;
+    public Integer itriptxModifyItripComment(ItripComment itripComment)throws Exception;
 
-    public Integer deleteItripCommentById(Long id)throws Exception;
+    public Integer itriptxDeleteItripCommentById(Long id)throws Exception;
 
 }

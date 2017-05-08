@@ -16,10 +16,10 @@ public interface ItripHotelOrderService {
 
     public Integer getItripHotelOrderCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer insertItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
+    public Integer itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
 
-    public Integer updateItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
+    public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
 
-    public Integer deleteItripHotelOrderById(Long id)throws Exception;
+    public Integer itriptxDeleteItripHotelOrderById(Long id)throws Exception;
 
 }

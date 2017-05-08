@@ -16,10 +16,10 @@ public interface ItripAreaDicService {
 
     public Integer getItripAreaDicCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer insertItripAreaDic(ItripAreaDic itripAreaDic)throws Exception;
+    public Integer itriptxAddItripAreaDic(ItripAreaDic itripAreaDic)throws Exception;
 
-    public Integer updateItripAreaDic(ItripAreaDic itripAreaDic)throws Exception;
+    public Integer itriptxModifyItripAreaDic(ItripAreaDic itripAreaDic)throws Exception;
 
-    public Integer deleteItripAreaDicById(Long id)throws Exception;
+    public Integer itriptxDeleteItripAreaDicById(Long id)throws Exception;
 
 }

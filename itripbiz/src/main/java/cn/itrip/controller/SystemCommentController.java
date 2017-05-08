@@ -2,6 +2,9 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.dtos.InputDto;
+import cn.itrip.beans.pojo.ItripComment;
+import cn.itrip.beans.pojo.ItripImage;
+import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.comment.ItripAddCommentVO;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.client.IClientCommentService;
@@ -35,8 +38,10 @@ public class SystemCommentController {
 	private Logger logger = Logger.getLogger(SystemCommentController.class);
 	@Resource
 	private SystemConfig systemConfig;
+
 	@Resource
-	private IClientCommentService iClientCommentService;
+	private ClientCommentService iClientCommentService;
+
 	@Resource
 	private ValidationToken validationToken;
 

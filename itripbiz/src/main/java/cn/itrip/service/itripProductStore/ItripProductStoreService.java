@@ -16,10 +16,10 @@ public interface ItripProductStoreService {
 
     public Integer getItripProductStoreCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer insertItripProductStore(ItripProductStore itripProductStore)throws Exception;
+    public Integer itriptxAddItripProductStore(ItripProductStore itripProductStore)throws Exception;
 
-    public Integer updateItripProductStore(ItripProductStore itripProductStore)throws Exception;
+    public Integer itriptxModifyItripProductStore(ItripProductStore itripProductStore)throws Exception;
 
-    public Integer deleteItripProductStoreById(Long id)throws Exception;
+    public Integer itriptxDeleteItripProductStoreById(Long id)throws Exception;
 
 }

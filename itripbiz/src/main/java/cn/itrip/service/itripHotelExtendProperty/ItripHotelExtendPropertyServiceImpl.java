@@ -28,17 +28,17 @@ public class ItripHotelExtendPropertyServiceImpl implements ItripHotelExtendProp
         return itripHotelExtendPropertyMapper.getItripHotelExtendPropertyCountByMap(param);
     }
 
-    public Integer insertItripHotelExtendProperty(ItripHotelExtendProperty itripHotelExtendProperty)throws Exception{
-            //itripHotelExtendProperty.setCreationDate(new Date());
+    public Integer itriptxAddItripHotelExtendProperty(ItripHotelExtendProperty itripHotelExtendProperty)throws Exception{
+            itripHotelExtendProperty.setCreationDate(new Date());
             return itripHotelExtendPropertyMapper.updateItripHotelExtendProperty(itripHotelExtendProperty);
     }
 
-    public Integer updateItripHotelExtendProperty(ItripHotelExtendProperty itripHotelExtendProperty)throws Exception{
-        //itripHotelExtendProperty.setModifyDate(new Date());
+    public Integer itriptxModifyItripHotelExtendProperty(ItripHotelExtendProperty itripHotelExtendProperty)throws Exception{
+        itripHotelExtendProperty.setModifyDate(new Date());
         return itripHotelExtendPropertyMapper.updateItripHotelExtendProperty(itripHotelExtendProperty);
     }
 
-    public Integer deleteItripHotelExtendPropertyById(Long id)throws Exception{
+    public Integer itriptxDeleteItripHotelExtendPropertyById(Long id)throws Exception{
         return itripHotelExtendPropertyMapper.deleteItripHotelExtendPropertyById(id);
     }
 

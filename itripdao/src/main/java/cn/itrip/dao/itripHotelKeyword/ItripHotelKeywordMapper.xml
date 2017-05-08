@@ -12,7 +12,7 @@
         from itrip_hotel_keyword
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
-                and id=# {id}
+                and id=#{id}
             </if>
         </trim>
     </select>
@@ -25,10 +25,10 @@
         from itrip_hotel_keyword
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
-                        and id=# {id}
+                        and id=#{id}
                     </if>
                     <if test="hotelId != null and hotelId!=''">
-                        and hotelId=# {hotelId}
+                        and hotelId=#{hotelId}
                     </if>
         </trim>
     </select>
@@ -37,13 +37,13 @@
         select count(*) from itrip_hotel_keyword
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">
-                    and id=# {id};
+                    and id=#{id}
                 </if>
                 <if test="hotelId != null and hotelId!=''">
-                    and hotelId=# {hotelId};
+                    and hotelId=#{hotelId}
                 </if>
                 <if test="keywordId != null and keywordId!=''">
-                    and keywordId=# {keywordId};
+                    and keywordId=#{keywordId}
                 </if>
         </trim>
     </select>
@@ -54,27 +54,27 @@
                 hotelId,
                 keywordId)
         values(
-               # {id},
-               # {hotelId},
-               # {keywordId)}
+               #{id},
+               #{hotelId},
+               #{keywordId)}
     </insert>
 
     <update id="updateItripHotelKeyword" parameterType="cn.itrip.beans.pojo.ItripHotelKeyword">
         update itrip_hotel_keyword
-        <trim prefix="set" suffixOverrides="," suffix="where id=# {id}">
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
                     <if test="id != null and id!=''">
-                        id=# {id},
+                        id=#{id},
                     </if>
                     <if test="hotelId != null and hotelId!=''">
-                        hotelId=# {hotelId},
+                        hotelId=#{hotelId},
                     </if>
                     <if test="keywordId != null and keywordId!=''">
-                        keywordId=# {keywordId}
+                        keywordId=#{keywordId}
                     </if>
         </trim>
     </update>
 
     <delete id="deleteItripHotelKeywordById" parameterType="Long">
-        delete from itrip_hotel_keyword where id = # {id}
+        delete from itrip_hotel_keyword where id = #{id}
     </delete>
 </mapper>

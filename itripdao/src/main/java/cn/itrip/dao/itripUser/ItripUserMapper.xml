@@ -23,7 +23,7 @@
         from itrip_user
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
-                and id=# {id}
+                and id=#{id}
             </if>
         </trim>
     </select>
@@ -47,43 +47,43 @@
         from itrip_user
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
-                        and id=# {id}
+                        and id=#{id}
                     </if>
                     <if test="userCode != null and userCode!=''">
-                        and userCode=# {userCode}
+                        and userCode=#{userCode}
                     </if>
                     <if test="userPassword != null and userPassword!=''">
-                        and userPassword=# {userPassword}
+                        and userPassword=#{userPassword}
                     </if>
                     <if test="userType != null and userType!=''">
-                        and userType=# {userType}
+                        and userType=#{userType}
                     </if>
                     <if test="flatID != null and flatID!=''">
-                        and flatID=# {flatID}
+                        and flatID=#{flatID}
                     </if>
                     <if test="userName != null and userName!=''">
-                        and userName=# {userName}
+                        and userName=#{userName}
                     </if>
                     <if test="weChat != null and weChat!=''">
-                        and weChat=# {weChat}
+                        and weChat=#{weChat}
                     </if>
                     <if test="QQ != null and QQ!=''">
-                        and QQ=# {QQ}
+                        and QQ=#{QQ}
                     </if>
                     <if test="weibo != null and weibo!=''">
-                        and weibo=# {weibo}
+                        and weibo=#{weibo}
                     </if>
                     <if test="baidu != null and baidu!=''">
-                        and baidu=# {baidu}
+                        and baidu=#{baidu}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
-                        and creationDate=# {creationDate}
+                        and creationDate=#{creationDate}
                     </if>
                     <if test="createdBy != null and createdBy!=''">
-                        and createdBy=# {createdBy}
+                        and createdBy=#{createdBy}
                     </if>
                     <if test="modifyDate != null and modifyDate!=''">
-                        and modifyDate=# {modifyDate}
+                        and modifyDate=#{modifyDate}
                     </if>
         </trim>
     </select>
@@ -92,46 +92,46 @@
         select count(*) from itrip_user
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">
-                    and id=# {id};
+                    and id=#{id}
                 </if>
                 <if test="userCode != null and userCode!=''">
-                    and userCode=# {userCode};
+                    and userCode=#{userCode}
                 </if>
                 <if test="userPassword != null and userPassword!=''">
-                    and userPassword=# {userPassword};
+                    and userPassword=#{userPassword}
                 </if>
                 <if test="userType != null and userType!=''">
-                    and userType=# {userType};
+                    and userType=#{userType}
                 </if>
                 <if test="flatID != null and flatID!=''">
-                    and flatID=# {flatID};
+                    and flatID=#{flatID}
                 </if>
                 <if test="userName != null and userName!=''">
-                    and userName=# {userName};
+                    and userName=#{userName}
                 </if>
                 <if test="weChat != null and weChat!=''">
-                    and weChat=# {weChat};
+                    and weChat=#{weChat}
                 </if>
                 <if test="QQ != null and QQ!=''">
-                    and QQ=# {QQ};
+                    and QQ=#{QQ}
                 </if>
                 <if test="weibo != null and weibo!=''">
-                    and weibo=# {weibo};
+                    and weibo=#{weibo}
                 </if>
                 <if test="baidu != null and baidu!=''">
-                    and baidu=# {baidu};
+                    and baidu=#{baidu}
                 </if>
                 <if test="creationDate != null and creationDate!=''">
-                    and creationDate=# {creationDate};
+                    and creationDate=#{creationDate}
                 </if>
                 <if test="createdBy != null and createdBy!=''">
-                    and createdBy=# {createdBy};
+                    and createdBy=#{createdBy}
                 </if>
                 <if test="modifyDate != null and modifyDate!=''">
-                    and modifyDate=# {modifyDate};
+                    and modifyDate=#{modifyDate}
                 </if>
                 <if test="modifiedBy != null and modifiedBy!=''">
-                    and modifiedBy=# {modifiedBy};
+                    and modifiedBy=#{modifiedBy}
                 </if>
         </trim>
     </select>
@@ -153,71 +153,71 @@
                 modifyDate,
                 modifiedBy)
         values(
-               # {id},
-               # {userCode},
-               # {userPassword},
-               # {userType},
-               # {flatID},
-               # {userName},
-               # {weChat},
-               # {QQ},
-               # {weibo},
-               # {baidu},
-               # {creationDate},
-               # {createdBy},
-               # {modifyDate},
-               # {modifiedBy)}
+               #{id},
+               #{userCode},
+               #{userPassword},
+               #{userType},
+               #{flatID},
+               #{userName},
+               #{weChat},
+               #{QQ},
+               #{weibo},
+               #{baidu},
+               #{creationDate},
+               #{createdBy},
+               #{modifyDate},
+               #{modifiedBy)}
     </insert>
 
     <update id="updateItripUser" parameterType="cn.itrip.beans.pojo.ItripUser">
         update itrip_user
-        <trim prefix="set" suffixOverrides="," suffix="where id=# {id}">
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
                     <if test="id != null and id!=''">
-                        id=# {id},
+                        id=#{id},
                     </if>
                     <if test="userCode != null and userCode!=''">
-                        userCode=# {userCode},
+                        userCode=#{userCode},
                     </if>
                     <if test="userPassword != null and userPassword!=''">
-                        userPassword=# {userPassword},
+                        userPassword=#{userPassword},
                     </if>
                     <if test="userType != null and userType!=''">
-                        userType=# {userType},
+                        userType=#{userType},
                     </if>
                     <if test="flatID != null and flatID!=''">
-                        flatID=# {flatID},
+                        flatID=#{flatID},
                     </if>
                     <if test="userName != null and userName!=''">
-                        userName=# {userName},
+                        userName=#{userName},
                     </if>
                     <if test="weChat != null and weChat!=''">
-                        weChat=# {weChat},
+                        weChat=#{weChat},
                     </if>
                     <if test="QQ != null and QQ!=''">
-                        QQ=# {QQ},
+                        QQ=#{QQ},
                     </if>
                     <if test="weibo != null and weibo!=''">
-                        weibo=# {weibo},
+                        weibo=#{weibo},
                     </if>
                     <if test="baidu != null and baidu!=''">
-                        baidu=# {baidu},
+                        baidu=#{baidu},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
-                        creationDate=# {creationDate},
+                        creationDate=#{creationDate},
                     </if>
                     <if test="createdBy != null and createdBy!=''">
-                        createdBy=# {createdBy},
+                        createdBy=#{createdBy},
                     </if>
                     <if test="modifyDate != null and modifyDate!=''">
-                        modifyDate=# {modifyDate},
+                        modifyDate=#{modifyDate},
                     </if>
                     <if test="modifiedBy != null and modifiedBy!=''">
-                        modifiedBy=# {modifiedBy}
+                        modifiedBy=#{modifiedBy}
                     </if>
         </trim>
     </update>
 
     <delete id="deleteItripUserById" parameterType="Long">
-        delete from itrip_user where id = # {id}
+        delete from itrip_user where id = #{id}
     </delete>
 </mapper>

@@ -28,17 +28,17 @@ public class ItripOrderLinkUserServiceImpl implements ItripOrderLinkUserService 
         return itripOrderLinkUserMapper.getItripOrderLinkUserCountByMap(param);
     }
 
-    public Integer insertItripOrderLinkUser(ItripOrderLinkUser itripOrderLinkUser)throws Exception{
-            //itripOrderLinkUser.setCreationDate(new Date());
+    public Integer itriptxAddItripOrderLinkUser(ItripOrderLinkUser itripOrderLinkUser)throws Exception{
+            itripOrderLinkUser.setCreationDate(new Date());
             return itripOrderLinkUserMapper.updateItripOrderLinkUser(itripOrderLinkUser);
     }
 
-    public Integer updateItripOrderLinkUser(ItripOrderLinkUser itripOrderLinkUser)throws Exception{
-        //itripOrderLinkUser.setModifyDate(new Date());
+    public Integer itriptxModifyItripOrderLinkUser(ItripOrderLinkUser itripOrderLinkUser)throws Exception{
+        itripOrderLinkUser.setModifyDate(new Date());
         return itripOrderLinkUserMapper.updateItripOrderLinkUser(itripOrderLinkUser);
     }
 
-    public Integer deleteItripOrderLinkUserById(Long id)throws Exception{
+    public Integer itriptxDeleteItripOrderLinkUserById(Long id)throws Exception{
         return itripOrderLinkUserMapper.deleteItripOrderLinkUserById(id);
     }
 

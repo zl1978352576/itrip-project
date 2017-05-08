@@ -28,17 +28,17 @@ public class ItripHotelKeywordServiceImpl implements ItripHotelKeywordService {
         return itripHotelKeywordMapper.getItripHotelKeywordCountByMap(param);
     }
 
-    public Integer insertItripHotelKeyword(ItripHotelKeyword itripHotelKeyword)throws Exception{
-            //itripHotelKeyword.setCreationDate(new Date());
+    public Integer itriptxAddItripHotelKeyword(ItripHotelKeyword itripHotelKeyword)throws Exception{
+            itripHotelKeyword.setCreationDate(new Date());
             return itripHotelKeywordMapper.updateItripHotelKeyword(itripHotelKeyword);
     }
 
-    public Integer updateItripHotelKeyword(ItripHotelKeyword itripHotelKeyword)throws Exception{
-        //itripHotelKeyword.setModifyDate(new Date());
+    public Integer itriptxModifyItripHotelKeyword(ItripHotelKeyword itripHotelKeyword)throws Exception{
+        itripHotelKeyword.setModifyDate(new Date());
         return itripHotelKeywordMapper.updateItripHotelKeyword(itripHotelKeyword);
     }
 
-    public Integer deleteItripHotelKeywordById(Long id)throws Exception{
+    public Integer itriptxDeleteItripHotelKeywordById(Long id)throws Exception{
         return itripHotelKeywordMapper.deleteItripHotelKeywordById(id);
     }
 
