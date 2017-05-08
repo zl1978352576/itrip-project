@@ -36,13 +36,7 @@ public class TestController {
         }
     }
 
-    public void test() throws Exception {
-        Map<String,Object> param=new HashMap<String,Object>();
-        param.put("id","1");
-        List<ItripAreaDic> itripAreaDics=iItripAreaDicService.getItripAreaDicListByMap(param);
-        for (ItripAreaDic itripAreaDic:itripAreaDics){
-            System.out.println(itripAreaDic.getName());
-        }
-    }
+
+
 }
 
