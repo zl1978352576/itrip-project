@@ -22,7 +22,7 @@
         </trim>
     </select>
 
-    <select id="getItripProductStoreListByMap" resultType="cn.itrip.beans.pojo.ItripProductStore" parameterMap="java.util.Map">
+    <select id="getItripProductStoreListByMap" resultType="cn.itrip.beans.pojo.ItripProductStore" parameterType="java.util.Map">
         select
                 id as id,
                 productType as productType,
@@ -58,7 +58,7 @@
         </trim>
     </select>
 
-    <select id="getItripProductStoreCountByMap" resultType="Integer"  parameterMap="java.util.Map">
+    <select id="getItripProductStoreCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_product_store
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">

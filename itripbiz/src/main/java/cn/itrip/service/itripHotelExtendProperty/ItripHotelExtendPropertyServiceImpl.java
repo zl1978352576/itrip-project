@@ -29,12 +29,10 @@ public class ItripHotelExtendPropertyServiceImpl implements ItripHotelExtendProp
     }
 
     public Integer itriptxAddItripHotelExtendProperty(ItripHotelExtendProperty itripHotelExtendProperty)throws Exception{
-            itripHotelExtendProperty.setCreationDate(new Date());
             return itripHotelExtendPropertyMapper.updateItripHotelExtendProperty(itripHotelExtendProperty);
     }
 
     public Integer itriptxModifyItripHotelExtendProperty(ItripHotelExtendProperty itripHotelExtendProperty)throws Exception{
-        itripHotelExtendProperty.setModifyDate(new Date());
         return itripHotelExtendPropertyMapper.updateItripHotelExtendProperty(itripHotelExtendProperty);
     }
 

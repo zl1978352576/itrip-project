@@ -1,6 +1,8 @@
 package cn.itrip.beans.vo;
 
-public class ITripHotelOrderVo extends ItripHotelOrder{
+import cn.itrip.beans.pojo.ItripHotelOrder;
+
+public class ITripHotelOrderVo extends ItripHotelOrder {
 	
 	private String linkUserName;	//旅客的姓名，多个旅客的姓名之间用逗号隔开
 	private String hotelName;	//酒店的名称

@@ -17,7 +17,7 @@
         </trim>
     </select>
 
-    <select id="getItripOrderLinkUserListByMap" resultType="cn.itrip.beans.pojo.ItripOrderLinkUser" parameterMap="java.util.Map">
+    <select id="getItripOrderLinkUserListByMap" resultType="cn.itrip.beans.pojo.ItripOrderLinkUser" parameterType="java.util.Map">
         select
                 id as id,
                 orderId as orderId,
@@ -33,7 +33,7 @@
         </trim>
     </select>
 
-    <select id="getItripOrderLinkUserCountByMap" resultType="Integer"  parameterMap="java.util.Map">
+    <select id="getItripOrderLinkUserCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_order_link_user
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">

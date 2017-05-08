@@ -66,7 +66,7 @@
 	</tx:advice>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="cn.itrip.dao,mapper"/>
+		<property name="basePackage" value="cn.itrip.dao"/>
 	</bean>
 	<!--redis 配置 开始-->
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
@@ -86,24 +86,5 @@
 
 	<bean id="validationToken" class="cn.itrip.common.ValidationToken">
 		<property name="redisAPI" ref="redisAPI" />
-	</bean>
-
-	<!-- redis 配置结束 -->
-
-	<!--新增通用的dao配置-->
-	<bean id="sessionFactoryMap" class="java.util.HashMap">
-		<constructor-arg>
-			<map>
-				<entry>
-					<key><value>default</value>
-					</key><ref bean="sqlSessionFactoryBean"/>
-				</entry>
-			</map>
-		</constructor-arg>
-	</bean>
-
-	<bean id="genericDao" class="cn.itrip.dao.common.GenericDAOImpl">
-		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"></property>
-		<property name="sessionFactoryMap" ref="sessionFactoryMap"></property>
 	</bean>
 </beans>

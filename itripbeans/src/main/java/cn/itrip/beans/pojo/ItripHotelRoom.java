@@ -11,7 +11,7 @@ public class ItripHotelRoom implements Serializable {
             private Long roomBedTypeId;
             private Integer isHavingBreakfast;
             private Integer payType;
-            private  satisfaction;
+            private Double satisfaction;
             private Integer isBook;
             private Integer isCancel;
             private Integer isTimelyResponse;
@@ -69,11 +69,11 @@ public class ItripHotelRoom implements Serializable {
             public  Integer getPayType(){
                 return this.payType;
             }
-            public void setSatisfaction (  satisfaction){
+            public void setSatisfaction (Double  satisfaction){
                 this.satisfaction=satisfaction;
             }
 
-            public   getSatisfaction(){
+            public  Double getSatisfaction(){
                 return this.satisfaction;
             }
             public void setIsBook (Integer  isBook){

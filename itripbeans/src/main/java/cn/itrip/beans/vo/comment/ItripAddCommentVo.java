@@ -1,5 +1,6 @@
 package cn.itrip.beans.vo.comment;
 
+import cn.itrip.beans.pojo.ItripImage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

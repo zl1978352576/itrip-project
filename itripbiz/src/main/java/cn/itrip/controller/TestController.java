@@ -1,10 +1,11 @@
 package cn.itrip.controller;
-import cn.itrip.service.IItripAreaDicService;
-import cn.itrip.service.common.SelectService;
+
+import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,13 +21,28 @@ public class TestController {
     private ItripAreaDicService iItripAreaDicService;
 
     @RequestMapping("/example")
-    public void testExample(){
-
+    public void testExample() throws Exception {
+        ItripAreaDic itripAreaDic = iItripAreaDicService.getItripAreaDicById(new Long(1));
+        System.out.println(itripAreaDic.getName());
     }
 
     @RequestMapping("/select")
-    public void testSelect(){
+    public void testSelect() throws Exception {
+        Map<String,Object> param=new HashMap<String,Object>();
+        param.put("id", "1");
+        List<ItripAreaDic> itripAreaDics=iItripAreaDicService.getItripAreaDicListByMap(param);
+        for (ItripAreaDic itripAreaDic:itripAreaDics){
+            System.out.println(itripAreaDic.getName());
+        }
+    }
 
+    public void test() throws Exception {
+        Map<String,Object> param=new HashMap<String,Object>();
+        param.put("id","1");
+        List<ItripAreaDic> itripAreaDics=iItripAreaDicService.getItripAreaDicListByMap(param);
+        for (ItripAreaDic itripAreaDic:itripAreaDics){
+            System.out.println(itripAreaDic.getName());
+        }
     }
 }
 

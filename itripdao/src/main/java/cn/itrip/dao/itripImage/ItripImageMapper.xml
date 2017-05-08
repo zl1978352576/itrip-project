@@ -23,7 +23,7 @@
         </trim>
     </select>
 
-    <select id="getItripImageListByMap" resultType="cn.itrip.beans.pojo.ItripImage" parameterMap="java.util.Map">
+    <select id="getItripImageListByMap" resultType="cn.itrip.beans.pojo.ItripImage" parameterType="java.util.Map">
         select
                 id as id,
                 type as type,
@@ -63,7 +63,7 @@
         </trim>
     </select>
 
-    <select id="getItripImageCountByMap" resultType="Integer"  parameterMap="java.util.Map">
+    <select id="getItripImageCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_image
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">

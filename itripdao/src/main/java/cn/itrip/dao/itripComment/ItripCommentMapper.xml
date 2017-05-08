@@ -33,7 +33,7 @@
         </trim>
     </select>
 
-    <select id="getItripCommentListByMap" resultType="cn.itrip.beans.pojo.ItripComment" parameterMap="java.util.Map">
+    <select id="getItripCommentListByMap" resultType="cn.itrip.beans.pojo.ItripComment" parameterType="java.util.Map">
         select
                 id as id,
                 hotelId as hotelId,
@@ -113,7 +113,7 @@
         </trim>
     </select>
 
-    <select id="getItripCommentCountByMap" resultType="Integer"  parameterMap="java.util.Map">
+    <select id="getItripCommentCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_comment
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">

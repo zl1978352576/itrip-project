@@ -28,7 +28,7 @@
         </trim>
     </select>
 
-    <select id="getItripUserListByMap" resultType="cn.itrip.beans.pojo.ItripUser" parameterMap="java.util.Map">
+    <select id="getItripUserListByMap" resultType="cn.itrip.beans.pojo.ItripUser" parameterType="java.util.Map">
         select
                 id as id,
                 userCode as userCode,
@@ -88,7 +88,7 @@
         </trim>
     </select>
 
-    <select id="getItripUserCountByMap" resultType="Integer"  parameterMap="java.util.Map">
+    <select id="getItripUserCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_user
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">

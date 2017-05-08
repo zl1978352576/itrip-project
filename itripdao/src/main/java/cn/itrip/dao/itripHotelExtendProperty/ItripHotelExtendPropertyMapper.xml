@@ -17,7 +17,7 @@
         </trim>
     </select>
 
-    <select id="getItripHotelExtendPropertyListByMap" resultType="cn.itrip.beans.pojo.ItripHotelExtendProperty" parameterMap="java.util.Map">
+    <select id="getItripHotelExtendPropertyListByMap" resultType="cn.itrip.beans.pojo.ItripHotelExtendProperty" parameterType="java.util.Map">
         select
                 id as id,
                 hotelId as hotelId,
@@ -33,7 +33,7 @@
         </trim>
     </select>
 
-    <select id="getItripHotelExtendPropertyCountByMap" resultType="Integer"  parameterMap="java.util.Map">
+    <select id="getItripHotelExtendPropertyCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_hotel_extend_property
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">

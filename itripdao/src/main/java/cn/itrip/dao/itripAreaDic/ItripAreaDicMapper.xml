@@ -26,7 +26,7 @@
         </trim>
     </select>
 
-    <select id="getItripAreaDicListByMap" resultType="cn.itrip.beans.pojo.ItripAreaDic" parameterMap="java.util.Map">
+    <select id="getItripAreaDicListByMap" resultType="cn.itrip.beans.pojo.ItripAreaDic" parameterType="java.util.Map">
         select
                 id as id,
                 name as name,
@@ -78,7 +78,7 @@
         </trim>
     </select>
 
-    <select id="getItripAreaDicCountByMap" resultType="Integer"  parameterMap="java.util.Map">
+    <select id="getItripAreaDicCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_area_dic
         <trim prefix="where" prefixOverrides="and | or">
                 <if test="id != null and id!=''">
