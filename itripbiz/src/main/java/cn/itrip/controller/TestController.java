@@ -40,10 +40,5 @@ public class TestController {
             System.out.println(itripAreaDic.getName());
         }
     }
-
-
-
-
-
 }
 
