@@ -23,7 +23,10 @@ public class TestController {
     @RequestMapping("/example")
     public void testExample() throws Exception {
         ItripAreaDic itripAreaDic = iItripAreaDicService.getItripAreaDicById(new Long(1));
-        System.out.println(itripAreaDic.getName());
+        itripAreaDic.setName("北京市");
+        itripAreaDic.setParent(new Long(1));
+        int flag=iItripAreaDicService.itriptxDeleteItripAreaDicById(new Long(3653));
+        System.out.println(flag);
     }
 
     @RequestMapping("/select")
@@ -35,6 +38,8 @@ public class TestController {
             System.out.println(itripAreaDic.getName());
         }
     }
+
+
 
 
 

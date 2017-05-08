@@ -7,7 +7,7 @@ public class ItripAreaDic implements Serializable {
             private Long id;
             private String name;
             private String areaNo;
-            private String parent;
+            private Long parent;
             private Integer isActivated;
             private Integer isTradingArea;
             private Integer isHot;
@@ -38,11 +38,11 @@ public class ItripAreaDic implements Serializable {
             public  String getAreaNo(){
                 return this.areaNo;
             }
-            public void setParent (String  parent){
+            public void setParent (Long  parent){
                 this.parent=parent;
             }
 
-            public  String getParent(){
+            public  Long getParent(){
                 return this.parent;
             }
             public void setIsActivated (Integer  isActivated){
