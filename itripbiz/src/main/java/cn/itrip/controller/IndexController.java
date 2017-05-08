@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import cn.itrip.beans.pojo.Hotel;
 import cn.itrip.service.hotel.TestService;
 import java.util.List;
 

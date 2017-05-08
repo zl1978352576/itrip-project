@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itrip.dao.itripHotelKeyword.ItripHotelKeywordMapper">
+
+    <select id="getItripHotelKeywordById" resultType="cn.itrip.beans.pojo.ItripHotelKeyword" >
+        select
+                id as id,
+                hotelId as hotelId,
+                keywordId as keywordId
+        from itrip_hotel_keyword
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=# {id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getItripHotelKeywordListByMap" resultType="cn.itrip.beans.pojo.ItripHotelKeyword" parameterMap="java.util.Map">
+        select
+                id as id,
+                hotelId as hotelId,
+                keywordId as keywordId
+        from itrip_hotel_keyword
+        <trim prefix="where" prefixOverrides="and | or">
+                    <if test="id != null and id!=''">
+                        and id=# {id}
+                    </if>
+                    <if test="hotelId != null and hotelId!=''">
+                        and hotelId=# {hotelId}
+                    </if>
+        </trim>
+    </select>
+
+    <select id="getItripHotelKeywordCountByMap" resultType="Integer"  parameterMap="java.util.Map">
+        select count(*) from itrip_hotel_keyword
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="id != null and id!=''">
+                    and id=# {id};
+                </if>
+                <if test="hotelId != null and hotelId!=''">
+                    and hotelId=# {hotelId};
+                </if>
+                <if test="keywordId != null and keywordId!=''">
+                    and keywordId=# {keywordId};
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertItripHotelKeyword" parameterType="cn.itrip.beans.pojo.ItripHotelKeyword">
+        insert into itrip_hotel_keyword(
+                id,
+                hotelId,
+                keywordId)
+        values(
+               # {id},
+               # {hotelId},
+               # {keywordId)}
+    </insert>
+
+    <update id="updateItripHotelKeyword" parameterType="cn.itrip.beans.pojo.ItripHotelKeyword">
+        update itrip_hotel_keyword
+        <trim prefix="set" suffixOverrides="," suffix="where id=# {id}">
+                    <if test="id != null and id!=''">
+                        id=# {id},
+                    </if>
+                    <if test="hotelId != null and hotelId!=''">
+                        hotelId=# {hotelId},
+                    </if>
+                    <if test="keywordId != null and keywordId!=''">
+                        keywordId=# {keywordId}
+                    </if>
+        </trim>
+    </update>
+
+    <delete id="deleteItripHotelKeywordById" parameterType="Long">
+        delete from itrip_hotel_keyword where id = # {id}
+    </delete>
+</mapper>

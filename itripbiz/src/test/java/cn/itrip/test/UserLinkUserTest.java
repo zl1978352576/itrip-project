@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import cn.itrip.beans.pojo.ItripUserLinkUser;
 import cn.itrip.service.client.IClientUserLinkUserService;
 
 public class UserLinkUserTest {

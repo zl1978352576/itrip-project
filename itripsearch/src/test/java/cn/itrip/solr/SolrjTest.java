@@ -1,7 +1,5 @@
 package cn.itrip.solr;
 
-import cn.itrip.dao.BaseQuery;
-import cn.itrip.beans.pojo.ItripAreaDic;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 
 import java.util.HashMap;

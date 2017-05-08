@@ -1,7 +1,5 @@
 package cn.itrip.beans.vo;
 
-import cn.itrip.beans.pojo.ItripHotelRoom;
-
 /**
  * Created by zezhong.shang on 17-4-27.
  */

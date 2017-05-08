@@ -1,6 +1,4 @@
 package cn.itrip.controller;
-import cn.itrip.beans.pojo.ItripAreaDic;
-import cn.itrip.beans.pojo.ItripAreaDicExample;
 import cn.itrip.service.IItripAreaDicService;
 import cn.itrip.service.common.SelectService;
 import org.springframework.beans.factory.annotation.Autowired;

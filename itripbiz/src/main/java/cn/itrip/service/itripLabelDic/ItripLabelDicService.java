@@ -1,0 +1,25 @@
+package cn.itrip.service.itripLabelDic;
+import cn.itrip.beans.pojo.ItripLabelDic;
+import java.util.List;
+import java.util.Map;
+import java.util.List;
+import java.util.Map;
+import cn.itrip.common.Page;
+/**
+* Created by shang-pc on 2015/11/7.
+*/
+public interface ItripLabelDicService {
+
+    public ItripLabelDic getItripLabelDicById(Long id)throws Exception;
+
+    public List<ItripLabelDic>	getItripLabelDicListByMap(Map<String,Object> param)throws Exception;
+
+    public Integer getItripLabelDicCountByMap(Map<String,Object> param)throws Exception;
+
+    public Integer insertItripLabelDic(ItripLabelDic itripLabelDic)throws Exception;
+
+    public Integer updateItripLabelDic(ItripLabelDic itripLabelDic)throws Exception;
+
+    public Integer deleteItripLabelDicById(Long id)throws Exception;
+
+}

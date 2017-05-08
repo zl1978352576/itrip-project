@@ -1,7 +1,5 @@
 package cn.itrip.beans.vo.comment;
 
-import cn.itrip.beans.pojo.ItripComment;
-
 public class ITripCommentVo extends ItripComment {
 	private String userCode;  //发表评论的用户的姓名
 	private Integer hotelLevel;  //酒店的星级

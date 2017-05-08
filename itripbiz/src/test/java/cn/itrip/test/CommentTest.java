@@ -8,7 +8,6 @@ import cn.itrip.beans.vo.comment.ITripCommentVo;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import cn.itrip.beans.pojo.ItripComment;
 import cn.itrip.service.client.IClientCommentService;
 
 public class CommentTest {

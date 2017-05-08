@@ -2,8 +2,6 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.dtos.InputDto;
-import cn.itrip.beans.pojo.ItripComment;
-import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.beans.vo.comment.ItripAddCommentVO;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.client.IClientCommentService;
@@ -28,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import cn.itrip.common.SystemConfig;
-import cn.itrip.beans.pojo.ItripUser;
 
 
 @Controller
