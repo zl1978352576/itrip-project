@@ -56,7 +56,7 @@
         values(
                #{id},
                #{hotelId},
-               #{extendPropertyId)}
+               #{extendPropertyId})
     </insert>
 
     <update id="updateItripHotelExtendProperty" parameterType="cn.itrip.beans.pojo.ItripHotelExtendProperty">

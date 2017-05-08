@@ -116,7 +116,7 @@
                #{creationDate},
                #{createdBy},
                #{modifyDate},
-               #{modifiedBy)}
+               #{modifiedBy})
     </insert>
 
     <update id="updateItripImage" parameterType="cn.itrip.beans.pojo.ItripImage">

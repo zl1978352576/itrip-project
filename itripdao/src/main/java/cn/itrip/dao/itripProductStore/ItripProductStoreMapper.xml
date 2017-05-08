@@ -106,7 +106,7 @@
                #{creationDate},
                #{createdBy},
                #{modifyDate},
-               #{modifiedBy)}
+               #{modifiedBy})
     </insert>
 
     <update id="updateItripProductStore" parameterType="cn.itrip.beans.pojo.ItripProductStore">

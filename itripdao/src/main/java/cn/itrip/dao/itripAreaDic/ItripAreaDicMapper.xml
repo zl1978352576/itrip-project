@@ -146,7 +146,7 @@
                #{creationDate},
                #{createdBy},
                #{modifyDate},
-               #{modifiedBy)}
+               #{modifiedBy})
     </insert>
 
     <update id="updateItripAreaDic" parameterType="cn.itrip.beans.pojo.ItripAreaDic">

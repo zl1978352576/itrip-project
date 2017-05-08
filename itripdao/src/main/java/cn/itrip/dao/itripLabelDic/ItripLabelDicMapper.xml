@@ -126,7 +126,7 @@
                #{creationDate},
                #{createdBy},
                #{modifyDate},
-               #{modifiedBy)}
+               #{modifiedBy})
     </insert>
 
     <update id="updateItripLabelDic" parameterType="cn.itrip.beans.pojo.ItripLabelDic">

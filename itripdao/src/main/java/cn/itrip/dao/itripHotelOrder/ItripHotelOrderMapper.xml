@@ -256,7 +256,7 @@
                #{creationDate},
                #{createdBy},
                #{modifyDate},
-               #{modifiedBy)}
+               #{modifiedBy})
     </insert>
 
     <update id="updateItripHotelOrder" parameterType="cn.itrip.beans.pojo.ItripHotelOrder">

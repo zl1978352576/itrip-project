@@ -96,7 +96,7 @@
                #{creationDate},
                #{createdBy},
                #{modifyDate},
-               #{modifiedBy)}
+               #{modifiedBy})
     </insert>
 
     <update id="updateItripHotelTradingArea" parameterType="cn.itrip.beans.pojo.ItripHotelTradingArea">

@@ -56,7 +56,7 @@
         values(
                #{id},
                #{orderId},
-               #{linkUserId)}
+               #{linkUserId})
     </insert>
 
     <update id="updateItripOrderLinkUser" parameterType="cn.itrip.beans.pojo.ItripOrderLinkUser">
