@@ -69,7 +69,13 @@
    <bean name="systemConfig" class="cn.itrip.common.SystemConfig">  
 	  <property name="fileUploadPathString" value="${sysConfig.fileUploadPath}"/>
 	  <property name="visitImgUrlString" value="${sysConfig.visitImgUrl}"/>   
-	</bean>   
+	</bean>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/*"/>
+            <bean class="cn.itrip.interceptor.ParamValidateInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>
