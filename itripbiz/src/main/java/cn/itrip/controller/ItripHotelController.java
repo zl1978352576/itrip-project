@@ -41,7 +41,7 @@ public class ItripHotelController {
 
     @RequestMapping("/hotel/queryHotelByCity")
     @ResponseBody
-    public Dto<ItripHotel> queryHotelByCity(@RequestBody InputDto inputDto) throws Exception {
+    public Dto<ItripHotel> queryHotelByCity() throws Exception {
         throw new ItripException("1001", "查询条件违法");
     }
 }
