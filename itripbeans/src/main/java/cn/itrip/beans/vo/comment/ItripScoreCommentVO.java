@@ -1,6 +1,9 @@
 package cn.itrip.beans.vo.comment;
 
-public class ITripCommentScoreVo {
+/**
+ * 计算酒店评分
+ */
+public class ItripScoreCommentVO {
 	private float avgPositionScore;//点评查询页面酒店的位置得分
 	private float avgFacilitiesScore;//点评查询页面酒店的设施得分
 	private float avgServiceScore;//点评查询页面酒店的服务得分

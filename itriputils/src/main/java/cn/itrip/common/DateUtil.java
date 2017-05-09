@@ -1,5 +1,8 @@
 package cn.itrip.common;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,4 +31,29 @@ public class DateUtil {
         }
         return result;
     }
+
+    /**
+     * 根据日期字符串返回日期
+     * @param source
+     * @param format
+     * @return
+     * @throws ParseException
+     */
+    public static final Date parse(String source,String format) throws ParseException {
+        DateFormat df = new SimpleDateFormat(format);
+        return df.parse(source);
+    }
+
+    /**
+     * 根据日期获取格式化的日期字符串
+     * @param date
+     * @param format
+     * @return
+     * @throws ParseException
+     */
+    public static final String format(Date date,String format) throws ParseException {
+        DateFormat df = new SimpleDateFormat(format);
+        return df.format(date);
+    }
+
 }
