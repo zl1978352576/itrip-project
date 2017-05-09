@@ -15,9 +15,7 @@
 
 	<!-- 使用 Swagger Restful API文档时，添加此注解 -->
 	<mvc:default-servlet-handler />
-
 	<context:component-scan base-package="cn.itrip.service"/>
-	<context:component-scan base-package="cn.itrip.dao"/>
 	<context:annotation-config />
 	<context:property-placeholder location="classpath:database.properties"/>
 	<!-- JNDI获取数据源(使用dbcp连接池) -->

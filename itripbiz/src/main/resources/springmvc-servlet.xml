@@ -73,7 +73,7 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/api/*"/>
+            <mvc:mapping path="/api/**"/>
             <bean class="cn.itrip.interceptor.ParamValidateInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
