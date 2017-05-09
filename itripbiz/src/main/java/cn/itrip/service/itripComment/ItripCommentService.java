@@ -14,9 +14,9 @@ public interface ItripCommentService {
 
     public ItripComment getItripCommentById(Long id)throws Exception;
 
-    public List<ItripComment>	getItripCommentListByMap(Map<String,Object> param)throws Exception;
+    public List<ItripComment>	getItripCommentListByMap(Map<String, Object> param)throws Exception;
 
-    public Integer getItripCommentCountByMap(Map<String,Object> param)throws Exception;
+    public Integer getItripCommentCountByMap(Map<String, Object> param)throws Exception;
 
     /**
      * 添加点评-add by hanlu
@@ -31,5 +31,5 @@ public interface ItripCommentService {
 
     public Integer itriptxDeleteItripCommentById(Long id)throws Exception;
 
-    public Page<ItripComment> queryItripCommentPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
+    public Page<ItripComment> queryItripCommentPageByMap(Map<String, Object> param, Integer pageNo, Integer pageSize)throws Exception;
 }

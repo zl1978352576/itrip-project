@@ -23,7 +23,7 @@ public class ItripHotelController {
     @Resource
     private ItripAreaDicService itripAreaDicService;
 
-    @RequestMapping("/api/hotel")
+    @RequestMapping("/queryHotCity")
     @ResponseBody
     public Dto<ItripAreaDic> queryHotCity(Integer type){
         Map param=new HashMap();
