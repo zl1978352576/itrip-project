@@ -8,14 +8,16 @@ public interface ItripCommentMapper {
 
 	public ItripComment getItripCommentById(@Param(value = "id") Long id)throws Exception;
 
-	public List<ItripComment>	getItripCommentListByMap(Map<String,Object> param)throws Exception;
+	public List<ItripComment> getItripCommentListByMap(Map<String,Object> param)throws Exception;
 
 	public Integer getItripCommentCountByMap(Map<String,Object> param)throws Exception;
 
-	public Integer insertItripComment(ItripComment itripComment)throws Exception;
+	public Long insertItripComment(ItripComment itripComment)throws Exception;
 
 	public Integer updateItripComment(ItripComment itripComment)throws Exception;
 
 	public Integer deleteItripCommentById(@Param(value = "id") Long id)throws Exception;
+
+	public Long insert(ItripComment record);
 
 }
