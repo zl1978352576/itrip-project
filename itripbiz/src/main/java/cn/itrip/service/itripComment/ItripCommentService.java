@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.List;
 import java.util.Map;
+
+import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.common.Page;
 /**
 * Created by shang-pc on 2015/11/7.
@@ -16,7 +18,14 @@ public interface ItripCommentService {
 
     public Integer getItripCommentCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer itriptxAddItripComment(ItripComment itripComment)throws Exception;
+    /**
+     * 添加点评-add by hanlu
+     * @param obj
+     * @param itripImages
+     * @return
+     * @throws Exception
+     */
+    public boolean itriptxAddItripComment(ItripComment obj, List<ItripImage> itripImages)throws Exception;
 
     public Integer itriptxModifyItripComment(ItripComment itripComment)throws Exception;
 

@@ -180,7 +180,7 @@
         </trim>
     </select>
 
-    <insert id="insertItripComment" parameterType="cn.itrip.beans.pojo.ItripComment">
+    <insert id="insertItripComment" useGeneratedKeys="true" keyProperty="id" parameterType="cn.itrip.beans.pojo.ItripComment">
         insert into itrip_comment(
                         hotelId,
                         productId,
