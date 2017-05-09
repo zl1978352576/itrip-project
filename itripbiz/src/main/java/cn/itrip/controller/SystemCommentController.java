@@ -30,7 +30,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import cn.itrip.common.SystemConfig;
 
-
+/**
+ * 评论Controller
+ *
+ * 包括API接口：
+ * 1、根据type 和target id 查询评论照片
+ * 2、据酒店id查询酒店平均分
+ * 3、根据酒店id查询评论数量
+ * 4、根据评论类型查询评论 分页
+ *
+ * Created by hanlu on 2017/5/9.
+ */
 @Controller
 //@Api(value = "API", basePath = "/http://api.itrap.com/api")
 @RequestMapping(value="/api")
