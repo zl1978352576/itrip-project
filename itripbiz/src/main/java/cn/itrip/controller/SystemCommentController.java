@@ -32,7 +32,7 @@ import cn.itrip.common.SystemConfig;
 
 
 @Controller
-@Api(value = "API", basePath = "/http://api.itrap.com/api")
+//@Api(value = "API", basePath = "/http://api.itrap.com/api")
 @RequestMapping(value="/api")
 public class SystemCommentController {
 	private Logger logger = Logger.getLogger(SystemCommentController.class);

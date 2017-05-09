@@ -1,7 +1,9 @@
 package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dtos.ItripException;
 import cn.itrip.beans.pojo.ItripAreaDic;
+import cn.itrip.beans.pojo.ItripHotel;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
 import org.springframework.stereotype.Controller;
@@ -25,17 +27,19 @@ public class ItripHotelController {
 
     @RequestMapping("/queryHotCity")
     @ResponseBody
-    public Dto<ItripAreaDic> queryHotCity(Integer type){
+    public Dto<ItripAreaDic> queryHotCity(Integer type)throws Exception{
         Map param=new HashMap();
         param.put("isHot",1);
         param.put("isChina",type);
         List<ItripAreaDic> itripAreaDics=null;
-        try {
-            itripAreaDics=itripAreaDicService.getItripAreaDicListByMap(param);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            return  DtoUtil.returnSuccess("",itripAreaDics);
-        }
+        itripAreaDics=itripAreaDicService.getItripAreaDicListByMap(param);
+        Dto dto=DtoUtil.returnSuccess("",itripAreaDics);
+        return  dto;
+    }
+
+    @RequestMapping("/queryHotelByCity")
+    @ResponseBody
+    public Dto<ItripHotel> queryHotelByCity(Long cityId) throws Exception{
+        throw new ItripException("1001","查询条件违法");
     }
 }
