@@ -38,12 +38,15 @@ import cn.itrip.common.SystemConfig;
  * 2、据酒店id查询酒店平均分
  * 3、根据酒店id查询评论数量
  * 4、根据评论类型查询评论 分页
+ * 5、上传评论图片
+ * 6、删除评论图片
+ * 7、新增评论信息
  *
  * Created by hanlu on 2017/5/9.
  */
 @Controller
 //@Api(value = "API", basePath = "/http://api.itrap.com/api")
-@RequestMapping(value="/api")
+@RequestMapping(value="/api/comment")
 public class SystemCommentController {
 	private Logger logger = Logger.getLogger(SystemCommentController.class);
 	@Resource
