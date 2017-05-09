@@ -1,5 +1,7 @@
 package cn.itrip.service.itripComment;
 import cn.itrip.beans.pojo.ItripImage;
+import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
+import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
 import cn.itrip.common.BigDecimalUtil;
 import cn.itrip.dao.itripComment.ItripCommentMapper;
 import cn.itrip.beans.pojo.ItripComment;
@@ -26,7 +28,7 @@ public class ItripCommentServiceImpl implements ItripCommentService {
         return itripCommentMapper.getItripCommentById(id);
     }
 
-    public List<ItripComment>	getItripCommentListByMap(Map<String,Object> param)throws Exception{
+    public List<ItripSearchCommentVO> getItripCommentListByMap(Map<String,Object> param)throws Exception{
         return itripCommentMapper.getItripCommentListByMap(param);
     }
 
@@ -75,16 +77,20 @@ public class ItripCommentServiceImpl implements ItripCommentService {
         return itripCommentMapper.deleteItripCommentById(id);
     }
 
-    public Page<ItripComment> queryItripCommentPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+    public Page<ItripSearchCommentVO> queryItripCommentPageByMap(Map<String,Object> param, Integer pageNo, Integer pageSize)throws Exception{
         Integer total = itripCommentMapper.getItripCommentCountByMap(param);
         pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
         pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
         Page page = new Page(pageNo, pageSize, total);
         param.put("beginPos", page.getBeginPos());
         param.put("pageSize", page.getPageSize());
-        List<ItripComment> itripCommentList = itripCommentMapper.getItripCommentListByMap(param);
+        List<ItripSearchCommentVO> itripCommentList = itripCommentMapper.getItripCommentListByMap(param);
         page.setRows(itripCommentList);
         return page;
     }
 
+    @Override
+    public ItripScoreCommentVO getAvgAndTotalScore(Integer hotelId) throws Exception {
+        return itripCommentMapper.getCommentAvgScore(hotelId);
+    }
 }
