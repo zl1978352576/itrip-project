@@ -39,17 +39,18 @@ public class CommentTest {
             e.printStackTrace();
         }
         image.setType("0");
-        image.setImgUrl("C:\\workspace");
+        image.setImgUrl("");
         image.setCreationDate(d);
+        imageList.add(image);
         comment.setHotelId(1L);
         comment.setProductId(1L);
         comment.setProductType(1);
         comment.setUserId(1L);
         comment.setIsHavingImg(1);
-        comment.setPositionScore(3);
-        comment.setFacilitiesScore(3);
-        comment.setServiceScore(4);
         comment.setHygieneScore(3);
+        comment.setFacilitiesScore(3);
+        comment.setPositionScore(3);
+        comment.setServiceScore(3);
         comment.setTripMode("1");
         comment.setIsOk(1);
         comment.setCreationDate(new Date());

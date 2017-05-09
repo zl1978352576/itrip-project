@@ -14,15 +14,22 @@ public interface ItripCommentService {
 
     public ItripComment getItripCommentById(Long id)throws Exception;
 
-    public List<ItripComment>	getItripCommentListByMap(Map<String,Object> param)throws Exception;
+    public List<ItripComment>	getItripCommentListByMap(Map<String, Object> param)throws Exception;
 
-    public Integer getItripCommentCountByMap(Map<String,Object> param)throws Exception;
+    public Integer getItripCommentCountByMap(Map<String, Object> param)throws Exception;
 
-    public boolean itriptxAddItripComment(ItripComment itripComment, List<ItripImage> itripImages)throws Exception;
+    /**
+     * 添加点评-add by hanlu
+     * @param obj
+     * @param itripImages
+     * @return
+     * @throws Exception
+     */
+    public boolean itriptxAddItripComment(ItripComment obj, List<ItripImage> itripImages)throws Exception;
 
-    public Integer ModifyItripComment(ItripComment itripComment)throws Exception;
+    public Integer itriptxModifyItripComment(ItripComment itripComment)throws Exception;
 
-    public Integer DeleteItripCommentById(Long id)throws Exception;
+    public Integer itriptxDeleteItripCommentById(Long id)throws Exception;
 
-    public Page<ItripComment> queryItripCommentPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
+    public Page<ItripComment> queryItripCommentPageByMap(Map<String, Object> param, Integer pageNo, Integer pageSize)throws Exception;
 }
