@@ -14,6 +14,7 @@
                 isTradingArea as isTradingArea,
                 isHot as isHot,
                 level as level,
+                isChina as isChina,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -36,6 +37,7 @@
                 isTradingArea as isTradingArea,
                 isHot as isHot,
                 level as level,
+                isChina as isChina,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -65,6 +67,9 @@
                     </if>
                     <if test="level != null and level!=''">
                         and level=#{level}
+                    </if>
+                    <if test="isChina != null and isChina!=''">
+                        and isChina=#{isChina}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         and creationDate=#{creationDate}
@@ -109,6 +114,9 @@
                 <if test="level != null and level!=''">
                     and level=#{level}
                 </if>
+                <if test="isChina != null and isChina!=''">
+                    and isChina=#{isChina}
+                </if>
                 <if test="creationDate != null and creationDate!=''">
                     and creationDate=#{creationDate}
                 </if>
@@ -124,7 +132,7 @@
         </trim>
     </select>
 
-    <insert id="insertItripAreaDic" parameterType="cn.itrip.beans.pojo.ItripAreaDic">
+    <insert id="insertItripAreaDic" parameterType="cn.itrip.beans.pojo.ItripAreaDic" >
         insert into itrip_area_dic(
                         name,
                         areaNo,
@@ -133,6 +141,7 @@
                         isTradingArea,
                         isHot,
                         level,
+                        isChina,
                         creationDate,
                         createdBy,
                         modifyDate,
@@ -145,6 +154,7 @@
                      #{isTradingArea},
                      #{isHot},
                      #{level},
+                     #{isChina},
                      #{creationDate},
                      #{createdBy},
                      #{modifyDate},
@@ -177,6 +187,9 @@
                     </if>
                     <if test="level != null and level!=''">
                         level=#{level},
+                    </if>
+                    <if test="isChina != null and isChina!=''">
+                        isChina=#{isChina},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         creationDate=#{creationDate},

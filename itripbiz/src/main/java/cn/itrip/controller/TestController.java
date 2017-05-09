@@ -1,5 +1,6 @@
 package cn.itrip.controller;
 
+import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.common.Page;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
@@ -45,10 +46,15 @@ public class TestController {
 
     @RequestMapping("/page")
     @ResponseBody
-    public Page<ItripAreaDic> page() throws Exception {
+    public Dto<Page<ItripAreaDic>> page() throws Exception {
+        Dto<Page<ItripAreaDic>> dto=new Dto<>();
+        dto.setMsg("测试分页");
+        dto.setSuccess("true");
+        dto.setErrorCode("0");
         Map<String,Object> param=new HashMap<String,Object>();
         Page<ItripAreaDic> itripAreaDicPage=iItripAreaDicService.queryItripAreaDicPageByMap(param,2,5);
-        return  itripAreaDicPage;
+        dto.setData(itripAreaDicPage);
+        return  dto;
     }
 }
 

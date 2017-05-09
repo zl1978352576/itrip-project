@@ -12,6 +12,7 @@ public class ItripAreaDic implements Serializable {
             private Integer isTradingArea;
             private Integer isHot;
             private Integer level;
+            private Integer isChina;
             private Date creationDate;
             private Long createdBy;
             private Date modifyDate;
@@ -72,6 +73,13 @@ public class ItripAreaDic implements Serializable {
 
             public  Integer getLevel(){
                 return this.level;
+            }
+            public void setIsChina (Integer  isChina){
+                this.isChina=isChina;
+            }
+
+            public  Integer getIsChina(){
+                return this.isChina;
             }
             public void setCreationDate (Date  creationDate){
                 this.creationDate=creationDate;
