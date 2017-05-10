@@ -20,6 +20,10 @@ public class ItripUserLinkUserServiceImpl implements ItripUserLinkUserService {
         return itripUserLinkUserMapper.getItripUserLinkUserById(id);
     }
 
+    public List<ItripUserLinkUser> getItripUserLinkUserByUserId(Long userId)throws Exception{
+        return itripUserLinkUserMapper.getItripUserLinkUserByUserId(userId);
+    }
+
     public List<ItripUserLinkUser>	getItripUserLinkUserListByMap(Map<String,Object> param)throws Exception{
         return itripUserLinkUserMapper.getItripUserLinkUserListByMap(param);
     }
@@ -28,17 +32,17 @@ public class ItripUserLinkUserServiceImpl implements ItripUserLinkUserService {
         return itripUserLinkUserMapper.getItripUserLinkUserCountByMap(param);
     }
 
-    public Integer itriptxAddItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
+    public Integer addItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
             itripUserLinkUser.setCreationDate(new Date());
             return itripUserLinkUserMapper.insertItripUserLinkUser(itripUserLinkUser);
     }
 
-    public Integer itriptxModifyItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
+    public Integer modifyItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception{
         itripUserLinkUser.setModifyDate(new Date());
         return itripUserLinkUserMapper.updateItripUserLinkUser(itripUserLinkUser);
     }
 
-    public Integer itriptxDeleteItripUserLinkUserById(Long id)throws Exception{
+    public Integer deleteItripUserLinkUserById(Long id)throws Exception{
         return itripUserLinkUserMapper.deleteItripUserLinkUserById(id);
     }
 

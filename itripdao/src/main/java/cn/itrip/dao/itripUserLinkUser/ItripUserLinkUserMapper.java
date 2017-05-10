@@ -8,6 +8,14 @@ public interface ItripUserLinkUserMapper {
 
 	public ItripUserLinkUser getItripUserLinkUserById(@Param(value = "id") Long id)throws Exception;
 
+	/**
+	 * 根据用户id查询常用联系人-add by donghai
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItripUserLinkUser> getItripUserLinkUserByUserId(@Param(value = "userId") Long userId)throws Exception;
+
 	public List<ItripUserLinkUser>	getItripUserLinkUserListByMap(Map<String,Object> param)throws Exception;
 
 	public Integer getItripUserLinkUserCountByMap(Map<String,Object> param)throws Exception;

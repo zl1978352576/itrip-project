@@ -23,6 +23,25 @@
         </trim>
     </select>
 
+    <select id="getItripUserLinkUserByUserId" resultType="cn.itrip.beans.pojo.ItripUserLinkUser" >
+        select
+                id as id,
+                linkUserName as linkUserName,
+                linkIdCard as linkIdCard,
+                linkPhone as linkPhone,
+                userId as userId,
+                creationDate as creationDate,
+                createdBy as createdBy,
+                modifyDate as modifyDate,
+                modifiedBy as modifiedBy
+        from itrip_user_link_user
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="userId != null">
+                and userId=#{userId}
+            </if>
+        </trim>
+    </select>
+
     <select id="getItripUserLinkUserListByMap" resultType="cn.itrip.beans.pojo.ItripUserLinkUser" parameterType="java.util.Map">
         select
                 id as id,
