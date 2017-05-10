@@ -3,6 +3,7 @@ import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.beans.pojo.ItripLabelDic;
 import cn.itrip.common.DtoUtil;
+import cn.itrip.common.EmptyUtils;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
 import cn.itrip.service.itripLabelDic.ItripLabelDicService;
 import org.apache.log4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.awt.EmbeddedFrame;
+
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
@@ -56,12 +59,14 @@ public class HotelController {
     @RequestMapping(value = "/queryhotcity/{type}/", produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Dto<ItripAreaDic> queryHotCity(@PathVariable Integer type) {
-        Map param = new HashMap();
-        param.put("isHot", 1);
-        param.put("isChina", type);
         List<ItripAreaDic> itripAreaDics = null;
         try {
-            itripAreaDics = itripAreaDicService.getItripAreaDicListByMap(param);
+            if(EmptyUtils.isNotEmpty(type)){
+                Map param = new HashMap();
+                param.put("isHot", 1);
+                param.put("isChina", type);
+                itripAreaDics = itripAreaDicService.getItripAreaDicListByMap(param);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,12 +83,14 @@ public class HotelController {
     @RequestMapping(value = "/querytradearea/{cityId}", produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Dto<ItripAreaDic> queryTradeArea(@PathVariable Long cityId) {
-        Map param = new HashMap();
-        param.put("isTradingArea", 1);
-        param.put("parent", cityId);
         List<ItripAreaDic> itripAreaDics = null;
         try {
-            itripAreaDics = itripAreaDicService.getItripAreaDicListByMap(param);
+            if(EmptyUtils.isNotEmpty(cityId)){
+                Map param = new HashMap();
+                param.put("isTradingArea", 1);
+                param.put("parent", cityId);
+                itripAreaDics = itripAreaDicService.getItripAreaDicListByMap(param);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,10 +104,10 @@ public class HotelController {
     @RequestMapping(value = "/queryhotelfeature", produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Dto<ItripLabelDic> queryHotelFeature() {
-        Map param = new HashMap();
-        param.put("parentId", 16);
         List<ItripLabelDic> itripLabelDics = null;
         try {
+            Map param = new HashMap();
+            param.put("parentId", 16);
             itripLabelDics = itripLabelDicService.getItripLabelDicListByMap(param);
         } catch (Exception e) {
             e.printStackTrace();
