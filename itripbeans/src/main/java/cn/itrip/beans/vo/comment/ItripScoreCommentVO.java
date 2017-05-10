@@ -1,5 +1,8 @@
 package cn.itrip.beans.vo.comment;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 计算酒店评分
  */

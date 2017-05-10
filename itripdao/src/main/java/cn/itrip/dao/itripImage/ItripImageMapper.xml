@@ -23,7 +23,7 @@
         </trim>
     </select>
 
-    <select id="getItripImageListByMap" resultType="cn.itrip.beans.pojo.ItripImage" parameterType="java.util.Map">
+    <select id="getItripImageListByMap" resultType="cn.itrip.beans.vo.ItripImageVO" parameterType="java.util.Map">
         select
                 id as id,
                 type as type,
@@ -61,10 +61,10 @@
                         and modifyDate=#{modifyDate}
                     </if>
         </trim>
-         order by creationDate desc
+      <!--   order by creationDate desc
         <if test="beginPos != null and beginPos!='' and pageSize != null  and pageSize !='' ">
             limit #{beginPos},#{pageSize}
-        </if>
+        </if>-->
     </select>
 
     <select id="getItripImageCountByMap" resultType="Integer"  parameterType="java.util.Map">

@@ -1,11 +1,11 @@
 package cn.itrip.service.itripImage;
+import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.dao.itripImage.ItripImageMapper;
 import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.Page;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ public class ItripImageServiceImpl implements ItripImageService {
         return itripImageMapper.getItripImageById(id);
     }
 
-    public List<ItripImage>	getItripImageListByMap(Map<String,Object> param)throws Exception{
+    public List<ItripImageVO>	getItripImageListByMap(Map<String,Object> param)throws Exception{
         return itripImageMapper.getItripImageListByMap(param);
     }
 
@@ -42,7 +42,7 @@ public class ItripImageServiceImpl implements ItripImageService {
         return itripImageMapper.deleteItripImageById(id);
     }
 
-    public Page<ItripImage> queryItripImagePageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+   /* public Page<ItripImage> queryItripImagePageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
         Integer total = itripImageMapper.getItripImageCountByMap(param);
         pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
         pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
@@ -52,6 +52,6 @@ public class ItripImageServiceImpl implements ItripImageService {
         List<ItripImage> itripImageList = itripImageMapper.getItripImageListByMap(param);
         page.setRows(itripImageList);
         return page;
-    }
+    }*/
 
 }

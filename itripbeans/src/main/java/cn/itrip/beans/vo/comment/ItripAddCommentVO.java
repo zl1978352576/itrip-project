@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Created by hanlu on 2017/5/7.
  */
-@ApiModel(value = "ItripAddCommentVO",description = "添加用户评论")
+@ApiModel(value = "ItripAddCommentVO",description = "添加用户评论VO")
 public class ItripAddCommentVO {
 
     @ApiModelProperty("[必填] 酒店ID")

@@ -5,26 +5,25 @@ import cn.itrip.beans.dtos.InputDto;
 import cn.itrip.beans.pojo.ItripComment;
 import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.beans.pojo.ItripUser;
+import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.beans.vo.comment.ItripAddCommentVO;
+import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripComment.ItripCommentService;
+import cn.itrip.service.itripImage.ItripImageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -35,12 +34,15 @@ import cn.itrip.common.SystemConfig;
  *
  * 包括API接口：
  * 1、根据type 和target id 查询评论照片
- * 2、据酒店id查询酒店平均分
+ * 2、据酒店id查询酒店平均分（总体评分、位置评分、设施评分、服务评分、卫生评分）
  * 3、根据酒店id查询评论数量
  * 4、根据评论类型查询评论 分页
  * 5、上传评论图片
  * 6、删除评论图片
  * 7、新增评论信息
+ * 8、查看个人评论信息
+ *
+ * 注：错误码（100001 ——100100）
  *
  * Created by hanlu on 2017/5/9.
  */
@@ -49,6 +51,7 @@ import cn.itrip.common.SystemConfig;
 @RequestMapping(value="/api/comment")
 public class SystemCommentController {
 	private Logger logger = Logger.getLogger(SystemCommentController.class);
+
 	@Resource
 	private SystemConfig systemConfig;
 
@@ -58,6 +61,45 @@ public class SystemCommentController {
 	@Resource
 	private ValidationToken validationToken;
 
+	@Resource
+	private ItripImageService itripImageService;
+
+
+
+    @ApiOperation(value = "据酒店id查询酒店平均分", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "总体评分、位置评分、设施评分、服务评分、卫生评分"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100001 : 获取评分失败 </p>"+
+            "<p>100002 : hotelId不能为空</p>")
+    @RequestMapping(value = "/gethotelscore/{hotelId}",method=RequestMethod.GET,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getHotelScore(@ApiParam(required = true, name = "hotelId", value = "酒店ID")
+										 @PathVariable String hotelId){
+        Dto<Object> dto = new Dto<Object>();
+        logger.debug("getHotelScore hotelId : " + hotelId);
+        if(null != hotelId && !"".equals(hotelId)){
+            ItripScoreCommentVO itripScoreCommentVO = new ItripScoreCommentVO();
+            try {
+                itripScoreCommentVO =  itripCommentService.getAvgAndTotalScore(Long.valueOf(hotelId));
+                dto.setData(itripScoreCommentVO);
+            } catch (Exception e) {
+                e.printStackTrace();
+                dto.setSuccess("false");
+                dto.setErrorCode("100001");
+                dto.setMsg("获取评分失败");
+            }
+            dto.setSuccess("true");
+            dto.setMsg("获取评分成功");
+        }else{
+            dto.setSuccess("false");
+            dto.setErrorCode("100002");
+            dto.setMsg("hotelId不能为空");
+        }
+        return dto;
+    }
+
 
 	@ApiOperation(value = "新增评论接口", httpMethod = "POST",
 			protocols = "HTTP",produces = "application/json",
@@ -65,10 +107,10 @@ public class SystemCommentController {
 			"<p style=‘color:red’>注意：若有评论图片，需要传图片路径</p>"+
 			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
 			"<p>错误码：</p>"+
-			"<p>100040 : 新增评论失败 </p>"+
-			"<p>100041 : 不能提交空，请填写评论信息</p>"+
-			"<p>100042 : token失效，请重登录 </p>")
-	@RequestMapping(value = "/addcomment",method=RequestMethod.POST,produces = "application/json")
+			"<p>100003 : 新增评论失败 </p>"+
+			"<p>100004 : 不能提交空，请填写评论信息</p>"+
+			"<p>100005 : token失效，请重登录 </p>")
+	@RequestMapping(value = "/add",method=RequestMethod.POST,produces = "application/json")
 	@ResponseBody
 	public Dto<Object> addComment(@RequestBody ItripAddCommentVO itripAddCommentVO, HttpServletRequest request){
 		//ItripComment
@@ -80,9 +122,6 @@ public class SystemCommentController {
 			List<ItripImage> itripImages = null;
 			ItripComment itripComment = new ItripComment();
 			itripComment.setContent(itripAddCommentVO.getContent());
-			itripComment.setCreatedBy(currentUser.getId());
-			itripComment.setCreationDate(new Date(System.currentTimeMillis()));
-			itripComment.setUserId(currentUser.getId());
 			itripComment.setHotelId(itripAddCommentVO.getHotelId());
 			itripComment.setIsHavingImg(itripAddCommentVO.getIsHavingImg());
 			itripComment.setPositionScore(itripAddCommentVO.getPositionScore());
@@ -92,6 +131,11 @@ public class SystemCommentController {
 			itripComment.setServiceScore(itripAddCommentVO.getServiceScore());
 			itripComment.setProductId(itripAddCommentVO.getProductId());
 			itripComment.setProductType(itripAddCommentVO.getProductType());
+			itripComment.setIsOk(itripAddCommentVO.getIsOk());
+			itripComment.setTripMode(itripAddCommentVO.getTripMode());
+            itripComment.setCreatedBy(currentUser.getId());
+            itripComment.setCreationDate(new Date(System.currentTimeMillis()));
+            itripComment.setUserId(currentUser.getId());
 			try {
 				if(itripAddCommentVO.getIsHavingImg() == 1 ){
 					itripImages = new ArrayList<ItripImage>();
@@ -110,18 +154,18 @@ public class SystemCommentController {
 			} catch (Exception e) {
 				e.printStackTrace();
 				dto.setSuccess("false");
-				dto.setErrorCode("100040");
+				dto.setErrorCode("100003");
 				dto.setMsg("新增评论失败");
 			}
 			dto.setSuccess("true");
 			dto.setMsg("新增评论成功");
 		}else if(null != currentUser && null == itripAddCommentVO){
 			dto.setSuccess("false");
-			dto.setErrorCode("100041");
+			dto.setErrorCode("100004");
 			dto.setMsg("不能提交空，请填写评论信息");
 		}else{
 			dto.setSuccess("false");
-			dto.setErrorCode("100042");
+			dto.setErrorCode("100005");
 			dto.setMsg("token失效，请重登录");
 		}
 		return dto;
@@ -135,10 +179,10 @@ public class SystemCommentController {
 					"<p style=‘color:red’>注意：input file 中的name不可重复 e:g : file1 、 file2 、 fileN</p>"+
 					"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
 					"<p>错误码：</p>"+
-					"<p>100020 : 文件上传失败 </p>"+
-					"<p>100021 : 上传的文件数不正确，必须是大于1小于等于4 </p>" +
-					"<p>100022 : 请求的内容不是上传文件的类型 </p>" +
-					"<p>100023 : 文件大小超限 </p>"
+					"<p>100006 : 文件上传失败 </p>"+
+					"<p>100007 : 上传的文件数不正确，必须是大于1小于等于4 </p>" +
+					"<p>100008 : 请求的内容不是上传文件的类型 </p>" +
+					"<p>100009 : 文件大小超限 </p>"
 				)
     public Dto<Object> uploadPic(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException {
 		Dto<Object> dto = new Dto<Object>();
@@ -156,7 +200,7 @@ public class SystemCommentController {
 				// TODO: handle exception
 	        	   fileCount = 0;
 	        	   dto.setSuccess("false");
-	               dto.setErrorCode("100023");//文件大小超限
+	               dto.setErrorCode("100009");//文件大小超限
 	               dto.setMsg("文件大小超限");
 	               return dto;
 	           }
@@ -206,48 +250,98 @@ public class SystemCommentController {
                     dto.setData(dataList);
                 }else{
                 	dto.setSuccess("false");
-                	dto.setErrorCode("100020");//文件上传失败
+                	dto.setErrorCode("100006");//文件上传失败
                 	dto.setMsg("文件上传失败");
                 }
             }else{
             	dto.setSuccess("false");
-            	dto.setErrorCode("100021");//上传的文件数不正确，必须是大于1小于等于4
+            	dto.setErrorCode("100007");//上传的文件数不正确，必须是大于1小于等于4
             	dto.setMsg("上传的文件数不正确，必须是大于1小于等于4");
             }
         }else{
         	dto.setSuccess("false");
-        	dto.setErrorCode("100022");//请求的内容不是上传文件的类型
+        	dto.setErrorCode("100008");//请求的内容不是上传文件的类型
         	dto.setMsg("请求的内容不是上传文件的类型");
         }
         return dto;
     }
 
 
-	@RequestMapping(value = "/delpic",produces="application/json",method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delpic",produces="application/json",method = RequestMethod.POST)
 	@ResponseBody
-	@ApiOperation(value = "图片删除接口", httpMethod = "DELETE",
+	@ApiOperation(value = "图片删除接口", httpMethod = "POST",
 					protocols = "HTTP",produces = "application/json",
-					response = Dto.class, notes = "删除传递图片名称"
-				)
-	/*public Dto<Object> delPic(
-    		@ApiParam(required = true, name = "imgName", value = "imgName")
-    		@RequestBody String imgName) throws IllegalStateException, IOException {  */
-	public Dto<Object> delPic(
-    		@RequestBody InputDto inputDto) throws IllegalStateException, IOException {
+					response = Dto.class, notes = "删除传递图片名称"+
+					"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+					"<p>错误码：</p>"+
+					"<p>100010 : 文件不存在，删除失败 </p>"+
+					"<p>100011 : token失效，请重登录 </p>")
+	public Dto<Object> delPic(@RequestBody String imgName,HttpServletRequest request) throws IllegalStateException, IOException {
+/*	public Dto<Object> delPic(
+    		@RequestBody InputDto inputDto) throws IllegalStateException, IOException {*/
+
+		String tokenString  = request.getHeader("token");
+		logger.debug("token name is from header : " + tokenString);
+		ItripUser currentUser = validationToken.getCurrentUser(tokenString);
 		Dto<Object> dto = new Dto<Object>();
-		//获取物理路径
-		String path = systemConfig.getFileUploadPathString() + File.separator + inputDto.getParamString();
-		logger.debug("delete file path : " + path);
-		File file = new File(path);
-		if(file.exists()){
-			file.delete();
-			dto.setSuccess("true");
-			dto.setMsg("删除成功");
-			dto.setErrorCode("0");
+		if(null != currentUser){
+			//获取物理路径
+	/*		String path = systemConfig.getFileUploadPathString() + File.separator + inputDto.getParamString();*/
+			String path = systemConfig.getFileUploadPathString() + File.separator + imgName;
+			logger.debug("delete file path : " + path);
+			File file = new File(path);
+			if(file.exists()){
+				file.delete();
+				dto.setSuccess("true");
+				dto.setMsg("删除成功");
+				dto.setErrorCode("0");
+			}else{
+				dto.setSuccess("false");
+				dto.setMsg("文件不存在，删除失败");
+				dto.setErrorCode("100010");
+			}
 		}else{
 			dto.setSuccess("false");
-			dto.setMsg("文件不存在，删除失败");
-			dto.setErrorCode("100030");
+			dto.setErrorCode("100011");
+			dto.setMsg("token失效，请重登录");
+		}
+		return dto;
+	}
+
+
+	@ApiOperation(value = "根据targetId查询评论照片(type=2)", httpMethod = "GET",
+			protocols = "HTTP",produces = "application/json",
+			response = Dto.class,notes = "总体评分、位置评分、设施评分、服务评分、卫生评分"+
+			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+			"<p>错误码：</p>"+
+			"<p>100012 : 获取评论图片失败 </p>"+
+			"<p>100013 : 评论id不能为空</p>")
+	@RequestMapping(value = "/getimg/{targetId}",method=RequestMethod.GET,produces = "application/json")
+	@ResponseBody
+	public Dto<Object> getImgBytargetId(@ApiParam(required = true, name = "targetId", value = "评论ID")
+									 @PathVariable String targetId){
+		Dto<Object> dto = new Dto<Object>();
+		logger.debug("getImgBytargetId targetId : " + targetId);
+		if(null != targetId && !"".equals(targetId)){
+			List<ItripImageVO> itripImageVOList = null;
+			Map<String,Object> param = new HashMap<String,Object>();
+			param.put("type","2");
+			param.put("targetId",targetId);
+			try {
+				itripImageVOList =  itripImageService.getItripImageListByMap(param);
+				dto.setData(itripImageVOList);
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto.setSuccess("false");
+				dto.setErrorCode("100012");
+				dto.setMsg("获取评论图片失败");
+			}
+			dto.setSuccess("true");
+			dto.setMsg("获取评论图片成功");
+		}else{
+			dto.setSuccess("false");
+			dto.setErrorCode("100013");
+			dto.setMsg("评论id不能为空");
 		}
 		return dto;
 	}

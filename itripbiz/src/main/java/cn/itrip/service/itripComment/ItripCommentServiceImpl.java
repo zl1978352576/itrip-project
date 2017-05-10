@@ -90,7 +90,7 @@ public class ItripCommentServiceImpl implements ItripCommentService {
     }
 
     @Override
-    public ItripScoreCommentVO getAvgAndTotalScore(Integer hotelId) throws Exception {
+    public ItripScoreCommentVO getAvgAndTotalScore(Long hotelId) throws Exception {
         return itripCommentMapper.getCommentAvgScore(hotelId);
     }
 }

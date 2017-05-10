@@ -71,11 +71,11 @@
 	  <property name="visitImgUrlString" value="${sysConfig.visitImgUrl}"/>   
 	</bean>
 
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/api/**"/>
             <bean class="cn.itrip.interceptor.ParamValidateInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 
 </beans>

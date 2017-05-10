@@ -39,5 +39,5 @@ public interface ItripCommentService {
      * @return
      * @throws Exception
      */
-    public ItripScoreCommentVO getAvgAndTotalScore(Integer hotelId) throws Exception;
+    public ItripScoreCommentVO getAvgAndTotalScore(Long hotelId) throws Exception;
 }

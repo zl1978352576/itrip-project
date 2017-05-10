@@ -22,5 +22,5 @@ public interface ItripCommentMapper {
 
 	public Long insert(ItripComment record);
 
-	public ItripScoreCommentVO getCommentAvgScore(Integer hotelId) throws Exception;
+	public ItripScoreCommentVO getCommentAvgScore(@Param(value = "hotelId") Long hotelId) throws Exception;
 }
