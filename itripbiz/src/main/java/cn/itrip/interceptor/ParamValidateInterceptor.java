@@ -31,36 +31,39 @@ public class ParamValidateInterceptor extends HandlerInterceptorAdapter {
         String nullValue = PropertiesUtils.get("validateNull.properties", reqUrl);
         String regValue = PropertiesUtils.get("validateReg.properties", reqUrl);
         logger.info(">>>>>>>>拦截到>>>>>>>>>请求:" + reqUrl + "验证的value为:" + nullValue);
-        if (EmptyUtils.isNotEmpty(nullValue)) {
-            //如果需要进行非空判断
-            String validateNullParam[] = nullValue.split(";")[0].split("##");
-            String validateNullMessage[] = nullValue.split(";")[1].split("##");
-            if (EmptyUtils.isNotEmpty(validateNullParam)) {
-                for (int i = 0; i < validateNullParam.length; i++) {
-                    String temp = request.getParameter(validateNullParam[i]);
-                    if (EmptyUtils.isEmpty(temp)) {
-                        reurnError("0001", validateNullMessage[i], response);
-                        return false;
-                    }
+        if (EmptyUtils.isEmpty(nullValue) && EmptyUtils.isEmpty(regValue)) {
+            return true;
+        }
+        //如果需要进行非空判断
+        String validateNullParam[] = nullValue.split(";")[0].split("##");
+        String validateNullMessage[] = nullValue.split(";")[1].split("##");
+        if (EmptyUtils.isNotEmpty(validateNullParam)) {
+            for (int i = 0; i < validateNullParam.length; i++) {
+                String temp = request.getParameter(validateNullParam[i]);
+                if (EmptyUtils.isEmpty(temp)) {
+                    reurnError("0001", validateNullMessage[i], response);
+                    return false;
                 }
             }
         }
-        if (EmptyUtils.isNotEmpty(regValue)) {
-            String validateParam[] = regValue.split(";")[0].split("##");
-            String validateRegAndMessage[] = regValue.split(";")[1].split("##");
-            if (EmptyUtils.isNotEmpty(validateParam)) {
-                for (int i = 0; i < validateParam.length; i++) {
-                    String temp = request.getParameter(validateParam[i]);
-                    Pattern pattern = Pattern.compile(validateRegAndMessage[i].split(":")[0]);
-                    Matcher matcher = pattern.matcher(temp);
-                    if (!matcher.matches()) {
-                        reurnError("0002", validateRegAndMessage[i].split(":")[1], response);
-                        return false;
-                    }
-                }
-            }
+        if (EmptyUtils.isEmpty(regValue)) {
+            return true;
         }
+
         //验证正则表达式
+        String validateParam[] = regValue.split(";")[0].split("##");
+        String validateRegAndMessage[] = regValue.split(";")[1].split("##");
+        if (EmptyUtils.isNotEmpty(validateParam)) {
+            for (int i = 0; i < validateParam.length; i++) {
+                String temp = request.getParameter(validateParam[i]);
+                Pattern pattern = Pattern.compile(validateRegAndMessage[i].split(":")[0]);
+                Matcher matcher = pattern.matcher(temp);
+                if (!matcher.matches()) {
+                    reurnError("0002", validateRegAndMessage[i].split(":")[1], response);
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -77,9 +80,9 @@ public class ParamValidateInterceptor extends HandlerInterceptorAdapter {
                     ItripException se = (ItripException) ex;
                     String status = se.getExceptionCode();
                     String message = se.getMessage();
-                    reurnError(status, message, response);
+                    reurnError(status,message,response);
                 } else {
-                    reurnError("0003", "系统异常", response);
+                    reurnError("0003","系统异常",response);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
