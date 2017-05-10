@@ -2,11 +2,11 @@ package cn.itrip.beans.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-public class ItripHotelKeyword implements Serializable {
+public class ItripHotelFeature implements Serializable {
 
             private Long id;
             private Long hotelId;
-            private Long keywordId;
+            private Long featureId;
             private Date creationDate;
             private Long createdBy;
             private Date modifyDate;
@@ -26,12 +26,12 @@ public class ItripHotelKeyword implements Serializable {
             public  Long getHotelId(){
                 return this.hotelId;
             }
-            public void setKeywordId (Long  keywordId){
-                this.keywordId=keywordId;
+            public void setFeatureId (Long  featureId){
+                this.featureId=featureId;
             }
 
-            public  Long getKeywordId(){
-                return this.keywordId;
+            public  Long getFeatureId(){
+                return this.featureId;
             }
             public void setCreationDate (Date  creationDate){
                 this.creationDate=creationDate;

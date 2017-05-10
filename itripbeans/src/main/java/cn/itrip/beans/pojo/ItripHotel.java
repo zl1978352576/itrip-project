@@ -16,8 +16,6 @@ public class ItripHotel implements Serializable {
             private Integer hotelType;
             private Integer hotelLevel;
             private Integer isGroupPurchase;
-            private Double minPrice;
-            private Double maxPrice;
             private String redundantCityName;
             private String redundantProvinceName;
             private String redundantCountryName;
@@ -110,20 +108,6 @@ public class ItripHotel implements Serializable {
 
             public  Integer getIsGroupPurchase(){
                 return this.isGroupPurchase;
-            }
-            public void setMinPrice (Double  minPrice){
-                this.minPrice=minPrice;
-            }
-
-            public  Double getMinPrice(){
-                return this.minPrice;
-            }
-            public void setMaxPrice (Double  maxPrice){
-                this.maxPrice=maxPrice;
-            }
-
-            public  Double getMaxPrice(){
-                return this.maxPrice;
             }
             public void setRedundantCityName (String  redundantCityName){
                 this.redundantCityName=redundantCityName;

@@ -83,7 +83,8 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
-                <scope>test</scope>
+                <!-- modify by hanlu 2017 5-10 -->
+                <!--<scope>test</scope>-->
             </dependency>
             <dependency>
                 <groupId>commons-dbcp</groupId>

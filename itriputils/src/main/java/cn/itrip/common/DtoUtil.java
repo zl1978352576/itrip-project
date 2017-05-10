@@ -41,6 +41,16 @@ public class DtoUtil {
         dto.setErrorCode(errorCode);
         return  dto;
     }
+    /***
+     * 统一返回成功的DTO 带数据 没有消息
+     */
+    public static Dto returnDataSuccess(Object data){
+        Dto dto=new Dto();
+        dto.setSuccess(success);
+        dto.setErrorCode(errorCode);
+        dto.setData(data);
+        return  dto;
+    }
 
     public static Dto returnFail(String message,String errorCode){
         Dto dto=new Dto();
