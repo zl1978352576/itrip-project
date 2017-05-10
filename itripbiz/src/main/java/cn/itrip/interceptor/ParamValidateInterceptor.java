@@ -31,7 +31,7 @@ public class ParamValidateInterceptor extends HandlerInterceptorAdapter {
         String nullValue = PropertiesUtils.get("validateNull.properties", reqUrl);
         String regValue = PropertiesUtils.get("validateReg.properties", reqUrl);
         logger.info(">>>>>>>>拦截到>>>>>>>>>请求:" + reqUrl + "验证的value为:" + nullValue);
-        if (EmptyUtils.isEmpty(nullValue)) {
+        if (EmptyUtils.isEmpty(nullValue) && EmptyUtils.isEmpty(regValue)) {
             return true;
         }
         //如果需要进行非空判断
@@ -46,6 +46,10 @@ public class ParamValidateInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }
+        if (EmptyUtils.isEmpty(regValue)) {
+            return true;
+        }
+
         //验证正则表达式
         String validateParam[] = regValue.split(";")[0].split("##");
         String validateRegAndMessage[] = regValue.split(";")[1].split("##");
