@@ -11,10 +11,12 @@ import java.util.Date;
  */
 public class ItripHotelVO{
 
-
     private Long id;
+
     private String hotelName;
+
     private Long countryId;
+
     private Long provinceId;
     private Long cityId;
     private String address;
@@ -282,4 +284,6 @@ public class ItripHotelVO{
     public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
+
+    //git 你太厉害了
 }
