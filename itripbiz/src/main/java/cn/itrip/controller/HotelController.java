@@ -6,6 +6,7 @@ import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
 import cn.itrip.service.itripLabelDic.ItripLabelDicService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +57,13 @@ public class HotelController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value = "查询热门城市", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "查询国内、国外的热门城市(1:国内 2:国外)"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>10201 : hotelId不能为空 </p>"+
+            "<p>10202 : 系统异常,获取失败</p>")
     @RequestMapping(value = "/queryhotcity/{type}/", produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Dto<ItripAreaDic> queryHotCity(@PathVariable Integer type) {
@@ -66,8 +74,11 @@ public class HotelController {
                 param.put("isHot", 1);
                 param.put("isChina", type);
                 itripAreaDics = itripAreaDicService.getItripAreaDicListByMap(param);
+            }else{
+                DtoUtil.returnFail("type不能为空","10201");
             }
         } catch (Exception e) {
+            DtoUtil.returnFail("系统异常","10202");
             e.printStackTrace();
         }
         return DtoUtil.returnDataSuccess(itripAreaDics);
@@ -80,6 +91,13 @@ public class HotelController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value = "查询商圈", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据城市查询商圈"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>10203 : cityId不能为空 </p>"+
+            "<p>10204 : 系统异常,获取失败</p>")
     @RequestMapping(value = "/querytradearea/{cityId}", produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Dto<ItripAreaDic> queryTradeArea(@PathVariable Long cityId) {
@@ -90,8 +108,11 @@ public class HotelController {
                 param.put("isTradingArea", 1);
                 param.put("parent", cityId);
                 itripAreaDics = itripAreaDicService.getItripAreaDicListByMap(param);
+            }else{
+                DtoUtil.returnFail("cityId不能为空","10203");
             }
         } catch (Exception e) {
+            DtoUtil.returnFail("系统异常","10204");
             e.printStackTrace();
         }
         return DtoUtil.returnDataSuccess(itripAreaDics);
@@ -101,6 +122,12 @@ public class HotelController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value = "查询酒店特色列表", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "获取酒店特色(用于查询页列表)"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码: </p>"+
+            "<p>10205: 系统异常,获取失败</p>")
     @RequestMapping(value = "/queryhotelfeature", produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Dto<ItripLabelDic> queryHotelFeature() {
@@ -110,6 +137,7 @@ public class HotelController {
             param.put("parentId", 16);
             itripLabelDics = itripLabelDicService.getItripLabelDicListByMap(param);
         } catch (Exception e) {
+            DtoUtil.returnFail("系统异常","10205");
             e.printStackTrace();
         }
         return DtoUtil.returnDataSuccess(itripLabelDics);
