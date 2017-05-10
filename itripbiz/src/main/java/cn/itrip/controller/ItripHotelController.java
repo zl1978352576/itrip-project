@@ -22,13 +22,13 @@ import java.util.Map;
  * Created by zezhong.shang on 17-5-8.
  */
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/api/hotel")
 public class ItripHotelController {
 
     @Resource
     private ItripAreaDicService itripAreaDicService;
 
-    @RequestMapping("/hotel/queryHotCity")
+    @RequestMapping("/queryHotCity")
     @ResponseBody
     public Dto<ItripAreaDic> queryHotCity(Integer type) throws Exception {
         Map param = new HashMap();
@@ -39,7 +39,7 @@ public class ItripHotelController {
         return dto;
     }
 
-    @RequestMapping("/hotel/queryHotelByCity")
+    @RequestMapping("/queryHotelByCity")
     @ResponseBody
     public Dto<ItripHotel> queryHotelByCity() throws Exception {
         throw new ItripException("1001", "查询条件违法");
