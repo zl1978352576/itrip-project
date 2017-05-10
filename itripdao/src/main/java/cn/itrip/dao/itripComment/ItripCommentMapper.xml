@@ -288,7 +288,7 @@
         delete from itrip_comment where id = #{id}
     </delete>
 
-    <select id="getCommentAvgScore" resultType="cn.itrip.vo.comment.ItripScoreCommentVO" parameterType="String">
+    <select id="getCommentAvgScore" resultType="cn.itrip.benas.vo.comment.ItripScoreCommentVO" parameterType="String">
         select avg(positionScore) as avgPositionScore, avg(facilitiesScore) as avgFacilitiesScore, avg(serviceScore) as avgServiceScore,
         avg(hygieneScore) as avgHygieneScore, avg(score) as avgScore
         from itrip_comment
