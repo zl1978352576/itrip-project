@@ -1,11 +1,13 @@
 package cn.itrip.beans.vo.hotel;
 
+import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.beans.pojo.ItripHotel;
+import org.springframework.beans.BeanUtils;
 
 /**
  * Created by zezhong.shang on 17-5-10.
  */
-public class ItripHotelVo extends ItripHotel {
+public class ItripHotelVO extends ItripHotel {
 
     private Double maxPrice;
     private Double minPrice;
@@ -96,5 +98,9 @@ public class ItripHotelVo extends ItripHotel {
 
     public void setFeatureNames(String featureNames) {
         this.featureNames = featureNames;
+    }
+
+    public static void main(String[] args) {
+
     }
 }
