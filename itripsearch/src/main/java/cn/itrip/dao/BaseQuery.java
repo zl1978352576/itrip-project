@@ -2,6 +2,7 @@ package cn.itrip.dao;
 import cn.itrip.common.Constants;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.Page;
+import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.impl.XMLResponseParser;
@@ -16,18 +17,17 @@ import java.util.Map;
  */
 public class BaseQuery<T> {
 
-    private static String url;
-    private static HttpSolrClient httpSolrClient;
+    private HttpSolrClient httpSolrClient;
 
-    static {
-        // 在url中指定core名称：notice
-        String url = "http://localhost:8080/solr/test/";
+    static Logger logger=Logger.getLogger(BaseQuery.class);
+
+    public BaseQuery(String url){
         httpSolrClient = new HttpSolrClient(url);
         httpSolrClient.setParser(new XMLResponseParser()); // 设置响应解析器
         httpSolrClient.setConnectionTimeout(500); // 建立连接的最长时间
     }
 
-    public List<T> queryList(Map<String, Object> params, Class clazz) {
+    public List<T> queryList(String url,Map<String, Object> params, Class clazz) {
         SolrQuery solrQuery = new SolrQuery(); // 构造搜索条件
         QueryResponse queryResponse = null;
         List<T> list = null;
@@ -44,6 +44,10 @@ public class BaseQuery<T> {
                         queryString = queryString.append(" AND " + entry.getKey() + ":" + entry.getValue());
                     }
                     flag++;
+                }
+                logger.info("queryString:" + queryString);
+                if(EmptyUtils.isEmpty(queryString.toString())){
+                    queryString.append("*:*");
                 }
                 solrQuery.setQuery(queryString.toString());
             }
@@ -69,13 +73,21 @@ public class BaseQuery<T> {
                 while (it.hasNext()) {
                     Map.Entry<String, Object> entry = it.next();
                     if (flag == 0) {
-                        queryString = queryString.append(entry.getKey() + ":" + entry.getValue());
+                        if(EmptyUtils.isNotEmpty(entry.getValue())){
+                            queryString = queryString.append(entry.getKey() + ":" + entry.getValue());
+                        }
                     } else {
-                        queryString = queryString.append(" AND " + entry.getKey() + ":" + entry.getValue());
+                        if(EmptyUtils.isNotEmpty(entry.getValue())){
+                            queryString = queryString.append(" AND " + entry.getKey() + ":" + entry.getValue());
+                        }
                     }
                     flag++;
                 }
                 solrQuery.setHighlight(true);
+                logger.info("queryString:" + queryString);
+                if(EmptyUtils.isEmpty(queryString.toString())){
+                    queryString.append("*:*");
+                }
                 solrQuery.setQuery(queryString.toString());
                 //设置起始页数
                 solrQuery.setStart(EmptyUtils.isEmpty(pageNo)? Constants.DEFAULT_PAGE_NO-1:pageNo-1);
@@ -84,7 +96,7 @@ public class BaseQuery<T> {
             }
             queryResponse = httpSolrClient.query(solrQuery);
             SolrDocumentList docs = queryResponse.getResults();
-            page=new Page<T>(solrQuery.getStart(),solrQuery.getRows(),new Long(docs.getNumFound()).intValue());
+            page=new Page(solrQuery.getStart(),solrQuery.getRows(),new Long(docs.getNumFound()).intValue());
             list = queryResponse.getBeans(clazz);
             page.setRows(list);
         } catch (Exception e) {

@@ -1,7 +1,8 @@
 package cn.itrip.service;
-import cn.itrip.beans.pojo.ItripHotel;
+import cn.itrip.beans.vo.hotel.ItripHotelVO;
 import cn.itrip.common.Page;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,6 +16,12 @@ public interface SearchHotelService {
      * @param pageSize
      * @return
      */
-    public Page<ItripHotel> searchItripHotel(Map<String,Object> params,Integer pageNo,Integer pageSize);
+    public Page<ItripHotelVO> searchItripHotelPage(Map<String,Object> params,Integer pageNo,Integer pageSize)throws Exception;
+    /***
+     * 根据热门城市查询酒店
+     * @param pageSize
+     * @return
+     */
+    public List<ItripHotelVO> searchItripHotelListByHotCity(Integer cityId,Integer pageSize)throws Exception;
 
 }
