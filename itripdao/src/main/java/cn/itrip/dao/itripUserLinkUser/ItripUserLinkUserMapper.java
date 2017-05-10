@@ -16,9 +16,9 @@ public interface ItripUserLinkUserMapper {
 	 */
 	public List<ItripUserLinkUser> getItripUserLinkUserByUserId(@Param(value = "userId") Long userId)throws Exception;
 
-	public List<ItripUserLinkUser>	getItripUserLinkUserListByMap(Map<String,Object> param)throws Exception;
+	public List<ItripUserLinkUser>	getItripUserLinkUserListByMap(Map<String, Object> param)throws Exception;
 
-	public Integer getItripUserLinkUserCountByMap(Map<String,Object> param)throws Exception;
+	public Integer getItripUserLinkUserCountByMap(Map<String, Object> param)throws Exception;
 
 	public Integer insertItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception;
 
