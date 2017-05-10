@@ -12,6 +12,8 @@ public interface ItripUserLinkUserService {
 
     public ItripUserLinkUser getItripUserLinkUserById(Long id)throws Exception;
 
+    public List<ItripUserLinkUser> getItripUserLinkUserByUserId(Long userId)throws Exception;
+
     public List<ItripUserLinkUser>	getItripUserLinkUserListByMap(Map<String, Object> param)throws Exception;
 
     public Integer getItripUserLinkUserCountByMap(Map<String, Object> param)throws Exception;

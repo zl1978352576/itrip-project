@@ -1,14 +1,20 @@
 package cn.itrip.beans.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 public class ItripUserLinkUser implements Serializable {
 
             private Long id;
             private String linkUserName;
+            private Integer linkIdCardType;
             private String linkIdCard;
             private String linkPhone;
-            private Integer userId;
+            private Long userId;
+            @JSONField(format="yyyy-MM-dd")
             private Date creationDate;
             private Long createdBy;
             private Date modifyDate;
@@ -32,6 +38,14 @@ public class ItripUserLinkUser implements Serializable {
                 this.linkIdCard=linkIdCard;
             }
 
+            public Integer getLinkIdCardType() {
+                return linkIdCardType;
+            }
+
+            public void setLinkIdCardType(Integer linkIdCardType) {
+                this.linkIdCardType = linkIdCardType;
+            }
+
             public  String getLinkIdCard(){
                 return this.linkIdCard;
             }
@@ -42,13 +56,14 @@ public class ItripUserLinkUser implements Serializable {
             public  String getLinkPhone(){
                 return this.linkPhone;
             }
-            public void setUserId (Integer  userId){
+            public void setUserId (Long  userId){
                 this.userId=userId;
             }
 
-            public  Integer getUserId(){
+            public  Long getUserId(){
                 return this.userId;
             }
+
             public void setCreationDate (Date  creationDate){
                 this.creationDate=creationDate;
             }

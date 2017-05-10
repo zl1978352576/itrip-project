@@ -8,6 +8,7 @@
         select
                 id as id,
                 linkUserName as linkUserName,
+                linkIdCardType as linkIdCardType,
                 linkIdCard as linkIdCard,
                 linkPhone as linkPhone,
                 userId as userId,
@@ -27,6 +28,7 @@
         select
                 id as id,
                 linkUserName as linkUserName,
+                linkIdCardType as linkIdCardType,
                 linkIdCard as linkIdCard,
                 linkPhone as linkPhone,
                 userId as userId,
@@ -46,6 +48,7 @@
         select
                 id as id,
                 linkUserName as linkUserName,
+                linkIdCardType as linkIdCardType,
                 linkIdCard as linkIdCard,
                 linkPhone as linkPhone,
                 userId as userId,
@@ -122,6 +125,7 @@
     <insert id="insertItripUserLinkUser" parameterType="cn.itrip.beans.pojo.ItripUserLinkUser">
         insert into itrip_user_link_user(
                         linkUserName,
+                        linkIdCardType,
                         linkIdCard,
                         linkPhone,
                         userId,
@@ -131,6 +135,7 @@
                         modifiedBy)
         values(
                      #{linkUserName},
+                     #{linkIdCardType},
                      #{linkIdCard},
                      #{linkPhone},
                      #{userId},
@@ -150,6 +155,8 @@
                         linkUserName=#{linkUserName},
                     </if>
                     <if test="linkIdCard != null and linkIdCard!=''">
+                        linkIdCardType=#{linkIdCardType},
+                    </if> <if test="linkIdCard != null and linkIdCard!=''">
                         linkIdCard=#{linkIdCard},
                     </if>
                     <if test="linkPhone != null and linkPhone!=''">

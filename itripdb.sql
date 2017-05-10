@@ -1084,12 +1084,12 @@ CREATE TABLE `itrip_user` (
 -- ----------------------------
 DROP TABLE IF EXISTS `itrip_user_link_user`;
 CREATE TABLE `itrip_user_link_user` (
-  `id` bigint(20) NOT NULL COMMENT '主键',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `linkUserName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '常用联系人姓名',
   `linkIdCardType` int(1) DEFAULT NULL COMMENT '证件类型：(0-身份证，1-护照，2-学生证，3-军人证，4-驾驶证，5-旅行证)',
   `linkIdCard` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '证件号码',
   `linkPhone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '常用联系人电话',
-  `userId` int(11) DEFAULT NULL COMMENT '用户id',
+  `userId` bigint(11) DEFAULT NULL COMMENT '用户id',
   `creationDate` datetime DEFAULT NULL,
   `createdBy` bigint(11) DEFAULT NULL,
   `modifyDate` datetime DEFAULT NULL,
