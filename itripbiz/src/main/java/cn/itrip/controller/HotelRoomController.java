@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 2、根据type 和target id 查询酒店房间图片
  * 3、查询床型的接口
  *
+ *
+ * 注：错误码（100301 ——100400）
+ *
  * Created by hanlu on 2017/5/9.
  */
 
