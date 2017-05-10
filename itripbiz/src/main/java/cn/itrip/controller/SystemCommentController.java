@@ -8,6 +8,7 @@ import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.beans.vo.comment.ItripAddCommentVO;
 import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
+import cn.itrip.common.DtoUtil;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripComment.ItripCommentService;
 import cn.itrip.service.itripImage.ItripImageService;
@@ -83,19 +84,13 @@ public class SystemCommentController {
             ItripScoreCommentVO itripScoreCommentVO = new ItripScoreCommentVO();
             try {
                 itripScoreCommentVO =  itripCommentService.getAvgAndTotalScore(Long.valueOf(hotelId));
-                dto.setData(itripScoreCommentVO);
+				dto = DtoUtil.returnSuccess("获取评分成功",itripScoreCommentVO);
             } catch (Exception e) {
                 e.printStackTrace();
-                dto.setSuccess("false");
-                dto.setErrorCode("100001");
-                dto.setMsg("获取评分失败");
+				dto = DtoUtil.returnFail("获取评分失败","100001");
             }
-            dto.setSuccess("true");
-            dto.setMsg("获取评分成功");
         }else{
-            dto.setSuccess("false");
-            dto.setErrorCode("100002");
-            dto.setMsg("hotelId不能为空");
+			dto = DtoUtil.returnFail("hotelId不能为空","100002");
         }
         return dto;
     }
@@ -151,22 +146,15 @@ public class SystemCommentController {
 					}
 				}
 				itripCommentService.itriptxAddItripComment(itripComment,(null == itripImages?new ArrayList<ItripImage>():itripImages));
+				dto = DtoUtil.returnSuccess("新增评论成功");
 			} catch (Exception e) {
 				e.printStackTrace();
-				dto.setSuccess("false");
-				dto.setErrorCode("100003");
-				dto.setMsg("新增评论失败");
+				dto = DtoUtil.returnFail("新增评论失败","100003");
 			}
-			dto.setSuccess("true");
-			dto.setMsg("新增评论成功");
 		}else if(null != currentUser && null == itripAddCommentVO){
-			dto.setSuccess("false");
-			dto.setErrorCode("100004");
-			dto.setMsg("不能提交空，请填写评论信息");
+			dto = DtoUtil.returnFail("不能提交空，请填写评论信息","100004");
 		}else{
-			dto.setSuccess("false");
-			dto.setErrorCode("100005");
-			dto.setMsg("token失效，请重登录");
+			dto = DtoUtil.returnFail("token失效，请重登录","100005");
 		}
 		return dto;
 	}
@@ -199,10 +187,7 @@ public class SystemCommentController {
 	           }catch (Exception e) {
 				// TODO: handle exception
 	        	   fileCount = 0;
-	        	   dto.setSuccess("false");
-	               dto.setErrorCode("100009");//文件大小超限
-	               dto.setMsg("文件大小超限");
-	               return dto;
+	               return DtoUtil.returnFail("文件大小超限","100009");
 	           }
             logger.debug("user upload files count: " + fileCount);
 
@@ -245,23 +230,15 @@ public class SystemCommentController {
     						continue;
     					}
                     }
-                    dto.setSuccess("true");
-                    dto.setMsg("文件上传成功");
-                    dto.setData(dataList);
+                    dto = DtoUtil.returnSuccess("文件上传成功",dataList);
                 }else{
-                	dto.setSuccess("false");
-                	dto.setErrorCode("100006");//文件上传失败
-                	dto.setMsg("文件上传失败");
+					dto = DtoUtil.returnFail("文件上传失败","100006");
                 }
             }else{
-            	dto.setSuccess("false");
-            	dto.setErrorCode("100007");//上传的文件数不正确，必须是大于1小于等于4
-            	dto.setMsg("上传的文件数不正确，必须是大于1小于等于4");
+				dto = DtoUtil.returnFail("上传的文件数不正确，必须是大于1小于等于4","100007");
             }
         }else{
-        	dto.setSuccess("false");
-        	dto.setErrorCode("100008");//请求的内容不是上传文件的类型
-        	dto.setMsg("请求的内容不是上传文件的类型");
+			dto = DtoUtil.returnFail("请求的内容不是上传文件的类型","100008");
         }
         return dto;
     }
@@ -292,18 +269,12 @@ public class SystemCommentController {
 			File file = new File(path);
 			if(file.exists()){
 				file.delete();
-				dto.setSuccess("true");
-				dto.setMsg("删除成功");
-				dto.setErrorCode("0");
+				dto = DtoUtil.returnSuccess("删除成功");
 			}else{
-				dto.setSuccess("false");
-				dto.setMsg("文件不存在，删除失败");
-				dto.setErrorCode("100010");
+				dto = DtoUtil.returnFail("文件不存在，删除失败","100010");
 			}
 		}else{
-			dto.setSuccess("false");
-			dto.setErrorCode("100011");
-			dto.setMsg("token失效，请重登录");
+			dto = DtoUtil.returnFail("token失效，请重登录","100011");
 		}
 		return dto;
 	}
@@ -329,19 +300,14 @@ public class SystemCommentController {
 			param.put("targetId",targetId);
 			try {
 				itripImageVOList =  itripImageService.getItripImageListByMap(param);
-				dto.setData(itripImageVOList);
+				dto = DtoUtil.returnSuccess("获取评论图片成功",itripImageVOList);
 			} catch (Exception e) {
 				e.printStackTrace();
-				dto.setSuccess("false");
-				dto.setErrorCode("100012");
-				dto.setMsg("获取评论图片失败");
+				dto = DtoUtil.returnFail("获取评论图片失败","100012");
 			}
-			dto.setSuccess("true");
-			dto.setMsg("获取评论图片成功");
+
 		}else{
-			dto.setSuccess("false");
-			dto.setErrorCode("100013");
-			dto.setMsg("评论id不能为空");
+			dto = DtoUtil.returnFail("评论id不能为空","100013");
 		}
 		return dto;
 	}
