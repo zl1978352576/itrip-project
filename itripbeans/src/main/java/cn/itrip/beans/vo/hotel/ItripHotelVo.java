@@ -16,7 +16,7 @@ public class ItripHotelVO{
     private String hotelName;
 
     private Long countryId;
-
+xasxsaxsa
     private Long provinceId;
     private Long cityId;
     private String address;
