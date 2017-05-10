@@ -1,4 +1,5 @@
 package cn.itrip.interceptor;
+
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.dtos.ItripException;
 import cn.itrip.common.*;
@@ -6,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -33,17 +35,13 @@ public class ParamValidateInterceptor extends HandlerInterceptorAdapter {
         String regValue = PropertiesUtils.get("validateReg.properties", reqUrl);
         logger.info(">>>>>>>>拦截到>>>>>>>>>请求:" + reqUrl + "验证的value为:" + nullValue);
         //如果需要进行非空判断
-        String value = null;
         if (EmptyUtils.isNotEmpty(nullValue)) {
             String validateNullParam[] = nullValue.split(";")[0].split("##");
             String validateNullMessage[] = nullValue.split(";")[1].split("##");
             if (EmptyUtils.isNotEmpty(validateNullParam)) {
                 for (int i = 0; i < validateNullParam.length; i++) {
-                    String temp1 = request.getParameter(validateNullParam[i]);
-//                    Object temp2 = getRequestPayload(request, validateNullParam[i]);
-//                    value = (EmptyUtils.isEmpty(temp2) ? temp1 : temp2.toString());
-                    value=temp1;
-                    if (EmptyUtils.isEmpty(value)) {
+                    String temp = request.getParameter(validateNullParam[i]);
+                    if (EmptyUtils.isEmpty(temp)) {
                         reurnError(paramNullError, validateNullMessage[i], response);
                         return false;
                     }
@@ -56,14 +54,14 @@ public class ParamValidateInterceptor extends HandlerInterceptorAdapter {
             String validateRegAndMessage[] = regValue.split(";")[1].split("##");
             if (EmptyUtils.isNotEmpty(validateParam)) {
                 for (int i = 0; i < validateParam.length; i++) {
-                    if (EmptyUtils.isEmpty(value)) {
-                        return true;
-                    }
-                    Pattern pattern = Pattern.compile(validateRegAndMessage[i].split(":")[0]);
-                    Matcher matcher = pattern.matcher(value);
-                    if (!matcher.matches()) {
-                        reurnError(paramPatternErrot, validateRegAndMessage[i].split(":")[1], response);
-                        return false;
+                    String temp = request.getParameter(validateParam[i]);
+                    if (EmptyUtils.isNotEmpty(temp)) {
+                        Pattern pattern = Pattern.compile(validateRegAndMessage[i].split(":")[0]);
+                        Matcher matcher = pattern.matcher(temp);
+                        if (!matcher.matches()) {
+                            reurnError(paramPatternErrot, validateRegAndMessage[i].split(":")[1], response);
+                            return false;
+                        }
                     }
                 }
             }
