@@ -4,13 +4,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.List;
 import java.util.Map;
+
+import cn.itrip.beans.vo.hotel.*;
 import cn.itrip.common.Page;
+import org.apache.ibatis.annotations.Param;
+
 /**
 * Created by shang-pc on 2015/11/7.
 */
 public interface ItripHotelService {
 
     public ItripHotel getItripHotelById(Long id)throws Exception;
+
+    /**
+     * 根据酒店的id查询酒店的设施 -add by donghai
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public ItripSearchFacilitiesHotelVO getItripHotelFacilitiesById(Long id)throws Exception;
+
+    /**
+     * 根据酒店的id查询酒店的政策 -add by donghai
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public ItripSearchPolicyHotelVO queryHotelPolicy(Long id)throws Exception;
+
+    /**
+     * 根据酒店的id查询酒店的特色和介绍 -add by donghai
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public List<ItripSearchDetailsHotelVO> queryHotelDetails(Long id)throws Exception;
 
     public List<ItripHotel>	getItripHotelListByMap(Map<String,Object> param)throws Exception;
 

@@ -2,11 +2,14 @@ package cn.itrip.controller;
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.beans.pojo.ItripLabelDic;
+import cn.itrip.beans.vo.hotel.*;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
+import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripLabelDic.ItripLabelDicService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +52,9 @@ public class HotelController {
 
     @Resource
     private ItripLabelDicService itripLabelDicService;
+
+    @Resource
+    private ItripHotelService itripHotelService;
 
     /****
      * 查询热门城市的接口
@@ -143,4 +149,93 @@ public class HotelController {
         return DtoUtil.returnDataSuccess(itripLabelDics);
     }
 
+    /***
+     * 根据酒店id查询酒店设施 -add by donghai
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "根据酒店id查询酒店设施", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据酒店id查询酒店设施"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>10206: 酒店id不能为空</p>"+
+            "<p>10207: 系统异常,获取失败</p>")
+    @RequestMapping(value = "/queryhotelfacilities/{id}", produces = "application/json", method = RequestMethod.POST)
+    @ResponseBody
+    public Dto<ItripSearchFacilitiesHotelVO> queryHotelFacilities(
+            @ApiParam(required = true, name = "id", value = "酒店ID")
+            @PathVariable Long id) {
+        ItripSearchFacilitiesHotelVO itripSearchFacilitiesHotelVO = null;
+        try {
+            if(EmptyUtils.isNotEmpty(id)){
+                itripSearchFacilitiesHotelVO = itripHotelService.getItripHotelFacilitiesById(id);
+                return DtoUtil.returnDataSuccess(itripSearchFacilitiesHotelVO.getFacilities());
+            }else{
+                return DtoUtil.returnFail("酒店id不能为空","10206");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return DtoUtil.returnFail("系统异常,获取失败","10207");
+        }
+    }
+
+    /***
+     * 根据酒店id查询酒店政策 -add by donghai
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "根据酒店id查询酒店政策", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据酒店id查询酒店政策"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>10208: 酒店id不能为空</p>"+
+            "<p>10209: 系统异常,获取失败</p>")
+    @RequestMapping(value = "/queryhotelpolicy/{id}", produces = "application/json", method = RequestMethod.POST)
+    @ResponseBody
+    public Dto<ItripSearchFacilitiesHotelVO> queryHotelPolicy(
+            @ApiParam(required = true, name = "id", value = "酒店ID")
+            @PathVariable Long id) {
+        ItripSearchPolicyHotelVO itripSearchPolicyHotelVO = null;
+        try {
+            if(EmptyUtils.isNotEmpty(id)){
+                itripSearchPolicyHotelVO = itripHotelService.queryHotelPolicy(id);
+                return DtoUtil.returnDataSuccess(itripSearchPolicyHotelVO.getHotelPolicy());
+            }else{
+                return DtoUtil.returnFail("酒店id不能为空","10208");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return DtoUtil.returnFail("系统异常,获取失败","10209");
+        }
+    }
+
+    /***
+     * 根据酒店id查询酒店政策 -add by donghai
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "根据酒店id查询酒店特色和介绍", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据酒店id查询酒店特色和介绍"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>10210: 酒店id不能为空</p>"+
+            "<p>10211: 系统异常,获取失败</p>")
+    @RequestMapping(value = "/queryhoteldetails/{id}", produces = "application/json", method = RequestMethod.POST)
+    @ResponseBody
+    public Dto<ItripSearchFacilitiesHotelVO> queryHotelDetails(
+            @ApiParam(required = true, name = "id", value = "酒店ID")
+            @PathVariable Long id) {
+        List<ItripSearchDetailsHotelVO> itripSearchDetailsHotelVOList = null;
+        try {
+            if(EmptyUtils.isNotEmpty(id)){
+                itripSearchDetailsHotelVOList = itripHotelService.queryHotelDetails(id);
+                return DtoUtil.returnDataSuccess(itripSearchDetailsHotelVOList);
+            }else{
+                return DtoUtil.returnFail("酒店id不能为空","10210");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return DtoUtil.returnFail("系统异常,获取失败","10211");
+        }
+    }
 }

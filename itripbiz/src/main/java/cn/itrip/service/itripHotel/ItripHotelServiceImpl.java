@@ -1,4 +1,5 @@
 package cn.itrip.service.itripHotel;
+import cn.itrip.beans.vo.hotel.*;
 import cn.itrip.dao.itripHotel.ItripHotelMapper;
 import cn.itrip.beans.pojo.ItripHotel;
 import cn.itrip.common.EmptyUtils;
@@ -18,6 +19,20 @@ public class ItripHotelServiceImpl implements ItripHotelService {
 
     public ItripHotel getItripHotelById(Long id)throws Exception{
         return itripHotelMapper.getItripHotelById(id);
+    }
+
+    @Override
+    public ItripSearchFacilitiesHotelVO getItripHotelFacilitiesById(Long id) throws Exception {
+        return itripHotelMapper.getItripHotelFacilitiesById(id);
+    }
+
+    public ItripSearchPolicyHotelVO queryHotelPolicy(Long id)throws Exception{
+        return itripHotelMapper.queryHotelPolicy(id);
+    }
+
+    @Override
+    public List<ItripSearchDetailsHotelVO> queryHotelDetails(Long id) throws Exception {
+        return itripHotelMapper.queryHotelDetails(id);
     }
 
     public List<ItripHotel>	getItripHotelListByMap(Map<String,Object> param)throws Exception{
