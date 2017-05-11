@@ -43,6 +43,7 @@ import cn.itrip.common.SystemConfig;
  * 6、删除评论图片
  * 7、新增评论信息
  * 8、查看个人评论信息
+ * 9、查询出游类型列表
  *
  * 注：错误码（100001 ——100100）
  *
@@ -315,37 +316,73 @@ public class SystemCommentController {
 
 
 
-	@ApiOperation(value = "根据酒店id查询评论数量", httpMethod = "POST",
+	@ApiOperation(value = "根据酒店id查询各类评论数量", httpMethod = "GET",
 			protocols = "HTTP",produces = "application/json",
 			response = Dto.class,notes = "根据酒店id查询评论数量（全部评论、值得推荐、有待改善、有图片）"+
 			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
 			"<p>错误码：</p>"+
-			"<p>100014 : 获取不同类型评论数失败 </p>"+
-			"<p>100015 : 酒店id不能为空</p>")
-	@RequestMapping(value = "/getcount",method=RequestMethod.POST,produces = "application/json")
+			"<p>100014 : 获取酒店总评论数失败 </p>"+
+			"<p>100015 : 获取酒店有图片评论数失败</p>"+
+			"<p>100016 : 获取酒店有待改善评论数失败</p>"+
+			"<p>100017 : 获取酒店值得推荐评论数失败</p>"+
+			"<p>100018 : 参数hotelId为空</p>")
+	@RequestMapping(value = "/getcount/{hotelId}",method=RequestMethod.GET,produces = "application/json")
 	@ResponseBody
-	public Dto<Object> getCommentCountByType(@RequestBody ItripSearchCommentVO itripSearchCommentVO){
+	public Dto<Object> getCommentCountByType(@ApiParam(required = true, name = "hotelId", value = "酒店ID")
+											 @PathVariable String hotelId){
 		Dto<Object> dto = new Dto<Object>();
-		logger.debug("hotelId ================= " + itripSearchCommentVO.getHotelId());
-		if(null != itripSearchCommentVO && null != itripSearchCommentVO.getHotelId()){
-			Map<String,Object> param = new HashMap<String,Object>();
-			param.put("hotelId",itripSearchCommentVO.getHotelId());
-			param.put("isHavingImg",itripSearchCommentVO.getIsHavingImg());//0:无图片 1:有图片
-			param.put("isOk",itripSearchCommentVO.getIsOk());//0：有待改善 1：值得推荐
-			try {
-				logger.debug("getIsHavingImg ================= " + itripSearchCommentVO.getIsHavingImg());
-				logger.debug("getIsOk ================= " + itripSearchCommentVO.getIsOk());
-				int count =  itripCommentService.getItripCommentCountByMap(param);
-				dto = DtoUtil.returnSuccess("获取不同类型评论数成功",count);
-			} catch (Exception e) {
-				e.printStackTrace();
-				dto = DtoUtil.returnFail("获取不同类型评论数失败","100014");
+		logger.debug("hotelId ================= " + hotelId);
+		Integer count = 0;
+		Map<String,Integer> countMap = new HashMap<String,Integer>();
+		Map<String,String> errorMap = new HashMap<String,String>();
+		Map<String,Object> param = new HashMap<String,Object>();
+		if(null != hotelId && !"".equals(hotelId)){
+			param.put("hotelId",hotelId);
+			count = getItripCommentCountByMap(param);
+			if(count != -1){
+				countMap.put("全部评论",count);
+			}else{
+				return DtoUtil.returnFail("获取酒店总评论数失败","100014");
+			}
+			param.put("isHavingImg",1);//0:无图片 1:有图片
+			count = getItripCommentCountByMap(param);
+			if(count != -1){
+				countMap.put("有图片",count);
+			}else{
+				return DtoUtil.returnFail("获取酒店有图片评论数失败","100015");
+			}
+			param.put("isHavingImg",null);
+			param.put("isOk",0);//0：有待改善 1：值得推荐
+			count = getItripCommentCountByMap(param);
+			if(count != -1){
+				countMap.put("有待改善",count);
+			}else{
+				return DtoUtil.returnFail("获取酒店有待改善评论数失败","100016");
+			}
+			param.put("isHavingImg",null);
+			param.put("isOk",1);//0：有待改善 1：值得推荐
+			count = getItripCommentCountByMap(param);
+			if(count != -1){
+				countMap.put("值得推荐",count);
+			}else{
+				return DtoUtil.returnFail("获取酒店值得推荐评论数失败","100017");
 			}
 
 		}else{
-			dto = DtoUtil.returnFail("酒店id不能为空","100015");
+			return DtoUtil.returnFail("参数hotelId为空","100018");
 		}
+		dto = DtoUtil.returnSuccess("获取酒店各类评论数成功",countMap);
 		return dto;
+	}
+
+	public Integer getItripCommentCountByMap(Map<String,Object> param){
+		Integer count  = -1;
+		try {
+			count =  itripCommentService.getItripCommentCountByMap(param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 }
