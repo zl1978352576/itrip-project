@@ -35,25 +35,22 @@
 
     <select id="getItripCommentListByMap" resultType="cn.itrip.beans.vo.comment.ItripListCommentVO" parameterType="java.util.Map">
         select
-                id as id,
-                hotelId as hotelId,
-                productId as productId,
-                orderId as orderId,
-                productType as productType,
-                content as content,
-                userId as userId,
-                isHavingImg as isHavingImg,
-                positionScore as positionScore,
-                facilitiesScore as facilitiesScore,
-                serviceScore as serviceScore,
-                hygieneScore as hygieneScore,
-                score as score,
-                tripMode as tripMode,
-                isOk as isOk,
-                creationDate as creationDate,
-                createdBy as createdBy,
-                modifyDate as modifyDate,
-                modifiedBy as modifiedBy
+            id AS id,
+            hotelId AS hotelId,
+            (SELECT h.hotelName FROM itrip_hotel h WHERE  id =  hotelId) AS hotelName,
+            productId AS productId,
+            (SELECT r.roomTitle FROM itrip_hotel_room r WHERE  id =  productId) AS roomTitle,
+            content AS content,
+            userId AS userId,
+            (SELECT u.userCode FROM itrip_user u WHERE  id =  userId) AS userCode,
+            isHavingImg AS isHavingImg,
+            score AS score,
+            tripMode AS tripMode,
+            (SELECT d.name FROM itrip_label_dic d WHERE  id =  tripMode) AS tripModeName,
+            orderId,
+            (SELECT o.checkInDate FROM itrip_hotel_order o WHERE  id =  orderId) AS checkInDate,
+            creationDate AS creationDate,
+            createdBy AS createdBy
         from itrip_comment
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">

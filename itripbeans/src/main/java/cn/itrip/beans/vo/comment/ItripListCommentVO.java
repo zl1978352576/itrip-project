@@ -1,16 +1,61 @@
 package cn.itrip.beans.vo.comment;
 
-import cn.itrip.beans.pojo.ItripComment;
+import java.util.Date;
 
 /**
  * 点评列表页VO
+ *
  */
-public class ItripListCommentVO extends ItripComment {
+public class ItripListCommentVO{
 	private String userCode;  //发表评论的用户的姓名
 	private Integer hotelLevel;  //酒店的星级
-	private String checkInDate;  //入住时间
+	private Date checkInDate;  //入住时间
 	private String roomTitle;  //房型名称
-	private String hotelName;  //酒店的名称
+	private String tripModeName;//出游类型中文名称
+	private String content;//评论内容
+	private Date creationDate;//评论发表时间
+	private Integer score;//综合评分
+	private Integer isHavingImg;//是否有评论图片
+
+	public String getTripModeName() {
+		return tripModeName;
+	}
+
+	public void setTripModeName(String tripModeName) {
+		this.tripModeName = tripModeName;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	public Integer getIsHavingImg() {
+		return isHavingImg;
+	}
+
+	public void setIsHavingImg(Integer isHavingImg) {
+		this.isHavingImg = isHavingImg;
+	}
 
 	public Integer getHotelLevel() {
 		return hotelLevel;
@@ -26,10 +71,10 @@ public class ItripListCommentVO extends ItripComment {
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
 	}
-	public String getCheckInDate() {
+	public Date getCheckInDate() {
 		return checkInDate;
 	}
-	public void setCheckInDate(String checkInDate) {
+	public void setCheckInDate(Date checkInDate) {
 		this.checkInDate = checkInDate;
 	}
 	public String getRoomTitle() {
@@ -37,11 +82,5 @@ public class ItripListCommentVO extends ItripComment {
 	}
 	public void setRoomTitle(String roomTitle) {
 		this.roomTitle = roomTitle;
-	}
-	public String getHotelName() {
-		return hotelName;
-	}
-	public void setHotelName(String hotelName) {
-		this.hotelName = hotelName;
 	}
 }

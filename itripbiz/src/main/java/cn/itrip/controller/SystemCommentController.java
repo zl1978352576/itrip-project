@@ -1,7 +1,6 @@
 package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
-import cn.itrip.beans.dtos.InputDto;
 import cn.itrip.beans.pojo.ItripComment;
 import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.beans.pojo.ItripUser;
@@ -11,6 +10,7 @@ import cn.itrip.beans.vo.comment.ItripAddCommentVO;
 import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
 import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
 import cn.itrip.common.DtoUtil;
+import cn.itrip.common.Page;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripComment.ItripCommentService;
 import cn.itrip.service.itripImage.ItripImageService;
@@ -52,7 +52,7 @@ import cn.itrip.common.SystemConfig;
  * Created by hanlu on 2017/5/9.
  */
 @Controller
-//@Api(value = "API", basePath = "/http://api.itrap.com/api")
+@Api(value = "API", basePath = "/http://api.itrap.com/api")
 @RequestMapping(value="/api/comment")
 public class SystemCommentController {
 	private Logger logger = Logger.getLogger(SystemCommentController.class);
@@ -390,7 +390,6 @@ public class SystemCommentController {
 		return count;
 	}
 
-
 	@ApiOperation(value = "查询出游类型列表", httpMethod = "GET",
 			protocols = "HTTP",produces = "application/json",
 			response = Dto.class,notes = "查询出游类型列表"+
@@ -410,6 +409,47 @@ public class SystemCommentController {
 			e.printStackTrace();
 			dto =  DtoUtil.returnFail("获取旅游类型列表错误","100019");
 		}
+		return dto;
+	}
+
+	@ApiOperation(value = "根据评论类型查询评论列表，并分页显示", httpMethod = "POST",
+			protocols = "HTTP",produces = "application/json",
+			response = Dto.class,notes = "根据评论类型查询评论列表，并分页显示"+
+			"<p>参数数据e.g：</p>" +
+			"<p>全部评论：{\"hotelId\":10,\"isHavingImg\":-1,\"isOk\":-1,\"pageSize\":5,\"pageNo\":1}</p>" +
+			"<p>有图片：{\"hotelId\":10,\"isHavingImg\":1,\"isOk\":-1,\"pageSize\":5,\"pageNo\":1}</p>" +
+			"<p>值得推荐：{\"hotelId\":10,\"isHavingImg\":-1,\"isOk\":1,\"pageSize\":5,\"pageNo\":1}</p>" +
+			"<p>有待改善：{\"hotelId\":10,\"isHavingImg\":-1,\"isOk\":0,\"pageSize\":5,\"pageNo\":1}</p>" +
+			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+			"<p>错误码：</p>"+
+			"<p>100020 : 获取评论类型列表错误 </p>")
+	@RequestMapping(value = "/getcommentlist",method=RequestMethod.POST,produces = "application/json")
+	@ResponseBody
+	public Dto<Object> getCommentList(@RequestBody ItripSearchCommentVO itripSearchCommentVO){
+		Dto<Object> dto = new Dto<Object>();
+		Map<String,Object> param=new HashMap<>();
+		logger.debug("hotelId : " + itripSearchCommentVO.getHotelId());
+		logger.debug("isHavingImg : " + itripSearchCommentVO.getIsHavingImg());
+		logger.debug("isOk : " + itripSearchCommentVO.getIsOk());
+		if(itripSearchCommentVO.getIsOk() == -1){
+			itripSearchCommentVO.setIsOk(null);
+		}
+		if(itripSearchCommentVO.getIsHavingImg() == -1){
+			itripSearchCommentVO.setIsHavingImg(null);
+		}
+		param.put("hotelId",itripSearchCommentVO.getHotelId());
+		param.put("isHavingImg",itripSearchCommentVO.getIsHavingImg());
+		param.put("isOk",itripSearchCommentVO.getIsOk());
+		try{
+			Page page = itripCommentService.queryItripCommentPageByMap(param,
+					itripSearchCommentVO.getPageNo(),
+					itripSearchCommentVO.getPageSize());
+			dto = DtoUtil.returnDataSuccess(page);
+		}catch (Exception e){
+			e.printStackTrace();
+			dto = DtoUtil.returnFail("获取评论列表错误","100020");
+		}
+
 		return dto;
 	}
 
