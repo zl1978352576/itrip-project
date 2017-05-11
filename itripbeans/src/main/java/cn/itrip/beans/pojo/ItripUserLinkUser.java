@@ -14,7 +14,7 @@ public class ItripUserLinkUser implements Serializable {
             private String linkIdCard;
             private String linkPhone;
             private Long userId;
-            @JSONField(format="yyyy-MM-dd")
+            //@JSONField(format="yyyy-MM-dd")
             private Date creationDate;
             private Long createdBy;
             private Date modifyDate;

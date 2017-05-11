@@ -8,6 +8,7 @@ import cn.itrip.common.EmptyUtils;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
 import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripLabelDic.ItripLabelDicService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
@@ -63,7 +64,7 @@ public class HotelController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "查询热门城市", httpMethod = "GET",
+    @ApiOperation(value = "查询热门城市", httpMethod = "POST",
             protocols = "HTTP",produces = "application/json",
             response = Dto.class,notes = "查询国内、国外的热门城市(1:国内 2:国外)"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
@@ -97,7 +98,7 @@ public class HotelController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "查询商圈", httpMethod = "GET",
+    @ApiOperation(value = "查询商圈", httpMethod = "POST",
             protocols = "HTTP",produces = "application/json",
             response = Dto.class,notes = "根据城市查询商圈"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
@@ -128,7 +129,7 @@ public class HotelController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "查询酒店特色列表", httpMethod = "GET",
+    @ApiOperation(value = "查询酒店特色列表", httpMethod = "POST",
             protocols = "HTTP",produces = "application/json",
             response = Dto.class,notes = "获取酒店特色(用于查询页列表)"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +

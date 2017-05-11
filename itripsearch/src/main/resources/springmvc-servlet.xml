@@ -32,6 +32,9 @@
                         <value>WriteMapNullValue</value>
                     </array>
                 </property>
+                <property name="dateFormat">
+                    <value>yyyy-MM-dd</value>
+                </property>
                 <property name="supportedMediaTypes">
                     <list>
                         <value>application/json;charset=UTF-8</value>

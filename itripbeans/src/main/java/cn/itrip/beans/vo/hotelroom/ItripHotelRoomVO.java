@@ -1,11 +1,11 @@
-package cn.itrip.beans.vo;
+package cn.itrip.beans.vo.hotelroom;
 
 import cn.itrip.beans.pojo.ItripHotelRoom;
 
 /**
- * Created by zezhong.shang on 17-4-27.
+ * Created by hanlu on 2017/5/11.
  */
-public class ItripHotelRoomVo extends ItripHotelRoom {
+public class ItripHotelRoomVO extends ItripHotelRoom {
 
     private String roomBedTypeName;
 

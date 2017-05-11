@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * <p></p>
- *
+ * search 项目专用的读取配置文件的工具类
  * @author zzshang
  * @version v1.0
  * @since 2015/5/25
