@@ -242,7 +242,7 @@
                     <if test="userId != null and userId!=''">
                         userId=#{userId},
                     </if>
-                    <if test="isHavingImg != null and isHavingImg!=''">
+                    <if test="isHavingImg != null">
                         isHavingImg=#{isHavingImg},
                     </if>
                     <if test="positionScore != null and positionScore!=''">
@@ -263,7 +263,7 @@
                     <if test="tripMode != null and tripMode!=''">
                         tripMode=#{tripMode},
                     </if>
-                    <if test="isOk != null and isOk!=''">
+                    <if test="isOk != null">
                         isOk=#{isOk},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
