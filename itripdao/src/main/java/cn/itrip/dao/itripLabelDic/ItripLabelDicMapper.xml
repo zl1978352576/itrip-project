@@ -170,4 +170,27 @@
     <delete id="deleteItripLabelDicById" parameterType="Long">
         delete from itrip_label_dic where id = #{id}
     </delete>
+
+
+
+
+    <select id="getItripLabelDicByParentId" resultType="cn.itrip.beans.vo.ItripLabelDicVO" >
+        select
+        id as id,
+        name as name,
+        value as value,
+        description as description,
+        parentId as parentId,
+        pic as pic,
+        creationDate as creationDate,
+        createdBy as createdBy,
+        modifyDate as modifyDate,
+        modifiedBy as modifiedBy
+        from itrip_label_dic
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="parentId != null">
+                and parentId=#{parentId}
+            </if>
+        </trim>
+    </select>
 </mapper>

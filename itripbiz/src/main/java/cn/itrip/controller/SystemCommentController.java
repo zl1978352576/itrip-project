@@ -6,6 +6,7 @@ import cn.itrip.beans.pojo.ItripComment;
 import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.ItripImageVO;
+import cn.itrip.beans.vo.ItripLabelDicVO;
 import cn.itrip.beans.vo.comment.ItripAddCommentVO;
 import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
 import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
@@ -13,6 +14,7 @@ import cn.itrip.common.DtoUtil;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripComment.ItripCommentService;
 import cn.itrip.service.itripImage.ItripImageService;
+import cn.itrip.service.itripLabelDic.ItripLabelDicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.io.File;
@@ -66,6 +68,9 @@ public class SystemCommentController {
 
 	@Resource
 	private ItripImageService itripImageService;
+
+	@Resource
+	private ItripLabelDicService itripLabelDicService;
 
 
 
@@ -383,6 +388,29 @@ public class SystemCommentController {
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+
+	@ApiOperation(value = "查询出游类型列表", httpMethod = "GET",
+			protocols = "HTTP",produces = "application/json",
+			response = Dto.class,notes = "查询出游类型列表"+
+			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+			"<p>错误码：</p>"+
+			"<p>100019 : 获取旅游类型列表错误 </p>")
+	@RequestMapping(value = "/gettraveltype",method=RequestMethod.GET,produces = "application/json")
+	@ResponseBody
+	public Dto<Object> getTravelType(){
+		Dto<Object> dto = new Dto<Object>();
+		Long parentId = 107L;
+		List<ItripLabelDicVO> itripLabelDicVOList = new ArrayList<ItripLabelDicVO>();
+		try {
+			itripLabelDicVOList =  itripLabelDicService.getItripLabelDicByParentId(parentId);
+			dto = DtoUtil.returnSuccess("获取旅游类型列表成功",itripLabelDicVOList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto =  DtoUtil.returnFail("获取旅游类型列表错误","100019");
+		}
+		return dto;
 	}
 
 }
