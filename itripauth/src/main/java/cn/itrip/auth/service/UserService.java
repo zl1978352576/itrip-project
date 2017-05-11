@@ -28,7 +28,7 @@ public interface UserService {
 	public ItripUser login(String name, String password) throws Exception;
 	/**
 	 * 邮箱激活
-	 * @param user 用户注册油箱
+	 * @param email 用户注册油箱
 	 * @param code 激活码
 	 * @return 
 	 * @throws Exception 

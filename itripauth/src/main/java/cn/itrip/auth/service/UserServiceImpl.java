@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.itrip.auth.exception.UserLoginFailedException;
 import cn.itrip.auth.util.MD5;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.common.EmptyUtils;
@@ -94,11 +95,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ItripUser login(String name, String password) throws Exception {
+	public ItripUser login(String name, String password) throws Exception  {
 		// TODO Auto-generated method stub
 		ItripUser user=this.findByUsername(name);
 		if(user.getUserPassword().equals(password))
+		{
+			if(user.getActivated()!=1){
+				throw new UserLoginFailedException("用户未激活");
+			}
 			return user;
+		}
 		else
 			return null;
 	}
@@ -112,7 +118,7 @@ public class UserServiceImpl implements UserService {
 				if(EmptyUtils.isNotEmpty(user))
 				{
 					logger.debug("激活用户"+email);
-//					user.setActivated(true);//激活用户
+					user.setActivated(1);//激活用户
 					itripUserMapper.updateItripUser(user);
 					return true;
 				}
