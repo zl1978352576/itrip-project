@@ -215,7 +215,7 @@
                         baidu=#{baidu},
                     </if>
                     <if test="activated != null and activated!=''">
-                        baidu=#{activated},
+                        activated=#{activated},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         creationDate=#{creationDate},
