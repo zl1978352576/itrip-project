@@ -23,4 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/api/hotel")
 public class HotelRoomController {
     private Logger logger = Logger.getLogger(HotelRoomController.class);
+
+
 }

@@ -2,24 +2,25 @@ package cn.itrip.controller;
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.beans.pojo.ItripLabelDic;
+import cn.itrip.beans.vo.ItripAreaDicVO;
+import cn.itrip.beans.vo.ItripLabelDicVO;
 import cn.itrip.beans.vo.hotel.*;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
 import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripLabelDic.ItripLabelDicService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.awt.EmbeddedFrame;
-
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,12 +76,22 @@ public class HotelController {
     @ResponseBody
     public Dto<ItripAreaDic> queryHotCity(@PathVariable Integer type) {
         List<ItripAreaDic> itripAreaDics = null;
+        List<ItripAreaDicVO> itripAreaDicVOs = null;
         try {
             if(EmptyUtils.isNotEmpty(type)){
                 Map param = new HashMap();
                 param.put("isHot", 1);
                 param.put("isChina", type);
                 itripAreaDics = itripAreaDicService.getItripAreaDicListByMap(param);
+                if(EmptyUtils.isNotEmpty(itripAreaDics)){
+                    itripAreaDicVOs=new ArrayList();
+                    for (ItripAreaDic dic:itripAreaDics){
+                        ItripAreaDicVO vo=new ItripAreaDicVO();
+                        BeanUtils.copyProperties(dic, vo);
+                        itripAreaDicVOs.add(vo);
+                    }
+                }
+
             }else{
                 DtoUtil.returnFail("type不能为空","10201");
             }
@@ -88,7 +99,7 @@ public class HotelController {
             DtoUtil.returnFail("系统异常","10202");
             e.printStackTrace();
         }
-        return DtoUtil.returnDataSuccess(itripAreaDics);
+        return DtoUtil.returnDataSuccess(itripAreaDicVOs);
     }
 
     /***
@@ -109,12 +120,22 @@ public class HotelController {
     @ResponseBody
     public Dto<ItripAreaDic> queryTradeArea(@PathVariable Long cityId) {
         List<ItripAreaDic> itripAreaDics = null;
+        List<ItripAreaDicVO> itripAreaDicVOs = null;
         try {
             if(EmptyUtils.isNotEmpty(cityId)){
                 Map param = new HashMap();
                 param.put("isTradingArea", 1);
                 param.put("parent", cityId);
                 itripAreaDics = itripAreaDicService.getItripAreaDicListByMap(param);
+                if(EmptyUtils.isNotEmpty(itripAreaDics)){
+                    itripAreaDicVOs=new ArrayList();
+                    for (ItripAreaDic dic:itripAreaDics){
+                        ItripAreaDicVO vo=new ItripAreaDicVO();
+                        BeanUtils.copyProperties(dic, vo);
+                        itripAreaDicVOs.add(vo);
+                    }
+                }
+
             }else{
                 DtoUtil.returnFail("cityId不能为空","10203");
             }
@@ -139,10 +160,20 @@ public class HotelController {
     @ResponseBody
     public Dto<ItripLabelDic> queryHotelFeature() {
         List<ItripLabelDic> itripLabelDics = null;
+        List<ItripLabelDicVO> itripAreaDicVOs = null;
         try {
             Map param = new HashMap();
             param.put("parentId", 16);
             itripLabelDics = itripLabelDicService.getItripLabelDicListByMap(param);
+            if(EmptyUtils.isNotEmpty(itripLabelDics)){
+                itripAreaDicVOs=new ArrayList();
+                for (ItripLabelDic dic:itripLabelDics){
+                    ItripLabelDicVO vo=new ItripLabelDicVO();
+                    BeanUtils.copyProperties(dic, vo);
+                    itripAreaDicVOs.add(vo);
+                }
+            }
+
         } catch (Exception e) {
             DtoUtil.returnFail("系统异常","10205");
             e.printStackTrace();
