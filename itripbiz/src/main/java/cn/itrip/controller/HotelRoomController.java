@@ -1,8 +1,23 @@
 package cn.itrip.controller;
 
+import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.vo.ItripImageVO;
+import cn.itrip.common.DtoUtil;
+import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
+import cn.itrip.service.itripImage.ItripImageService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 酒店房间Controller
@@ -20,9 +35,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 //@Api(value = "API", basePath = "/http://api.itrap.com/api")
-@RequestMapping(value="/api/hotel")
+@RequestMapping(value="/api/hotelroom")
 public class HotelRoomController {
     private Logger logger = Logger.getLogger(HotelRoomController.class);
 
+    @Resource
+    private ItripImageService itripImageService;
 
+    @Resource
+    private ItripHotelRoomService itripHotelRoomService;
+
+    @ApiOperation(value = "根据targetId查询酒店图片(type=0)", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "总体评分、位置评分、设施评分、服务评分、卫生评分"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100012 : 获取酒店图片失败 </p>"+
+            "<p>100013 : 酒店id不能为空</p>")
+    @RequestMapping(value = "/getimg/{targetId}",method= RequestMethod.POST,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getImgBytargetId(@ApiParam(required = true, name = "targetId", value = "酒店ID")
+                                        @PathVariable String targetId){
+        Dto<Object> dto = new Dto<Object>();
+        logger.debug("getImgBytargetId targetId : " + targetId);
+        if(null != targetId && !"".equals(targetId)){
+            List<ItripImageVO> itripImageVOList = null;
+            Map<String,Object> param = new HashMap<String,Object>();
+            param.put("type","0");
+            param.put("targetId",targetId);
+            try {
+                itripImageVOList =  itripImageService.getItripImageListByMap(param);
+                dto = DtoUtil.returnSuccess("获取酒店图片成功",itripImageVOList);
+            } catch (Exception e) {
+                e.printStackTrace();
+                dto = DtoUtil.returnFail("获取酒店图片失败","100301");
+            }
+
+        }else{
+            dto = DtoUtil.returnFail("酒店id不能为空","100302");
+        }
+        return dto;
+    }
 }
+
