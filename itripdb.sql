@@ -949,6 +949,9 @@ INSERT INTO `itrip_label_dic` VALUES ('111', '家庭亲子', null, null, '107', 
 INSERT INTO `itrip_label_dic` VALUES ('112', '独自旅行', null, null, '107', null, null, null, null, null);
 INSERT INTO `itrip_label_dic` VALUES ('113', '代人预定', null, null, '107', null, null, null, null, null);
 INSERT INTO `itrip_label_dic` VALUES ('114', '其他', null, null, '107', null, null, null, null, null);
+INSERT INTO `itrip_label_dic` VALUES ('115','休闲度假',NULL,'你可以在spa馆享受安静的理疗，也可以来到室外享受托艇冲浪、 滑水、航海等海上活动','16',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `itrip_label_dic` VALUES ('116','亲子时刻',NULL,'儿童乐园、室外泳池、私人海滩等设施都是全家感 受亲子时光的好去处','16',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `itrip_label_dic` VALUES ('117','会议酒店',NULL,'这里是召开会议的理想场所，配备先进的会议设施， 并可提供完善的会议服务','16',NULL,NULL,NULL,NULL,NULL);
 
 -- ----------------------------
 -- Table structure for itrip_order_link_user

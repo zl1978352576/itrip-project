@@ -1,5 +1,6 @@
 package cn.itrip.dao.itripHotel;
 import cn.itrip.beans.pojo.ItripHotel;
+import cn.itrip.beans.vo.hotel.*;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,12 @@ import java.util.Map;
 public interface ItripHotelMapper {
 
 	public ItripHotel getItripHotelById(@Param(value = "id") Long id)throws Exception;
+
+	public ItripSearchFacilitiesHotelVO getItripHotelFacilitiesById(@Param(value="id") Long id) throws Exception;
+
+	public ItripSearchPolicyHotelVO queryHotelPolicy(@Param(value="id") Long id) throws Exception;
+
+	public List<ItripSearchDetailsHotelVO> queryHotelDetails(@Param(value="id") Long id) throws Exception;
 
 	public List<ItripHotel>	getItripHotelListByMap(Map<String,Object> param)throws Exception;
 
