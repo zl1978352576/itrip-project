@@ -16,6 +16,7 @@
                 QQ as QQ,
                 weibo as weibo,
                 baidu as baidu,
+                activated as activated,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -40,6 +41,7 @@
                 QQ as QQ,
                 weibo as weibo,
                 baidu as baidu,
+                activated as activated,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -75,6 +77,9 @@
                     </if>
                     <if test="baidu != null and baidu!=''">
                         and baidu=#{baidu}
+                    </if>
+                    <if test="activated != null and activated!=''">
+                        and activated=#{activated}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         and creationDate=#{creationDate}
@@ -125,6 +130,9 @@
                 <if test="baidu != null and baidu!=''">
                     and baidu=#{baidu}
                 </if>
+                <if test="activated != null and activated!=''">
+                    and activated=#{activated}
+                </if>
                 <if test="creationDate != null and creationDate!=''">
                     and creationDate=#{creationDate}
                 </if>
@@ -151,6 +159,7 @@
                         QQ,
                         weibo,
                         baidu,
+                        activated,
                         creationDate,
                         createdBy,
                         modifyDate,
@@ -165,6 +174,7 @@
                      #{QQ},
                      #{weibo},
                      #{baidu},
+                     #{activated},
                      #{creationDate},
                      #{createdBy},
                      #{modifyDate},
@@ -203,6 +213,9 @@
                     </if>
                     <if test="baidu != null and baidu!=''">
                         baidu=#{baidu},
+                    </if>
+                    <if test="activated != null and activated!=''">
+                        baidu=#{activated},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         creationDate=#{creationDate},

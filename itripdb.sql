@@ -1071,6 +1071,7 @@ CREATE TABLE `itrip_user` (
   `QQ` varchar(255) DEFAULT NULL COMMENT 'qq账号',
   `weibo` varchar(255) DEFAULT NULL COMMENT '微博账号',
   `baidu` varchar(255) DEFAULT NULL COMMENT '百度账号',
+  `activated` int(1) DEFAULT NULL COMMENT '是否激活,默认是false',
   `creationDate` datetime DEFAULT NULL,
   `createdBy` bigint(11) DEFAULT NULL,
   `modifyDate` datetime DEFAULT NULL,

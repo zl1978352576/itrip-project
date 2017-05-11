@@ -14,6 +14,7 @@ public class ItripUser implements Serializable {
             private String QQ;
             private String weibo;
             private String baidu;
+            private int activated;
             private Date creationDate;
             private Long createdBy;
             private Date modifyDate;
@@ -89,9 +90,18 @@ public class ItripUser implements Serializable {
             public  String getBaidu(){
                 return this.baidu;
             }
-            public void setCreationDate (Date  creationDate){
-                this.creationDate=creationDate;
+
+            public int getActivated() {
+                return activated;
             }
+
+            public void setActivated(int activated) {
+                this.activated = activated;
+            }
+
+            public void setCreationDate (Date  creationDate){
+                        this.creationDate=creationDate;
+                    }
 
             public  Date getCreationDate(){
                 return this.creationDate;
