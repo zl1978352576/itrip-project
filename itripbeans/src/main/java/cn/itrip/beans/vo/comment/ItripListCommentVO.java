@@ -7,6 +7,7 @@ import java.util.Date;
  *
  */
 public class ItripListCommentVO{
+	private Long id;//评论id
 	private String userCode;  //发表评论的用户的姓名
 	private Integer hotelLevel;  //酒店的星级
 	private Date checkInDate;  //入住时间
@@ -16,6 +17,14 @@ public class ItripListCommentVO{
 	private Date creationDate;//评论发表时间
 	private Integer score;//综合评分
 	private Integer isHavingImg;//是否有评论图片
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTripModeName() {
 		return tripModeName;

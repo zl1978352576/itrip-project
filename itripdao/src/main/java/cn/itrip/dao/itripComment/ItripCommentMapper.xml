@@ -74,7 +74,7 @@
                     <if test="userId != null and userId!=''">
                         and userId=#{userId}
                     </if>
-                    <if test="isHavingImg != null and isHavingImg!=''">
+                    <if test="isHavingImg != null">
                         and isHavingImg=#{isHavingImg}
                     </if>
                     <if test="positionScore != null and positionScore!=''">
@@ -95,7 +95,7 @@
                     <if test="tripMode != null and tripMode!=''">
                         and tripMode=#{tripMode}
                     </if>
-                    <if test="isOk != null and isOk!=''">
+                    <if test="isOk != null">
                         and isOk=#{isOk}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
@@ -242,7 +242,7 @@
                     <if test="userId != null and userId!=''">
                         userId=#{userId},
                     </if>
-                    <if test="isHavingImg != null">
+                    <if test="isHavingImg != null and isHavingImg != ''">
                         isHavingImg=#{isHavingImg},
                     </if>
                     <if test="positionScore != null and positionScore!=''">
@@ -263,7 +263,7 @@
                     <if test="tripMode != null and tripMode!=''">
                         tripMode=#{tripMode},
                     </if>
-                    <if test="isOk != null">
+                    <if test="isOk != null and isOk != ''">
                         isOk=#{isOk},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
