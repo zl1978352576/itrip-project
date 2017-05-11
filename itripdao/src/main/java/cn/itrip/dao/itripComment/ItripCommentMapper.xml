@@ -33,7 +33,7 @@
         </trim>
     </select>
 
-    <select id="getItripCommentListByMap" resultType="cn.itrip.beans.vo.comment.ItripSearchCommentVO" parameterType="java.util.Map">
+    <select id="getItripCommentListByMap" resultType="cn.itrip.beans.vo.comment.ItripListCommentVO" parameterType="java.util.Map">
         select
                 id as id,
                 hotelId as hotelId,
@@ -141,7 +141,7 @@
                 <if test="userId != null and userId!=''">
                     and userId=#{userId}
                 </if>
-                <if test="isHavingImg != null and isHavingImg!=''">
+                <if test="isHavingImg != null">
                     and isHavingImg=#{isHavingImg}
                 </if>
                 <if test="positionScore != null and positionScore!=''">
@@ -162,7 +162,7 @@
                 <if test="tripMode != null and tripMode!=''">
                     and tripMode=#{tripMode}
                 </if>
-                <if test="isOk != null and isOk!=''">
+                <if test="isOk != null">
                     and isOk=#{isOk}
                 </if>
                 <if test="creationDate != null and creationDate!=''">

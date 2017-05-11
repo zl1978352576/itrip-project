@@ -1,7 +1,7 @@
 package cn.itrip.dao.itripComment;
 import cn.itrip.beans.pojo.ItripComment;
 import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
-import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
+import cn.itrip.beans.vo.comment.ItripListCommentVO;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +10,7 @@ public interface ItripCommentMapper {
 
 	public ItripComment getItripCommentById(@Param(value = "id") Long id)throws Exception;
 
-	public List<ItripSearchCommentVO> getItripCommentListByMap(Map<String,Object> param)throws Exception;
+	public List<ItripListCommentVO> getItripCommentListByMap(Map<String,Object> param)throws Exception;
 
 	public Integer getItripCommentCountByMap(Map<String,Object> param)throws Exception;
 

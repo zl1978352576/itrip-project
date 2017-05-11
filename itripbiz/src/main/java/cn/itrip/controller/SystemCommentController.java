@@ -8,6 +8,7 @@ import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.beans.vo.comment.ItripAddCommentVO;
 import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
+import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripComment.ItripCommentService;
@@ -308,6 +309,41 @@ public class SystemCommentController {
 
 		}else{
 			dto = DtoUtil.returnFail("评论id不能为空","100013");
+		}
+		return dto;
+	}
+
+
+
+	@ApiOperation(value = "根据酒店id查询评论数量", httpMethod = "POST",
+			protocols = "HTTP",produces = "application/json",
+			response = Dto.class,notes = "根据酒店id查询评论数量（全部评论、值得推荐、有待改善、有图片）"+
+			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+			"<p>错误码：</p>"+
+			"<p>100014 : 获取不同类型评论数失败 </p>"+
+			"<p>100015 : 酒店id不能为空</p>")
+	@RequestMapping(value = "/getcount",method=RequestMethod.POST,produces = "application/json")
+	@ResponseBody
+	public Dto<Object> getCommentCountByType(@RequestBody ItripSearchCommentVO itripSearchCommentVO){
+		Dto<Object> dto = new Dto<Object>();
+		logger.debug("hotelId ================= " + itripSearchCommentVO.getHotelId());
+		if(null != itripSearchCommentVO && null != itripSearchCommentVO.getHotelId()){
+			Map<String,Object> param = new HashMap<String,Object>();
+			param.put("hotelId",itripSearchCommentVO.getHotelId());
+			param.put("isHavingImg",itripSearchCommentVO.getIsHavingImg());//0:无图片 1:有图片
+			param.put("isOk",itripSearchCommentVO.getIsOk());//0：有待改善 1：值得推荐
+			try {
+				logger.debug("getIsHavingImg ================= " + itripSearchCommentVO.getIsHavingImg());
+				logger.debug("getIsOk ================= " + itripSearchCommentVO.getIsOk());
+				int count =  itripCommentService.getItripCommentCountByMap(param);
+				dto = DtoUtil.returnSuccess("获取不同类型评论数成功",count);
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = DtoUtil.returnFail("获取不同类型评论数失败","100014");
+			}
+
+		}else{
+			dto = DtoUtil.returnFail("酒店id不能为空","100015");
 		}
 		return dto;
 	}

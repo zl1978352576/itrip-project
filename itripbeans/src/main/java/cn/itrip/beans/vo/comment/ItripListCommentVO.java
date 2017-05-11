@@ -5,12 +5,21 @@ import cn.itrip.beans.pojo.ItripComment;
 /**
  * 点评列表页VO
  */
-public class ItripSearchCommentVO extends ItripComment {
+public class ItripListCommentVO extends ItripComment {
 	private String userCode;  //发表评论的用户的姓名
 	private Integer hotelLevel;  //酒店的星级
 	private String checkInDate;  //入住时间
 	private String roomTitle;  //房型名称
 	private String hotelName;  //酒店的名称
+
+	public Integer getHotelLevel() {
+		return hotelLevel;
+	}
+
+	public void setHotelLevel(Integer hotelLevel) {
+		this.hotelLevel = hotelLevel;
+	}
+
 	public String getUserCode() {
 		return userCode;
 	}
