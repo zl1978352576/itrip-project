@@ -6,12 +6,14 @@ import cn.itrip.beans.vo.hotel.SearchHotelVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.Page;
 import cn.itrip.service.SearchHotelService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +23,8 @@ import java.util.Map;
 //@Api(value = "API", basePath = "/http://api.itrap.com/api")
 @RequestMapping(value = "/api/hotellist")
 public class HotelListController {
-    @Autowired
+
+    @Resource
     private SearchHotelService searchHotelService;
 
     /***
@@ -32,28 +35,32 @@ public class HotelListController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/searchItripHotelPage")
+    @ApiOperation(value = "查询酒店分页", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "查询酒店分页(用于查询酒店列表)"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码: </p>"+
+            "<p>0003: 系统异常,获取失败</p>")
+    @RequestMapping(value = "/searchItripHotelPage",produces = "application/json",method = RequestMethod.POST)
     @ResponseBody
     public Dto<Page<ItripHotelVO>> searchItripHotelPage(SearchHotelVO vo,Integer pageSize,Integer pageNo)throws Exception{
-        Map<String,Object> param=new HashMap<>();
-        param.put("destination",vo.getDestination());
-        param.put("hotelLevel",vo.getHotelLevel());
-        param.put("keywords",vo.getKeywords());
-        param.put("areaId",vo.getAreaId());
-        param.put("minPrice",vo.getMinPrice());
-        param.put("maxPrice",vo.getMaxPrice());
-        param.put("feature", vo.getFeature());
-        Page page=searchHotelService.searchItripHotelPage(param, pageNo, pageSize);
+        Page page=searchHotelService.searchItripHotelPage(vo, pageNo, pageSize);
         return DtoUtil.returnDataSuccess(page);
     }
 
-    @RequestMapping(value = "/searchItripHotelListByHotCity")
+    @ApiOperation(value = "根据热门城市查询酒店", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据热门城市查询酒店"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码: </p>"+
+            "<p>0003: 系统异常,获取失败</p>")
+    @RequestMapping(value = "/searchItripHotelListByHotCity",produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Dto<Page<ItripHotelVO>> searchItripHotelListByHotCity(Integer cityId,Integer count)throws Exception{
         Map<String,Object> param=new HashMap<>();
-        param.put("cityId",cityId);
-        searchHotelService.searchItripHotelListByHotCity(cityId,count);
-        return DtoUtil.returnSuccess();
+        param.put("cityId", cityId);
+        List list=searchHotelService.searchItripHotelListByHotCity(cityId,count);
+        return DtoUtil.returnDataSuccess(list);
     }
 
 }

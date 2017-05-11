@@ -1,45 +1,52 @@
 package cn.itrip.beans.vo.hotel;
 
-import java.util.Date;
+import org.apache.solr.client.solrj.beans.Field;
+import java.io.Serializable;
 
 /**
  * Created by zezhong.shang on 17-5-10.
  */
-public class ItripHotelVO{
+public class ItripHotelVO implements Serializable {
 
+    @Field("id")
     private Long id;
-
+    @Field("hotelName")
     private String hotelName;
-
-    private Long countryId;
-
-    private Long provinceId;
-    private Long cityId;
+    @Field("address")
     private String address;
-    private String details;
-    private String facilities;
-    private String hotelPolicy;
-    private Integer hotelType;
+    @Field("hotelLevel")
     private Integer hotelLevel;
-    private Integer isGroupPurchase;
+    @Field("redundantCityName")
     private String redundantCityName;
+    @Field("redundantProvinceName")
     private String redundantProvinceName;
+    @Field("redundantCountryName")
     private String redundantCountryName;
+    @Field("redundantHotelStore")
     private Integer redundantHotelStore;
-    private Date creationDate;
-    private Long createdBy;
-    private Date modifyDate;
-    private Long modifiedBy;
+    @Field("maxPrice")
     private Double maxPrice;
+    @Field("minPrice")
     private Double minPrice;
+    @Field("isOkCount")
     private Integer isOkCount;
     private String extendPropertyIds;
+    @Field("extendPropertyNames")
     private String extendPropertyNames;
-    private String tradingAreaIds;
+    @Field("pics")
+    private String pics;
+    @Field("tradingAreaNames")
     private String tradingAreaNames;
+    @Field("commentCount")
     private Integer commentCount;
-    private String featureIds;
+    @Field("featureNames")
     private String featureNames;
+    @Field("imgUrl")
+    private String imgUrl;
+    @Field("extendPropertyPics")
+    private String extendPropertyPics;
+    @Field("avgScore")
+    private Double avgScore;
 
     public Double getMaxPrice() {
         return maxPrice;
@@ -81,14 +88,6 @@ public class ItripHotelVO{
         this.extendPropertyNames = extendPropertyNames;
     }
 
-    public String getTradingAreaIds() {
-        return tradingAreaIds;
-    }
-
-    public void setTradingAreaIds(String tradingAreaIds) {
-        this.tradingAreaIds = tradingAreaIds;
-    }
-
     public String getTradingAreaNames() {
         return tradingAreaNames;
     }
@@ -103,14 +102,6 @@ public class ItripHotelVO{
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
-    }
-
-    public String getFeatureIds() {
-        return featureIds;
-    }
-
-    public void setFeatureIds(String featureIds) {
-        this.featureIds = featureIds;
     }
 
     public String getFeatureNames() {
@@ -137,29 +128,6 @@ public class ItripHotelVO{
         this.hotelName = hotelName;
     }
 
-    public Long getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
-    }
-
-    public Long getProvinceId() {
-        return provinceId;
-    }
-
-    public void setProvinceId(Long provinceId) {
-        this.provinceId = provinceId;
-    }
-
-    public Long getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
-    }
 
     public String getAddress() {
         return address;
@@ -169,52 +137,12 @@ public class ItripHotelVO{
         this.address = address;
     }
 
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public String getFacilities() {
-        return facilities;
-    }
-
-    public void setFacilities(String facilities) {
-        this.facilities = facilities;
-    }
-
-    public String getHotelPolicy() {
-        return hotelPolicy;
-    }
-
-    public void setHotelPolicy(String hotelPolicy) {
-        this.hotelPolicy = hotelPolicy;
-    }
-
-    public Integer getHotelType() {
-        return hotelType;
-    }
-
-    public void setHotelType(Integer hotelType) {
-        this.hotelType = hotelType;
-    }
-
     public Integer getHotelLevel() {
         return hotelLevel;
     }
 
     public void setHotelLevel(Integer hotelLevel) {
         this.hotelLevel = hotelLevel;
-    }
-
-    public Integer getIsGroupPurchase() {
-        return isGroupPurchase;
-    }
-
-    public void setIsGroupPurchase(Integer isGroupPurchase) {
-        this.isGroupPurchase = isGroupPurchase;
     }
 
     public String getRedundantCityName() {
@@ -249,37 +177,91 @@ public class ItripHotelVO{
         this.redundantHotelStore = redundantHotelStore;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public String getPics() {
+        return pics;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setPics(String pics) {
+        this.pics = pics;
     }
 
-    public Long getCreatedBy() {
-        return createdBy;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
-    public Date getModifyDate() {
-        return modifyDate;
+    public String getExtendPropertyPics() {
+        return extendPropertyPics;
     }
 
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
+    public void setExtendPropertyPics(String extendPropertyPics) {
+        this.extendPropertyPics = extendPropertyPics;
     }
 
-    public Long getModifiedBy() {
-        return modifiedBy;
+    public Double getAvgScore() {
+        return avgScore;
     }
 
-    public void setModifiedBy(Long modifiedBy) {
-        this.modifiedBy = modifiedBy;
+    public void setAvgScore(Double avgScore) {
+        this.avgScore = avgScore;
     }
 
     //git 你太厉害了
+//全属性 留作备份
+//    @Field("id")
+//    private Long id;
+//    @Field("hotelName")
+//    private String hotelName;
+//    private Long countryId;
+//    private Long provinceId;
+//    private Long cityId;
+//    @Field("address")
+//    private String address;
+//    private String details;
+//    private String facilities;
+//    private String hotelPolicy;
+//    private Integer hotelType;
+//    @Field("hotelLevel")
+//    private Integer hotelLevel;
+//    private Integer isGroupPurchase;
+//    @Field("redundantCityName")
+//    private String redundantCityName;
+//    @Field("redundantProvinceName")
+//    private String redundantProvinceName;
+//    @Field("redundantCountryName")
+//    private String redundantCountryName;
+//    @Field("redundantHotelStore")
+//    private Integer redundantHotelStore;
+//    private Date creationDate;
+//    private Long createdBy;
+//    private Date modifyDate;
+//    private Long modifiedBy;
+//    @Field("maxPrice")
+//    private Double maxPrice;
+//    @Field("minPrice")
+//    private Double minPrice;
+//    @Field("isOkCount")
+//    private Integer isOkCount;
+//    private String extendPropertyIds;
+//    @Field("extendPropertyNames")
+//    private String extendPropertyNames;
+//    @Field("pics")
+//    private String pics;
+//    private String tradingAreaIds;
+//    @Field("tradingAreaNames")
+//    private String tradingAreaNames;
+//    @Field("commentCount")
+//    private Integer commentCount;
+//    private String featureIds;
+//    @Field("featureNames")
+//    private String featureNames;
+//    @Field("imgUrl")
+//    private String imgUrl;
+//    @Field("extendPropertyPics")
+//    private String extendPropertyPics;
+//    @Field("avgScore")
+//    private Double avgScore;
 }
