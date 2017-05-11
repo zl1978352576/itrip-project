@@ -34,6 +34,25 @@ public class RedisAPI {
 		}
 		return false;
 	}
+	
+	/**
+	 * set key and value to redis
+	 * @param key
+	 * @param seconds 有效期
+	 * @param value
+	 * @return
+	 */
+	public boolean set(String key,int seconds,String value){
+		try{
+			Jedis jedis = jedisPool.getResource();
+			jedis.setex(key, seconds, value);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	/**
 	 * 判断某个key是否存在
 	 * @param key
@@ -79,5 +98,18 @@ public class RedisAPI {
 		}
 		
 		return value;
+	}
+	
+	/**
+	 * 删除
+	 * @param key
+	 */
+	public void delete(String key){
+		try{
+			Jedis jedis = jedisPool.getResource();
+			jedis.del(key);
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
 	}
 }
