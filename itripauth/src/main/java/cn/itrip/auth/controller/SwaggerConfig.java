@@ -43,7 +43,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("爱旅行-用户认证模块API")
-				.termsOfServiceUrl("http://www.itrip.com/itripauth")
+				.termsOfServiceUrl("http://www.itrip.com/auth")
 				.contact("yao.liu2015@bdqn.cn")
 				.version("1.0")
 				.build();
