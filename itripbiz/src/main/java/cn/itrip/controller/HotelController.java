@@ -279,7 +279,7 @@ public class HotelController {
 
     @ApiOperation(value = "根据targetId查询酒店图片(type=0)", httpMethod = "GET",
             protocols = "HTTP",produces = "application/json",
-            response = Dto.class,notes = "总体评分、位置评分、设施评分、服务评分、卫生评分"+
+            response = Dto.class,notes = "根据酒店ID查询酒店图片"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
             "<p>100212 : 获取酒店图片失败 </p>"+
