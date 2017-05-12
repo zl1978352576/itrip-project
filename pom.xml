@@ -288,9 +288,8 @@
 
     <repositories>
         <repository>
-            <id>nexus</id>
+            <id>nexus-public</id>
             <name>Nexus Repository</name>
-
             <url> http://nexus.okeysky.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
@@ -300,8 +299,26 @@
             </snapshots>
         </repository>
         <repository>
-            <id>snapshots</id>
-            <url>http://nexus.okeysky.com/nexus/content/repositories/snapshots</url>
+            <id>nexus-thirdparty</id>
+            <name>Nexus Repository</name>
+            <url>http://nexus.okeysky.com/nexus/content/repositories/thirdparty/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>nexus-central</id>
+            <name>Nexus Repository</name>
+            <url>http://nexus.okeysky.com/nexus/content/repositories/central/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
     <build>
