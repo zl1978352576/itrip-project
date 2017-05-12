@@ -23,6 +23,7 @@ import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.common.ErrorCode;
 
 @Controller
+@RequestMapping(value = "/api")
 public class UserController {
 	@Resource
 	private UserService userService;

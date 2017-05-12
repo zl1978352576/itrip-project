@@ -23,6 +23,7 @@ import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ErrorCode;
 
 @Controller
+@RequestMapping(value = "/api")
 public class LoginController {
 
 	@Resource
