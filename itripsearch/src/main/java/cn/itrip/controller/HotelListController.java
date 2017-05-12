@@ -6,6 +6,7 @@ import cn.itrip.beans.vo.hotel.SearchHotelVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.Page;
 import cn.itrip.service.SearchHotelService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ import java.util.Map;
  * Created by zezhong.shang on 17-5-10.
  */
 @Controller
-//@Api(value = "API", basePath = "/http://api.itrap.com/api")
+@Api(value = "API", basePath = "/http://api.itrap.com/api")
 @RequestMapping(value = "/api/hotellist")
 public class HotelListController {
 

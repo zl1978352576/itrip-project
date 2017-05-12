@@ -3,13 +3,16 @@ import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.beans.pojo.ItripLabelDic;
 import cn.itrip.beans.vo.ItripAreaDicVO;
+import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.beans.vo.ItripLabelDicVO;
 import cn.itrip.beans.vo.hotel.*;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.service.itripAreaDic.ItripAreaDicService;
 import cn.itrip.service.itripHotel.ItripHotelService;
+import cn.itrip.service.itripImage.ItripImageService;
 import cn.itrip.service.itripLabelDic.ItripLabelDicService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
@@ -43,7 +46,7 @@ import java.util.Map;
  */
 
 @Controller
-//@Api(value = "API", basePath = "/http://api.itrap.com/api")
+@Api(value = "API", basePath = "/http://api.itrap.com/api")
 @RequestMapping(value = "/api/hotel")
 public class HotelController {
 
@@ -57,6 +60,9 @@ public class HotelController {
 
     @Resource
     private ItripHotelService itripHotelService;
+
+    @Resource
+    private ItripImageService itripImageService;
 
     /****
      * 查询热门城市的接口
@@ -269,5 +275,37 @@ public class HotelController {
             e.printStackTrace();
             return DtoUtil.returnFail("系统异常,获取失败","10211");
         }
+    }
+
+    @ApiOperation(value = "根据targetId查询酒店图片(type=0)", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据酒店ID查询酒店图片"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100212 : 获取酒店图片失败 </p>"+
+            "<p>100213 : 酒店id不能为空</p>")
+    @RequestMapping(value = "/getimg/{targetId}",method= RequestMethod.GET,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getImgByTargetId(@ApiParam(required = true, name = "targetId", value = "酒店ID")
+                                        @PathVariable String targetId){
+        Dto<Object> dto = new Dto<Object>();
+        logger.debug("getImgBytargetId targetId : " + targetId);
+        if(null != targetId && !"".equals(targetId)){
+            List<ItripImageVO> itripImageVOList = null;
+            Map<String,Object> param = new HashMap<String,Object>();
+            param.put("type","0");
+            param.put("targetId",targetId);
+            try {
+                itripImageVOList =  itripImageService.getItripImageListByMap(param);
+                dto = DtoUtil.returnSuccess("获取酒店图片成功",itripImageVOList);
+            } catch (Exception e) {
+                e.printStackTrace();
+                dto = DtoUtil.returnFail("获取酒店图片失败","100212");
+            }
+
+        }else{
+            dto = DtoUtil.returnFail("酒店id不能为空","100213");
+        }
+        return dto;
     }
 }

@@ -30,9 +30,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("爱旅行API")
-				.termsOfServiceUrl("http://www.itrip.com")
-				.contact("爱旅行")
+				.title("爱旅行-主业务模块API")
+				.termsOfServiceUrl("http://www.itrip.com/biz")
+				.contact("爱旅行项目组")
 				.version("1.0")
 				.build();
 	}

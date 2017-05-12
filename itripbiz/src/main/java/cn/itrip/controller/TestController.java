@@ -24,6 +24,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/test")
 public class TestController {
+/*
 
     @Autowired
     private ItripAreaDicService itripAreaDicService;
@@ -110,6 +111,7 @@ public class TestController {
         String name= PropertiesUtils.get("validateNull.properties","api/hotel/queryHotCity");
         System.out.println("name = [" + name + "]");
     }
+*/
 
 }
 

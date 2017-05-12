@@ -285,12 +285,10 @@
                 <version>${jackson.verson}</version>
             </dependency>
         </dependencies>
-
     <repositories>
         <repository>
             <id>nexus</id>
             <name>Nexus Repository</name>
-
             <url> http://nexus.okeysky.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
