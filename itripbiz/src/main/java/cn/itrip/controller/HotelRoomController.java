@@ -5,6 +5,7 @@ import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
 import cn.itrip.service.itripImage.ItripImageService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
@@ -34,7 +35,7 @@ import java.util.Map;
  */
 
 @Controller
-//@Api(value = "API", basePath = "/http://api.itrap.com/api")
+@Api(value = "API", basePath = "/http://api.itrap.com/api")
 @RequestMapping(value="/api/hotelroom")
 public class HotelRoomController {
     private Logger logger = Logger.getLogger(HotelRoomController.class);
@@ -45,34 +46,34 @@ public class HotelRoomController {
     @Resource
     private ItripHotelRoomService itripHotelRoomService;
 
-    @ApiOperation(value = "根据targetId查询酒店图片(type=0)", httpMethod = "GET",
+    @ApiOperation(value = "根据targetId查询酒店房型图片(type=1)", httpMethod = "GET",
             protocols = "HTTP",produces = "application/json",
             response = Dto.class,notes = "总体评分、位置评分、设施评分、服务评分、卫生评分"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
-            "<p>100012 : 获取酒店图片失败 </p>"+
-            "<p>100013 : 酒店id不能为空</p>")
-    @RequestMapping(value = "/getimg/{targetId}",method= RequestMethod.POST,produces = "application/json")
+            "<p>100301 : 获取酒店房型图片失败 </p>"+
+            "<p>100302 : 酒店房型id不能为空</p>")
+    @RequestMapping(value = "/getimg/{targetId}",method= RequestMethod.GET,produces = "application/json")
     @ResponseBody
-    public Dto<Object> getImgBytargetId(@ApiParam(required = true, name = "targetId", value = "酒店ID")
+    public Dto<Object> getImgByTargetId(@ApiParam(required = true, name = "targetId", value = "酒店房型ID")
                                         @PathVariable String targetId){
         Dto<Object> dto = new Dto<Object>();
         logger.debug("getImgBytargetId targetId : " + targetId);
         if(null != targetId && !"".equals(targetId)){
             List<ItripImageVO> itripImageVOList = null;
             Map<String,Object> param = new HashMap<String,Object>();
-            param.put("type","0");
+            param.put("type","1");
             param.put("targetId",targetId);
             try {
                 itripImageVOList =  itripImageService.getItripImageListByMap(param);
-                dto = DtoUtil.returnSuccess("获取酒店图片成功",itripImageVOList);
+                dto = DtoUtil.returnSuccess("获取酒店图片房型成功",itripImageVOList);
             } catch (Exception e) {
                 e.printStackTrace();
-                dto = DtoUtil.returnFail("获取酒店图片失败","100301");
+                dto = DtoUtil.returnFail("获取酒店房型图片失败","100301");
             }
 
         }else{
-            dto = DtoUtil.returnFail("酒店id不能为空","100302");
+            dto = DtoUtil.returnFail("酒店房型id不能为空","100302");
         }
         return dto;
     }

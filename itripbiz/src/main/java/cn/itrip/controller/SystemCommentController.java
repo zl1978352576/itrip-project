@@ -296,7 +296,7 @@ public class SystemCommentController {
 			"<p>100013 : 评论id不能为空</p>")
 	@RequestMapping(value = "/getimg/{targetId}",method=RequestMethod.GET,produces = "application/json")
 	@ResponseBody
-	public Dto<Object> getImgBytargetId(@ApiParam(required = true, name = "targetId", value = "评论ID")
+	public Dto<Object> getImgByTargetId(@ApiParam(required = true, name = "targetId", value = "评论ID")
 									 @PathVariable String targetId){
 		Dto<Object> dto = new Dto<Object>();
 		logger.debug("getImgBytargetId targetId : " + targetId);
