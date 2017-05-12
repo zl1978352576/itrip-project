@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 	public ItripUser login(String name, String password) throws Exception  {
 		// TODO Auto-generated method stub
 		ItripUser user=this.findByUsername(name);
-		if(user.getUserPassword().equals(password))
+		if(null!=user&&user.getUserPassword().equals(password))
 		{
 			if(user.getActivated()!=1){
 				throw new UserLoginFailedException("用户未激活");
@@ -119,6 +119,8 @@ public class UserServiceImpl implements UserService {
 				{
 					logger.debug("激活用户"+email);
 					user.setActivated(1);//激活用户
+					user.setUserType(0);//自注册用户
+					user.setFlatID(user.getId());
 					itripUserMapper.updateItripUser(user);
 					return true;
 				}
