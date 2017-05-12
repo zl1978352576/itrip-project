@@ -285,10 +285,9 @@
                 <version>${jackson.verson}</version>
             </dependency>
         </dependencies>
-
     <repositories>
         <repository>
-            <id>nexus-public</id>
+            <id>nexus</id>
             <name>Nexus Repository</name>
             <url> http://nexus.okeysky.com/nexus/content/groups/public/</url>
             <releases>
@@ -299,26 +298,8 @@
             </snapshots>
         </repository>
         <repository>
-            <id>nexus-thirdparty</id>
-            <name>Nexus Repository</name>
-            <url>http://nexus.okeysky.com/nexus/content/repositories/thirdparty/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>nexus-central</id>
-            <name>Nexus Repository</name>
-            <url>http://nexus.okeysky.com/nexus/content/repositories/central/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
+            <id>snapshots</id>
+            <url>http://nexus.okeysky.com/nexus/content/repositories/snapshots</url>
         </repository>
     </repositories>
     <build>
