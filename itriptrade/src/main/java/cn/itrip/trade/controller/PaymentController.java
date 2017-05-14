@@ -24,7 +24,7 @@ import cn.itrip.trade.service.OrderService;
 
 /**
  * 支付处理控制器
- * 
+ *
  * @author hduser
  *
  */
@@ -32,14 +32,14 @@ import cn.itrip.trade.service.OrderService;
 @RequestMapping("/payment")
 public class PaymentController {
 
-	@Resource 
+	@Resource
 	private AlipayConfig alipayConfig;
 	@Resource
 	private OrderService orderService;
 
 	/**
 	 * 确认订单信息
-	 * 
+	 *
 	 * @param id
 	 *            订单ID
 	 * @return
@@ -67,7 +67,7 @@ public class PaymentController {
 
 	/**
 	 * 向支付宝提交支付请求
-	 * 
+	 *
 	 * @param WIDout_trade_no
 	 *            商户订单号，商户网站订单系统中唯一订单号，必填
 	 * @param WIDsubject
@@ -77,7 +77,7 @@ public class PaymentController {
 	 */
 	@RequestMapping(value = "/pay", method = RequestMethod.POST)
 	public void pay(String WIDout_trade_no, String WIDsubject,
-			String WIDtotal_amount, HttpServletResponse response) {
+					String WIDtotal_amount, HttpServletResponse response) {
 		// 超时时间 可空
 		String timeout_express = "2m";
 		// 销售产品码 必填
@@ -87,11 +87,11 @@ public class PaymentController {
 		// 调用RSA签名方式
 		AlipayClient client = new DefaultAlipayClient(
 				alipayConfig.getUrl(),
-				alipayConfig.getAppID(), 
+				alipayConfig.getAppID(),
 				alipayConfig.getRsaPrivateKey(),
 				alipayConfig.getFormat(),
 				alipayConfig.getCharset(),
-				alipayConfig.getAlipayPublicKey(), 
+				alipayConfig.getAlipayPublicKey(),
 				alipayConfig.getSignType());
 		AlipayTradeWapPayRequest alipay_request = new AlipayTradeWapPayRequest();
 
