@@ -46,6 +46,7 @@ import cn.itrip.common.SystemConfig;
  * 7、新增评论信息
  * 8、查看个人评论信息
  * 9、查询出游类型列表
+ * 10、新增评论信息页面获取酒店相关信息（酒店名称、酒店图片、酒店星级）
  *
  * 注：错误码（100001 ——100100）
  *
@@ -452,6 +453,35 @@ public class SystemCommentController {
 
 		return dto;
 	}
+
+
+    @ApiOperation(value = "获取酒店相关信息（酒店名称、酒店图片、酒店星级）", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "新增评论信息页面内获取酒店相关信息（酒店名称、酒店图片、酒店星级）"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100021 : 获取酒店相关信息错误 </p>")
+    @RequestMapping(value = "/gethoteldesc/{hotelId}",method=RequestMethod.GET,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getHotelDesc(@ApiParam(required = true, name = "hotelId", value = "酒店ID")
+                                        @PathVariable String hotelId){
+        Dto<Object> dto = new Dto<Object>();
+        logger.debug("hotelId : " + hotelId);
+        if(null != hotelId && !"".equals(hotelId)){
+
+        }
+
+        try{
+
+            dto = DtoUtil.returnDataSuccess(dto);
+        }catch (Exception e){
+            e.printStackTrace();
+            dto = DtoUtil.returnFail("获取酒店相关信息错误","100021");
+        }
+
+        return dto;
+    }
+
 
 }
 
