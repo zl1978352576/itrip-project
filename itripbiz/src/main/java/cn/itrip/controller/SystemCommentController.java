@@ -422,7 +422,7 @@ public class SystemCommentController {
 			"<p>有待改善：{\"hotelId\":10,\"isHavingImg\":-1,\"isOk\":0,\"pageSize\":5,\"pageNo\":1}</p>" +
 			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
 			"<p>错误码：</p>"+
-			"<p>100020 : 获取评论类型列表错误 </p>")
+			"<p>100020 : 获取评论列表错误 </p>")
 	@RequestMapping(value = "/getcommentlist",method=RequestMethod.POST,produces = "application/json")
 	@ResponseBody
 	public Dto<Object> getCommentList(@RequestBody ItripSearchCommentVO itripSearchCommentVO){
