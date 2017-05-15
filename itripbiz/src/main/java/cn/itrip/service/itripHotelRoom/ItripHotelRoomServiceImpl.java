@@ -1,4 +1,5 @@
 package cn.itrip.service.itripHotelRoom;
+import cn.itrip.beans.vo.hotelroom.ItripHotelRoomVO;
 import cn.itrip.dao.itripHotelRoom.ItripHotelRoomMapper;
 import cn.itrip.beans.pojo.ItripHotelRoom;
 import cn.itrip.common.EmptyUtils;
@@ -20,7 +21,7 @@ public class ItripHotelRoomServiceImpl implements ItripHotelRoomService {
         return itripHotelRoomMapper.getItripHotelRoomById(id);
     }
 
-    public List<ItripHotelRoom>	getItripHotelRoomListByMap(Map<String,Object> param)throws Exception{
+    public List<ItripHotelRoomVO> getItripHotelRoomListByMap(Map<String,Object> param)throws Exception{
         return itripHotelRoomMapper.getItripHotelRoomListByMap(param);
     }
 
@@ -42,14 +43,14 @@ public class ItripHotelRoomServiceImpl implements ItripHotelRoomService {
         return itripHotelRoomMapper.deleteItripHotelRoomById(id);
     }
 
-    public Page<ItripHotelRoom> queryItripHotelRoomPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+    public Page<ItripHotelRoomVO> queryItripHotelRoomPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
         Integer total = itripHotelRoomMapper.getItripHotelRoomCountByMap(param);
         pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
         pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
         Page page = new Page(pageNo, pageSize, total);
         param.put("beginPos", page.getBeginPos());
         param.put("pageSize", page.getPageSize());
-        List<ItripHotelRoom> itripHotelRoomList = itripHotelRoomMapper.getItripHotelRoomListByMap(param);
+        List<ItripHotelRoomVO> itripHotelRoomList = itripHotelRoomMapper.getItripHotelRoomListByMap(param);
         page.setRows(itripHotelRoomList);
         return page;
     }

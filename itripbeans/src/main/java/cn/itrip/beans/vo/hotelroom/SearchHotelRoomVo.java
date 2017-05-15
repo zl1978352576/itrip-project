@@ -16,6 +16,8 @@ public class SearchHotelRoomVo implements Serializable{
 
     private Integer isTimelyResponse;
 
+    private Long roomBedTypeId;
+
 
 
 }

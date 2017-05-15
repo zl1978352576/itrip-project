@@ -37,6 +37,25 @@ public class SearchHotelVO implements Serializable {
     @ApiModelProperty("[非必填] 退房日期")
     private Date checkOutDate;
 
+    private Integer pageSize;
+    private Integer pageNo;
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+    }
+
     public String getAscSort() {
         return ascSort;
     }

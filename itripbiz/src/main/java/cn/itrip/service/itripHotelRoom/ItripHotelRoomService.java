@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.List;
 import java.util.Map;
+
+import cn.itrip.beans.vo.hotelroom.ItripHotelRoomVO;
 import cn.itrip.common.Page;
 /**
 * Created by shang-pc on 2015/11/7.
@@ -12,7 +14,7 @@ public interface ItripHotelRoomService {
 
     public ItripHotelRoom getItripHotelRoomById(Long id)throws Exception;
 
-    public List<ItripHotelRoom>	getItripHotelRoomListByMap(Map<String,Object> param)throws Exception;
+    public List<ItripHotelRoomVO>	getItripHotelRoomListByMap(Map<String,Object> param)throws Exception;
 
     public Integer getItripHotelRoomCountByMap(Map<String,Object> param)throws Exception;
 
@@ -22,5 +24,5 @@ public interface ItripHotelRoomService {
 
     public Integer itriptxDeleteItripHotelRoomById(Long id)throws Exception;
 
-    public Page<ItripHotelRoom> queryItripHotelRoomPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
+    public Page<ItripHotelRoomVO> queryItripHotelRoomPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 }
