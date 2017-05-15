@@ -478,7 +478,9 @@ public class SystemCommentController {
             if(null != hotelId && !"".equals(hotelId)){
                 ItripHotel itripHotel = new ItripHotel();
                 itripHotel = itripHotelService.getItripHotelById(Long.valueOf(hotelId));
+                itripHotelDescVO = new ItripHotelDescVO();
                 itripHotelDescVO.setHotelId(itripHotel.getId());
+                itripHotelDescVO.setHotelName(itripHotel.getHotelName());
                 itripHotelDescVO.setHotelLevel(itripHotel.getHotelLevel());
             }
             dto = DtoUtil.returnDataSuccess(itripHotelDescVO);
