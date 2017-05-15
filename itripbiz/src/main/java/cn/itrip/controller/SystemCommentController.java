@@ -2,17 +2,20 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripComment;
+import cn.itrip.beans.pojo.ItripHotel;
 import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.beans.vo.ItripLabelDicVO;
 import cn.itrip.beans.vo.comment.ItripAddCommentVO;
+import cn.itrip.beans.vo.comment.ItripHotelDescVO;
 import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
 import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.Page;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripComment.ItripCommentService;
+import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripImage.ItripImageService;
 import cn.itrip.service.itripLabelDic.ItripLabelDicService;
 import io.swagger.annotations.Api;
@@ -72,6 +75,9 @@ public class SystemCommentController {
 
 	@Resource
 	private ItripLabelDicService itripLabelDicService;
+
+	@Resource
+    private ItripHotelService itripHotelService;
 
 
 
@@ -455,9 +461,9 @@ public class SystemCommentController {
 	}
 
 
-    @ApiOperation(value = "获取酒店相关信息（酒店名称、酒店图片、酒店星级）", httpMethod = "GET",
+    @ApiOperation(value = "获取酒店相关信息（酒店名称、酒店星级）", httpMethod = "GET",
             protocols = "HTTP",produces = "application/json",
-            response = Dto.class,notes = "新增评论信息页面内获取酒店相关信息（酒店名称、酒店图片、酒店星级）"+
+            response = Dto.class,notes = "新增评论信息页面内获取酒店相关信息（酒店名称、酒店星级）"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
             "<p>100021 : 获取酒店相关信息错误 </p>")
@@ -467,13 +473,15 @@ public class SystemCommentController {
                                         @PathVariable String hotelId){
         Dto<Object> dto = new Dto<Object>();
         logger.debug("hotelId : " + hotelId);
-        if(null != hotelId && !"".equals(hotelId)){
-
-        }
-
+        ItripHotelDescVO itripHotelDescVO = null;
         try{
-
-            dto = DtoUtil.returnDataSuccess(dto);
+            if(null != hotelId && !"".equals(hotelId)){
+                ItripHotel itripHotel = new ItripHotel();
+                itripHotel = itripHotelService.getItripHotelById(Long.valueOf(hotelId));
+                itripHotelDescVO.setHotelId(itripHotel.getId());
+                itripHotelDescVO.setHotelLevel(itripHotel.getHotelLevel());
+            }
+            dto = DtoUtil.returnDataSuccess(itripHotelDescVO);
         }catch (Exception e){
             e.printStackTrace();
             dto = DtoUtil.returnFail("获取酒店相关信息错误","100021");
