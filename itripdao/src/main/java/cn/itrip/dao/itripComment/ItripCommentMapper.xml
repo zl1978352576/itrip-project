@@ -286,9 +286,13 @@
     </delete>
 
     <select id="getCommentAvgScore" resultType="cn.itrip.beans.vo.comment.ItripScoreCommentVO" parameterType="Long">
-        select avg(positionScore) as avgPositionScore, avg(facilitiesScore) as avgFacilitiesScore, avg(serviceScore) as avgServiceScore,
-        avg(hygieneScore) as avgHygieneScore, avg(score) as avgScore
-        from itrip_comment
+        SELECT
+        ROUND(AVG(positionScore),2) AS avgPositionScore,
+        ROUND(AVG(facilitiesScore),2) AS avgFacilitiesScore,
+        ROUND(AVG(serviceScore),2) AS avgServiceScore,
+        ROUND(AVG(hygieneScore),2) AS avgHygieneScore,
+        ROUND(AVG(score),2) AS avgScore
+        FROM itrip_comment
         <trim prefix="where" prefixOverrides="and | or">
             <if test="hotelId != null">
                 and hotelId=#{hotelId}

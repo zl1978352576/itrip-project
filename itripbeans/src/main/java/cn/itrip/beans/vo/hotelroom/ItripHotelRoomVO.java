@@ -3,6 +3,7 @@ package cn.itrip.beans.vo.hotelroom;
 import cn.itrip.beans.pojo.ItripHotelRoom;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ public class ItripHotelRoomVO implements Serializable{
     private Long id;
     private Long hotelId;
     private String roomTitle;
-    private Double roomPrice;
+    private BigDecimal roomPrice;
     private Long roomBedTypeId;
     private Integer isHavingBreakfast;
     private Integer payType;
@@ -46,11 +47,11 @@ public class ItripHotelRoomVO implements Serializable{
         this.roomTitle = roomTitle;
     }
 
-    public Double getRoomPrice() {
+    public BigDecimal getRoomPrice() {
         return roomPrice;
     }
 
-    public void setRoomPrice(Double roomPrice) {
+    public void setRoomPrice(BigDecimal roomPrice) {
         this.roomPrice = roomPrice;
     }
 
