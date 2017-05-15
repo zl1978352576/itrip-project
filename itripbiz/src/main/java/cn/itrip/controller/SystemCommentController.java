@@ -2,17 +2,20 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripComment;
+import cn.itrip.beans.pojo.ItripHotel;
 import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.beans.vo.ItripLabelDicVO;
 import cn.itrip.beans.vo.comment.ItripAddCommentVO;
+import cn.itrip.beans.vo.comment.ItripHotelDescVO;
 import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
 import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.Page;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripComment.ItripCommentService;
+import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripImage.ItripImageService;
 import cn.itrip.service.itripLabelDic.ItripLabelDicService;
 import io.swagger.annotations.Api;
@@ -46,6 +49,7 @@ import cn.itrip.common.SystemConfig;
  * 7、新增评论信息
  * 8、查看个人评论信息
  * 9、查询出游类型列表
+ * 10、新增评论信息页面获取酒店相关信息（酒店名称、酒店图片、酒店星级）
  *
  * 注：错误码（100001 ——100100）
  *
@@ -71,6 +75,9 @@ public class SystemCommentController {
 
 	@Resource
 	private ItripLabelDicService itripLabelDicService;
+
+	@Resource
+    private ItripHotelService itripHotelService;
 
 
 
@@ -422,7 +429,7 @@ public class SystemCommentController {
 			"<p>有待改善：{\"hotelId\":10,\"isHavingImg\":-1,\"isOk\":0,\"pageSize\":5,\"pageNo\":1}</p>" +
 			"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
 			"<p>错误码：</p>"+
-			"<p>100020 : 获取评论类型列表错误 </p>")
+			"<p>100020 : 获取评论列表错误 </p>")
 	@RequestMapping(value = "/getcommentlist",method=RequestMethod.POST,produces = "application/json")
 	@ResponseBody
 	public Dto<Object> getCommentList(@RequestBody ItripSearchCommentVO itripSearchCommentVO){
@@ -452,6 +459,39 @@ public class SystemCommentController {
 
 		return dto;
 	}
+
+
+    @ApiOperation(value = "获取酒店相关信息（酒店名称、酒店星级）", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "新增评论信息页面内获取酒店相关信息（酒店名称、酒店星级）"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100021 : 获取酒店相关信息错误 </p>")
+    @RequestMapping(value = "/gethoteldesc/{hotelId}",method=RequestMethod.GET,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getHotelDesc(@ApiParam(required = true, name = "hotelId", value = "酒店ID")
+                                        @PathVariable String hotelId){
+        Dto<Object> dto = new Dto<Object>();
+        logger.debug("hotelId : " + hotelId);
+        ItripHotelDescVO itripHotelDescVO = null;
+        try{
+            if(null != hotelId && !"".equals(hotelId)){
+                ItripHotel itripHotel = new ItripHotel();
+                itripHotel = itripHotelService.getItripHotelById(Long.valueOf(hotelId));
+                itripHotelDescVO = new ItripHotelDescVO();
+                itripHotelDescVO.setHotelId(itripHotel.getId());
+                itripHotelDescVO.setHotelName(itripHotel.getHotelName());
+                itripHotelDescVO.setHotelLevel(itripHotel.getHotelLevel());
+            }
+            dto = DtoUtil.returnDataSuccess(itripHotelDescVO);
+        }catch (Exception e){
+            e.printStackTrace();
+            dto = DtoUtil.returnFail("获取酒店相关信息错误","100021");
+        }
+
+        return dto;
+    }
+
 
 }
 
