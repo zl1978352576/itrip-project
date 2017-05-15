@@ -8,8 +8,7 @@ public class ItripLabelDicVO {
     private Long id;
     private String name;
     private String description;
-    private Long parentId;
-    private String pic;
+    private String pic="";
 
     public Long getId() {
         return id;
@@ -35,16 +34,8 @@ public class ItripLabelDicVO {
         this.description = description;
     }
 
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
     public String getPic() {
-        return pic;
+        return (pic==null?"":pic);
     }
 
     public void setPic(String pic) {
