@@ -18,6 +18,43 @@ public class SearchHotelRoomVo implements Serializable{
 
     private Long roomBedTypeId;
 
+    public Long getHotelId() {
+        return hotelId;
+    }
 
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
+    }
 
+    public Integer getIsBook() {
+        return isBook;
+    }
+
+    public void setIsBook(Integer isBook) {
+        this.isBook = isBook;
+    }
+
+    public Integer getIsHavingBreakfast() {
+        return isHavingBreakfast;
+    }
+
+    public void setIsHavingBreakfast(Integer isHavingBreakfast) {
+        this.isHavingBreakfast = isHavingBreakfast;
+    }
+
+    public Integer getIsTimelyResponse() {
+        return isTimelyResponse;
+    }
+
+    public void setIsTimelyResponse(Integer isTimelyResponse) {
+        this.isTimelyResponse = isTimelyResponse;
+    }
+
+    public Long getRoomBedTypeId() {
+        return roomBedTypeId;
+    }
+
+    public void setRoomBedTypeId(Long roomBedTypeId) {
+        this.roomBedTypeId = roomBedTypeId;
+    }
 }

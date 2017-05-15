@@ -34,51 +34,6 @@
         </trim>
     </select>
 
-    <select id="getItripHotelFacilitiesById" resultType="cn.itrip.beans.vo.hotel.ItripSearchFacilitiesHotelVO" >
-        select
-                facilities as facilities
-        from itrip_hotel
-        <trim prefix="where" prefixOverrides="and | or">
-            <if test="id != null">
-                and id=#{id}
-            </if>
-        </trim>
-    </select>
-
-    <select id="queryHotelPolicy" resultType="cn.itrip.beans.vo.hotel.ItripSearchPolicyHotelVO" >
-        select
-                hotelPolicy as hotelPolicy
-        from itrip_hotel
-        <trim prefix="where" prefixOverrides="and | or">
-            <if test="id != null">
-                and id=#{id}
-            </if>
-        </trim>
-    </select>
-
-    <select id="queryHotelDetails" resultMap="hotelDetailsMap" >
-        select
-        '酒店介绍' as name,
-        details as description
-        from itrip_hotel
-        <trim prefix="where" prefixOverrides="and | or">
-            <if test="id != null">
-                and id=#{id}
-            </if>
-        </trim>
-        UNION ALL
-        select
-        NAME,
-        description
-        from itrip_label_dic
-        where parentid = '16'
-    </select>
-
-    <resultMap id="hotelDetailsMap" type="cn.itrip.beans.vo.hotel.ItripSearchDetailsHotelVO">
-        <result property="name" column="name" />
-        <result property="description" column="description" />
-    </resultMap>
-
     <select id="getItripHotelListByMap" resultType="cn.itrip.beans.pojo.ItripHotel" parameterType="java.util.Map">
         select
                 id as id,

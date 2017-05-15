@@ -2,20 +2,23 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripHotelRoom;
+import cn.itrip.beans.pojo.ItripLabelDic;
 import cn.itrip.beans.vo.ItripImageVO;
+import cn.itrip.beans.vo.ItripLabelDicVO;
+import cn.itrip.beans.vo.hotel.SearchHotelVO;
 import cn.itrip.beans.vo.hotelroom.ItripHotelRoomVO;
+import cn.itrip.beans.vo.hotelroom.SearchHotelRoomVo;
 import cn.itrip.common.DtoUtil;
+import cn.itrip.common.EmptyUtils;
 import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
 import cn.itrip.service.itripImage.ItripImageService;
+import cn.itrip.service.itripLabelDic.ItripLabelDicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -48,6 +51,9 @@ public class HotelRoomController {
     @Resource
     private ItripHotelRoomService itripHotelRoomService;
 
+    @Resource
+    private ItripLabelDicService itripLabelDicService;
+
     @ApiOperation(value = "根据targetId查询酒店房型图片(type=1)", httpMethod = "GET",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class, notes = "根据酒店房型ID查询酒店房型图片" +
@@ -79,23 +85,52 @@ public class HotelRoomController {
         return dto;
     }
 
-    @ApiOperation(value = "根据酒店id查询酒店房间列表", httpMethod = "POST",
+    @ApiOperation(value = "查询酒店房间列表", httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",
-            response = Dto.class, notes = "根据酒店id查询酒店房间列表" +
+            response = Dto.class, notes = "查询酒店房间列表" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>" +
             "<p>100303 : 酒店id不能为空</p>" +
             "<p>100304 : 系统异常</p>")
-    @RequestMapping(value = "/queryhotelroombyhotel/{hotelId}", method = RequestMethod.GET, produces = "application/json")
-    public Dto<List<ItripHotelRoomVO>> queryHotelRoomByHotel(@ApiParam(required = true, name = "hotelId", value = "酒店房型ID") @PathVariable String hotelId) {
+    @RequestMapping(value = "/queryhotelroombyhotel", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public Dto<List<ItripHotelRoomVO>> queryHotelRoomByHotel(@RequestBody SearchHotelRoomVo vo) {
         Dto<List<ItripHotelRoomVO>> dto = new Dto<List<ItripHotelRoomVO>>();
         try{
+            if(EmptyUtils.isEmpty(vo.getHotelId())){
+              return DtoUtil.returnFail("酒店ID不能为空", "100303");
+            }
             Map<String,Object> param=new HashMap<String,Object>();
-            param.put("hotelId",hotelId);
+            param.put("hotelId",vo.getHotelId());
+            param.put("isBook",vo.getIsBook());
+            param.put("isHavingBreakfast",vo.getIsHavingBreakfast());
+            param.put("isTimelyResponse",vo.getIsTimelyResponse());
+            param.put("roomBedTypeId",vo.getRoomBedTypeId());
             List<ItripHotelRoomVO> temp=itripHotelRoomService.getItripHotelRoomListByMap(param);
             dto.setData(temp);
         }catch (Exception e){
-            dto = DtoUtil.returnFail("获取酒店房型图片失败", "100301");
+            dto = DtoUtil.returnFail("获取酒店房型图片失败", "100304");
+        }finally {
+            return  dto;
+        }
+    }
+
+    @ApiOperation(value = "查询酒店房间床型列表", httpMethod = "GET",
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class, notes = "查询酒店床型列表" +
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>" +
+            "<p>100304 : 获取酒店房间床型失败</p>")
+    @RequestMapping(value = "/queryhotelroombed", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Dto<List<ItripLabelDicVO>> queryHotelRoomBed() {
+        Dto<List<ItripLabelDicVO>> dto = new Dto<List<ItripLabelDicVO>>();
+        try {
+            List<ItripLabelDicVO> itripLabelDicList=itripLabelDicService.getItripLabelDicByParentId(new Long(1));
+            dto.setData(itripLabelDicList);
+        } catch (Exception e) {
+            dto = DtoUtil.returnFail("获取床型失败", "100304");
+            e.printStackTrace();
         }finally {
             return  dto;
         }

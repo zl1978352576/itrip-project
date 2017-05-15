@@ -10,6 +10,7 @@
                 userId as userId,
                 orderType as orderType,
                 orderNo as orderNo,
+                tradeNo as tradeNo,
                 hotelId as hotelId,
                 hotelName as hotelName,
                 roomId as roomId,
@@ -44,6 +45,7 @@
                 userId as userId,
                 orderType as orderType,
                 orderNo as orderNo,
+                tradeNo as tradeNo,
                 hotelId as hotelId,
                 hotelName as hotelName,
                 roomId as roomId,
@@ -77,6 +79,9 @@
                     </if>
                     <if test="orderNo != null and orderNo!=''">
                         and orderNo=#{orderNo}
+                    </if>
+                    <if test="tradeNo != null and tradeNo!=''">
+                        and tradeNo=#{tradeNo}
                     </if>
                     <if test="hotelId != null and hotelId!=''">
                         and hotelId=#{hotelId}
@@ -157,6 +162,9 @@
                 <if test="orderNo != null and orderNo!=''">
                     and orderNo=#{orderNo}
                 </if>
+                <if test="tradeNo != null and tradeNo!=''">
+                    and tradeNo=#{tradeNo}
+                </if>
                 <if test="hotelId != null and hotelId!=''">
                     and hotelId=#{hotelId}
                 </if>
@@ -225,6 +233,7 @@
                         userId,
                         orderType,
                         orderNo,
+                        tradeNo,
                         hotelId,
                         hotelName,
                         roomId,
@@ -249,6 +258,7 @@
                      #{userId},
                      #{orderType},
                      #{orderNo},
+                     #{tradeNo},
                      #{hotelId},
                      #{hotelName},
                      #{roomId},
@@ -285,6 +295,9 @@
                     </if>
                     <if test="orderNo != null and orderNo!=''">
                         orderNo=#{orderNo},
+                    </if>
+                    <if test="tradeNo != null and tradeNo!=''">
+                        tradeNo=#{tradeNo},
                     </if>
                     <if test="hotelId != null and hotelId!=''">
                         hotelId=#{hotelId},

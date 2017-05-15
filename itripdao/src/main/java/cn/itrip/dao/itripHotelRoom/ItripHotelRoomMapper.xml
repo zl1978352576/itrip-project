@@ -31,19 +31,19 @@
 
     <select id="getItripHotelRoomListByMap" resultType="cn.itrip.beans.vo.hotelroom.ItripHotelRoomVO"
             parameterType="java.util.Map">
-        select
-        id as id,
-        hotelId as hotelId,
-        roomTitle as roomTitle,
-        roomPrice as roomPrice,
-        roomBedTypeId as roomBedTypeId,
-        isHavingBreakfast as isHavingBreakfast,
-        payType as payType,
-        satisfaction as satisfaction,
-        isBook as isBook,
-        isCancel as isCancel,
-        isTimelyResponse as isTimelyResponse
-        from itrip_hotel_room
+            select
+                id as id,
+                hotelId as hotelId,
+                roomTitle as roomTitle,
+                roomPrice as roomPrice,
+                roomBedTypeId as roomBedTypeId,
+                isHavingBreakfast as isHavingBreakfast,
+                payType as payType,
+                satisfaction as satisfaction,
+                isBook as isBook,
+                isCancel as isCancel,
+                isTimelyResponse as isTimelyResponse
+            from itrip_hotel_room
         <trim prefix="where" prefixOverrides="and | or">
             <if test="hotelId != null and hotelId!=''">
                 and hotelId=#{hotelId}

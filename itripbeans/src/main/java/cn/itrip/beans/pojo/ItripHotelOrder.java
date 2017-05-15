@@ -8,6 +8,7 @@ public class ItripHotelOrder implements Serializable {
             private Long userId;
             private Integer orderType;
             private Integer orderNo;
+            private String tradeNo;
             private Long hotelId;
             private String hotelName;
             private Long roomId;
@@ -56,6 +57,13 @@ public class ItripHotelOrder implements Serializable {
 
             public  Integer getOrderNo(){
                 return this.orderNo;
+            }
+            public void setTradeNo (String  tradeNo){
+                this.tradeNo=tradeNo;
+            }
+
+            public  String getTradeNo(){
+                return this.tradeNo;
             }
             public void setHotelId (Long  hotelId){
                 this.hotelId=hotelId;
