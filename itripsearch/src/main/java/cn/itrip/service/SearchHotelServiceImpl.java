@@ -3,6 +3,7 @@ import cn.itrip.beans.vo.hotel.ItripHotelVO;
 import cn.itrip.beans.vo.hotel.SearchHotelVO;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.Page;
+import cn.itrip.common.PropertiesUtils;
 import cn.itrip.dao.BaseQuery;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.List;
 @Service
 public class SearchHotelServiceImpl implements SearchHotelService {
 
-    public static String URL = "http://localhost:8080/solr/hotel/";
+    public static String URL = PropertiesUtils.get("solr.properties","baseUrl");
 
     private BaseQuery<ItripHotelVO> itripHotelVOBaseQuery = new BaseQuery(URL);
 

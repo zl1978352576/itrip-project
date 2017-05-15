@@ -45,7 +45,7 @@ public class BaseQuery<T> {
 
     public List<T> queryList(SolrQuery query,Integer pageSize,Class clazz) throws Exception {
         //设置起始页数
-        query.setStart(1);
+        query.setStart(0);
         //一页显示多少条
         query.setRows(EmptyUtils.isEmpty(pageSize)?Constants.DEFAULT_PAGE_SIZE:pageSize);
         QueryResponse queryResponse = httpSolrClient.query(query);
