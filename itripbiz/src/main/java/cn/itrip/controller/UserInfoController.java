@@ -75,6 +75,7 @@ public class UserInfoController {
             param.put("linkUserName", linkUserName);
             try {
                 userLinkUserList = itripUserLinkUserService.getItripUserLinkUserListByMap(param);
+                logger.debug("userLinkUserList size " + userLinkUserList.size());
                 return DtoUtil.returnSuccess("获取常用联系人信息成功",userLinkUserList);
             } catch (Exception e) {
                 e.printStackTrace();
