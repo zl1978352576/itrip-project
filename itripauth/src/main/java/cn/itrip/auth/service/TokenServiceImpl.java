@@ -55,7 +55,7 @@ public class TokenServiceImpl implements TokenService {
 	public String generateToken(String agent, ItripUser user) {
 		// TODO Auto-generated method stub
 		try {
-			UserAgentInfo userAgentInfo = UserAgentUtil.uasParser.parse(agent);
+			UserAgentInfo userAgentInfo = UserAgentUtil.getUasParser().parse(agent);
 			StringBuilder sb = new StringBuilder();
 			if (userAgentInfo.getDeviceType().equals(UserAgentInfo.UNKNOWN)) {
 				if (UserAgentUtil.CheckAgent(agent)) {

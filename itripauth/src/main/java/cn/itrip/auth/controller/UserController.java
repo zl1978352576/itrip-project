@@ -22,6 +22,7 @@ import cn.itrip.auth.service.UserService;
 import cn.itrip.auth.util.MD5;
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripUser;
+import cn.itrip.beans.vo.userinfo.ItripUserVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.ErrorCode;
 
@@ -39,15 +40,24 @@ public class UserController {
 
 	@ApiOperation(value="用户注册",httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",
-            response = Dto.class,notes="使用邮箱注册  示例:{\"userCode\":\"test@bdqn.cn\",\"userPassword\":\"111111\"}")
+            response = Dto.class,notes="暂仅支持使用邮箱注册 ")
 	@ApiImplicitParam(name="user",value="用户实体",required=true,dataType="ItripUser")
 	@RequestMapping(value="/doregister",method=RequestMethod.POST,produces = "application/json")
 	public @ResponseBody
-	Dto doRegister(@RequestBody ItripUser user) {		
+	Dto doRegister(@RequestBody ItripUserVO userVO) {		
 		try {
+			ItripUser user=new ItripUser();
+			user.setUserCode(userVO.getUserCode());
+			user.setUserPassword(userVO.getUserPassword());
+			user.setUserType(userVO.getUserType());
+			user.setUserName(userVO.getUserName());
+			user.setFlatID(userVO.getFlatID());
+			user.setWeChat(userVO.getWeChat());
+			user.setQQ(userVO.getQQ());
+			user.setWeibo(userVO.getWeibo());
+			user.setBaidu(userVO.getBaidu());
 			if (null == userService.findByUsername(user.getUserCode())) {
-				user.setUserPassword(MD5.getMd5(user.getUserPassword(), 32));
-				user.setUserName("");
+				user.setUserPassword(MD5.getMd5(user.getUserPassword(), 32));				
 				userService.itriptxCreateUser(user);				
 				return DtoUtil.returnSuccess();							
 			}else
@@ -63,7 +73,7 @@ public class UserController {
 	@ApiOperation(value="用户名验证",httpMethod = "GET",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="验证是否已存在该用户名")	
-	@RequestMapping(value="/ckusr",method=RequestMethod.GET)
+	@RequestMapping(value="/ckusr",method=RequestMethod.GET,produces= "application/json")
 	public @ResponseBody
 	Dto checkUser(
 			@ApiParam(name="name",value="被检查的用户名",defaultValue="test@bdqn.cn")
@@ -86,7 +96,7 @@ public class UserController {
 	@ApiOperation(value="注册用户激活",httpMethod = "PUT",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="邮箱激活")	
-	@RequestMapping(value="/activate",method=RequestMethod.PUT)
+	@RequestMapping(value="/activate",method=RequestMethod.PUT,produces= "application/json")
 	public @ResponseBody Dto activate(
 			@ApiParam(name="user",value="注册邮箱地址",defaultValue="test@bdqn.cn")
 			@RequestParam String user,
