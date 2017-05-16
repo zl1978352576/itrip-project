@@ -70,7 +70,8 @@
 	
    <bean name="systemConfig" class="cn.itrip.common.SystemConfig">  
 	  <property name="fileUploadPathString" value="${sysConfig.fileUploadPath}"/>
-	  <property name="visitImgUrlString" value="${sysConfig.visitImgUrl}"/>   
-	</bean>
+	  <property name="visitImgUrlString" value="${sysConfig.visitImgUrl}"/>
+       <property name="machineCode" value="${sysConfig.machineCode}"/>
+   </bean>
 
 </beans>
