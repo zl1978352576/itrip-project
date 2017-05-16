@@ -7,4 +7,5 @@ public class ErrorCode {
 	public final static String AUTH_AUTHENTICATION_FAILED="30002";//认证失败
 	public final static String AUTH_PARAMETER_ERROR="30003";//用户名密码参数错误，为空
 	public final static String AUTH_ACTIVATE_FAILED="30004";//邮件注册，激活失败
+	public final static String AUTH_REPLACEMENT_FAILED="30005";//置换token失败
 }
