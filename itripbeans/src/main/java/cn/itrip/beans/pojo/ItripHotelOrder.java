@@ -26,6 +26,7 @@ public class ItripHotelOrder implements Serializable {
             private Integer isNeedInvoice;
             private Integer invoiceType;
             private String invoiceHead;
+            private String linkUserName;
             private Date creationDate;
             private Long createdBy;
             private Date modifyDate;
@@ -207,4 +208,11 @@ public class ItripHotelOrder implements Serializable {
                 return this.modifiedBy;
             }
 
+            public String getLinkUserName() {
+                return linkUserName;
+            }
+
+            public void setLinkUserName(String linkUserName) {
+                this.linkUserName = linkUserName;
+            }
 }

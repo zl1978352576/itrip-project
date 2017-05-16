@@ -61,8 +61,8 @@
                     <if test="id != null and id!=''">
                         and id=#{id}
                     </if>
-                    <if test="linkUserName != null and linkUserName!=''">
-                        and linkUserName=#{linkUserName}
+                    <if test="linkUserName != null and linkUserName != ''">
+                        and linkUserName like CONCAT ('%',#{linkUserName},'%')
                     </if>
                     <if test="linkIdCard != null and linkIdCard!=''">
                         and linkIdCard=#{linkIdCard}
@@ -84,9 +84,6 @@
                     </if>
         </trim>
          order by creationDate desc
-        <if test="beginPos != null and beginPos!='' and pageSize != null  and pageSize !='' ">
-            limit #{beginPos},#{pageSize}
-        </if>
     </select>
 
     <select id="getItripUserLinkUserCountByMap" resultType="Integer"  parameterType="java.util.Map">

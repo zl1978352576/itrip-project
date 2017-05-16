@@ -14,6 +14,19 @@ public class SystemConfig {
 	 * 上传文件访问URL，通过properties文件进行配置
 	 */
 	private String visitImgUrlString;
+	/**
+	 * 生成订单的机器码，通过properties文件进行配置
+	 */
+	private String machineCode;
+
+
+	public String getMachineCode() {
+		return machineCode;
+	}
+
+	public void setMachineCode(String machineCode) {
+		this.machineCode = machineCode;
+	}
 
 	public String getVisitImgUrlString() {
 		return visitImgUrlString;
