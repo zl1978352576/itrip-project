@@ -1,9 +1,13 @@
 package cn.itrip.service.itripHotelOrder;
 import cn.itrip.beans.pojo.ItripHotelOrder;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.List;
 import java.util.Map;
+
+import cn.itrip.beans.pojo.ItripHotelRoom;
 import cn.itrip.common.Page;
 /**
 * Created by shang-pc on 2015/11/7.
@@ -16,11 +20,46 @@ public interface ItripHotelOrderService {
 
     public Integer getItripHotelOrderCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
+    public Integer itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, ItripHotelRoom itripHotelRoom)throws Exception;
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
 
     public Integer itriptxDeleteItripHotelOrderById(Long id)throws Exception;
 
     public Page<ItripHotelOrder> queryItripHotelOrderPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
+
+    /**
+     * 继修改订单的状态 -add by donghai
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public boolean updateHotelOrderStatus(Integer id) throws Exception;
+
+    /**
+     * 根据房间id和用户所需预定的开始日期和结束日期来查询所选择的房间的剩余可预定数量 -add by donghai
+     * @param roomId
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws Exception
+     */
+    public int getRoomNumByRoomIdTypeAndDate(Integer roomId, String startDate, String endDate) throws Exception;
+
+    /**
+     * 生成订单的同时需要修改库存 -add by donghai
+     * @param hotelOrder
+     * @return
+     * @throws Exception
+     */
+    public int updateRoomStore(ItripHotelOrder hotelOrder, ItripHotelRoom itripHotelRoom) throws Exception;
+
+    /**
+     * 根据订单的预定天数和房间的单价计算订单总金额 -add by donghai
+     * @param days
+     * @param roomPrice
+     * @return
+     * @throws Exception
+     */
+    public BigDecimal getOrderPayAmount(int days, BigDecimal roomPrice) throws Exception;
 }
