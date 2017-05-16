@@ -43,7 +43,7 @@
                 isBook as isBook,
                 isCancel as isCancel,
                 isTimelyResponse as isTimelyResponse
-            from itrip_hotel_room
+            from itrip_hotel_room room
         <trim prefix="where" prefixOverrides="and | or">
             <if test="hotelId != null and hotelId!=''">
                 and hotelId=#{hotelId}
@@ -65,6 +65,15 @@
             </if>
             <if test="isTimelyResponse != null and isTimelyResponse!=''">
                 and isTimelyResponse=#{isTimelyResponse}
+            </if>
+            <if test="timesList!=null and timesList!=''">
+                <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                    AND (
+                        (SELECT store FROM	itrip_hotel_temp_store	WHERE	roomId = room.id AND date_format(recordDate, '%Y-%m-%d') = date_format(#{item}, '%Y-%m-%d')) IS NULL
+                    OR
+                        (SELECT	store FROM	itrip_hotel_temp_store	WHERE roomId = room.id	AND date_format(recordDate, '%Y-%m-%d') = date_format(#{item}, '%Y-%m-%d')) > 0
+                    )
+                </foreach>
             </if>
         </trim>
         order by creationDate desc

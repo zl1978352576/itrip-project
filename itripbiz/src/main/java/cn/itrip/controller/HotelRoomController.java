@@ -8,6 +8,7 @@ import cn.itrip.beans.vo.ItripLabelDicVO;
 import cn.itrip.beans.vo.hotel.SearchHotelVO;
 import cn.itrip.beans.vo.hotelroom.ItripHotelRoomVO;
 import cn.itrip.beans.vo.hotelroom.SearchHotelRoomVo;
+import cn.itrip.common.DateUtil;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,7 +102,14 @@ public class HotelRoomController {
             if(EmptyUtils.isEmpty(vo.getHotelId())){
               return DtoUtil.returnFail("酒店ID不能为空", "100303");
             }
-            Map<String,Object> param=new HashMap<String,Object>();
+            Map<String,Object> param=new HashMap();
+            if(EmptyUtils.isNotEmpty(vo.getStartDate()) && EmptyUtils.isNotEmpty(vo.getEndDate())){
+                if(vo.getStartDate().getTime()>vo.getEndDate().getTime()){
+                    return DtoUtil.returnFail("入住时间不能大于退房时间", "100303");
+                }
+                List<Date> dates= DateUtil.getBetweenDates(vo.getStartDate(),vo.getEndDate());
+                param.put("timesList",dates);
+            }
             param.put("hotelId",vo.getHotelId());
             param.put("isBook",vo.getIsBook());
             param.put("isHavingBreakfast",vo.getIsHavingBreakfast());
