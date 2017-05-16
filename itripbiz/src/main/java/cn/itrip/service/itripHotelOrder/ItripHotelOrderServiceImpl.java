@@ -73,6 +73,8 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     }
 
     public int getRoomNumByRoomIdTypeAndDate(Integer roomId, String startDate, String endDate) throws Exception {
+
+
         return itripHotelOrderMapper.getRoomNumByRoomIdTypeAndDate(roomId, startDate, endDate);
     }
 

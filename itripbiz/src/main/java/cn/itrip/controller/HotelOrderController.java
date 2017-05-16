@@ -1,13 +1,13 @@
 package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
-import cn.itrip.beans.pojo.ItripComment;
-import cn.itrip.beans.pojo.ItripHotelOrder;
-import cn.itrip.beans.pojo.ItripImage;
-import cn.itrip.beans.pojo.ItripUser;
+import cn.itrip.beans.pojo.*;
 import cn.itrip.beans.vo.order.ItripAddHotelOrderVO;
+import cn.itrip.beans.vo.order.PreAddOrderVo;
 import cn.itrip.common.DtoUtil;
+import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ValidationToken;
+import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripHotelOrder.ItripHotelOrderService;
 import io.swagger.annotations.Api;
 import org.apache.log4j.Logger;
@@ -15,11 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +36,11 @@ public class HotelOrderController {
     @Resource
     private ValidationToken validationToken;
 
+    @Resource
+    private ItripHotelService hotelService;
+
     @RequestMapping(value = "/addhotelorder",method= RequestMethod.POST,produces = "application/json")
+    @ResponseBody
     public Dto<Object> addHotelOrder(@RequestBody ItripAddHotelOrderVO itripAddHotelOrderVO, HttpServletRequest request){
         //ItripComment
         Dto<Object> dto = new Dto<Object>();
@@ -73,6 +76,32 @@ public class HotelOrderController {
             dto = DtoUtil.returnFail("不能提交空，请填写评论信息","100004");
         }else{
             dto = DtoUtil.returnFail("token失效，请重登录","100005");
+        }
+        return dto;
+    }
+
+    @RequestMapping(value = "/getpreorderinfo",method= RequestMethod.POST,produces = "application/json")
+    @ResponseBody
+    public Dto<PreAddOrderVo> getPreOrderInfo(@RequestBody PreAddOrderVo preAddOrderVo){
+        ItripHotel hotel=null;
+        PreAddOrderVo preItripOrderVo=null;
+        Dto<PreAddOrderVo> dto = new Dto<PreAddOrderVo>();
+        try {
+            if(EmptyUtils.isNotEmpty(preAddOrderVo.getHotelId())){
+                dto=DtoUtil.returnFail("hotelId不能为空","100006");
+            }else if(EmptyUtils.isNotEmpty(preAddOrderVo.getRoomId())){
+                dto=DtoUtil.returnFail("roomId不能为空","100007");
+            }else{
+                preItripOrderVo=new PreAddOrderVo();
+                hotel=hotelService.getItripHotelById(preAddOrderVo.getHotelId());
+                preItripOrderVo.setCheckInDate(preAddOrderVo.getCheckInDate());
+                preItripOrderVo.setCheckOutDate(preAddOrderVo.getCheckOutDate());
+                preItripOrderVo.setHotelName(hotel.getHotelName());
+                dto.setData(preItripOrderVo);
+            }
+        } catch (Exception e) {
+            dto=DtoUtil.returnFail("系统异常","100008");
+            return dto;
         }
         return dto;
     }
