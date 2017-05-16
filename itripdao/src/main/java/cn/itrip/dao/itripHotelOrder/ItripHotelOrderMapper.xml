@@ -27,6 +27,7 @@
                 isNeedInvoice as isNeedInvoice,
                 invoiceType as invoiceType,
                 invoiceHead as invoiceHead,
+                linkUserName as linkUserName,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -62,6 +63,7 @@
                 isNeedInvoice as isNeedInvoice,
                 invoiceType as invoiceType,
                 invoiceHead as invoiceHead,
+                linkUserName as linkUserName,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -130,6 +132,9 @@
                     </if>
                     <if test="invoiceHead != null and invoiceHead!=''">
                         and invoiceHead=#{invoiceHead}
+                    </if>
+                    <if test="linkUserName != null and linkUserName != ''">
+                        and linkUserName like CONCAT ('%',#{linkUserName},'%')
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         and creationDate=#{creationDate}
@@ -213,6 +218,9 @@
                 <if test="invoiceHead != null and invoiceHead!=''">
                     and invoiceHead=#{invoiceHead}
                 </if>
+                <if test="linkUserName != null and linkUserName != ''">
+                    and linkUserName like CONCAT ('%',#{linkUserName},'%')
+                </if>
                 <if test="creationDate != null and creationDate!=''">
                     and creationDate=#{creationDate}
                 </if>
@@ -250,6 +258,7 @@
                         isNeedInvoice,
                         invoiceType,
                         invoiceHead,
+                        linkUserName,
                         creationDate,
                         createdBy,
                         modifyDate,
@@ -275,6 +284,7 @@
                      #{isNeedInvoice},
                      #{invoiceType},
                      #{invoiceHead},
+                     #{linkUserName},
                      #{creationDate},
                      #{createdBy},
                      #{modifyDate},
@@ -346,6 +356,9 @@
                     </if>
                     <if test="invoiceHead != null and invoiceHead!=''">
                         invoiceHead=#{invoiceHead},
+                    </if>
+                    <if test="linkUserName != null and linkUserName!=''">
+                        linkUserName=#{linkUserName},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         creationDate=#{creationDate},
