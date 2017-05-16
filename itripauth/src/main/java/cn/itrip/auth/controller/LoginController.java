@@ -48,7 +48,7 @@ public class LoginController {
 	@ApiOperation(value = "用户登录",httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="根据用户名、密码进行统一认证")	
-	@RequestMapping(value="/dologin",method=RequestMethod.POST)
+	@RequestMapping(value="/dologin",method=RequestMethod.POST,produces= "application/json")
 	public @ResponseBody Dto dologin(
 			@ApiParam(required = true, name = "name", value = "用户名",defaultValue="yao.liu2015@bdqn.cn")
 			@RequestParam
