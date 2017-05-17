@@ -1,5 +1,4 @@
 package cn.itrip.service.itripHotelOrder;
-import cn.itrip.beans.pojo.ItripHotelRoom;
 import cn.itrip.beans.pojo.ItripHotelTempStore;
 import cn.itrip.beans.pojo.ItripProductStore;
 import cn.itrip.common.*;
@@ -26,7 +25,6 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     @Resource
     private ItripProductStoreMapper itripProductStoreMapper;
 
-
     public ItripHotelOrder getItripHotelOrderById(Long id)throws Exception{
         return itripHotelOrderMapper.getItripHotelOrderById(id);
     }
@@ -39,12 +37,13 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return itripHotelOrderMapper.getItripHotelOrderCountByMap(param);
     }
 
-    public Integer itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, ItripHotelRoom itripHotelRoom)throws Exception{
-            if(this.updateRoomStore(itripHotelOrder, itripHotelRoom) == 0){
-                throw new Exception();
+    public Integer addItripHotelOrder(ItripHotelOrder itripHotelOrder, BigDecimal roomPrice)throws Exception{
+            if(true){
+                itripHotelOrder.setCreationDate(new Date());
+                return itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder);
+            }else{
+                return 0;
             }
-            itripHotelOrder.setCreationDate(new Date());
-            return itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder);
     }
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception{
@@ -84,16 +83,16 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return payAmount;
     }
 
-    public int updateRoomStore(ItripHotelOrder hotelOrder, ItripHotelRoom itripHotelRoom) throws Exception{
+   /* public int updateRoomStore(ItripHotelOrder hotelOrder, BigDecimal roomPrice) throws Exception{
         int result = 0;
         //获取预定日期，并按天拆分
-        List<Date> dates = DateUtil.getBetweenDates(hotelOrder.getCheckInDate(), hotelOrder.getCheckOutDate());
+        List<Date> dates = DateUtil.getBetweenDates(hotelOrder.getCheckInDate(),hotelOrder.getCheckOutDate());
         //计算订单的金额
-        BigDecimal payAmount = getOrderPayAmount(dates.size(), itripHotelRoom.getRoomPrice());
+        BigDecimal payAmount = getOrderPayAmount(dates.size(), roomPrice);
         hotelOrder.setPayAmount(payAmount);
         ItripHotelTempStore tempStore = new ItripHotelTempStore();
-        //score用来存临时库存表的库存数量，此数量通过计算得到
-        int score = 0;
+        //store用来存临时库存表的库存数量，此数量通过计算得到
+        int store = 0;
         //遍历日期，每个日期都对应一条库存记录
         Long hotelId = hotelOrder.getHotelId();
         Long roomId = hotelOrder.getRoomId();
@@ -118,7 +117,7 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
                     result = itripHotelTempStoreMapper.updateItripHotelTempStore(tempStore);
                 }
                 //临时库存表中没有记录
-                else if(null == tempStoreList){
+                else if((null != tempStoreList && 0 == tempStoreList.size()) || null == tempStoreList){
                     //根据roomId去库存表中查询库存量
                     Map<String, Object> productStoreMap = new HashMap<String, Object>();
                     productStoreMap.put("productType", 1);
@@ -126,8 +125,9 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
                     List<ItripProductStore> productStoreList = null;
                     productStoreList = itripProductStoreMapper.getItripProductStoreListByMap(productStoreMap);
                     if(null != productStoreList && 1 == productStoreList.size()){
-                        score = productStoreList.get(0).getStore() - count;
-                        tempStore.setStore(tempStore.getStore() - count);
+                        store = productStoreList.get(0).getStore() - count;
+                        tempStore.setStore(store);
+                        tempStore.setCreationDate(new Date());
                         result = itripHotelTempStoreMapper.insertItripHotelTempStore(tempStore);
                     }
                 }
@@ -137,6 +137,5 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         }
         return result;
     }
-
-
+*/
 }

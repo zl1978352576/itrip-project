@@ -1,68 +1,68 @@
 package cn.itrip.test;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import cn.itrip.beans.pojo.ItripComment;
-import cn.itrip.beans.pojo.ItripImage;
-import cn.itrip.service.itripComment.ItripCommentService;
-import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+//import java.text.DateFormat;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import java.util.*;
+//
+//import cn.itrip.beans.pojo.ItripComment;
+//import cn.itrip.beans.pojo.ItripImage;
+//import cn.itrip.service.itripComment.ItripCommentService;
+//import org.junit.Test;
+//import org.springframework.context.ApplicationContext;
+//import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class CommentTest {
 
-    @Test
-    public void test() {
-        System.out.println("Not yet implemented");
-    }
+//    @Test
+//    public void test() {
+//        System.out.println("Not yet implemented");
+//    }
 
-    @Test
-    public void testAddItripComment() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
-        ItripCommentService itripCommentServiceImpl =
-                (ItripCommentService) context.getBean("itripCommentServiceImpl");
-        ItripComment comment = new ItripComment();
-        List<ItripImage> imageList = new ArrayList<ItripImage>();
-        ItripImage image = new ItripImage();
-        Date d = new Date();
-        String date = "2016-01-01";
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            d = df.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        image.setType("0");
-        image.setImgUrl("");
-        image.setCreationDate(d);
-        imageList.add(image);
-        comment.setHotelId(1L);
-        comment.setProductId(1L);
-        comment.setProductType(1);
-        comment.setUserId(1L);
-        comment.setIsHavingImg(1);
-        comment.setHygieneScore(3);
-        comment.setFacilitiesScore(3);
-        comment.setPositionScore(3);
-        comment.setServiceScore(3);
-        comment.setTripMode("1");
-        comment.setIsOk(1);
-        comment.setCreationDate(new Date());
-        comment.setCreatedBy(1l);
-        comment.setModifyDate(new Date());
-        comment.setModifiedBy(1l);
-        comment.setContent("1231231");
-
-        try {
-            Boolean flag = itripCommentServiceImpl.itriptxAddItripComment(comment, imageList);
-            System.out.println("添加点评的数量为：" + flag);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testAddItripComment() {
+//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//        ItripCommentService itripCommentServiceImpl =
+//                (ItripCommentService) context.getBean("itripCommentServiceImpl");
+//        ItripComment comment = new ItripComment();
+//        List<ItripImage> imageList = new ArrayList<ItripImage>();
+//        ItripImage image = new ItripImage();
+//        Date d = new Date();
+//        String date = "2016-01-01";
+//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        try {
+//            d = df.parse(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        image.setType("0");
+//        image.setImgUrl("");
+//        image.setCreationDate(d);
+//        imageList.add(image);
+//        comment.setHotelId(1L);
+//        comment.setProductId(1L);
+//        comment.setProductType(1);
+//        comment.setUserId(1L);
+//        comment.setIsHavingImg(1);
+//        comment.setHygieneScore(3);
+//        comment.setFacilitiesScore(3);
+//        comment.setPositionScore(3);
+//        comment.setServiceScore(3);
+//        comment.setTripMode("1");
+//        comment.setIsOk(1);
+//        comment.setCreationDate(new Date());
+//        comment.setCreatedBy(1l);
+//        comment.setModifyDate(new Date());
+//        comment.setModifiedBy(1l);
+//        comment.setContent("1231231");
+//
+//        try {
+//            Boolean flag = itripCommentServiceImpl.itriptxAddItripComment(comment, imageList);
+//            System.out.println("添加点评的数量为：" + flag);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 //    @Test
 //    public void testQueryItripCommentList() {
@@ -107,20 +107,20 @@ public class CommentTest {
 //            e.printStackTrace();
 //        }
 //    }
-	@Test
-	public void testGetItripCommentCountByMap() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
-        ItripCommentService itripCommentServiceImpl =
-                (ItripCommentService) context.getBean("itripCommentServiceImpl");
-        Map<String, Object> param = new HashMap<String, Object>();
-        param.put("hotelId", 1);
-        try {
-            Integer i = itripCommentServiceImpl.getItripCommentCountByMap(param);
-            System.out.println("查询出来的数目：" + i);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//	@Test
+//	public void testGetItripCommentCountByMap() {
+//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//        ItripCommentService itripCommentServiceImpl =
+//                (ItripCommentService) context.getBean("itripCommentServiceImpl");
+//        Map<String, Object> param = new HashMap<String, Object>();
+//        param.put("hotelId", 1);
+//        try {
+//            Integer i = itripCommentServiceImpl.getItripCommentCountByMap(param);
+//            System.out.println("查询出来的数目：" + i);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 //    @Test
 //	public void testItriptxAddItripComment() {
