@@ -42,6 +42,18 @@ public class AlipayConfig {
 	 * RSA2
 	 */
 	private String signType;
+	
+	///////////////////////////////////////////支付结果显示
+	/**
+	 * 支付成功跳转页面
+	 */
+	private String paymentSuccessUrl;
+	/**
+	 * 支付失败跳转页面
+	 */
+	private String paymentFailureUrl;
+	///////////////////////////////////////////支付结果显示
+	
 	public String getAppID() {
 		return appID;
 	}
@@ -103,4 +115,16 @@ public class AlipayConfig {
 		this.signType = signType;
 	}
 	
+	public String getPaymentSuccessUrl() {
+		return paymentSuccessUrl;
+	}
+	public void setPaymentSuccessUrl(String paymentSuccessUrl) {
+		this.paymentSuccessUrl = paymentSuccessUrl;
+	}
+	public String getPaymentFailureUrl() {
+		return paymentFailureUrl;
+	}
+	public void setPaymentFailureUrl(String paymentFailureUrl) {
+		this.paymentFailureUrl = paymentFailureUrl;
+	}
 }

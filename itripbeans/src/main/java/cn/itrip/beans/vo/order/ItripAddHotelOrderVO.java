@@ -12,8 +12,6 @@ import java.util.Date;
 @ApiModel(value = "ItripAddHotelOrderVO",description = "生成订单VO")
 public class ItripAddHotelOrderVO {
 
-    @ApiModelProperty("[必填] 用户ID")
-    private Long userId;
     @ApiModelProperty("[必填，注：接收数字类型] 订单类型(0:旅游产品 1:酒店产品 2：机票产品)")
     private Integer orderType;
 //    @ApiModelProperty("[必填] 订单号")
@@ -24,6 +22,8 @@ public class ItripAddHotelOrderVO {
     private String hotelName;
     @ApiModelProperty("[必填] 房间ID")
     private Long roomId;
+    @ApiModelProperty("[必填] 消耗数量")
+    private BigDecimal roomPrice;
     @ApiModelProperty("[必填] 消耗数量")
     private Integer count;
     @ApiModelProperty("[必填] 预定天数")
@@ -50,14 +50,6 @@ public class ItripAddHotelOrderVO {
     private Integer invoiceType;
     @ApiModelProperty("[非必填] 发票抬头")
     private String invoiceHead;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Integer getOrderType() {
         return orderType;
@@ -89,6 +81,14 @@ public class ItripAddHotelOrderVO {
 
     public void setRoomId(Long roomId) {
         this.roomId = roomId;
+    }
+
+    public BigDecimal getRoomPrice() {
+        return roomPrice;
+    }
+
+    public void setRoomPrice(BigDecimal roomPrice) {
+        this.roomPrice = roomPrice;
     }
 
     public Integer getCount() {

@@ -7,16 +7,26 @@ import java.io.IOException;
 
 public class UserAgentUtil {
 
-	public static UASparser uasParser = null;
-
-	// 初始化uasParser对象
+	private static UASparser uasParser = null;
+	public static UASparser getUasParser(){
+		if(uasParser==null){
+			try {
+				uasParser = new UASparser(OnlineUpdater.getVendoredInputStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return uasParser;
+	}
+	/*// 初始化uasParser对象
 	static {
 		try {
 			uasParser = new UASparser(OnlineUpdater.getVendoredInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * 是否移动设备

@@ -150,8 +150,8 @@
                 <dl class="content">
                     <dt>订单编号：</dt>
                     <dd>
-                        ${id}
-                        <input type="hidden" name="WIDout_trade_no" value="${id}">
+                        ${orderNo}
+                        <input type="hidden" name="WIDout_trade_no" value="${orderNo}">
                         <input type="hidden" name="WIDsubject" value="${hotelName}">
                         <input type="hidden" name="WIDtotal_amount" value="${payAmount}">
                     </dd>
