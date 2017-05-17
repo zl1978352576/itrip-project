@@ -17,6 +17,8 @@ public class PreAddOrderVo implements Serializable{
 
     private Date checkOutDate;
 
+    private Integer count;
+
     private String hotelName;
 
     private String store;
@@ -77,5 +79,13 @@ public class PreAddOrderVo implements Serializable{
 
     public void setStore(String store) {
         this.store = store;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

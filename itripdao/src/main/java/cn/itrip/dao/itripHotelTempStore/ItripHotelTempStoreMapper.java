@@ -23,4 +23,5 @@ public interface ItripHotelTempStoreMapper {
 
 	public int flushStore(Map<String,Object> param)throws Exception;
 
+	public Integer updateRoomStore(Map<String,Object> param)throws Exception;
 }
