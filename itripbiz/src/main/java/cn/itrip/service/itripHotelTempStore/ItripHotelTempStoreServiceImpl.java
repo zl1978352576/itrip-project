@@ -86,6 +86,9 @@ public class ItripHotelTempStoreServiceImpl implements ItripHotelTempStoreServic
         Integer count = (Integer) param.get("count");
         itripHotelTempStoreMapper.flushStore(param);
         List<StoreVO> storeVOList = itripHotelTempStoreMapper.queryRoomStore(param);
+        if(EmptyUtils.isEmpty(storeVOList)){
+            return false;
+        }
         for (StoreVO vo : storeVOList) {
             if (vo.getStore() < count) {
                 return false;
