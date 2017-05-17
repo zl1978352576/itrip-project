@@ -141,7 +141,7 @@ CREATE TABLE `itrip_hotel_feature` (
 
 /*Data for the table `itrip_hotel_feature` */
 
-insert  into `itrip_hotel_feature`(`id`,`hotelId`,`featureId`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`) values (1,1,1,'2017-05-11 13:24:42',NULL,NULL,NULL),(2,1,10,'2017-05-11 13:28:31',NULL,NULL,NULL);
+insert  into `itrip_hotel_feature`(`id`,`hotelId`,`featureId`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`) values (1,1,17,'2017-05-11 13:24:42',NULL,NULL,NULL),(2,1,115,'2017-05-11 13:28:31',NULL,NULL,NULL);
 
 /*Table structure for table `itrip_hotel_order` */
 
@@ -151,7 +151,7 @@ CREATE TABLE `itrip_hotel_order` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `userId` bigint(11) NOT NULL COMMENT '用户id',
   `orderType` int(11) DEFAULT NULL COMMENT '订单类型(0:旅游产品 1:酒店产品 2：机票产品)',
-  `orderNo` varchar(50) NOT NULL COMMENT '订单号',
+  `orderNo` varchar(255) NOT NULL COMMENT '订单号',
   `tradeNo` varchar(255) DEFAULT NULL COMMENT '交易编号',
   `hotelId` bigint(20) DEFAULT NULL COMMENT '冗余字段 酒店id',
   `hotelName` varchar(255) DEFAULT NULL COMMENT '冗余字段 酒店名称',
@@ -179,7 +179,7 @@ CREATE TABLE `itrip_hotel_order` (
 
 /*Data for the table `itrip_hotel_order` */
 
-insert  into `itrip_hotel_order`(`id`,`userId`,`orderType`,`orderNo`,`tradeNo`,`hotelId`,`hotelName`,`roomId`,`count`,`bookingDays`,`checkInDate`,`checkOutDate`,`orderStatus`,`payAmount`,`payType`,`noticePhone`,`noticeEmail`,`specialRequirement`,`isNeedInvoice`,`invoiceType`,`invoiceHead`,`linkUserName`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`) values (2,100078,0,2147483647,NULL,1,'北京首都大酒店',1,3,1,'2016-01-01 00:00:00','2016-01-02 00:00:00',1,'0.10',1,'1','1','',1,1,'1',NULL,'2016-01-01 00:00:00',1,'2016-01-01 00:00:00',1);
+insert  into `itrip_hotel_order`(`id`,`userId`,`orderType`,`orderNo`,`tradeNo`,`hotelId`,`hotelName`,`roomId`,`count`,`bookingDays`,`checkInDate`,`checkOutDate`,`orderStatus`,`payAmount`,`payType`,`noticePhone`,`noticeEmail`,`specialRequirement`,`isNeedInvoice`,`invoiceType`,`invoiceHead`,`linkUserName`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`) values (2,100078,0,'2147483647',NULL,1,'北京首都大酒店',1,3,1,'2016-01-01 00:00:00','2016-01-02 00:00:00',1,'0.10',1,'1','1','',1,1,'1',NULL,'2016-01-01 00:00:00',1,'2016-01-01 00:00:00',1);
 
 /*Table structure for table `itrip_hotel_room` */
 
@@ -213,7 +213,7 @@ insert  into `itrip_hotel_room`(`id`,`hotelId`,`roomTitle`,`roomPrice`,`roomBedT
 DROP TABLE IF EXISTS `itrip_hotel_temp_store`;
 
 CREATE TABLE `itrip_hotel_temp_store` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `hotelId` int(11) NOT NULL,
   `roomId` bigint(11) NOT NULL COMMENT '商品id',
   `recordDate` datetime NOT NULL COMMENT '记录时间',
@@ -223,7 +223,7 @@ CREATE TABLE `itrip_hotel_temp_store` (
   `modifyDate` datetime DEFAULT NULL,
   `modifiedBy` bigint(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='实时库存表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='实时库存表';
 
 /*Data for the table `itrip_hotel_temp_store` */
 
@@ -353,7 +353,7 @@ CREATE TABLE `itrip_user` (
 
 /*Data for the table `itrip_user` */
 
-insert  into `itrip_user`(`id`,`userCode`,`userPassword`,`userType`,`flatID`,`userName`,`weChat`,`QQ`,`weibo`,`baidu`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`,`activated`) values (1,'admin','123456',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'zezhong.shang@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,'yao.liu2015@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,1),(9,'test@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0);
+insert  into `itrip_user`(`id`,`userCode`,`userPassword`,`userType`,`flatID`,`userName`,`weChat`,`QQ`,`weibo`,`baidu`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`,`activated`) values (1,'admin','123456',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'zezhong.shang@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,'yao.liu2015@bdqn.cn','96e79218965eb72c92a549dd5a330112',0,8,'刘尧','13911565189','5495569','weibo账号','baidu账号','2017-05-09 15:28:30',1,'2017-05-09 15:28:49',1,1),(9,'test@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `itrip_user_link_user` */
 
@@ -376,6 +376,138 @@ CREATE TABLE `itrip_user_link_user` (
 /*Data for the table `itrip_user_link_user` */
 
 insert  into `itrip_user_link_user`(`id`,`linkUserName`,`linkIdCard`,`linkPhone`,`userId`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`,`linkIdCardType`) values (1,'张三',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL),(2,'张四',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL),(3,'王五',NULL,NULL,2,NULL,NULL,NULL,NULL,NULL);
+
+/* Procedure structure for procedure `pre_flush_store` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `pre_flush_store` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `pre_flush_store`(
+
+	startTime datetime,
+
+	endTime datetime,
+
+	roomId BIGINT,
+
+	hotelId BIGINT
+
+)
+BEGIN
+
+
+
+	DECLARE
+
+			tempTime datetime;
+
+	DECLARE
+
+		store INT;
+
+	DECLARE
+
+		count INT;
+
+		set tempTime=startTime;
+
+
+
+WHILE (
+
+	date_format(tempTime, '%Y-%m-%d') <= date_format(endTime, '%Y-%m-%d')
+
+) DO
+
+
+
+	SELECT
+
+		COUNT(id) INTO count
+
+	FROM
+
+		itrip_hotel_temp_store
+
+	WHERE
+
+		roomId = roomId
+
+	AND date_format(recordDate, '%Y-%m-%d') = date_format(tempTime, '%Y-%m-%d');
+
+
+
+	IF (count=0) THEN
+
+
+
+	SELECT
+
+		store INTO store
+
+	FROM
+
+		itrip_product_store
+
+	WHERE
+
+		productId = roomId
+
+	AND productType = 1;
+
+
+
+SELECT store;
+
+
+
+ INSERT INTO itrip_hotel_temp_store (
+
+	hotelId,
+
+	roomId,
+
+	recordDate,
+
+	store,
+
+	creationDate
+
+)
+
+VALUES
+
+	(
+
+		hotelId,
+
+		roomId,
+
+		tempTime,
+
+		store,
+
+		NOW()
+
+	);
+
+
+
+END IF;
+
+
+
+set  tempTime=date_add(tempTime, INTERVAL 1 DAY);
+
+
+
+END while;
+
+
+
+END */$$
+DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
