@@ -26,7 +26,7 @@ import java.util.*;
  * 用户信息Controller
  *
  * 包括API接口：
- * 1、根据UserId查询常用联系人接口
+ * 1、根据UserId、联系人姓名查询常用联系人接口
  * 2、指定用户下添加联系人
  * 3、修改指定用户下的联系人信息
  * 4、删除指定用户下的联系人信息
@@ -55,14 +55,14 @@ public class UserInfoController {
     @ApiOperation(value = "查询常用联系人接口", httpMethod = "POST",
             protocols = "HTTP",produces = "application/json",
             response = Dto.class,notes = "查询常用联系人信息(可根据联系人姓名进行模糊查询)"+
-            "<p>若不根据联系人姓名进行查询，入参 {\"linkUserName\":\"\"}即可 | 若根据联系人姓名进行查询，须进行相应的入参，比如：{\"linkUserName\":\"张三\"}</p>" +
+            "<p>若不根据联系人姓名进行查询，不输入参数即可 | 若根据联系人姓名进行查询，须进行相应的入参，比如：{\"linkUserName\":\"张三\"}</p>" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
             "<p>100401 : 获取常用联系人信息失败 </p>"+
             "<p>100402 : token失效，请重登录</p>")
     @RequestMapping(value = "/queryuserlinkuser",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
-    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestBody String linkUserName,HttpServletRequest request){
+    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestBody(required = false) String linkUserName,HttpServletRequest request){
         logger.debug("linkUserName : " + linkUserName);
         String tokenString  = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);

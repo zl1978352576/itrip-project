@@ -26,7 +26,6 @@ public class ItripUserLinkUserServiceImpl implements ItripUserLinkUserService {
 
     public List<ItripUserLinkUser>	getItripUserLinkUserListByMap(Map<String,Object> param)throws Exception{
         List<ItripUserLinkUser> list = itripUserLinkUserMapper.getItripUserLinkUserListByMap(param);
-        System.out.println("list    " + list.size());
         return list;
     }
 
