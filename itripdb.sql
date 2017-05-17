@@ -151,7 +151,7 @@ CREATE TABLE `itrip_hotel_order` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `userId` bigint(11) NOT NULL COMMENT '用户id',
   `orderType` int(11) DEFAULT NULL COMMENT '订单类型(0:旅游产品 1:酒店产品 2：机票产品)',
-  `orderNo` int(50) NOT NULL COMMENT '订单号',
+  `orderNo` varchar(50) NOT NULL COMMENT '订单号',
   `tradeNo` varchar(255) DEFAULT NULL COMMENT '交易编号',
   `hotelId` bigint(20) DEFAULT NULL COMMENT '冗余字段 酒店id',
   `hotelName` varchar(255) DEFAULT NULL COMMENT '冗余字段 酒店名称',
