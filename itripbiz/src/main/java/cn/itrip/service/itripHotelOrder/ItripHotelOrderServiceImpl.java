@@ -2,6 +2,7 @@ package cn.itrip.service.itripHotelOrder;
 import cn.itrip.beans.pojo.ItripHotelRoom;
 import cn.itrip.beans.pojo.ItripHotelTempStore;
 import cn.itrip.beans.pojo.ItripProductStore;
+import cn.itrip.beans.vo.order.ItripListHotelOrderVO;
 import cn.itrip.common.*;
 import cn.itrip.dao.itripHotelOrder.ItripHotelOrderMapper;
 import cn.itrip.beans.pojo.ItripHotelOrder;
@@ -146,4 +147,21 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     public void flushStore(Map<String,Object> param) throws Exception {
         itripHotelTempStoreMapper.flushStore(param);
     }
+
+
+
+    public Page<ItripListHotelOrderVO> queryOrderPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
+        Integer total = itripHotelOrderMapper.getOrderCountByMap(param);
+        pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
+        pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
+        Page page = new Page(pageNo, pageSize, total);
+        param.put("beginPos", page.getBeginPos());
+        param.put("pageSize", page.getPageSize());
+        List<ItripListHotelOrderVO> itripHotelOrderList = itripHotelOrderMapper.getOrderListByMap(param);
+        page.setRows(itripHotelOrderList);
+        return page;
+    }
+
+
+
 }

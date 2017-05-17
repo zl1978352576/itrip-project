@@ -54,11 +54,13 @@ public class Page<T> {
      */
     public Page(int curpage,Integer pagesize,Integer total) {
         super();
-        this.curPage = curpage;
-        this.total = total;
-        this.pageSize = pagesize;
+        this.curPage = curpage;//当前页码
+        this.total = total;//总记录数
+        this.pageSize = pagesize;//页码容量
+        //总页数=总记录数total/pageSize（+1）
         this.pageCount = (total + this.pageSize - 1) /this.pageSize;
-        this.beginPos =  (this.pageCount == 0 ? 0 : (this.curPage- 1)) * this.pageSize + (total == 0 ? 0 : 1);
+        //下标起始位置：(curPage-1)*pageSize
+        this.beginPos = (curPage-1)*pageSize;
     }
     /**
      * 总页面数 .

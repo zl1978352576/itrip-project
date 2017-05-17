@@ -1,5 +1,6 @@
 package cn.itrip.dao.itripHotelOrder;
 import cn.itrip.beans.pojo.ItripHotelOrder;
+import cn.itrip.beans.vo.order.ItripListHotelOrderVO;
 import org.apache.ibatis.annotations.Param;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -26,5 +27,16 @@ public interface ItripHotelOrderMapper {
 	public int getRoomNumByRoomIdTypeAndDate(Integer roomId, String startDate, String endDate) throws Exception;
 
 	public int updateRoomStore(ItripHotelOrder hotelOrder) throws Exception;
+
+	/**
+	 * 获取订单列表 add by hanlu
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItripListHotelOrderVO> getOrderListByMap(Map<String,Object> param)throws Exception;
+
+
+	public Integer getOrderCountByMap(Map<String,Object> param)throws Exception;
 
 }

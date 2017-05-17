@@ -40,6 +40,111 @@
         </trim>
     </select>
 
+
+    <select id="getOrderListByMap" resultType="cn.itrip.beans.vo.order.ItripListHotelOrderVO" parameterType="java.util.Map">
+        select
+        id as id,
+        orderType as orderType,
+        orderNo as orderNo,
+        hotelId as hotelId,
+        hotelName as hotelName,
+        orderStatus as orderStatus,
+        count as count,
+        checkInDate as checkInDate,
+        payAmount as payAmount,
+        payType as payType,
+        linkUserName as linkUserName,
+        creationDate as creationDate
+        from itrip_hotel_order
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null and id!=''">
+                and id=#{id}
+            </if>
+            <if test="userId != null and userId!=''">
+                and userId=#{userId}
+            </if>
+            <if test="orderType != null and orderType!=''">
+                and orderType=#{orderType}
+            </if>
+            <if test="orderNo != null and orderNo!=''">
+                and orderNo like CONCAT ('%',#{orderNo},'%')
+            </if>
+            <if test="hotelId != null and hotelId!=''">
+                and hotelId=#{hotelId}
+            </if>
+            <if test="hotelName != null and hotelName!=''">
+                and hotelName=#{hotelName}
+            </if>
+            <if test="checkInDate != null and checkInDate!=''">
+                and checkInDate=#{checkInDate}
+            </if>
+            <if test="orderStatus != null and orderStatus!=''">
+                and orderStatus=#{orderStatus}
+            </if>
+            <if test="payAmount != null and payAmount!=''">
+                and payAmount=#{payAmount}
+            </if>
+            <if test="linkUserName != null and linkUserName != ''">
+                and linkUserName like CONCAT ('%',#{linkUserName},'%')
+            </if>
+            <if test="startDate != null and startDate!=''">
+                and creationDate &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate!=''">
+                and creationDate &lt;= #{endDate}
+            </if>
+        </trim>
+        order by creationDate desc
+        <if test="beginPos != null and pageSize != null  and pageSize !='' ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getOrderCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from itrip_hotel_order
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null and id!=''">
+                and id=#{id}
+            </if>
+            <if test="userId != null and userId!=''">
+                and userId=#{userId}
+            </if>
+            <if test="orderType != null and orderType!=''">
+                and orderType=#{orderType}
+            </if>
+            <if test="orderNo != null and orderNo!=''">
+                and orderNo like CONCAT ('%',#{orderNo},'%')
+            </if>
+            <if test="hotelId != null and hotelId!=''">
+                and hotelId=#{hotelId}
+            </if>
+            <if test="hotelName != null and hotelName!=''">
+                and hotelName=#{hotelName}
+            </if>
+            <if test="checkInDate != null and checkInDate!=''">
+                and checkInDate=#{checkInDate}
+            </if>
+            <if test="orderStatus != null and orderStatus!=''">
+                and orderStatus=#{orderStatus}
+            </if>
+            <if test="payAmount != null and payAmount!=''">
+                and payAmount=#{payAmount}
+            </if>
+            <if test="linkUserName != null and linkUserName != ''">
+                and linkUserName like CONCAT ('%',#{linkUserName},'%')
+            </if>
+            <if test="startDate != null and startDate!=''">
+                and creationDate &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate!=''">
+                and creationDate &lt;= #{endDate}
+            </if>
+        </trim>
+    </select>
+
+
+
+
     <select id="getItripHotelOrderListByMap" resultType="cn.itrip.beans.pojo.ItripHotelOrder" parameterType="java.util.Map">
         select
                 id as id,
@@ -147,7 +252,7 @@
                     </if>
         </trim>
          order by creationDate desc
-        <if test="beginPos != null and beginPos!='' and pageSize != null  and pageSize !='' ">
+        <if test="beginPos != null and pageSize != null  and pageSize !='' ">
             limit #{beginPos},#{pageSize}
         </if>
     </select>

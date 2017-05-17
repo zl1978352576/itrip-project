@@ -2,7 +2,9 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.*;
+import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
 import cn.itrip.beans.vo.order.ItripAddHotelOrderVO;
+import cn.itrip.beans.vo.order.ItripSearchOrderVO;
 import cn.itrip.beans.vo.order.PreAddOrderVO;
 import cn.itrip.beans.vo.store.StoreVO;
 import cn.itrip.common.*;
@@ -28,6 +30,9 @@ import java.util.Map;
 
 /**
  * Created by donghai on 2017/5/15.
+ *
+ *
+ * 注：错误码（100501 ——100600）
  */
 @Controller
 @Api(value = "API", basePath = "/http://api.itrap.com/api")
@@ -55,6 +60,49 @@ public class HotelOrderController {
 
     @Resource
     private ItripHotelOrderService itripHotelOrderService;
+
+
+    @ApiOperation(value = "根据个人订单列表，并分页显示", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据条件查询个人订单列表，并分页显示"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100501 : 获取个人订单列表错误 </p>"+
+            "<p>100502 : token失效，请重登录 </p>")
+    @RequestMapping(value = "/getpersonalorderlist",method=RequestMethod.POST,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getPersonalOrderList(@RequestBody ItripSearchOrderVO itripSearchOrderVO,
+                                            HttpServletRequest request){
+        logger.debug("orderNo : " + itripSearchOrderVO.getOrderNo());
+        logger.debug("linkUserName : " + itripSearchOrderVO.getLinkUserName());
+        logger.debug("startDate : " + itripSearchOrderVO.getStartDate());
+        logger.debug("endDate : " + itripSearchOrderVO.getEndDate());
+        Dto<Object> dto = null;
+        String tokenString  = request.getHeader("token");
+        logger.debug("token name is from header : " + tokenString);
+        ItripUser currentUser = validationToken.getCurrentUser(tokenString);
+        if(null != currentUser){
+            Map<String,Object> param=new HashMap<>();
+            param.put("userId",currentUser.getId());
+            param.put("orderNo",itripSearchOrderVO.getOrderNo());
+            param.put("linkUserName",itripSearchOrderVO.getLinkUserName());
+            param.put("startDate",itripSearchOrderVO.getStartDate());
+            param.put("endDate",itripSearchOrderVO.getEndDate());
+            try{
+                Page page = itripHotelOrderService.queryOrderPageByMap(param,
+                        itripSearchOrderVO.getPageNo(),
+                        itripSearchOrderVO.getPageSize());
+                dto = DtoUtil.returnSuccess("获取个人订单列表成功",page);
+            }catch (Exception e){
+                e.printStackTrace();
+                dto = DtoUtil.returnFail("获取个人订单列表错误","100501");
+            }
+
+        }else{
+            dto = DtoUtil.returnFail("token失效，请重登录","100502");
+        }
+        return dto;
+    }
 
     @ApiOperation(value = "生成订单", httpMethod = "POST",
             protocols = "HTTP",produces = "application/json",
@@ -224,4 +272,5 @@ public class HotelOrderController {
             return DtoUtil.returnFail("系统异常","100013");
         }
     }
+
 }
