@@ -10,6 +10,7 @@ import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripHotelOrder.ItripHotelOrderService;
 import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
+import cn.itrip.service.itripHotelTempStore.ItripHotelTempStoreService;
 import io.swagger.annotations.Api;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -34,9 +35,6 @@ public class HotelOrderController {
     private Logger logger = Logger.getLogger(HotelController.class);
 
     @Resource
-    private ItripHotelOrderService itripHotelOrderService;
-
-    @Resource
     private ValidationToken validationToken;
 
     @Resource
@@ -44,6 +42,9 @@ public class HotelOrderController {
 
     @Resource
     private ItripHotelRoomService roomService;
+
+    @Resource
+    private ItripHotelTempStoreService tempStoreService;
 
     @RequestMapping(value = "/addhotelorder",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
@@ -106,14 +107,41 @@ public class HotelOrderController {
                 param.put("startTime",preAddOrderVo.getCheckInDate());
                 param.put("endTime",preAddOrderVo.getCheckOutDate());
                 param.put("roomId",preAddOrderVo.getRoomId());
-                param.put("hotelId",preAddOrderVo.getHotelId());
-                itripHotelOrderService.flushStore(param);
+                param.put("hotelId", preAddOrderVo.getHotelId());
                 preItripOrderVo.setCheckInDate(preAddOrderVo.getCheckInDate());
                 preItripOrderVo.setCheckOutDate(preAddOrderVo.getCheckOutDate());
                 preItripOrderVo.setHotelName(hotel.getHotelName());
                 preItripOrderVo.setRoomId(room.getId());
                 preItripOrderVo.setPrice(room.getRoomPrice());
                 dto.setData(preItripOrderVo);
+            }
+        } catch (Exception e) {
+            dto=DtoUtil.returnFail("系统异常","100008");
+            return dto;
+        }
+        return dto;
+    }
+
+    @RequestMapping(value = "/validateroomstore",method= RequestMethod.POST,produces = "application/json")
+    @ResponseBody
+    public Dto<Map<String,Boolean>> validateRoomStore(@RequestBody PreAddOrderVo preAddOrderVo) {
+        Dto<Map<String,Boolean>> dto = new Dto<Map<String,Boolean>>();
+        try {
+            if(EmptyUtils.isEmpty(preAddOrderVo.getHotelId())){
+                dto=DtoUtil.returnFail("hotelId不能为空","100006");
+            }else if(EmptyUtils.isEmpty(preAddOrderVo.getRoomId())){
+                dto=DtoUtil.returnFail("roomId不能为空","100007");
+            }else{
+                Map param=new HashMap();
+                param.put("startTime", preAddOrderVo.getCheckInDate());
+                param.put("endTime", preAddOrderVo.getCheckOutDate());
+                param.put("roomId", preAddOrderVo.getRoomId());
+                param.put("hotelId", preAddOrderVo.getHotelId());
+                param.put("count", preAddOrderVo.getCount());
+                boolean flag=tempStoreService.validateRoomStore(param);
+                Map<String,Boolean> map=new HashMap<String,Boolean>();
+                map.put("flag",flag);
+                dto.setData(map);
             }
         } catch (Exception e) {
             dto=DtoUtil.returnFail("系统异常","100008");

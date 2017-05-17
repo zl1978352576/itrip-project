@@ -189,4 +189,16 @@
               ORDER  BY  store ASC
     </select>
 
+
+    <update id="updateItripHotelTempStore" parameterType="java.util.Map">
+        update itrip_hotel_temp_store set  store=store-#{count}
+        WHERE
+            roomId=#{roomId}
+        AND
+            str_to_date(store.recordDate, '%Y-%m-%d')
+        BETWEEN
+            str_to_date(#{startTime}, '%Y-%m-%d')
+        AND
+            str_to_date(#{endTime}, '%Y-%m-%d')
+    </update>
 </mapper>

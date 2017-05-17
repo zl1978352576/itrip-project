@@ -28,7 +28,32 @@ public interface ItripHotelTempStoreService {
 
     public Page<ItripHotelTempStore> queryItripHotelTempStorePageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 
+    /***
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @param roomId 房间ID
+     * @param hotelId 酒店ID
+     * @return
+     * @throws Exception
+     */
     public List<StoreVo> queryRoomStore(Map<String,Object> param)throws Exception;
-
+    /***
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @param roomId 房间ID
+     * @param hotelId 酒店ID
+     * @param count 预订数目
+     * @return
+     * @throws Exception
+     */
     public boolean validateRoomStore(Map<String,Object> param)throws Exception;
+    /***
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @param roomId 房间ID
+     * @param count 预订数目
+     * @return
+     * @throws Exception
+     */
+    public boolean updateRoomStore(Map<String, Object> param) throws Exception;
 }
