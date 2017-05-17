@@ -108,6 +108,10 @@ public class HotelRoomController {
                 List<Date> dates= DateUtil.getBetweenDates(vo.getStartDate(),vo.getEndDate());
                 param.put("timesList",dates);
             }
+            //默认设置为可预订
+            if(EmptyUtils.isEmpty(vo.getIsBook())){
+                vo.setIsBook(1);
+            }
             param.put("hotelId",vo.getHotelId());
             param.put("isBook",vo.getIsBook());
             param.put("isHavingBreakfast",vo.getIsHavingBreakfast());
