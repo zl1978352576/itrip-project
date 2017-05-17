@@ -80,7 +80,7 @@ public class HotelController {
             "<p>错误码：</p>" +
             "<p>10201 : hotelId不能为空 </p>" +
             "<p>10202 : 系统异常,获取失败</p>")
-    @RequestMapping(value = "/queryhotcity/{type}/", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryhotcity/{type}", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
     public Dto<ItripAreaDicVO> queryHotCity(@PathVariable Integer type) {
         List<ItripAreaDic> itripAreaDics = null;
@@ -196,13 +196,13 @@ public class HotelController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "根据酒店id查询酒店设施", httpMethod = "POST",
+    @ApiOperation(value = "根据酒店id查询酒店设施", httpMethod = "GET",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class, notes = "根据酒店id查询酒店设施" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>10206: 酒店id不能为空</p>" +
             "<p>10207: 系统异常,获取失败</p>")
-    @RequestMapping(value = "/queryhotelfacilities/{id}", produces = "application/json", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryhotelfacilities/{id}", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
     public Dto<ItripSearchFacilitiesHotelVO> queryHotelFacilities(
             @ApiParam(required = true, name = "id", value = "酒店ID")
@@ -227,13 +227,13 @@ public class HotelController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "根据酒店id查询酒店政策", httpMethod = "POST",
+    @ApiOperation(value = "根据酒店id查询酒店政策", httpMethod = "GET",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class, notes = "根据酒店id查询酒店政策" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>10208: 酒店id不能为空</p>" +
             "<p>10209: 系统异常,获取失败</p>")
-    @RequestMapping(value = "/queryhotelpolicy/{id}", produces = "application/json", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryhotelpolicy/{id}", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
     public Dto<ItripSearchFacilitiesHotelVO> queryHotelPolicy(
             @ApiParam(required = true, name = "id", value = "酒店ID")
@@ -258,13 +258,13 @@ public class HotelController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "根据酒店id查询酒店特色和介绍", httpMethod = "POST",
+    @ApiOperation(value = "根据酒店id查询酒店特色和介绍", httpMethod = "GET",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class, notes = "根据酒店id查询酒店特色和介绍" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>10210: 酒店id不能为空</p>" +
             "<p>10211: 系统异常,获取失败</p>")
-    @RequestMapping(value = "/queryhoteldetails/{id}", produces = "application/json", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryhoteldetails/{id}", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
     public Dto<ItripSearchFacilitiesHotelVO> queryHotelDetails(
             @ApiParam(required = true, name = "id", value = "酒店ID")
