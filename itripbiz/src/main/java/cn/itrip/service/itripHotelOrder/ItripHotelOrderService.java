@@ -20,7 +20,7 @@ public interface ItripHotelOrderService {
 
     public Integer getItripHotelOrderCountByMap(Map<String,Object> param)throws Exception;
 
-    public Integer itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, ItripHotelRoom itripHotelRoom)throws Exception;
+    public Integer addItripHotelOrder(ItripHotelOrder itripHotelOrder, BigDecimal roomPrice)throws Exception;
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
 
@@ -45,14 +45,6 @@ public interface ItripHotelOrderService {
      * @throws Exception
      */
     public int getRoomNumByRoomIdTypeAndDate(Integer roomId, String startDate, String endDate) throws Exception;
-
-    /**
-     * 生成订单的同时需要修改库存 -add by donghai
-     * @param hotelOrder
-     * @return
-     * @throws Exception
-     */
-    public int updateRoomStore(ItripHotelOrder hotelOrder, ItripHotelRoom itripHotelRoom) throws Exception;
 
     /**
      * 根据订单的预定天数和房间的单价计算订单总金额 -add by donghai
