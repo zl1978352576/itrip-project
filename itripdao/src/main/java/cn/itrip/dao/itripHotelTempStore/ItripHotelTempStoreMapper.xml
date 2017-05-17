@@ -180,12 +180,13 @@
               GROUP BY	store.roomId,store.recordDate
               WHERE
                   roomId=#{roomId}
-                  AND
+              AND
                   str_to_date(store.recordDate, '%Y-%m-%d')
-                  BETWEEN
+              BETWEEN
                   str_to_date(#{startTime}, '%Y-%m-%d')
-                  and
+              and
                   str_to_date(#{endTime}, '%Y-%m-%d')
+              AND ord.orderStatus=0
               ORDER  BY  store ASC
     </select>
 
