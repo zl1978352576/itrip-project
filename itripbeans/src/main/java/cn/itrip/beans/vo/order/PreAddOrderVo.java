@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by zezhong.shang on 17-5-16.
  */
-public class PreAddOrderVo implements Serializable{
+public class PreAddOrderVO implements Serializable{
 
     private Long hotelId;
 

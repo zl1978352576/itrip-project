@@ -2,12 +2,9 @@ package cn.itrip.service.itripHotelTempStore;
 import cn.itrip.beans.pojo.ItripHotelTempStore;
 import java.util.List;
 import java.util.Map;
-import java.util.List;
-import java.util.Map;
 
-import cn.itrip.beans.vo.store.StoreVo;
+import cn.itrip.beans.vo.store.StoreVO;
 import cn.itrip.common.Page;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 /**
 * Created by shang-pc on 2015/11/7.
@@ -36,7 +33,7 @@ public interface ItripHotelTempStoreService {
      * @return
      * @throws Exception
      */
-    public List<StoreVo> queryRoomStore(Map<String,Object> param)throws Exception;
+    public List<StoreVO> queryRoomStore(Map<String,Object> param)throws Exception;
     /***
      * @param startTime 开始时间
      * @param endTime 结束时间

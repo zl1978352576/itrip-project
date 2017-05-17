@@ -2,7 +2,7 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.vo.hotel.ItripHotelVO;
-import cn.itrip.beans.vo.hotel.SearchHotCityVo;
+import cn.itrip.beans.vo.hotel.SearchHotCityVO;
 import cn.itrip.beans.vo.hotel.SearchHotelVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
@@ -69,7 +69,7 @@ public class HotelListController {
             "<p>0003: 系统异常,获取失败</p>")
     @RequestMapping(value = "/searchItripHotelListByHotCity",produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
-    public Dto<Page<ItripHotelVO>> searchItripHotelListByHotCity(@RequestBody SearchHotCityVo vo)throws Exception{
+    public Dto<Page<ItripHotelVO>> searchItripHotelListByHotCity(@RequestBody SearchHotCityVO vo)throws Exception{
         if(EmptyUtils.isEmpty(vo) || EmptyUtils.isEmpty(vo.getCityId())){
             return  DtoUtil.returnFail("城市id不能为空","0002");
         }

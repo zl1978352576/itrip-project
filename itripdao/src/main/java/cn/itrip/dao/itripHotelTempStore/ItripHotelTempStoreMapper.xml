@@ -167,7 +167,7 @@
         }
     </select>
 
-    <select id="queryRoomStore" resultType="cn.itrip.beans.vo.store.StoreVo"  parameterType="java.util.Map">
+    <select id="queryRoomStore" resultType="cn.itrip.beans.vo.store.StoreVO"  parameterType="java.util.Map">
               SELECT
                 store.roomId,
                 store.recordDate,
@@ -191,7 +191,7 @@
     </select>
 
 
-    <update id="updateItripHotelTempStore" parameterType="java.util.Map">
+    <update id="updateRoomStore" parameterType="java.util.Map">
         update itrip_hotel_temp_store set  store=store-#{count}
         WHERE
             roomId=#{roomId}

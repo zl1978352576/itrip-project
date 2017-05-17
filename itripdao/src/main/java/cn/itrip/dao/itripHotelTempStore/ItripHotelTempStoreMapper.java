@@ -1,6 +1,6 @@
 package cn.itrip.dao.itripHotelTempStore;
 import cn.itrip.beans.pojo.ItripHotelTempStore;
-import cn.itrip.beans.vo.store.StoreVo;
+import cn.itrip.beans.vo.store.StoreVO;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public interface ItripHotelTempStoreMapper {
 
 	public Integer deleteItripHotelTempStoreById(@Param(value = "id") Long id)throws Exception;
 
-	public List<StoreVo> checkStore(Map<String,Object> param) throws Exception;
+	public List<StoreVO> queryRoomStore(Map<String,Object> param) throws Exception;
 
 	public int flushStore(Map<String,Object> param)throws Exception;
 

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by zezhong.shang on 17-5-17.
  */
-public class StoreVo {
+public class StoreVO {
 
     private Long roomId;
 

@@ -3,12 +3,11 @@ package cn.itrip.controller;
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.*;
 import cn.itrip.beans.vo.order.ItripAddHotelOrderVO;
-import cn.itrip.beans.vo.order.PreAddOrderVo;
+import cn.itrip.beans.vo.order.PreAddOrderVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripHotel.ItripHotelService;
-import cn.itrip.service.itripHotelOrder.ItripHotelOrderService;
 import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
 import cn.itrip.service.itripHotelTempStore.ItripHotelTempStoreService;
 import io.swagger.annotations.Api;
@@ -89,27 +88,27 @@ public class HotelOrderController {
 
     @RequestMapping(value = "/getpreorderinfo",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
-    public Dto<PreAddOrderVo> getPreOrderInfo(@RequestBody PreAddOrderVo preAddOrderVo){
+    public Dto<PreAddOrderVO> getPreOrderInfo(@RequestBody PreAddOrderVO preAddOrderVO){
         ItripHotel hotel=null;
         ItripHotelRoom room=null;
-        PreAddOrderVo preItripOrderVo=null;
-        Dto<PreAddOrderVo> dto = new Dto<PreAddOrderVo>();
+        PreAddOrderVO preItripOrderVo=null;
+        Dto<PreAddOrderVO> dto = new Dto<PreAddOrderVO>();
         try {
-            if(EmptyUtils.isEmpty(preAddOrderVo.getHotelId())){
+            if(EmptyUtils.isEmpty(preAddOrderVO.getHotelId())){
                 dto=DtoUtil.returnFail("hotelId不能为空","100006");
-            }else if(EmptyUtils.isEmpty(preAddOrderVo.getRoomId())){
+            }else if(EmptyUtils.isEmpty(preAddOrderVO.getRoomId())){
                 dto=DtoUtil.returnFail("roomId不能为空","100007");
             }else{
-                preItripOrderVo=new PreAddOrderVo();
-                hotel=hotelService.getItripHotelById(preAddOrderVo.getHotelId());
-                room=roomService.getItripHotelRoomById(preAddOrderVo.getRoomId());
+                preItripOrderVo=new PreAddOrderVO();
+                hotel=hotelService.getItripHotelById(preAddOrderVO.getHotelId());
+                room=roomService.getItripHotelRoomById(preAddOrderVO.getRoomId());
                 Map param=new HashMap();
-                param.put("startTime",preAddOrderVo.getCheckInDate());
-                param.put("endTime",preAddOrderVo.getCheckOutDate());
-                param.put("roomId",preAddOrderVo.getRoomId());
-                param.put("hotelId", preAddOrderVo.getHotelId());
-                preItripOrderVo.setCheckInDate(preAddOrderVo.getCheckInDate());
-                preItripOrderVo.setCheckOutDate(preAddOrderVo.getCheckOutDate());
+                param.put("startTime", preAddOrderVO.getCheckInDate());
+                param.put("endTime", preAddOrderVO.getCheckOutDate());
+                param.put("roomId", preAddOrderVO.getRoomId());
+                param.put("hotelId", preAddOrderVO.getHotelId());
+                preItripOrderVo.setCheckInDate(preAddOrderVO.getCheckInDate());
+                preItripOrderVo.setCheckOutDate(preAddOrderVO.getCheckOutDate());
                 preItripOrderVo.setHotelName(hotel.getHotelName());
                 preItripOrderVo.setRoomId(room.getId());
                 preItripOrderVo.setPrice(room.getRoomPrice());
@@ -124,20 +123,20 @@ public class HotelOrderController {
 
     @RequestMapping(value = "/validateroomstore",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
-    public Dto<Map<String,Boolean>> validateRoomStore(@RequestBody PreAddOrderVo preAddOrderVo) {
+    public Dto<Map<String,Boolean>> validateRoomStore(@RequestBody PreAddOrderVO preAddOrderVO) {
         Dto<Map<String,Boolean>> dto = new Dto<Map<String,Boolean>>();
         try {
-            if(EmptyUtils.isEmpty(preAddOrderVo.getHotelId())){
+            if(EmptyUtils.isEmpty(preAddOrderVO.getHotelId())){
                 dto=DtoUtil.returnFail("hotelId不能为空","100006");
-            }else if(EmptyUtils.isEmpty(preAddOrderVo.getRoomId())){
+            }else if(EmptyUtils.isEmpty(preAddOrderVO.getRoomId())){
                 dto=DtoUtil.returnFail("roomId不能为空","100007");
             }else{
                 Map param=new HashMap();
-                param.put("startTime", preAddOrderVo.getCheckInDate());
-                param.put("endTime", preAddOrderVo.getCheckOutDate());
-                param.put("roomId", preAddOrderVo.getRoomId());
-                param.put("hotelId", preAddOrderVo.getHotelId());
-                param.put("count", preAddOrderVo.getCount());
+                param.put("startTime", preAddOrderVO.getCheckInDate());
+                param.put("endTime", preAddOrderVO.getCheckOutDate());
+                param.put("roomId", preAddOrderVO.getRoomId());
+                param.put("hotelId", preAddOrderVO.getHotelId());
+                param.put("count", preAddOrderVO.getCount());
                 boolean flag=tempStoreService.validateRoomStore(param);
                 Map<String,Boolean> map=new HashMap<String,Boolean>();
                 map.put("flag",flag);

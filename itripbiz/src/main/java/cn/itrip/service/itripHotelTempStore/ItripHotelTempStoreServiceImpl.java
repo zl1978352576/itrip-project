@@ -1,6 +1,6 @@
 package cn.itrip.service.itripHotelTempStore;
 
-import cn.itrip.beans.vo.store.StoreVo;
+import cn.itrip.beans.vo.store.StoreVO;
 import cn.itrip.dao.itripHotelTempStore.ItripHotelTempStoreMapper;
 import cn.itrip.beans.pojo.ItripHotelTempStore;
 import cn.itrip.common.EmptyUtils;
@@ -8,7 +8,6 @@ import cn.itrip.common.Page;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -68,9 +67,9 @@ public class ItripHotelTempStoreServiceImpl implements ItripHotelTempStoreServic
      * @throws Exception
      */
     @Override
-    public List<StoreVo> queryRoomStore(Map<String, Object> param) throws Exception {
+    public List<StoreVO> queryRoomStore(Map<String, Object> param) throws Exception {
         itripHotelTempStoreMapper.flushStore(param);
-        return itripHotelTempStoreMapper.checkStore(param);
+        return itripHotelTempStoreMapper.queryRoomStore(param);
     }
 
     /***
@@ -86,8 +85,8 @@ public class ItripHotelTempStoreServiceImpl implements ItripHotelTempStoreServic
     public boolean validateRoomStore(Map<String, Object> param) throws Exception {
         Integer count = (Integer) param.get("count");
         itripHotelTempStoreMapper.flushStore(param);
-        List<StoreVo> storeVoList = itripHotelTempStoreMapper.checkStore(param);
-        for (StoreVo vo : storeVoList) {
+        List<StoreVO> storeVOList = itripHotelTempStoreMapper.queryRoomStore(param);
+        for (StoreVO vo : storeVOList) {
             if (vo.getStore() < count) {
                 return false;
             }

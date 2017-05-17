@@ -1,13 +1,10 @@
 package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
-import cn.itrip.beans.pojo.ItripHotelRoom;
-import cn.itrip.beans.pojo.ItripLabelDic;
 import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.beans.vo.ItripLabelDicVO;
-import cn.itrip.beans.vo.hotel.SearchHotelVO;
 import cn.itrip.beans.vo.hotelroom.ItripHotelRoomVO;
-import cn.itrip.beans.vo.hotelroom.SearchHotelRoomVo;
+import cn.itrip.beans.vo.hotelroom.SearchHotelRoomVO;
 import cn.itrip.common.DateUtil;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
@@ -96,7 +93,7 @@ public class HotelRoomController {
             "<p>100304 : 系统异常</p>")
     @RequestMapping(value = "/queryhotelroombyhotel", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public Dto<List<ItripHotelRoomVO>> queryHotelRoomByHotel(@RequestBody SearchHotelRoomVo vo) {
+    public Dto<List<ItripHotelRoomVO>> queryHotelRoomByHotel(@RequestBody SearchHotelRoomVO vo) {
         Dto<List<ItripHotelRoomVO>> dto = new Dto<List<ItripHotelRoomVO>>();
         try{
             if(EmptyUtils.isEmpty(vo.getHotelId())){

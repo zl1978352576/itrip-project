@@ -8,8 +8,8 @@ import java.io.Serializable;
 /**
  * Created by zezhong.shang on 17-5-15.
  */
-@ApiModel(value = "SearchHotCityVo",description = "搜索热门城市酒店VO")
-public class SearchHotCityVo implements Serializable{
+@ApiModel(value = "SearchHotCityVO",description = "搜索热门城市酒店VO")
+public class SearchHotCityVO implements Serializable{
 
     @ApiModelProperty("[必填] 城市id")
     private Integer cityId;
