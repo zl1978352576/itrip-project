@@ -72,6 +72,13 @@
         description
         from itrip_label_dic
         where parentid = '16'
+        and id in(select featureId from itrip_hotel_feature
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and hotelId=#{id}
+            </if>
+        </trim>
+        )
     </select>
 
     <resultMap id="hotelDetailsMap" type="cn.itrip.beans.vo.hotel.ItripSearchDetailsHotelVO">
