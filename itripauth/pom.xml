@@ -35,7 +35,11 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
-
+		<dependency>
+			<groupId>cn.itrip</groupId>
+			<artifactId>itrip-jregex</artifactId>
+			<version>1.2_01</version>
+		</dependency>
 	</dependencies>
 
 </project>
