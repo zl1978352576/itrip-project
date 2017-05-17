@@ -13,6 +13,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //@EnableWebMvc
+/**
+ * 要求jdk8
+ * @author hduser
+ *
+ */
 @EnableSwagger2
 @ComponentScan(basePackages = {"cn.itrip.auth.controller"})
 @Configuration
@@ -42,8 +47,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 	 */
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("爱旅行-用户认证模块API")
-				.termsOfServiceUrl("http://www.itrip.com/itripauth")
+				.title("爱旅行-支付模块API")
+				.termsOfServiceUrl("http://www.itrip.com/itriptrade")
 				.contact("yao.liu2015@bdqn.cn")
 				.version("1.0")
 				.build();

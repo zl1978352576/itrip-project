@@ -1,5 +1,10 @@
 package cn.itrip.trade.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -16,6 +21,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import springfox.documentation.annotations.ApiIgnore;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
@@ -24,6 +32,7 @@ import com.alipay.api.domain.AlipayTradeWapPayModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
 
+import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripHotelOrder;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.trade.config.AlipayConfig;
@@ -52,6 +61,7 @@ public class PaymentController {
 	 *            订单ID
 	 * @return
 	 */
+	@ApiIgnore
 	@RequestMapping(value = "/prepay/{orderNo}", method = RequestMethod.GET)
 	public String prePay(@PathVariable String orderNo, ModelMap model) {
 		try {
@@ -83,9 +93,18 @@ public class PaymentController {
 	 * @param WIDtotal_amount
 	 *            付款金额，必填
 	 */
-	@RequestMapping(value = "/pay", method = RequestMethod.POST)
-	public void pay(String WIDout_trade_no, String WIDsubject,
-			String WIDtotal_amount, HttpServletResponse response) {
+	@ApiOperation(value = "订单支付", httpMethod = "POST", 
+			protocols = "HTTP", produces = "application/xml", consumes="application/x-www-form-urlencoded",
+			response =  String.class, 
+			notes = "客户端提交订单支付请求，对该API的返回结果不用处理，浏览器将自动跳转至支付宝。<br><b>请使用普通表单提交，不能使用ajax异步提交。</b>")	
+	@RequestMapping(value = "/pay", method = RequestMethod.POST,produces="application/xml", consumes="application/x-www-form-urlencoded")
+	public void pay(
+			@ApiParam(name="WIDout_trade_no",value="订单编号",required=true)
+			@RequestParam String WIDout_trade_no, 
+			@ApiParam(name="WIDsubject",value="订单名称",required=true)
+			@RequestParam String WIDsubject,
+			@ApiParam(name="WIDtotal_amount",value="订单金额",required=true)
+			@RequestParam String WIDtotal_amount, HttpServletResponse response) {
 		// 超时时间 可空
 		String timeout_express = "2m";
 		// 销售产品码 必填
@@ -134,6 +153,7 @@ public class PaymentController {
 	/**
 	 * 导步通知，跟踪支付状态变更
 	 */
+	@ApiIgnore
 	@RequestMapping(value = "/notify", method = RequestMethod.POST)
 	public void trackPaymentStatus(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -235,6 +255,7 @@ public class PaymentController {
 	/**
 	 * 支付宝页面跳转同步通知页面
 	 */
+	@ApiIgnore
 	@RequestMapping(value = "/return", method = RequestMethod.GET)
 	public void callback(HttpServletRequest request,
 			HttpServletResponse response) {
