@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.List;
 import java.util.Map;
+
+import cn.itrip.beans.vo.store.StoreVo;
 import cn.itrip.common.Page;
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 /**
 * Created by shang-pc on 2015/11/7.
 */
@@ -12,7 +16,7 @@ public interface ItripHotelTempStoreService {
 
     public ItripHotelTempStore getItripHotelTempStoreById(Long id)throws Exception;
 
-    public List<ItripHotelTempStore>	getItripHotelTempStoreListByMap(Map<String,Object> param)throws Exception;
+    public List<ItripHotelTempStore> getItripHotelTempStoreListByMap(Map<String,Object> param)throws Exception;
 
     public Integer getItripHotelTempStoreCountByMap(Map<String,Object> param)throws Exception;
 
@@ -23,4 +27,8 @@ public interface ItripHotelTempStoreService {
     public Integer itriptxDeleteItripHotelTempStoreById(Long id)throws Exception;
 
     public Page<ItripHotelTempStore> queryItripHotelTempStorePageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
+
+    public List<StoreVo> queryRoomStore(Map<String,Object> param)throws Exception;
+
+    public boolean validateRoomStore(Map<String,Object> param)throws Exception;
 }

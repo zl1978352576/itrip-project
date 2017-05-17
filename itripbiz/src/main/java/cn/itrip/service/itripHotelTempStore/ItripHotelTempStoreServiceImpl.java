@@ -1,4 +1,5 @@
 package cn.itrip.service.itripHotelTempStore;
+import cn.itrip.beans.vo.store.StoreVo;
 import cn.itrip.dao.itripHotelTempStore.ItripHotelTempStoreMapper;
 import cn.itrip.beans.pojo.ItripHotelTempStore;
 import cn.itrip.common.EmptyUtils;
@@ -53,5 +54,31 @@ public class ItripHotelTempStoreServiceImpl implements ItripHotelTempStoreServic
         page.setRows(itripHotelTempStoreList);
         return page;
     }
+    /***
+     * ,
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @param roomId 房间ID
+     * @param hotelId 酒店ID
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<StoreVo> queryRoomStore(Map<String, Object> param) throws Exception {
+        itripHotelTempStoreMapper.flushStore(param);
+        return itripHotelTempStoreMapper.checkStore(param);
+    }
 
+    @Override
+    public boolean validateRoomStore(Map<String, Object> param) throws Exception {
+        Integer count= (Integer) param.get("count");
+        itripHotelTempStoreMapper.flushStore(param);
+        List<StoreVo> storeVoList=itripHotelTempStoreMapper.checkStore(param);
+        for (StoreVo vo:storeVoList){
+            if(vo.getStore()<count){
+                return false;
+            }
+        }
+        return true;
+    }
 }

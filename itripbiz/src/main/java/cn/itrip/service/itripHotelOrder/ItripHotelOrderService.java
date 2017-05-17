@@ -53,7 +53,6 @@ public interface ItripHotelOrderService {
      * @throws Exception
      */
     public int updateRoomStore(ItripHotelOrder hotelOrder, ItripHotelRoom itripHotelRoom) throws Exception;
-
     /**
      * 根据订单的预定天数和房间的单价计算订单总金额 -add by donghai
      * @param days
@@ -62,4 +61,11 @@ public interface ItripHotelOrderService {
      * @throws Exception
      */
     public BigDecimal getOrderPayAmount(int days, BigDecimal roomPrice) throws Exception;
+    /**
+     * 根据订单的预定天数和房间的单价计算订单总金额 -add by donghai
+     * @param 刷新库存
+     * @return
+     * @throws Exception
+     */
+    public void flushStore(Map<String,Object> param) throws Exception;
 }

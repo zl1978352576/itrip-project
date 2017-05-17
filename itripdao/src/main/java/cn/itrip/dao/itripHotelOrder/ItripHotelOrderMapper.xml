@@ -378,4 +378,5 @@
     <delete id="deleteItripHotelOrderById" parameterType="Long">
         delete from itrip_hotel_order where id = #{id}
     </delete>
+
 </mapper>

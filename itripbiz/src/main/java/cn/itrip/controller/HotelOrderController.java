@@ -9,6 +9,7 @@ import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripHotelOrder.ItripHotelOrderService;
+import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
 import io.swagger.annotations.Api;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by donghai on 2017/5/15.
@@ -38,6 +41,9 @@ public class HotelOrderController {
 
     @Resource
     private ItripHotelService hotelService;
+
+    @Resource
+    private ItripHotelRoomService roomService;
 
     @RequestMapping(value = "/addhotelorder",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
@@ -84,19 +90,29 @@ public class HotelOrderController {
     @ResponseBody
     public Dto<PreAddOrderVo> getPreOrderInfo(@RequestBody PreAddOrderVo preAddOrderVo){
         ItripHotel hotel=null;
+        ItripHotelRoom room=null;
         PreAddOrderVo preItripOrderVo=null;
         Dto<PreAddOrderVo> dto = new Dto<PreAddOrderVo>();
         try {
-            if(EmptyUtils.isNotEmpty(preAddOrderVo.getHotelId())){
+            if(EmptyUtils.isEmpty(preAddOrderVo.getHotelId())){
                 dto=DtoUtil.returnFail("hotelId不能为空","100006");
-            }else if(EmptyUtils.isNotEmpty(preAddOrderVo.getRoomId())){
+            }else if(EmptyUtils.isEmpty(preAddOrderVo.getRoomId())){
                 dto=DtoUtil.returnFail("roomId不能为空","100007");
             }else{
                 preItripOrderVo=new PreAddOrderVo();
                 hotel=hotelService.getItripHotelById(preAddOrderVo.getHotelId());
+                room=roomService.getItripHotelRoomById(preAddOrderVo.getRoomId());
+                Map param=new HashMap();
+                param.put("startTime",preAddOrderVo.getCheckInDate());
+                param.put("endTime",preAddOrderVo.getCheckOutDate());
+                param.put("roomId",preAddOrderVo.getRoomId());
+                param.put("hotelId",preAddOrderVo.getHotelId());
+                itripHotelOrderService.flushStore(param);
                 preItripOrderVo.setCheckInDate(preAddOrderVo.getCheckInDate());
                 preItripOrderVo.setCheckOutDate(preAddOrderVo.getCheckOutDate());
                 preItripOrderVo.setHotelName(hotel.getHotelName());
+                preItripOrderVo.setRoomId(room.getId());
+                preItripOrderVo.setPrice(room.getRoomPrice());
                 dto.setData(preItripOrderVo);
             }
         } catch (Exception e) {

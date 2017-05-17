@@ -1,6 +1,7 @@
 package cn.itrip.dao.itripHotelOrder;
 import cn.itrip.beans.pojo.ItripHotelOrder;
 import org.apache.ibatis.annotations.Param;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.math.BigDecimal;
 import java.util.List;

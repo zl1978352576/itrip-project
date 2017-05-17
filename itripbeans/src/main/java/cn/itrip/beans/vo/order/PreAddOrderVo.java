@@ -1,6 +1,7 @@
 package cn.itrip.beans.vo.order;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -19,6 +20,16 @@ public class PreAddOrderVo implements Serializable{
     private String hotelName;
 
     private String store;
+
+    private BigDecimal price;
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
     public Long getHotelId() {
         return hotelId;

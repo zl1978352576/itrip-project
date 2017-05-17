@@ -157,4 +157,36 @@
     <delete id="deleteItripHotelTempStoreById" parameterType="Long">
         delete from itrip_hotel_temp_store where id = #{id}
     </delete>
+
+    <select id="flushStore" parameterType="java.util.Map" statementType="CALLABLE">
+        {call hawkeye.pre_flush_store(
+        #{startTime,jdbcType=DATE,mode=IN},
+        #{endTime,jdbcType=DATE,mode=IN},
+        #{roomId,jdbcType=LONG,mode=IN},
+        #{hotelId,jdbcType=LONG,mode=IN}
+        }
+    </select>
+
+    <select id="queryRoomStore" resultType="cn.itrip.beans.vo.store.StoreVo"  parameterType="java.util.Map">
+              SELECT
+                store.roomId,
+                store.recordDate,
+                str_to_date(store.recordDate,'%Y-%m-%d'),store.store - (CASE WHEN SUM(ord.count) IS NULL THEN 0	ELSE SUM(ord.count)	END ) AS store
+              FROM
+                itrip_hotel_temp_store store
+              LEFT JOIN itrip_hotel_order ord ON store.roomId = ord.roomId
+                  AND str_to_date(store.recordDate,'%Y-%m-%d') BETWEEN str_to_date(ord.checkInDate, '%Y-%m-%d')
+                  AND str_to_date(ord.checkOutDate,'%Y-%m-%d')
+              GROUP BY	store.roomId,store.recordDate
+              WHERE
+                  roomId=#{roomId}
+                  AND
+                  str_to_date(store.recordDate, '%Y-%m-%d')
+                  BETWEEN
+                  str_to_date(#{startTime}, '%Y-%m-%d')
+                  and
+                  str_to_date(#{endTime}, '%Y-%m-%d')
+              ORDER  BY  store ASC
+    </select>
+
 </mapper>

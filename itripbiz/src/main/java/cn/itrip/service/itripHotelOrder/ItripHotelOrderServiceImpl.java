@@ -140,5 +140,7 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return result;
     }
 
-
+    public void flushStore(Map<String,Object> param) throws Exception {
+        itripHotelTempStoreMapper.flushStore(param);
+    }
 }
