@@ -88,17 +88,19 @@ public class HotelRoomController {
             response = Dto.class, notes = "查询酒店房间列表" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>" +
-            "<p>100303 : 酒店id不能为空</p>" +
+            "<p>100303 : 酒店id不能为空,酒店入住及退房时间不能为空,入住时间不能大于退房时间</p>" +
             "<p>100304 : 系统异常</p>")
     @RequestMapping(value = "/queryhotelroombyhotel", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Dto<List<ItripHotelRoomVO>> queryHotelRoomByHotel(@RequestBody SearchHotelRoomVO vo) {
-        Dto<List<ItripHotelRoomVO>> dto = null;
         try{
+            Map<String,Object> param=new HashMap();
             if(EmptyUtils.isEmpty(vo.getHotelId())){
               return DtoUtil.returnFail("酒店ID不能为空", "100303");
             }
-            Map<String,Object> param=new HashMap();
+            if(EmptyUtils.isEmpty(vo.getStartDate()) || EmptyUtils.isEmpty(vo.getEndDate())){
+                return DtoUtil.returnFail("必须填写酒店入住及退房时间", "100303");
+            }
             if(EmptyUtils.isNotEmpty(vo.getStartDate()) && EmptyUtils.isNotEmpty(vo.getEndDate())){
                 if(vo.getStartDate().getTime()>vo.getEndDate().getTime()){
                     return DtoUtil.returnFail("入住时间不能大于退房时间", "100303");
@@ -112,11 +114,10 @@ public class HotelRoomController {
             param.put("isTimelyResponse",vo.getIsTimelyResponse());
             param.put("roomBedTypeId",vo.getRoomBedTypeId());
             List<ItripHotelRoomVO> temp=itripHotelRoomService.getItripHotelRoomListByMap(param);
-            dto=DtoUtil.returnSuccess("获取成功",temp);
+            return DtoUtil.returnSuccess("获取成功",temp);
         }catch (Exception e){
-            dto = DtoUtil.returnFail("获取酒店房型图片失败", "100304");
-        }finally {
-            return  dto;
+            e.printStackTrace();
+            return DtoUtil.returnFail("获取酒店房型列表失败", "100304");
         }
     }
 
@@ -125,19 +126,16 @@ public class HotelRoomController {
             response = Dto.class, notes = "查询酒店床型列表" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>" +
-            "<p>100304 : 获取酒店房间床型失败</p>")
+            "<p>100305 : 获取酒店房间床型失败</p>")
     @RequestMapping(value = "/queryhotelroombed", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Dto<Object> queryHotelRoomBed() {
-        Dto<Object> dto = null;
         try {
             List<ItripLabelDicVO> itripLabelDicList=itripLabelDicService.getItripLabelDicByParentId(new Long(1));
-            dto=DtoUtil.returnSuccess("获取成功",itripLabelDicList);
+            return DtoUtil.returnSuccess("获取成功",itripLabelDicList);
         } catch (Exception e) {
-            dto = DtoUtil.returnFail("获取床型失败", "100304");
             e.printStackTrace();
-        }finally {
-            return  dto;
+            return  DtoUtil.returnFail("获取床型失败", "100305");
         }
     }
 }

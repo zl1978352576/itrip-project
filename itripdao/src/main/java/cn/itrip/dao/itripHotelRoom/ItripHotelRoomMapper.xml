@@ -67,8 +67,9 @@
                 and isTimelyResponse=#{isTimelyResponse}
             </if>
             <if test="timesList!=null and timesList!=''">
-                <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-                    AND (
+                AND
+                <foreach item="item" index="index" collection="timesList" open="(" separator="AND" close=")">
+                    (
                         (SELECT store FROM	itrip_hotel_temp_store	WHERE	roomId = room.id AND date_format(recordDate, '%Y-%m-%d') = date_format(#{item}, '%Y-%m-%d')) IS NULL
                     OR
                         (SELECT	store FROM	itrip_hotel_temp_store	WHERE roomId = room.id	AND date_format(recordDate, '%Y-%m-%d') = date_format(#{item}, '%Y-%m-%d')) > 0
