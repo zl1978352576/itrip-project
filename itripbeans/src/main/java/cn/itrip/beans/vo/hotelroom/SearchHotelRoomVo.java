@@ -7,7 +7,7 @@ import java.util.Date;
  * 查询酒店房间的vo
  * Created by zezhong.shang on 17-5-11.
  */
-public class SearchHotelRoomVO implements Serializable{
+public class SearchHotelRoomVo implements Serializable{
 
     private Long hotelId;
 
