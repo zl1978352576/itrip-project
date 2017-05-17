@@ -63,7 +63,7 @@ public class HotelRoomController {
     @RequestMapping(value = "/getimg/{targetId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Dto<Object> getImgByTargetId(@ApiParam(required = true, name = "targetId", value = "酒店房型ID") @PathVariable String targetId) {
-        Dto<Object> dto = new Dto<Object>();
+        Dto<Object> dto = null;
         logger.debug("getImgBytargetId targetId : " + targetId);
         if (null != targetId && !"".equals(targetId)) {
             List<ItripImageVO> itripImageVOList = null;
@@ -77,7 +77,6 @@ public class HotelRoomController {
                 e.printStackTrace();
                 dto = DtoUtil.returnFail("获取酒店房型图片失败", "100301");
             }
-
         } else {
             dto = DtoUtil.returnFail("酒店房型id不能为空", "100302");
         }
@@ -94,7 +93,7 @@ public class HotelRoomController {
     @RequestMapping(value = "/queryhotelroombyhotel", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Dto<List<ItripHotelRoomVO>> queryHotelRoomByHotel(@RequestBody SearchHotelRoomVO vo) {
-        Dto<List<ItripHotelRoomVO>> dto = new Dto<List<ItripHotelRoomVO>>();
+        Dto<List<ItripHotelRoomVO>> dto = null;
         try{
             if(EmptyUtils.isEmpty(vo.getHotelId())){
               return DtoUtil.returnFail("酒店ID不能为空", "100303");
@@ -113,7 +112,7 @@ public class HotelRoomController {
             param.put("isTimelyResponse",vo.getIsTimelyResponse());
             param.put("roomBedTypeId",vo.getRoomBedTypeId());
             List<ItripHotelRoomVO> temp=itripHotelRoomService.getItripHotelRoomListByMap(param);
-            dto.setData(temp);
+            dto=DtoUtil.returnSuccess("获取成功",temp);
         }catch (Exception e){
             dto = DtoUtil.returnFail("获取酒店房型图片失败", "100304");
         }finally {
@@ -129,11 +128,11 @@ public class HotelRoomController {
             "<p>100304 : 获取酒店房间床型失败</p>")
     @RequestMapping(value = "/queryhotelroombed", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Dto<List<ItripLabelDicVO>> queryHotelRoomBed() {
-        Dto<List<ItripLabelDicVO>> dto = new Dto<List<ItripLabelDicVO>>();
+    public Dto<Object> queryHotelRoomBed() {
+        Dto<Object> dto = null;
         try {
             List<ItripLabelDicVO> itripLabelDicList=itripLabelDicService.getItripLabelDicByParentId(new Long(1));
-            dto.setData(itripLabelDicList);
+            dto=DtoUtil.returnSuccess("获取成功",itripLabelDicList);
         } catch (Exception e) {
             dto = DtoUtil.returnFail("获取床型失败", "100304");
             e.printStackTrace();

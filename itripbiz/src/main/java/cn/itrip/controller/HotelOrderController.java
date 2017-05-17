@@ -123,6 +123,7 @@ public class HotelOrderController {
                 dto.setData(preItripOrderVo);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             dto=DtoUtil.returnFail("系统异常","100008");
             return dto;
         }

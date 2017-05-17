@@ -158,14 +158,15 @@
         delete from itrip_hotel_temp_store where id = #{id}
     </delete>
 
-    <select id="flushStore" parameterType="java.util.Map" statementType="CALLABLE">
-        {call hawkeye.pre_flush_store(
-        #{startTime,jdbcType=DATE,mode=IN},
-        #{endTime,jdbcType=DATE,mode=IN},
-        #{roomId,jdbcType=LONG,mode=IN},
-        #{hotelId,jdbcType=LONG,mode=IN}
+    <update  id="flushStore" parameterType="java.util.Map" statementType="CALLABLE">
+        {call pre_flush_store(
+            #{startTime,jdbcType=DATE,mode=IN},
+            #{endTime,jdbcType=DATE,mode=IN},
+            #{roomId,jdbcType=BIGINT,mode=IN},
+            #{hotelId,jdbcType=BIGINT,mode=IN}
+          )
         }
-    </select>
+    </update >
 
     <select id="queryRoomStore" resultType="cn.itrip.beans.vo.store.StoreVO"  parameterType="java.util.Map">
               SELECT
