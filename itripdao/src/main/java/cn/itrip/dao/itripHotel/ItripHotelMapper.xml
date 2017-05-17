@@ -300,4 +300,27 @@
     <delete id="deleteItripHotelById" parameterType="Long">
         delete from itrip_hotel where id = #{id}
     </delete>
+
+    <select id="queryHotelDetails" resultMap="hotelDetailsMap" >
+        select
+        '酒店介绍' as name,
+        details as description
+        from itrip_hotel
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+        UNION ALL
+        select
+        NAME,
+        description
+        from itrip_label_dic
+        where parentid = '16'
+    </select>
+
+    <resultMap id="hotelDetailsMap" type="cn.itrip.beans.vo.hotel.ItripSearchDetailsHotelVO">
+        <result property="name" column="name" />
+        <result property="description" column="description" />
+    </resultMap>
 </mapper>
