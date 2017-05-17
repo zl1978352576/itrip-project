@@ -139,18 +139,24 @@ public class HotelOrderController {
         return dto;
     }
 
+    @ApiOperation(value = "生成订单前,获取预订信息", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "生成订单前,获取预订信息"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100009 : hotelId不能为空,roomId不能为空,暂时无房 </p>"+
+            "<p>100010 : 系统异常</p>")
     @RequestMapping(value = "/getpreorderinfo",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public Dto<PreAddOrderVO> getPreOrderInfo(@RequestBody PreAddOrderVO preAddOrderVO){
         ItripHotel hotel=null;
         ItripHotelRoom room=null;
         PreAddOrderVO preItripOrderVo=null;
-        Dto<PreAddOrderVO> dto = new Dto<PreAddOrderVO>();
         try {
             if(EmptyUtils.isEmpty(preAddOrderVO.getHotelId())){
-                dto=DtoUtil.returnFail("hotelId不能为空","100006");
+                return DtoUtil.returnFail("hotelId不能为空","100007");
             }else if(EmptyUtils.isEmpty(preAddOrderVO.getRoomId())){
-                dto=DtoUtil.returnFail("roomId不能为空","100007");
+                return DtoUtil.returnFail("roomId不能为空","100007");
             }else{
                 preItripOrderVo=new PreAddOrderVO();
                 hotel=hotelService.getItripHotelById(preAddOrderVO.getHotelId());
@@ -167,30 +173,35 @@ public class HotelOrderController {
                 preItripOrderVo.setPrice(room.getRoomPrice());
                 preItripOrderVo.setHotelId(preAddOrderVO.getHotelId());
                 List<StoreVO> storeVOList=tempStoreService.queryRoomStore(param);
+                preItripOrderVo.setCount(1);
                 if(EmptyUtils.isNotEmpty(storeVOList)){
-                    preItripOrderVo.setCount(storeVOList.get(0).getStore());
+                    preItripOrderVo.setStore(storeVOList.get(0).getStore());
                 }else{
-                    preItripOrderVo.setCount(0);
+                    return DtoUtil.returnFail("暂时无房","100007");
                 }
-                dto.setData(preItripOrderVo);
+                return DtoUtil.returnSuccess("获取成功", preItripOrderVo);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            dto=DtoUtil.returnFail("系统异常","100008");
-            return dto;
+            return DtoUtil.returnFail("系统异常","100010");
         }
-        return dto;
     }
 
+    @ApiOperation(value = "修改订房日期验证是否有房", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "修改订房日期验证是否有房"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100009 : hotelId不能为空,roomId不能为空, </p>"+
+            "<p>100013 : 系统异常</p>")
     @RequestMapping(value = "/validateroomstore",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public Dto<Map<String,Boolean>> validateRoomStore(@RequestBody PreAddOrderVO preAddOrderVO) {
-        Dto<Map<String,Boolean>> dto = new Dto<Map<String,Boolean>>();
         try {
             if(EmptyUtils.isEmpty(preAddOrderVO.getHotelId())){
-                dto=DtoUtil.returnFail("hotelId不能为空","100006");
+                return DtoUtil.returnFail("hotelId不能为空","100011");
             }else if(EmptyUtils.isEmpty(preAddOrderVO.getRoomId())){
-                dto=DtoUtil.returnFail("roomId不能为空","100007");
+                return DtoUtil.returnFail("roomId不能为空","100011");
             }else{
                 Map param=new HashMap();
                 param.put("startTime", preAddOrderVO.getCheckInDate());
@@ -201,15 +212,11 @@ public class HotelOrderController {
                 boolean flag=tempStoreService.validateRoomStore(param);
                 Map<String,Boolean> map=new HashMap<String,Boolean>();
                 map.put("flag",flag);
-                dto.setData(map);
+                return DtoUtil.returnSuccess("操作成功", map);
             }
         } catch (Exception e) {
-            dto=DtoUtil.returnFail("系统异常","100008");
-            return dto;
+            e.printStackTrace();
+            return DtoUtil.returnFail("系统异常","100013");
         }
-        return dto;
     }
-
-
-
 }
