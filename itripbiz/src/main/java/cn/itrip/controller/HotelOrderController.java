@@ -97,11 +97,16 @@ public class HotelOrderController {
                 itripHotelOrder.setHotelName(itripAddHotelOrderVO.getHotelName());
                 itripHotelOrder.setRoomId(itripAddHotelOrderVO.getRoomId());
                 itripHotelOrder.setCount(itripAddHotelOrderVO.getCount());
-                itripHotelOrder.setBookingDays(itripAddHotelOrderVO.getBookingDays());
                 itripHotelOrder.setCheckInDate(itripAddHotelOrderVO.getCheckInDate());
                 itripHotelOrder.setCheckOutDate(itripAddHotelOrderVO.getCheckOutDate());
                 itripHotelOrder.setNoticePhone(itripAddHotelOrderVO.getNoticePhone());
                 itripHotelOrder.setNoticeEmail(itripAddHotelOrderVO.getNoticeEmail());
+                itripHotelOrder.setSpecialRequirement(itripAddHotelOrderVO.getSpecialRequirement());
+                itripHotelOrder.setIsNeedInvoice(itripAddHotelOrderVO.getIsNeedInvoice());
+                itripHotelOrder.setInvoiceHead(itripAddHotelOrderVO.getInvoiceHead());
+                itripHotelOrder.setInvoiceType(itripAddHotelOrderVO.getInvoiceType());
+                itripHotelOrder.setCreatedBy(currentUser.getId());
+                itripHotelOrder.setLinkUserName(itripAddHotelOrderVO.getLinkUserName());
                 itripHotelOrder.setBookingDays(days);
                 //支付之前生成的订单的初始状态为未支付
                 itripHotelOrder.setOrderStatus(0);
@@ -120,9 +125,9 @@ public class HotelOrderController {
                     orderNo.append(DateUtil.format(new Date(), "yyyyMMddHHmmss"));
                     orderNo.append(md5);
                     itripHotelOrder.setOrderNo(orderNo.toString());
-                    itripHotelOrderService.addItripHotelOrder(itripHotelOrder);
                     //计算订单的总金额
                     itripHotelOrder.setPayAmount(itripHotelOrderService.getOrderPayAmount(days, itripAddHotelOrderVO.getRoomId()));
+                    itripHotelOrderService.addItripHotelOrder(itripHotelOrder);
                     dto = DtoUtil.returnSuccess("生成订单成功");
                 } catch (Exception e) {
                     e.printStackTrace();

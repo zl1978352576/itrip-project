@@ -14,8 +14,6 @@ public class ItripAddHotelOrderVO {
 
     @ApiModelProperty("[必填，注：接收数字类型] 订单类型(0:旅游产品 1:酒店产品 2：机票产品)")
     private Integer orderType;
-//    @ApiModelProperty("[必填] 订单号")
-//    private Integer orderNo;
     @ApiModelProperty("[必填] 酒店ID")
     private Long hotelId;
     @ApiModelProperty("[必填] 酒店名称")
@@ -23,21 +21,11 @@ public class ItripAddHotelOrderVO {
     @ApiModelProperty("[必填] 房间ID")
     private Long roomId;
     @ApiModelProperty("[必填] 消耗数量")
-    private BigDecimal roomPrice;
-    @ApiModelProperty("[必填] 消耗数量")
     private Integer count;
-    @ApiModelProperty("[必填] 预定天数")
-    private Integer bookingDays;
     @ApiModelProperty("[必填] 入住时间")
     private Date checkInDate;
     @ApiModelProperty("[必填] 退房时间")
     private Date checkOutDate;
-//    @ApiModelProperty("[必填，注：接收数字类型] 订单状态（0：待支付 1:已取消 2:支付成功 3:已消费）")
-//    private Integer orderStatus;
-//    @ApiModelProperty("[必填] 支付金额")
-//    private BigDecimal payAmount;
-//    @ApiModelProperty("[必填，注：接收数字类型] 支付方式（1:支付宝 2:微信 3:到店付）")
-//    private Integer payType;
     @ApiModelProperty("[非必填] 联系手机号")
     private String noticePhone;
     @ApiModelProperty("[非必填] 联系邮箱")
@@ -50,6 +38,8 @@ public class ItripAddHotelOrderVO {
     private Integer invoiceType;
     @ApiModelProperty("[非必填] 发票抬头")
     private String invoiceHead;
+    @ApiModelProperty("[非必填] 入住人名称")
+    private String linkUserName;
 
     public Integer getOrderType() {
         return orderType;
@@ -83,28 +73,12 @@ public class ItripAddHotelOrderVO {
         this.roomId = roomId;
     }
 
-    public BigDecimal getRoomPrice() {
-        return roomPrice;
-    }
-
-    public void setRoomPrice(BigDecimal roomPrice) {
-        this.roomPrice = roomPrice;
-    }
-
     public Integer getCount() {
         return count;
     }
 
     public void setCount(Integer count) {
         this.count = count;
-    }
-
-    public Integer getBookingDays() {
-        return bookingDays;
-    }
-
-    public void setBookingDays(Integer bookingDays) {
-        this.bookingDays = bookingDays;
     }
 
     public Date getCheckInDate() {
@@ -169,5 +143,13 @@ public class ItripAddHotelOrderVO {
 
     public void setInvoiceHead(String invoiceHead) {
         this.invoiceHead = invoiceHead;
+    }
+
+    public String getLinkUserName() {
+        return linkUserName;
+    }
+
+    public void setLinkUserName(String linkUserName) {
+        this.linkUserName = linkUserName;
     }
 }
