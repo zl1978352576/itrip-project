@@ -5,6 +5,7 @@ import cn.itrip.beans.pojo.ItripProductStore;
 import cn.itrip.common.*;
 import cn.itrip.dao.itripHotelOrder.ItripHotelOrderMapper;
 import cn.itrip.beans.pojo.ItripHotelOrder;
+import cn.itrip.dao.itripHotelRoom.ItripHotelRoomMapper;
 import cn.itrip.dao.itripHotelTempStore.ItripHotelTempStoreMapper;
 import cn.itrip.dao.itripProductStore.ItripProductStoreMapper;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     @Resource
     private ItripProductStoreMapper itripProductStoreMapper;
 
+    @Resource
+    private ItripHotelRoomMapper itripHotelRoomMapper;
+
 
     public ItripHotelOrder getItripHotelOrderById(Long id)throws Exception{
         return itripHotelOrderMapper.getItripHotelOrderById(id);
@@ -39,10 +43,8 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return itripHotelOrderMapper.getItripHotelOrderCountByMap(param);
     }
 
-    public Integer itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, ItripHotelRoom itripHotelRoom)throws Exception{
-            if(this.updateRoomStore(itripHotelOrder, itripHotelRoom) == 0){
-                throw new Exception();
-            }
+    public Integer addItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception{
+
             itripHotelOrder.setCreationDate(new Date());
             return itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder);
     }
@@ -78,15 +80,16 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return itripHotelOrderMapper.getRoomNumByRoomIdTypeAndDate(roomId, startDate, endDate);
     }
 
-    public BigDecimal getOrderPayAmount(int days, BigDecimal roomPrice) throws Exception{
+    public BigDecimal getOrderPayAmount(int days, Long roomId) throws Exception{
         BigDecimal payAmount = null;
+        BigDecimal roomPrice = itripHotelRoomMapper.getItripHotelRoomById(roomId).getRoomPrice();
         payAmount = BigDecimalUtil.OperationASMD(days, roomPrice,
                 BigDecimalUtil.BigDecimalOprations.multiply,
                 2, ROUND_DOWN);
         return payAmount;
     }
 
-    public int updateRoomStore(ItripHotelOrder hotelOrder, ItripHotelRoom itripHotelRoom) throws Exception{
+    /*public int updateRoomStore(ItripHotelOrder hotelOrder, ItripHotelRoom itripHotelRoom) throws Exception{
         int result = 0;
         //获取预定日期，并按天拆分
         List<Date> dates = DateUtil.getBetweenDates(hotelOrder.getCheckInDate(), hotelOrder.getCheckOutDate());
@@ -138,7 +141,7 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
             }
         }
         return result;
-    }
+    }*/
 
     public void flushStore(Map<String,Object> param) throws Exception {
         itripHotelTempStoreMapper.flushStore(param);

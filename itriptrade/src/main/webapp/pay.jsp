@@ -145,7 +145,7 @@
         <h1>确认订单信息</h1>
 </header>
 <div id="main">
-        <form name=alipayment action='../pay' method=post target="_blank">
+        <form name=alipayment action='../pay' method="post">
             <div id="body" style="clear:left">
                 <dl class="content">
                     <dt>订单编号：</dt>

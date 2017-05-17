@@ -145,7 +145,7 @@ public class TokenServiceImpl implements TokenService {
 			newToken=this.generateToken(agent, user);
 			this.save(newToken, user);//缓存新token
 			redisAPI.set(tokenPrefix+token, this.REPLACEMENT_DELAY, JSON.toJSONString(user));//2分钟后旧token过期，注意手机端由永久有效变为2分钟（REPLACEMENT_DELAY默认值）后失效			
-		}else{//其它未考虑情况，不预置换
+		}else{//其它未考虑情况，不予置换
 			throw new TokenValidationFailedException("当前token的过期时间异常,禁止置换");
 		}
 		return newToken;
