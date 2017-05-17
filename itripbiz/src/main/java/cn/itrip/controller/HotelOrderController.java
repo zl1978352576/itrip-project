@@ -4,6 +4,7 @@ import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.*;
 import cn.itrip.beans.vo.order.ItripAddHotelOrderVO;
 import cn.itrip.beans.vo.order.PreAddOrderVO;
+import cn.itrip.beans.vo.store.StoreVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ValidationToken;
@@ -112,6 +113,13 @@ public class HotelOrderController {
                 preItripOrderVo.setHotelName(hotel.getHotelName());
                 preItripOrderVo.setRoomId(room.getId());
                 preItripOrderVo.setPrice(room.getRoomPrice());
+                preItripOrderVo.setHotelId(preAddOrderVO.getHotelId());
+                List<StoreVO> storeVOList=tempStoreService.queryRoomStore(param);
+                if(EmptyUtils.isNotEmpty(storeVOList)){
+                    preItripOrderVo.setCount(storeVOList.get(0).getStore());
+                }else{
+                    preItripOrderVo.setCount(0);
+                }
                 dto.setData(preItripOrderVo);
             }
         } catch (Exception e) {
