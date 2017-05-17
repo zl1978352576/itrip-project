@@ -12,10 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -60,9 +57,9 @@ public class UserInfoController {
             "<p>错误码：</p>"+
             "<p>100401 : 获取常用联系人信息失败 </p>"+
             "<p>100402 : token失效，请重登录</p>")
-    @RequestMapping(value = "/queryuserlinkuser",method= RequestMethod.POST,produces = "application/json")
+    @RequestMapping(value = "/queryuserlinkuser",method= RequestMethod.POST)
     @ResponseBody
-    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestBody(required = false) String linkUserName,HttpServletRequest request){
+    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestParam(required = false) String linkUserName, HttpServletRequest request){
         logger.debug("linkUserName : " + linkUserName);
         String tokenString  = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);

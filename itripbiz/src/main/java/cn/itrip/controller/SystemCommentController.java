@@ -267,7 +267,7 @@ public class SystemCommentController {
 					"<p>错误码：</p>"+
 					"<p>100010 : 文件不存在，删除失败 </p>"+
 					"<p>100011 : token失效，请重登录 </p>")
-	public Dto<Object> delPic(@RequestBody String imgName,HttpServletRequest request) throws IllegalStateException, IOException {
+	public Dto<Object> delPic(@RequestParam String imgName,HttpServletRequest request) throws IllegalStateException, IOException {
 /*	public Dto<Object> delPic(
     		@RequestBody InputDto inputDto) throws IllegalStateException, IOException {*/
 
