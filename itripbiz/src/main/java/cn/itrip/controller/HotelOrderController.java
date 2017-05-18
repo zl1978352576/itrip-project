@@ -199,8 +199,8 @@ public class HotelOrderController {
             response = Dto.class,notes = "生成订单前,获取预订信息"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
-            "<p>100009 : hotelId不能为空,roomId不能为空,暂时无房 </p>"+
-            "<p>100010 : 系统异常</p>")
+            "<p>100506 : hotelId不能为空,roomId不能为空,暂时无房 </p>"+
+            "<p>100507 : 系统异常</p>")
     @RequestMapping(value = "/getpreorderinfo",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public Dto<PreAddOrderVO> getPreOrderInfo(@RequestBody PreAddOrderVO preAddOrderVO){
@@ -209,9 +209,9 @@ public class HotelOrderController {
         PreAddOrderVO preItripOrderVo=null;
         try {
             if(EmptyUtils.isEmpty(preAddOrderVO.getHotelId())){
-                return DtoUtil.returnFail("hotelId不能为空","100007");
+                return DtoUtil.returnFail("hotelId不能为空","100506");
             }else if(EmptyUtils.isEmpty(preAddOrderVO.getRoomId())){
-                return DtoUtil.returnFail("roomId不能为空","100007");
+                return DtoUtil.returnFail("roomId不能为空","100506");
             }else{
                 preItripOrderVo=new PreAddOrderVO();
                 hotel=hotelService.getItripHotelById(preAddOrderVO.getHotelId());
@@ -232,13 +232,13 @@ public class HotelOrderController {
                 if(EmptyUtils.isNotEmpty(storeVOList)){
                     preItripOrderVo.setStore(storeVOList.get(0).getStore());
                 }else{
-                    return DtoUtil.returnFail("暂时无房","100007");
+                    return DtoUtil.returnFail("暂时无房","100506");
                 }
                 return DtoUtil.returnSuccess("获取成功", preItripOrderVo);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return DtoUtil.returnFail("系统异常","100010");
+            return DtoUtil.returnFail("系统异常","100507");
         }
     }
 
@@ -247,16 +247,16 @@ public class HotelOrderController {
             response = Dto.class,notes = "修改订房日期验证是否有房"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
-            "<p>100009 : hotelId不能为空,roomId不能为空, </p>"+
-            "<p>100013 : 系统异常</p>")
+            "<p>100508 : hotelId不能为空,roomId不能为空, </p>"+
+            "<p>100509 : 系统异常</p>")
     @RequestMapping(value = "/validateroomstore",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public Dto<Map<String,Boolean>> validateRoomStore(@RequestBody PreAddOrderVO preAddOrderVO) {
         try {
             if(EmptyUtils.isEmpty(preAddOrderVO.getHotelId())){
-                return DtoUtil.returnFail("hotelId不能为空","100011");
+                return DtoUtil.returnFail("hotelId不能为空","100508");
             }else if(EmptyUtils.isEmpty(preAddOrderVO.getRoomId())){
-                return DtoUtil.returnFail("roomId不能为空","100011");
+                return DtoUtil.returnFail("roomId不能为空","100508");
             }else{
                 Map param=new HashMap();
                 param.put("startTime", preAddOrderVO.getCheckInDate());
@@ -271,7 +271,7 @@ public class HotelOrderController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return DtoUtil.returnFail("系统异常","100013");
+            return DtoUtil.returnFail("系统异常","100509");
         }
     }
 

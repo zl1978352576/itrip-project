@@ -16,37 +16,40 @@ public class ItripHotelVO implements Serializable {
     private String address;
     @Field("hotelLevel")
     private Integer hotelLevel;
+
     @Field("redundantCityName")
     private String redundantCityName;
     @Field("redundantProvinceName")
     private String redundantProvinceName;
     @Field("redundantCountryName")
     private String redundantCountryName;
-    @Field("redundantHotelStore")
-    private Integer redundantHotelStore;
+
     @Field("maxPrice")
     private Double maxPrice;
     @Field("minPrice")
     private Double minPrice;
-    @Field("isOkCount")
-    private Integer isOkCount;
-    private String extendPropertyIds;
+
     @Field("extendPropertyNames")
     private String extendPropertyNames;
-    @Field("pics")
-    private String pics;
-    @Field("tradingAreaNames")
-    private String tradingAreaNames;
-    @Field("commentCount")
-    private Integer commentCount;
-    @Field("featureNames")
-    private String featureNames;
-    @Field("imgUrl")
-    private String imgUrl;
     @Field("extendPropertyPics")
     private String extendPropertyPics;
+
+    @Field("tradingAreaNames")
+    private String tradingAreaNames;
+
+    @Field("featureNames")
+    private String featureNames;
+
+    @Field("isOkCount")
+    private Integer isOkCount;
+    @Field("commentCount")
+    private Integer commentCount;
     @Field("avgScore")
     private Double avgScore;
+
+    @Field("imgUrl")
+    private String imgUrl;
+
 
     public Double getMaxPrice() {
         return maxPrice;
@@ -70,14 +73,6 @@ public class ItripHotelVO implements Serializable {
 
     public void setIsOkCount(Integer isOkCount) {
         this.isOkCount = isOkCount;
-    }
-
-    public String getExtendPropertyIds() {
-        return extendPropertyIds;
-    }
-
-    public void setExtendPropertyIds(String extendPropertyIds) {
-        this.extendPropertyIds = extendPropertyIds;
     }
 
     public String getExtendPropertyNames() {
@@ -167,22 +162,6 @@ public class ItripHotelVO implements Serializable {
 
     public void setRedundantCountryName(String redundantCountryName) {
         this.redundantCountryName = redundantCountryName;
-    }
-
-    public Integer getRedundantHotelStore() {
-        return redundantHotelStore;
-    }
-
-    public void setRedundantHotelStore(Integer redundantHotelStore) {
-        this.redundantHotelStore = redundantHotelStore;
-    }
-
-    public String getPics() {
-        return pics;
-    }
-
-    public void setPics(String pics) {
-        this.pics = pics;
     }
 
     public String getImgUrl() {
