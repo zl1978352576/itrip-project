@@ -2,7 +2,6 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.*;
-import cn.itrip.beans.vo.comment.ItripSearchCommentVO;
 import cn.itrip.beans.vo.order.ItripAddHotelOrderVO;
 import cn.itrip.beans.vo.order.ItripSearchOrderVO;
 import cn.itrip.beans.vo.order.PreAddOrderVO;
@@ -15,12 +14,12 @@ import cn.itrip.service.itripHotelTempStore.ItripHotelTempStoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -266,7 +265,7 @@ public class HotelOrderController {
                 param.put("count", preAddOrderVO.getCount());
                 boolean flag=tempStoreService.validateRoomStore(param);
                 Map<String,Boolean> map=new HashMap<String,Boolean>();
-                map.put("flag",flag);
+                map.put("flag", flag);
                 return DtoUtil.returnSuccess("操作成功", map);
             }
         } catch (Exception e) {
@@ -274,5 +273,15 @@ public class HotelOrderController {
             return DtoUtil.returnFail("系统异常","100509");
         }
     }
-
+    /***
+     * 10分钟执行一次 刷新订单的状态 不对外公布
+     */
+    @Scheduled(cron = "*/600 * * * * ?")
+    public void flushOrderStatus(){
+        try {
+            itripHotelOrderService.flushOrderStatus();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

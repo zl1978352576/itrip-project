@@ -35,8 +35,18 @@ public interface ItripHotelOrderMapper {
 	 * @throws Exception
 	 */
 	public List<ItripListHotelOrderVO> getOrderListByMap(Map<String,Object> param)throws Exception;
-
-
+	/***
+	 * 获取订单数量
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
 	public Integer getOrderCountByMap(Map<String,Object> param)throws Exception;
+	/***
+	 * 刷新订单状态(用于定时程序)
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer flushOrderStatus()throws Exception;
 
 }

@@ -56,17 +56,7 @@ public interface ItripHotelOrderService {
      */
     public BigDecimal getOrderPayAmount(int days, Long roomId) throws Exception;
 
-    /**
-     * 根据订单的预定天数和房间的单价计算订单总金额 -add by donghai
-     * @param 刷新库存
-     * @return
-     * @throws Exception
-     */
-    public void flushStore(Map<String,Object> param) throws Exception;
-
-
-
-
     public Page<ItripListHotelOrderVO> queryOrderPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 
+    public boolean flushOrderStatus()throws Exception;
 }
