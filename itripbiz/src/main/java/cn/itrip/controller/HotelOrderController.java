@@ -37,6 +37,7 @@ import java.util.Map;
 @Api(value = "API", basePath = "/http://api.itrap.com/api")
 @RequestMapping(value = "/api/hotelorder")
 public class HotelOrderController {
+
     private Logger logger = Logger.getLogger(HotelController.class);
 
     @Resource
@@ -279,7 +280,8 @@ public class HotelOrderController {
     @Scheduled(cron = "*/600 * * * * ?")
     public void flushOrderStatus(){
         try {
-            itripHotelOrderService.flushOrderStatus();
+            boolean flag=itripHotelOrderService.flushOrderStatus();
+            logger.info("刷取订单成功");
         } catch (Exception e) {
             e.printStackTrace();
         }
