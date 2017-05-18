@@ -1,5 +1,6 @@
 package cn.itrip.beans.vo.order;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -21,6 +22,15 @@ public class ItripPersonalOrderRoomVO {
     private Integer bookingDays;        //预定天数
     private String linkUserName;        //入住人
     private String specialRequirement;  //特殊需求
+    private BigDecimal payAmount;       //支付金额
+
+    public BigDecimal getPayAmount() {
+        return payAmount;
+    }
+
+    public void setPayAmount(BigDecimal payAmount) {
+        this.payAmount = payAmount;
+    }
 
     public Long getId() {
         return id;

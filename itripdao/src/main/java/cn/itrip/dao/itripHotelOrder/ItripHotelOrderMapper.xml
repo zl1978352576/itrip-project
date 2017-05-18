@@ -20,7 +20,8 @@
         checkInDate as checkInDate,
         checkOutDate as checkOutDate,
         specialRequirement as specialRequirement,
-        linkUserName as linkUserName
+        linkUserName as linkUserName,
+        payAmount as payAmount
         from itrip_hotel_order
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
