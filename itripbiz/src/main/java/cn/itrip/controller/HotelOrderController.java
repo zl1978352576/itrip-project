@@ -109,8 +109,10 @@ public class HotelOrderController {
             response = Dto.class,notes = "生成订单"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
-            "<p>100001 : 获取评分失败 </p>"+
-            "<p>100002 : hotelId不能为空</p>")
+            "<p>100503 : 生成订单失败 </p>"+
+            "<p>100504 : 不能提交空，请填写订单信息 </p>"+
+            "<p>100505 : token失效，请重登录 </p>"+
+            "<p>100506 : 库存不足</p>")
     @RequestMapping(value = "/addhotelorder",method= RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public Dto<Object> addHotelOrder(@RequestBody ItripAddHotelOrderVO itripAddHotelOrderVO, HttpServletRequest request){
@@ -179,15 +181,15 @@ public class HotelOrderController {
                     dto = DtoUtil.returnSuccess("生成订单成功");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    dto = DtoUtil.returnFail("生成订单失败","100003");
+                    dto = DtoUtil.returnFail("生成订单失败","100503");
                 }
             }else if(null != currentUser && null == itripAddHotelOrderVO){
-                dto = DtoUtil.returnFail("不能提交空，请填写订单信息","100004");
+                dto = DtoUtil.returnFail("不能提交空，请填写订单信息","100504");
             }else{
-                dto = DtoUtil.returnFail("token失效，请重登录","100005");
+                dto = DtoUtil.returnFail("token失效，请重登录","100505");
             }
         }else{
-            dto = DtoUtil.returnFail("库存不足","100006");
+            dto = DtoUtil.returnFail("库存不足","100506");
         }
         return dto;
     }
