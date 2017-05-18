@@ -16,10 +16,8 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -29,8 +27,8 @@ import java.util.Map;
 
 /**
  * Created by donghai on 2017/5/15.
- *
- *
+ * <p/>
+ * <p/>
  * 注：错误码（100501 ——100600）
  */
 @Controller
@@ -63,63 +61,63 @@ public class HotelOrderController {
 
 
     @ApiOperation(value = "根据个人订单列表，并分页显示", httpMethod = "POST",
-            protocols = "HTTP",produces = "application/json",
-            response = Dto.class,notes = "根据条件查询个人订单列表，并分页显示"+
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class, notes = "根据条件查询个人订单列表，并分页显示" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
-            "<p>错误码：</p>"+
-            "<p>100501 : 获取个人订单列表错误 </p>"+
+            "<p>错误码：</p>" +
+            "<p>100501 : 获取个人订单列表错误 </p>" +
             "<p>100502 : token失效，请重登录 </p>")
-    @RequestMapping(value = "/getpersonalorderlist",method=RequestMethod.POST,produces = "application/json")
+    @RequestMapping(value = "/getpersonalorderlist", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Dto<Object> getPersonalOrderList(@RequestBody ItripSearchOrderVO itripSearchOrderVO,
-                                            HttpServletRequest request){
+                                            HttpServletRequest request) {
         logger.debug("orderNo : " + itripSearchOrderVO.getOrderNo());
         logger.debug("linkUserName : " + itripSearchOrderVO.getLinkUserName());
         logger.debug("startDate : " + itripSearchOrderVO.getStartDate());
         logger.debug("endDate : " + itripSearchOrderVO.getEndDate());
         Dto<Object> dto = null;
-        String tokenString  = request.getHeader("token");
+        String tokenString = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
-        if(null != currentUser){
-            Map<String,Object> param=new HashMap<>();
-            param.put("userId",currentUser.getId());
-            param.put("orderNo",itripSearchOrderVO.getOrderNo());
-            param.put("linkUserName",itripSearchOrderVO.getLinkUserName());
-            param.put("startDate",itripSearchOrderVO.getStartDate());
-            param.put("endDate",itripSearchOrderVO.getEndDate());
-            try{
+        if (null != currentUser) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("userId", currentUser.getId());
+            param.put("orderNo", itripSearchOrderVO.getOrderNo());
+            param.put("linkUserName", itripSearchOrderVO.getLinkUserName());
+            param.put("startDate", itripSearchOrderVO.getStartDate());
+            param.put("endDate", itripSearchOrderVO.getEndDate());
+            try {
                 Page page = itripHotelOrderService.queryOrderPageByMap(param,
                         itripSearchOrderVO.getPageNo(),
                         itripSearchOrderVO.getPageSize());
-                dto = DtoUtil.returnSuccess("获取个人订单列表成功",page);
-            }catch (Exception e){
+                dto = DtoUtil.returnSuccess("获取个人订单列表成功", page);
+            } catch (Exception e) {
                 e.printStackTrace();
-                dto = DtoUtil.returnFail("获取个人订单列表错误","100501");
+                dto = DtoUtil.returnFail("获取个人订单列表错误", "100501");
             }
 
-        }else{
-            dto = DtoUtil.returnFail("token失效，请重登录","100502");
+        } else {
+            dto = DtoUtil.returnFail("token失效，请重登录", "100502");
         }
         return dto;
     }
 
     @ApiOperation(value = "生成订单", httpMethod = "POST",
-            protocols = "HTTP",produces = "application/json",
-            response = Dto.class,notes = "生成订单"+
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class, notes = "生成订单" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
-            "<p>错误码：</p>"+
-            "<p>100503 : 生成订单失败 </p>"+
-            "<p>100504 : 不能提交空，请填写订单信息 </p>"+
-            "<p>100505 : token失效，请重登录 </p>"+
+            "<p>错误码：</p>" +
+            "<p>100503 : 生成订单失败 </p>" +
+            "<p>100504 : 不能提交空，请填写订单信息 </p>" +
+            "<p>100505 : token失效，请重登录 </p>" +
             "<p>100506 : 库存不足</p>")
-    @RequestMapping(value = "/addhotelorder",method= RequestMethod.POST,produces = "application/json")
+    @RequestMapping(value = "/addhotelorder", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public Dto<Object> addHotelOrder(@RequestBody ItripAddHotelOrderVO itripAddHotelOrderVO, HttpServletRequest request){
+    public Dto<Object> addHotelOrder(@RequestBody ItripAddHotelOrderVO itripAddHotelOrderVO, HttpServletRequest request) {
         //ItripComment
 
         Dto<Object> dto = new Dto<Object>();
-        String tokenString  = request.getHeader("token");
+        String tokenString = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
         Map<String, Object> validateStoreMap = new HashMap<String, Object>();
@@ -134,11 +132,11 @@ public class HotelOrderController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(flag){
-            if(null != currentUser && null != itripAddHotelOrderVO){
+        if (flag) {
+            if (null != currentUser && null != itripAddHotelOrderVO) {
                 //计算订单的预定天数
                 Integer days = DateUtil.getBetweenDates(
-                        itripAddHotelOrderVO.getCheckInDate(),itripAddHotelOrderVO.getCheckOutDate()
+                        itripAddHotelOrderVO.getCheckInDate(), itripAddHotelOrderVO.getCheckOutDate()
                 ).size();
                 ItripHotelOrder itripHotelOrder = new ItripHotelOrder();
                 itripHotelOrder.setUserId(currentUser.getId());
@@ -166,7 +164,7 @@ public class HotelOrderController {
                     md5String.append(itripHotelOrder.getHotelId());
                     md5String.append(itripHotelOrder.getRoomId());
                     md5String.append(System.currentTimeMillis());
-                    md5String.append(Math.random()*1000000);
+                    md5String.append(Math.random() * 1000000);
                     String md5 = MD5.getMd5(md5String.toString(), 6);
 
                     //生成订单编号
@@ -181,42 +179,42 @@ public class HotelOrderController {
                     dto = DtoUtil.returnSuccess("生成订单成功");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    dto = DtoUtil.returnFail("生成订单失败","100503");
+                    dto = DtoUtil.returnFail("生成订单失败", "100503");
                 }
-            }else if(null != currentUser && null == itripAddHotelOrderVO){
-                dto = DtoUtil.returnFail("不能提交空，请填写订单信息","100504");
-            }else{
-                dto = DtoUtil.returnFail("token失效，请重登录","100505");
+            } else if (null != currentUser && null == itripAddHotelOrderVO) {
+                dto = DtoUtil.returnFail("不能提交空，请填写订单信息", "100504");
+            } else {
+                dto = DtoUtil.returnFail("token失效，请重登录", "100505");
             }
-        }else{
-            dto = DtoUtil.returnFail("库存不足","100506");
+        } else {
+            dto = DtoUtil.returnFail("库存不足", "100506");
         }
         return dto;
     }
 
     @ApiOperation(value = "生成订单前,获取预订信息", httpMethod = "POST",
-            protocols = "HTTP",produces = "application/json",
-            response = Dto.class,notes = "生成订单前,获取预订信息"+
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class, notes = "生成订单前,获取预订信息" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
-            "<p>错误码：</p>"+
-            "<p>100506 : hotelId不能为空,roomId不能为空,暂时无房 </p>"+
+            "<p>错误码：</p>" +
+            "<p>100506 : hotelId不能为空,roomId不能为空,暂时无房 </p>" +
             "<p>100507 : 系统异常</p>")
-    @RequestMapping(value = "/getpreorderinfo",method= RequestMethod.POST,produces = "application/json")
+    @RequestMapping(value = "/getpreorderinfo", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public Dto<PreAddOrderVO> getPreOrderInfo(@RequestBody PreAddOrderVO preAddOrderVO){
-        ItripHotel hotel=null;
-        ItripHotelRoom room=null;
-        PreAddOrderVO preItripOrderVo=null;
+    public Dto<PreAddOrderVO> getPreOrderInfo(@RequestBody PreAddOrderVO preAddOrderVO) {
+        ItripHotel hotel = null;
+        ItripHotelRoom room = null;
+        PreAddOrderVO preItripOrderVo = null;
         try {
-            if(EmptyUtils.isEmpty(preAddOrderVO.getHotelId())){
-                return DtoUtil.returnFail("hotelId不能为空","100506");
-            }else if(EmptyUtils.isEmpty(preAddOrderVO.getRoomId())){
-                return DtoUtil.returnFail("roomId不能为空","100506");
-            }else{
-                preItripOrderVo=new PreAddOrderVO();
-                hotel=hotelService.getItripHotelById(preAddOrderVO.getHotelId());
-                room=roomService.getItripHotelRoomById(preAddOrderVO.getRoomId());
-                Map param=new HashMap();
+            if (EmptyUtils.isEmpty(preAddOrderVO.getHotelId())) {
+                return DtoUtil.returnFail("hotelId不能为空", "100506");
+            } else if (EmptyUtils.isEmpty(preAddOrderVO.getRoomId())) {
+                return DtoUtil.returnFail("roomId不能为空", "100506");
+            } else {
+                preItripOrderVo = new PreAddOrderVO();
+                hotel = hotelService.getItripHotelById(preAddOrderVO.getHotelId());
+                room = roomService.getItripHotelRoomById(preAddOrderVO.getRoomId());
+                Map param = new HashMap();
                 param.put("startTime", preAddOrderVO.getCheckInDate());
                 param.put("endTime", preAddOrderVO.getCheckOutDate());
                 param.put("roomId", preAddOrderVO.getRoomId());
@@ -227,60 +225,90 @@ public class HotelOrderController {
                 preItripOrderVo.setRoomId(room.getId());
                 preItripOrderVo.setPrice(room.getRoomPrice());
                 preItripOrderVo.setHotelId(preAddOrderVO.getHotelId());
-                List<StoreVO> storeVOList=tempStoreService.queryRoomStore(param);
+                List<StoreVO> storeVOList = tempStoreService.queryRoomStore(param);
                 preItripOrderVo.setCount(1);
-                if(EmptyUtils.isNotEmpty(storeVOList)){
+                if (EmptyUtils.isNotEmpty(storeVOList)) {
                     preItripOrderVo.setStore(storeVOList.get(0).getStore());
-                }else{
-                    return DtoUtil.returnFail("暂时无房","100506");
+                } else {
+                    return DtoUtil.returnFail("暂时无房", "100506");
                 }
                 return DtoUtil.returnSuccess("获取成功", preItripOrderVo);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return DtoUtil.returnFail("系统异常","100507");
+            return DtoUtil.returnFail("系统异常", "100507");
         }
     }
 
     @ApiOperation(value = "修改订房日期验证是否有房", httpMethod = "POST",
-            protocols = "HTTP",produces = "application/json",
-            response = Dto.class,notes = "修改订房日期验证是否有房"+
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class, notes = "修改订房日期验证是否有房" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
-            "<p>错误码：</p>"+
-            "<p>100508 : hotelId不能为空,roomId不能为空, </p>"+
+            "<p>错误码：</p>" +
+            "<p>100508 : hotelId不能为空,roomId不能为空, </p>" +
             "<p>100509 : 系统异常</p>")
-    @RequestMapping(value = "/validateroomstore",method= RequestMethod.POST,produces = "application/json")
+    @RequestMapping(value = "/validateroomstore", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public Dto<Map<String,Boolean>> validateRoomStore(@RequestBody PreAddOrderVO preAddOrderVO) {
+    public Dto<Map<String, Boolean>> validateRoomStore(@RequestBody PreAddOrderVO preAddOrderVO) {
         try {
-            if(EmptyUtils.isEmpty(preAddOrderVO.getHotelId())){
-                return DtoUtil.returnFail("hotelId不能为空","100508");
-            }else if(EmptyUtils.isEmpty(preAddOrderVO.getRoomId())){
-                return DtoUtil.returnFail("roomId不能为空","100508");
-            }else{
-                Map param=new HashMap();
+            if (EmptyUtils.isEmpty(preAddOrderVO.getHotelId())) {
+                return DtoUtil.returnFail("hotelId不能为空", "100508");
+            } else if (EmptyUtils.isEmpty(preAddOrderVO.getRoomId())) {
+                return DtoUtil.returnFail("roomId不能为空", "100508");
+            } else {
+                Map param = new HashMap();
                 param.put("startTime", preAddOrderVO.getCheckInDate());
                 param.put("endTime", preAddOrderVO.getCheckOutDate());
                 param.put("roomId", preAddOrderVO.getRoomId());
                 param.put("hotelId", preAddOrderVO.getHotelId());
                 param.put("count", preAddOrderVO.getCount());
-                boolean flag=tempStoreService.validateRoomStore(param);
-                Map<String,Boolean> map=new HashMap<String,Boolean>();
+                boolean flag = tempStoreService.validateRoomStore(param);
+                Map<String, Boolean> map = new HashMap<String, Boolean>();
                 map.put("flag", flag);
                 return DtoUtil.returnSuccess("操作成功", map);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return DtoUtil.returnFail("系统异常","100509");
+            return DtoUtil.returnFail("系统异常", "100509");
         }
     }
+
+    @ApiOperation(value = "支付成功后查询订单信息", httpMethod = "POST",
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class, notes = "支付成功后查询订单信息" +
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>" +
+            "<p>100510 : id不能为空 </p>" +
+            "<p>100511 : 系统异常</p>")
+    @RequestMapping(value = "/querysuccessorderinfo/{id}", method = RequestMethod.GET, produces = "application/json")
+    public Dto<Map<String, Boolean>> querySuccessOrderInfo(@PathVariable Long id) {
+        if (EmptyUtils.isEmpty(id)) {
+            return DtoUtil.returnFail("id不能为空", "100510");
+        }
+        try {
+            ItripHotelOrder order = itripHotelOrderService.getItripHotelOrderById(id);
+            ItripHotelRoom room = roomService.getItripHotelRoomById(order.getRoomId());
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("id", order.getId());
+            resultMap.put("orderNo", order.getOrderNo());
+            resultMap.put("payType", order.getPayType());
+            resultMap.put("payAmount", order.getPayAmount());
+            resultMap.put("hotelName", order.getHotelName());
+            resultMap.put("roomTitle", room.getRoomTitle());
+            return DtoUtil.returnSuccess("获取数据成功", resultMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return DtoUtil.returnFail("id不能为空", "100511");
+        }
+    }
+
     /***
      * 10分钟执行一次 刷新订单的状态 不对外公布
      */
     @Scheduled(cron = "*/600 * * * * ?")
-    public void flushOrderStatus(){
+    public void flushOrderStatus() {
         try {
-            boolean flag=itripHotelOrderService.flushOrderStatus();
+            boolean flag = itripHotelOrderService.flushOrderStatus();
             logger.info("刷取订单成功");
         } catch (Exception e) {
             e.printStackTrace();
