@@ -309,7 +309,7 @@ public class HotelOrderController {
     public void flushOrderStatus() {
         try {
             boolean flag = itripHotelOrderService.flushOrderStatus();
-            logger.info("刷取订单成功");
+            logger.info(flag?"刷取订单成功":"刷单失败");
         } catch (Exception e) {
             e.printStackTrace();
         }
