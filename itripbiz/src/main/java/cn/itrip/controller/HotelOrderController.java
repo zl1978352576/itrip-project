@@ -175,6 +175,14 @@ public class HotelOrderController {
                 itripHotelOrder.setCreatedBy(currentUser.getId());
                 itripHotelOrder.setLinkUserName(itripAddHotelOrderVO.getLinkUserName());
                 itripHotelOrder.setBookingDays(days);
+                tokenString = tokenString.substring(6);
+                if(tokenString.startsWith("PC")){
+                    itripHotelOrder.setBookType(0);
+                }else if (tokenString.startsWith("MOBILE")){
+                    itripHotelOrder.setBookType(1);
+                }else{
+                    itripHotelOrder.setBookType(2);
+                }
                 //支付之前生成的订单的初始状态为未支付
                 itripHotelOrder.setOrderStatus(0);
                 try {
