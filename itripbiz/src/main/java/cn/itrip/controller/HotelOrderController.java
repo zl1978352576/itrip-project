@@ -316,6 +316,7 @@ public class HotelOrderController {
             "<p>100519 : id不能为空</p>" +
             "<p>100520 : 获取数据失败</p>")
     @RequestMapping(value = "/querysuccessorderinfo/{id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
     public Dto<Map<String, Boolean>> querySuccessOrderInfo(@PathVariable Long id,HttpServletRequest request) {
         String tokenString = request.getHeader("token");
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
@@ -327,6 +328,9 @@ public class HotelOrderController {
         }
         try {
             ItripHotelOrder order = itripHotelOrderService.getItripHotelOrderById(id);
+            if (EmptyUtils.isEmpty(order)) {
+                return DtoUtil.returnFail("没有查询到相应订单", "100519");
+            }
             ItripHotelRoom room = roomService.getItripHotelRoomById(order.getRoomId());
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("id", order.getId());
