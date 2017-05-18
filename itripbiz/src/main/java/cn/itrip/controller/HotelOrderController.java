@@ -175,10 +175,9 @@ public class HotelOrderController {
                 itripHotelOrder.setCreatedBy(currentUser.getId());
                 itripHotelOrder.setLinkUserName(itripAddHotelOrderVO.getLinkUserName());
                 itripHotelOrder.setBookingDays(days);
-                tokenString = tokenString.substring(6);
-                if(tokenString.startsWith("PC")){
+                if(tokenString.startsWith("token:PC")){
                     itripHotelOrder.setBookType(0);
-                }else if (tokenString.startsWith("MOBILE")){
+                }else if (tokenString.startsWith("token:MOBILE")){
                     itripHotelOrder.setBookType(1);
                 }else{
                     itripHotelOrder.setBookType(2);
