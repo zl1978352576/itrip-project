@@ -406,7 +406,7 @@ public class HotelOrderController {
             "<p>错误码：</p>"+
             "<p>100501 : 请传递参数：orderId </p>"+
             "<p>100502 : 没有相关订单信息 </p>"+
-            "<p>100503 : 获取个人订单列表错误 </p>"+
+            "<p>100503 : 获取个人订单信息错误 </p>"+
             "<p>100504 : token失效，请重登录 </p>")
     @RequestMapping(value = "/getpersonalorderinfo/{orderId}",method=RequestMethod.GET,produces = "application/json")
     @ResponseBody
@@ -454,13 +454,13 @@ public class HotelOrderController {
                     itripPersonalHotelOrderVO.setPayAmount(hotelOrder.getPayAmount());
                     itripPersonalHotelOrderVO.setPayType(hotelOrder.getPayType());
                     itripPersonalHotelOrderVO.setNoticePhone(hotelOrder.getNoticePhone());
-                    dto = DtoUtil.returnSuccess("获取个人订单列表成功",itripPersonalHotelOrderVO);
+                    dto = DtoUtil.returnSuccess("获取个人订单信息成功",itripPersonalHotelOrderVO);
                 }else{
                     dto = DtoUtil.returnFail("没有相关订单信息","100503");
                 }
             }catch (Exception e){
                 e.printStackTrace();
-                dto = DtoUtil.returnFail("获取个人订单列表错误","100503");
+                dto = DtoUtil.returnFail("获取个人订单信息错误","100503");
             }
         }else{
             dto = DtoUtil.returnFail("token失效，请重登录","100504");
@@ -468,4 +468,44 @@ public class HotelOrderController {
         return dto;
     }
 
+
+    @ApiOperation(value = "根据订单ID查看个人订单详情-房型相关信息", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据订单ID查看个人订单详情-房型相关信息"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100501 : 请传递参数：orderId </p>"+
+            "<p>100502 : 没有相关订单信息 </p>"+
+            "<p>100503 : 获取个人订单信息错误 </p>"+
+            "<p>100504 : token失效，请重登录 </p>")
+    @RequestMapping(value = "/getpersonalorderroominfo/{orderId}",method=RequestMethod.GET,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getPersonalOrderRoomInfo(@ApiParam(required = true, name = "orderId", value = "订单ID")
+                                            @PathVariable String orderId,
+                                            HttpServletRequest request){
+        logger.debug("orderId : " + orderId);
+        Dto<Object> dto = null;
+        String tokenString  = request.getHeader("token");
+        logger.debug("token name is from header : " + tokenString);
+        ItripUser currentUser = validationToken.getCurrentUser(tokenString);
+        if(null != currentUser){
+            if(null == orderId || "".equals(orderId)){
+                return DtoUtil.returnFail("请传递参数：orderId","100501");
+            }
+            try{
+                ItripPersonalOrderRoomVO vo = itripHotelOrderService.getItripHotelOrderRoomInfoById(Long.valueOf(orderId));
+                if(null != vo){
+                    dto = DtoUtil.returnSuccess("获取个人订单房型信息成功",vo);
+                }else{
+                    dto = DtoUtil.returnFail("没有相关订单房型信息","100503");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                dto = DtoUtil.returnFail("获取个人订单房型信息错误","100503");
+            }
+        }else{
+            dto = DtoUtil.returnFail("token失效，请重登录","100504");
+        }
+        return dto;
+    }
 }

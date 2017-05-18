@@ -1,6 +1,7 @@
 package cn.itrip.dao.itripHotelOrder;
 import cn.itrip.beans.pojo.ItripHotelOrder;
 import cn.itrip.beans.vo.order.ItripListHotelOrderVO;
+import cn.itrip.beans.vo.order.ItripPersonalOrderRoomVO;
 import org.apache.ibatis.annotations.Param;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -11,6 +12,8 @@ import java.util.Map;
 public interface ItripHotelOrderMapper {
 
 	public ItripHotelOrder getItripHotelOrderById(@Param(value = "id") Long id)throws Exception;
+
+	public ItripPersonalOrderRoomVO getItripHotelOrderRoomInfoById(@Param(value = "id") Long id)throws Exception;
 
 	public List<ItripHotelOrder>	getItripHotelOrderListByMap(Map<String,Object> param)throws Exception;
 
