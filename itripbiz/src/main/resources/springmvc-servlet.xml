@@ -74,6 +74,9 @@
 	  <property name="fileUploadPathString" value="${sysConfig.fileUploadPath}"/>
 	  <property name="visitImgUrlString" value="${sysConfig.visitImgUrl}"/>
        <property name="machineCode" value="${sysConfig.machineCode}"/>
+       <property name="orderProcessOK" value="${sysConfig.orderProcessOK}"/>
+       <property name="orderProcessCancel" value="${sysConfig.orderProcessCancel}"/>
+
    </bean>
 
 </beans>
