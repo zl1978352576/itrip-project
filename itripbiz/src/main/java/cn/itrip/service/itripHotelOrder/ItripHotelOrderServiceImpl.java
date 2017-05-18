@@ -124,16 +124,16 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
      * @throws Exception
      */
     public int updateRoomStore(ItripHotelOrder itripHotelOrder) throws Exception{
+        ItripHotelOrder modifyItripHotelOrder = new ItripHotelOrder();
+        modifyItripHotelOrder = itripHotelOrderMapper.getItripHotelOrderById(itripHotelOrder.getId());
         int result = 0;
         //获取预定日期，并按天拆分
-        List<Date> dates = DateUtil.getBetweenDates(itripHotelOrder.getCheckInDate(), itripHotelOrder.getCheckOutDate());
+        List<Date> dates = DateUtil.getBetweenDates(modifyItripHotelOrder.getCheckInDate(), modifyItripHotelOrder.getCheckOutDate());
         ItripHotelTempStore tempStore = new ItripHotelTempStore();
-        //score用来存临时库存表的库存数量，此数量通过计算得到
-        int score = 0;
         //遍历日期，每个日期都对应一条库存记录
-        Long hotelId = itripHotelOrder.getHotelId();
-        Long roomId = itripHotelOrder.getRoomId();
-        Integer count = itripHotelOrder.getCount();
+        Long hotelId = modifyItripHotelOrder.getHotelId();
+        Long roomId = modifyItripHotelOrder.getRoomId();
+        Integer count = modifyItripHotelOrder.getCount();
         List<ItripHotelTempStore> tempStoreList = null;
         for(int i=0; i<dates.size(); i++){
             tempStore.setHotelId(hotelId.intValue());
@@ -159,7 +159,6 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         }
         return result;
     }
-
 
     public ItripPersonalOrderRoomVO getItripHotelOrderRoomInfoById(Long orderId)throws Exception{
         return itripHotelOrderMapper.getItripHotelOrderRoomInfoById(orderId);

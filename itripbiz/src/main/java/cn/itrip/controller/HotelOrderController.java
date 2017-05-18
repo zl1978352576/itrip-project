@@ -376,6 +376,7 @@ public class HotelOrderController {
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
         if (null != currentUser && null != itripModifyHotelOrderVO) {
             ItripHotelOrder itripHotelOrder = new ItripHotelOrder();
+            itripHotelOrder.setId(itripModifyHotelOrderVO.getId());
             itripHotelOrder.setOrderStatus(itripModifyHotelOrderVO.getOrderStatus());
             itripHotelOrder.setPayType(itripModifyHotelOrderVO.getPayType());
             itripHotelOrder.setModifiedBy(currentUser.getId());
