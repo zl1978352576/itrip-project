@@ -4,6 +4,7 @@ import cn.itrip.beans.pojo.ItripHotelRoom;
 import cn.itrip.beans.pojo.ItripHotelTempStore;
 import cn.itrip.beans.pojo.ItripProductStore;
 import cn.itrip.beans.vo.order.ItripListHotelOrderVO;
+import cn.itrip.beans.vo.order.ItripPersonalOrderRoomVO;
 import cn.itrip.common.*;
 import cn.itrip.dao.itripHotelOrder.ItripHotelOrderMapper;
 import cn.itrip.beans.pojo.ItripHotelOrder;
@@ -157,5 +158,10 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
             }
         }
         return result;
+    }
+
+
+    public ItripPersonalOrderRoomVO getItripHotelOrderRoomInfoById(Long orderId)throws Exception{
+        return itripHotelOrderMapper.getItripHotelOrderRoomInfoById(orderId);
     }
 }

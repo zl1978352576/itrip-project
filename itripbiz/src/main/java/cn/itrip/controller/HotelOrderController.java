@@ -2,18 +2,17 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.*;
-import cn.itrip.beans.vo.order.ItripAddHotelOrderVO;
-import cn.itrip.beans.vo.order.ItripModifyHotelOrderVO;
-import cn.itrip.beans.vo.order.ItripSearchOrderVO;
-import cn.itrip.beans.vo.order.PreAddOrderVO;
+import cn.itrip.beans.vo.order.*;
 import cn.itrip.beans.vo.store.StoreVO;
 import cn.itrip.common.*;
 import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripHotelOrder.ItripHotelOrderService;
 import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
 import cn.itrip.service.itripHotelTempStore.ItripHotelTempStoreService;
+import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
@@ -393,5 +392,120 @@ public class HotelOrderController {
         } else {
             return DtoUtil.returnFail("token失效，请重新登录", "100512");
         }
+    }
+
+
+    @ApiOperation(value = "根据订单ID查看个人订单详情", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据订单ID查看个人订单详情"+
+            "<p>订单状态(orderStatus)（0：待支付 1:已取消 2:支付成功 3:已消费）：</p>" +
+            "<p>订单流程：</p>" +
+            "<p>订单状态(0：待支付 2:支付成功 3:已消费)的流程：{\"1\":\"订单提交\",\"2\":\"订单支付\",\"3\":\"支付成功\",\"4\":\"入住\",\"5\":\"订单点评\"}</p>" +
+            "<p>订单状态(1:已取消)的流程：{\"1\":\"订单提交\",\"2\":\"订单支付\",\"3\":\"订单取消\"}</p>" +
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100501 : 请传递参数：orderId </p>"+
+            "<p>100502 : 没有相关订单信息 </p>"+
+            "<p>100503 : 获取个人订单信息错误 </p>"+
+            "<p>100504 : token失效，请重登录 </p>")
+    @RequestMapping(value = "/getpersonalorderinfo/{orderId}",method=RequestMethod.GET,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getPersonalOrderInfo(@ApiParam(required = true, name = "orderId", value = "订单ID")
+                                                @PathVariable String orderId,
+                                            HttpServletRequest request){
+        logger.debug("orderId : " + orderId);
+        Dto<Object> dto = null;
+        String tokenString  = request.getHeader("token");
+        logger.debug("token name is from header : " + tokenString);
+        ItripUser currentUser = validationToken.getCurrentUser(tokenString);
+        if(null != currentUser){
+            if(null == orderId || "".equals(orderId)){
+                return DtoUtil.returnFail("请传递参数：orderId","100501");
+            }
+            try{
+                ItripHotelOrder hotelOrder = itripHotelOrderService.getItripHotelOrderById(Long.valueOf(orderId));
+                if(null != hotelOrder){
+                    ItripPersonalHotelOrderVO itripPersonalHotelOrderVO = new ItripPersonalHotelOrderVO();
+                    itripPersonalHotelOrderVO.setId(hotelOrder.getId());
+                    itripPersonalHotelOrderVO.setBookType(hotelOrder.getBookType());
+                    itripPersonalHotelOrderVO.setCreationDate(hotelOrder.getCreationDate());
+                    itripPersonalHotelOrderVO.setOrderNo(hotelOrder.getOrderNo());
+                    Integer orderStatus = hotelOrder.getOrderStatus();
+                    itripPersonalHotelOrderVO.setOrderStatus(orderStatus);
+                    //订单状态（0：待支付 1:已取消 2:支付成功 3:已消费）
+                    //{"1":"订单提交","2":"订单支付","3":"支付成功","4":"入住","5":"订单点评"}
+                    //{"1":"订单提交","2":"订单支付","3":"订单取消"}
+                    if(orderStatus == 1){
+                        itripPersonalHotelOrderVO.setOrderProcess(JSONArray.parse(systemConfig.getOrderProcessCancel()));
+                        itripPersonalHotelOrderVO.setProcessNode("3");
+                    }else if(orderStatus == 0){
+                        itripPersonalHotelOrderVO.setOrderProcess(JSONArray.parse(systemConfig.getOrderProcessOK()));
+                        itripPersonalHotelOrderVO.setProcessNode("2");//订单支付
+                    }else if(orderStatus == 2 ){
+                        itripPersonalHotelOrderVO.setOrderProcess(JSONArray.parse(systemConfig.getOrderProcessOK()));
+                        itripPersonalHotelOrderVO.setProcessNode("3");//支付成功（未出行）
+                    }else if(orderStatus == 3 ){
+                        itripPersonalHotelOrderVO.setOrderProcess(JSONArray.parse(systemConfig.getOrderProcessOK()));
+                        itripPersonalHotelOrderVO.setProcessNode("5");//订单点评
+                    }else{
+                        itripPersonalHotelOrderVO.setOrderProcess(null);
+                        itripPersonalHotelOrderVO.setProcessNode(null);
+                    }
+                    itripPersonalHotelOrderVO.setPayAmount(hotelOrder.getPayAmount());
+                    itripPersonalHotelOrderVO.setPayType(hotelOrder.getPayType());
+                    itripPersonalHotelOrderVO.setNoticePhone(hotelOrder.getNoticePhone());
+                    dto = DtoUtil.returnSuccess("获取个人订单信息成功",itripPersonalHotelOrderVO);
+                }else{
+                    dto = DtoUtil.returnFail("没有相关订单信息","100503");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                dto = DtoUtil.returnFail("获取个人订单信息错误","100503");
+            }
+        }else{
+            dto = DtoUtil.returnFail("token失效，请重登录","100504");
+        }
+        return dto;
+    }
+
+
+    @ApiOperation(value = "根据订单ID查看个人订单详情-房型相关信息", httpMethod = "GET",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据订单ID查看个人订单详情-房型相关信息"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100501 : 请传递参数：orderId </p>"+
+            "<p>100502 : 没有相关订单信息 </p>"+
+            "<p>100503 : 获取个人订单信息错误 </p>"+
+            "<p>100504 : token失效，请重登录 </p>")
+    @RequestMapping(value = "/getpersonalorderroominfo/{orderId}",method=RequestMethod.GET,produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getPersonalOrderRoomInfo(@ApiParam(required = true, name = "orderId", value = "订单ID")
+                                            @PathVariable String orderId,
+                                            HttpServletRequest request){
+        logger.debug("orderId : " + orderId);
+        Dto<Object> dto = null;
+        String tokenString  = request.getHeader("token");
+        logger.debug("token name is from header : " + tokenString);
+        ItripUser currentUser = validationToken.getCurrentUser(tokenString);
+        if(null != currentUser){
+            if(null == orderId || "".equals(orderId)){
+                return DtoUtil.returnFail("请传递参数：orderId","100501");
+            }
+            try{
+                ItripPersonalOrderRoomVO vo = itripHotelOrderService.getItripHotelOrderRoomInfoById(Long.valueOf(orderId));
+                if(null != vo){
+                    dto = DtoUtil.returnSuccess("获取个人订单房型信息成功",vo);
+                }else{
+                    dto = DtoUtil.returnFail("没有相关订单房型信息","100503");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                dto = DtoUtil.returnFail("获取个人订单房型信息错误","100503");
+            }
+        }else{
+            dto = DtoUtil.returnFail("token失效，请重登录","100504");
+        }
+        return dto;
     }
 }

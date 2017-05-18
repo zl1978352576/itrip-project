@@ -19,6 +19,26 @@ public class SystemConfig {
 	 */
 	private String machineCode;
 
+	private String orderProcessOK;
+
+	private String orderProcessCancel;
+
+
+	public String getOrderProcessOK() {
+		return orderProcessOK;
+	}
+
+	public void setOrderProcessOK(String orderProcessOK) {
+		this.orderProcessOK = orderProcessOK;
+	}
+
+	public String getOrderProcessCancel() {
+		return orderProcessCancel;
+	}
+
+	public void setOrderProcessCancel(String orderProcessCancel) {
+		this.orderProcessCancel = orderProcessCancel;
+	}
 
 	public String getMachineCode() {
 		return machineCode;
