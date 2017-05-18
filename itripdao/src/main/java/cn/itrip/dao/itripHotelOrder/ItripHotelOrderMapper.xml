@@ -494,8 +494,12 @@
         delete from itrip_hotel_order where id = #{id}
     </delete>
 
-    <update id="flushOrderStatus">
+    <update id="flushCancelOrderStatus">
           update itrip_hotel_order set orderStatus=1 where orderStatus=0 and timestampdiff(SECOND, creationDate, NOW()) >= 2 * 3600
+    </update>
+
+    <update id="flushSuccessOrderStatus">
+        update itrip_hotel_order set orderStatus=3 where orderStatus=2 and timestampdiff(SECOND, checkOutDate, NOW()) > = 0
     </update>
 
 </mapper>

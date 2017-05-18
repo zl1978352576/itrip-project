@@ -340,9 +340,21 @@ public class HotelOrderController {
      * 10分钟执行一次 刷新订单的状态 不对外公布
      */
     @Scheduled(cron = "*/600 * * * * ?")
+    public void flushCancelOrderStatus() {
+        try {
+            boolean flag = itripHotelOrderService.flushOrderStatus(1);
+            logger.info(flag ? "刷取订单成功" : "刷单失败");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /***
+     * 100分钟执行一次 刷新订单的状态 不对外公布
+     */
+    @Scheduled(cron = "*/6000 * * * * ?")
     public void flushOrderStatus() {
         try {
-            boolean flag = itripHotelOrderService.flushOrderStatus();
+            boolean flag = itripHotelOrderService.flushOrderStatus(2);
             logger.info(flag?"刷取订单成功":"刷单失败");
         } catch (Exception e) {
             e.printStackTrace();

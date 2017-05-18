@@ -50,7 +50,6 @@ public interface ItripHotelOrderService {
     /**
      * 根据订单的预定天数和房间的单价计算订单总金额 -add by donghai
      * @param days
-     * @param roomPrice
      * @return
      * @throws Exception
      */
@@ -58,5 +57,5 @@ public interface ItripHotelOrderService {
 
     public Page<ItripListHotelOrderVO> queryOrderPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 
-    public boolean flushOrderStatus()throws Exception;
+    public boolean flushOrderStatus(Integer type)throws Exception;
 }

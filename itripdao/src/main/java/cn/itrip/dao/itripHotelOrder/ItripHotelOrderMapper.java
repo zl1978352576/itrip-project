@@ -43,10 +43,16 @@ public interface ItripHotelOrderMapper {
 	 */
 	public Integer getOrderCountByMap(Map<String,Object> param)throws Exception;
 	/***
-	 * 刷新订单状态(用于定时程序)
+	 * 刷新取消订单状态(用于定时程序)
 	 * @return
 	 * @throws Exception
 	 */
-	public Integer flushOrderStatus()throws Exception;
+	public Integer flushCancelOrderStatus()throws Exception;
+	/***
+	 * 刷新已入住订单状态(用于定时程序)
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer flushSuccessOrderStatus()throws Exception;
 
 }

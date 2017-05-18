@@ -106,8 +106,13 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     }
 
     @Override
-    public boolean flushOrderStatus() throws Exception {
-        Integer flag = itripHotelOrderMapper.flushOrderStatus();
+    public boolean flushOrderStatus(Integer type) throws Exception {
+        Integer flag;
+        if(type==1){
+            flag= itripHotelOrderMapper.flushCancelOrderStatus();
+        }else{
+           flag= itripHotelOrderMapper.flushSuccessOrderStatus();
+        }
         return flag > 0 ? true : false;
     }
 
