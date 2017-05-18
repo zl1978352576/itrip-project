@@ -63,7 +63,7 @@
             <if test="userId != null and userId!=''">
                 and userId=#{userId}
             </if>
-            <if test="orderType != null and orderType!=''">
+            <if test="orderType != null">
                 and orderType=#{orderType}
             </if>
             <if test="orderNo != null and orderNo!=''">
@@ -78,7 +78,7 @@
             <if test="checkInDate != null and checkInDate!=''">
                 and checkInDate=#{checkInDate}
             </if>
-            <if test="orderStatus != null and orderStatus!=''">
+            <if test="orderStatus != null">
                 and orderStatus=#{orderStatus}
             </if>
             <if test="payAmount != null and payAmount!=''">
@@ -109,7 +109,7 @@
             <if test="userId != null and userId!=''">
                 and userId=#{userId}
             </if>
-            <if test="orderType != null and orderType!=''">
+            <if test="orderType != null">
                 and orderType=#{orderType}
             </if>
             <if test="orderNo != null and orderNo!=''">
@@ -124,7 +124,7 @@
             <if test="checkInDate != null and checkInDate!=''">
                 and checkInDate=#{checkInDate}
             </if>
-            <if test="orderStatus != null and orderStatus!=''">
+            <if test="orderStatus != null">
                 and orderStatus=#{orderStatus}
             </if>
             <if test="payAmount != null and payAmount!=''">

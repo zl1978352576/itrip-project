@@ -61,43 +61,62 @@ public class HotelOrderController {
 
 
     @ApiOperation(value = "根据个人订单列表，并分页显示", httpMethod = "POST",
-            protocols = "HTTP", produces = "application/json",
-            response = Dto.class, notes = "根据条件查询个人订单列表，并分页显示" +
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "根据条件查询个人订单列表，并分页显示"+
+            "<p>订单类型(orderType)（-1：全部订单 0:旅游订单 1:酒店订单 2：机票订单）：</p>" +
+            "<p>订单状态(orderStatus)（0：待支付 1:已取消 2:支付成功 3:已消费）：</p>" +
+            "<p>对于页面tab条件：</p>" +
+            "<p>全部订单（orderStatus：-1）</p>" +
+            "<p>未出行（orderStatus：2）</p>" +
+            "<p>待付款（orderStatus：0）</p>" +
+            "<p>待评论（orderStatus：3）</p>" +
+            "<p>已取消（orderStatus：1）</p>" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
-            "<p>错误码：</p>" +
-            "<p>100501 : 获取个人订单列表错误 </p>" +
-            "<p>100502 : token失效，请重登录 </p>")
-    @RequestMapping(value = "/getpersonalorderlist", method = RequestMethod.POST, produces = "application/json")
+            "<p>错误码：</p>"+
+            "<p>100501 : 请传递参数：orderType </p>"+
+            "<p>100502 : 请传递参数：orderStatus </p>"+
+            "<p>100503 : 获取个人订单列表错误 </p>"+
+            "<p>100504 : token失效，请重登录 </p>")
+    @RequestMapping(value = "/getpersonalorderlist",method=RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public Dto<Object> getPersonalOrderList(@RequestBody ItripSearchOrderVO itripSearchOrderVO,
-                                            HttpServletRequest request) {
-        logger.debug("orderNo : " + itripSearchOrderVO.getOrderNo());
-        logger.debug("linkUserName : " + itripSearchOrderVO.getLinkUserName());
-        logger.debug("startDate : " + itripSearchOrderVO.getStartDate());
-        logger.debug("endDate : " + itripSearchOrderVO.getEndDate());
+                                            HttpServletRequest request){
+        logger.debug("orderType : " + itripSearchOrderVO.getOrderType());
+        logger.debug("orderStatus : " + itripSearchOrderVO.getOrderStatus());
+        Integer orderType = itripSearchOrderVO.getOrderType();
+        Integer orderStatus = itripSearchOrderVO.getOrderStatus();
         Dto<Object> dto = null;
-        String tokenString = request.getHeader("token");
+        String tokenString  = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
-        if (null != currentUser) {
-            Map<String, Object> param = new HashMap<>();
-            param.put("userId", currentUser.getId());
-            param.put("orderNo", itripSearchOrderVO.getOrderNo());
-            param.put("linkUserName", itripSearchOrderVO.getLinkUserName());
-            param.put("startDate", itripSearchOrderVO.getStartDate());
-            param.put("endDate", itripSearchOrderVO.getEndDate());
-            try {
+        if(null != currentUser){
+            if(orderType == null){
+                return DtoUtil.returnFail("请传递参数：orderType","100501");
+            }
+            if(orderStatus == null){
+                return DtoUtil.returnFail("请传递参数：orderStatus","100502");
+            }
+
+            Map<String,Object> param=new HashMap<>();
+            param.put("orderType",orderType == -1?null:orderType);
+            param.put("orderStatus",orderStatus == -1?null:orderStatus);
+            param.put("userId",currentUser.getId());
+            param.put("orderNo",itripSearchOrderVO.getOrderNo());
+            param.put("linkUserName",itripSearchOrderVO.getLinkUserName());
+            param.put("startDate",itripSearchOrderVO.getStartDate());
+            param.put("endDate",itripSearchOrderVO.getEndDate());
+            try{
                 Page page = itripHotelOrderService.queryOrderPageByMap(param,
                         itripSearchOrderVO.getPageNo(),
                         itripSearchOrderVO.getPageSize());
-                dto = DtoUtil.returnSuccess("获取个人订单列表成功", page);
-            } catch (Exception e) {
+                dto = DtoUtil.returnSuccess("获取个人订单列表成功",page);
+            }catch (Exception e){
                 e.printStackTrace();
-                dto = DtoUtil.returnFail("获取个人订单列表错误", "100501");
+                dto = DtoUtil.returnFail("获取个人订单列表错误","100503");
             }
 
-        } else {
-            dto = DtoUtil.returnFail("token失效，请重登录", "100502");
+        }else{
+            dto = DtoUtil.returnFail("token失效，请重登录","100504");
         }
         return dto;
     }

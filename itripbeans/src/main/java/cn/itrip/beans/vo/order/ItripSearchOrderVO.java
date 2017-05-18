@@ -27,8 +27,30 @@ public class ItripSearchOrderVO {
     @ApiModelProperty("[必填] 页面容量")
     private Integer pageSize;
 
-    @ApiModelProperty("[必填] 页码）")
+    @ApiModelProperty("[必填] 页码")
     private Integer pageNo;
+
+    @ApiModelProperty("[必填，注：接收数字类型] 订单状态（-1：全部订单 0:待付款 1:已取消 2：未出行 3:待评论 ）")
+    private Integer orderStatus;
+
+    @ApiModelProperty("[必填，注：接收数字类型] 订单类型（-1：全部订单 0:旅游订单 1:酒店订单 2：机票订单 ）")
+    private Integer orderType;
+
+    public Integer getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
+    }
+
+    public Integer getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     public String getOrderNo() {
         return orderNo;
