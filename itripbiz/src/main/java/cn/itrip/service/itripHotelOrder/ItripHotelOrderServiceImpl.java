@@ -53,7 +53,8 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     }
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder) throws Exception {
-        itripHotelOrder.setModifyDate(new Date());
+        //更新临时表的库存
+        updateRoomStore(itripHotelOrder);
         return itripHotelOrderMapper.updateItripHotelOrder(itripHotelOrder);
     }
 
@@ -108,5 +109,48 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     public boolean flushOrderStatus() throws Exception {
         Integer flag = itripHotelOrderMapper.flushOrderStatus();
         return flag > 0 ? true : false;
+    }
+
+    /**
+     * 订单支付成功之后，根据订单的信息去更新库存 add by donghai
+     * @param itripHotelOrder
+     * @return
+     * @throws Exception
+     */
+    public int updateRoomStore(ItripHotelOrder itripHotelOrder) throws Exception{
+        int result = 0;
+        //获取预定日期，并按天拆分
+        List<Date> dates = DateUtil.getBetweenDates(itripHotelOrder.getCheckInDate(), itripHotelOrder.getCheckOutDate());
+        ItripHotelTempStore tempStore = new ItripHotelTempStore();
+        //score用来存临时库存表的库存数量，此数量通过计算得到
+        int score = 0;
+        //遍历日期，每个日期都对应一条库存记录
+        Long hotelId = itripHotelOrder.getHotelId();
+        Long roomId = itripHotelOrder.getRoomId();
+        Integer count = itripHotelOrder.getCount();
+        List<ItripHotelTempStore> tempStoreList = null;
+        for(int i=0; i<dates.size(); i++){
+            tempStore.setHotelId(hotelId.intValue());
+            tempStore.setRoomId(roomId);
+            tempStore.setRecordDate(dates.get(i));
+            //根据日期和roomId去临时库存表判断有没有对应的记录，如果有则更新此记录的库存数量，
+            //否则根据日期和roomId去库存表查询对应的记录，并以此记录计算库存余量，此时临时库存表需新增记录
+            Map<String, Object> tempStoreMap = new HashMap<String, Object>();
+            tempStoreMap.put("roomId", roomId);
+            tempStoreMap.put("recordDate", dates.get(i));
+            try {
+                tempStoreList = itripHotelTempStoreMapper.getItripHotelTempStoreListByMap(tempStoreMap);
+                //临时库存表中有记录
+                if(null != tempStoreList && 1 == tempStoreList.size()){
+                    tempStore = tempStoreList.get(0);
+                    //设置临时库存数量为当前量减去订单消耗量
+                    tempStore.setStore(tempStore.getStore() - count);
+                    result = itripHotelTempStoreMapper.updateItripHotelTempStore(tempStore);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }

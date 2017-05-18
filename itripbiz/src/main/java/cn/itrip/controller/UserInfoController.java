@@ -76,10 +76,10 @@ public class UserInfoController {
                 return DtoUtil.returnSuccess("获取常用联系人信息成功",userLinkUserList);
             } catch (Exception e) {
                 e.printStackTrace();
-                return DtoUtil.returnFail("获取常用联系人信息失败","10401");
+                return DtoUtil.returnFail("获取常用联系人信息失败","100401");
             }
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录","10402");
+            return DtoUtil.returnFail("token失效，请重新登录","100402");
         }
     }
 
@@ -110,13 +110,13 @@ public class UserInfoController {
                 itripUserLinkUserService.addItripUserLinkUser(itripUserLinkUser);
             } catch (Exception e) {
                 e.printStackTrace();
-                return DtoUtil.returnFail("新增常用联系人失败", "10411");
+                return DtoUtil.returnFail("新增常用联系人失败", "100411");
             }
             return DtoUtil.returnSuccess("新增常用联系人成功");
         }else if(null != currentUser && null == itripAddUserLinkUserVO){
-            return DtoUtil.returnFail("不能提交空，请填写常用联系人信息","10412");
+            return DtoUtil.returnFail("不能提交空，请填写常用联系人信息","100412");
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录", "10413");
+            return DtoUtil.returnFail("token失效，请重新登录", "100413");
         }
     }
 
@@ -148,13 +148,13 @@ public class UserInfoController {
                 itripUserLinkUserService.modifyItripUserLinkUser(itripUserLinkUser);
             } catch (Exception e) {
                 e.printStackTrace();
-                return DtoUtil.returnFail("修改常用联系人失败", "10421");
+                return DtoUtil.returnFail("修改常用联系人失败", "100421");
             }
             return DtoUtil.returnSuccess("修改常用联系人成功");
         }else if(null != currentUser && null == itripModifyUserLinkUserVO){
-            return DtoUtil.returnFail("不能提交空，请填写常用联系人信息","10422");
+            return DtoUtil.returnFail("不能提交空，请填写常用联系人信息","100422");
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录", "10423");
+            return DtoUtil.returnFail("token失效，请重新登录", "100423");
         }
     }
 
@@ -177,13 +177,13 @@ public class UserInfoController {
                 itripUserLinkUserService.deleteItripUserLinkUserById(id);
             } catch (Exception e) {
                 e.printStackTrace();
-                return DtoUtil.returnFail("删除常用联系人失败","10431");
+                return DtoUtil.returnFail("删除常用联系人失败","100431");
             }
             return DtoUtil.returnSuccess("删除常用联系人成功");
         }else if(null != currentUser && null == id){
-            return DtoUtil.returnFail("请选择要删除的常用联系人","10432");
+            return DtoUtil.returnFail("请选择要删除的常用联系人","100432");
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录","10433");
+            return DtoUtil.returnFail("token失效，请重新登录","100433");
         }
     }
 

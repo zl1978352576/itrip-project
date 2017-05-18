@@ -3,6 +3,7 @@ package cn.itrip.controller;
 import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.*;
 import cn.itrip.beans.vo.order.ItripAddHotelOrderVO;
+import cn.itrip.beans.vo.order.ItripModifyHotelOrderVO;
 import cn.itrip.beans.vo.order.ItripSearchOrderVO;
 import cn.itrip.beans.vo.order.PreAddOrderVO;
 import cn.itrip.beans.vo.store.StoreVO;
@@ -331,6 +332,40 @@ public class HotelOrderController {
             logger.info(flag?"刷取订单成功":"刷单失败");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @ApiOperation(value = "修改订单的支付方式和状态", httpMethod = "POST",
+            protocols = "HTTP",produces = "application/json",
+            response = Dto.class,notes = "修改订单的支付方式和状态"+
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>"+
+            "<p>100510 : 修改订单失败, </p>"+
+            "<p>100511 : 不能提交空，请填写订单信息, </p>"+
+            "<p>100512 : token失效，请重新登录</p>")
+    @RequestMapping(value = "/updateorderstatusandpaytype",method= RequestMethod.POST,produces = "application/json")
+    @ResponseBody
+    public Dto<Map<String,Boolean>> updateOrderStatusAndPayType(@RequestBody ItripModifyHotelOrderVO itripModifyHotelOrderVO, HttpServletRequest request) {
+        String tokenString = request.getHeader("token");
+        logger.debug("token name is from header : " + tokenString);
+        ItripUser currentUser = validationToken.getCurrentUser(tokenString);
+        if (null != currentUser && null != itripModifyHotelOrderVO) {
+            ItripHotelOrder itripHotelOrder = new ItripHotelOrder();
+            itripHotelOrder.setOrderStatus(itripModifyHotelOrderVO.getOrderStatus());
+            itripHotelOrder.setPayType(itripModifyHotelOrderVO.getPayType());
+            itripHotelOrder.setModifiedBy(currentUser.getId());
+            itripHotelOrder.setModifyDate(new Date(System.currentTimeMillis()));
+            try {
+                itripHotelOrderService.itriptxModifyItripHotelOrder(itripHotelOrder);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return DtoUtil.returnFail("修改订单失败", "100510");
+            }
+            return DtoUtil.returnSuccess("修改订单成功");
+        } else if (null != currentUser && null == itripModifyHotelOrderVO) {
+            return DtoUtil.returnFail("不能提交空，请填写订单信息", "100511");
+        } else {
+            return DtoUtil.returnFail("token失效，请重新登录", "100512");
         }
     }
 }
