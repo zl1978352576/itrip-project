@@ -31,7 +31,8 @@
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
-                modifiedBy as modifiedBy
+                modifiedBy as modifiedBy,
+                bookType as bookType
         from itrip_hotel_order
         <trim prefix="where" prefixOverrides="and | or">
             <if test="id != null">
@@ -172,7 +173,8 @@
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
-                modifiedBy as modifiedBy
+                modifiedBy as modifiedBy,
+                bookType as bookType
         from itrip_hotel_order
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
@@ -181,7 +183,7 @@
                     <if test="userId != null and userId!=''">
                         and userId=#{userId}
                     </if>
-                    <if test="orderType != null and orderType!=''">
+                    <if test="orderType != null">
                         and orderType=#{orderType}
                     </if>
                     <if test="orderNo != null and orderNo!=''">
@@ -211,7 +213,7 @@
                     <if test="checkOutDate != null and checkOutDate!=''">
                         and checkOutDate=#{checkOutDate}
                     </if>
-                    <if test="orderStatus != null and orderStatus!=''">
+                    <if test="orderStatus != null">
                         and orderStatus=#{orderStatus}
                     </if>
                     <if test="payAmount != null and payAmount!=''">
@@ -250,6 +252,9 @@
                     <if test="modifyDate != null and modifyDate!=''">
                         and modifyDate=#{modifyDate}
                     </if>
+                    <if test="bookType != null">
+                        and bookType=#{bookType}
+                    </if>
         </trim>
          order by creationDate desc
         <if test="beginPos != null and pageSize != null  and pageSize !='' ">
@@ -266,7 +271,7 @@
                 <if test="userId != null and userId!=''">
                     and userId=#{userId}
                 </if>
-                <if test="orderType != null and orderType!=''">
+                <if test="orderType != null">
                     and orderType=#{orderType}
                 </if>
                 <if test="orderNo != null and orderNo!=''">
@@ -296,7 +301,7 @@
                 <if test="checkOutDate != null and checkOutDate!=''">
                     and checkOutDate=#{checkOutDate}
                 </if>
-                <if test="orderStatus != null and orderStatus!=''">
+                <if test="orderStatus != null">
                     and orderStatus=#{orderStatus}
                 </if>
                 <if test="payAmount != null and payAmount!=''">
@@ -338,6 +343,9 @@
                 <if test="modifiedBy != null and modifiedBy!=''">
                     and modifiedBy=#{modifiedBy}
                 </if>
+                <if test="bookType != null">
+                    and bookType=#{bookType}
+                </if>
         </trim>
     </select>
 
@@ -367,7 +375,8 @@
                         creationDate,
                         createdBy,
                         modifyDate,
-                        modifiedBy)
+                        modifiedBy,
+                        bookType)
         values(
                      #{userId},
                      #{orderType},
@@ -393,7 +402,8 @@
                      #{creationDate},
                      #{createdBy},
                      #{modifyDate},
-                    #{modifiedBy})
+                     #{modifiedBy},
+                     #{bookType})
     </insert>
 
     <update id="updateItripHotelOrder" parameterType="cn.itrip.beans.pojo.ItripHotelOrder">

@@ -31,8 +31,17 @@ public class ItripHotelOrder implements Serializable {
             private Long createdBy;
             private Date modifyDate;
             private Long modifiedBy;
+            private Integer bookType;
 
-            public void setId (Long  id){
+    public Integer getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(Integer bookType) {
+        this.bookType = bookType;
+    }
+
+    public void setId (Long  id){
                 this.id=id;
             }
 
