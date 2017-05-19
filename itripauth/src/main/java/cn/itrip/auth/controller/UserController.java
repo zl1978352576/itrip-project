@@ -94,10 +94,10 @@ public class UserController {
 		}		
 	}
 	
-	@ApiOperation(value="注册用户激活",httpMethod = "GET",
+	@ApiOperation(value="注册用户激活",httpMethod = "PUT",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="邮箱激活")	
-	@RequestMapping(value="/activate",method=RequestMethod.GET,produces= "application/json")
+	@RequestMapping(value="/activate",method=RequestMethod.PUT,produces= "application/json")
 	public @ResponseBody Dto activate(
 			@ApiParam(name="user",value="注册邮箱地址",defaultValue="test@bdqn.cn")
 			@RequestParam String user,
