@@ -53,7 +53,14 @@ public interface TokenService {
 	 * @param token	旧的token
 	 * @return 新的token
 	 * @throws TokenValidationFailedException 
-	 */
+	 */	
 	public String replaceToken(String agent,String token) throws TokenValidationFailedException;
 	
+	/**
+	 * 验证token是否有效
+	 * @param agent
+	 * @param token
+	 * @return
+	 */
+	public boolean validate(String agent,String token);
 }
