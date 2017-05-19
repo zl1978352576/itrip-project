@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.HttpMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -87,5 +88,27 @@ public class LoginController {
 			return DtoUtil.returnFail("参数错误！检查提交的参数名称是否正确。", ErrorCode.AUTH_PARAMETER_ERROR);			
 		}		
 	}
+	
+	@ApiOperation(value = "用户注销",httpMethod = "GET",
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class,notes="客户端需在header中发送token")
+	@ApiImplicitParam(paramType="header",required=true,name="token",value="用户认证凭据",defaultValue="PC-yao.liu2015@bdqn.cn-8-20170516141821-d4f514")
+	@RequestMapping(value="/logout",method=RequestMethod.GET,produces="application/json",headers="token")
+	public @ResponseBody Dto logout(HttpServletRequest request){		
+		//验证token
+		String token=request.getHeader("token");
+		if(!tokenService.validate(request.getHeader("user-agent"), token))
+			return DtoUtil.returnFail("token无效", ErrorCode.AUTH_TOKEN_INVALID);
+		//删除token和信息
+		try {
+			tokenService.delete(token);
+			return DtoUtil.returnSuccess("注销成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DtoUtil.returnFail("注销失败", ErrorCode.AUTH_UNKNOWN);
+		}
+		
+	}
+	
 
 }
