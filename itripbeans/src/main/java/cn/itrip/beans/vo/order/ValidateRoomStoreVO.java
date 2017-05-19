@@ -10,8 +10,8 @@ import java.util.Date;
 /**
  * Created by zezhong.shang on 17-5-16.
  */
-@ApiModel(value = "PreAddOrderVO",description = "生成订单前获取预订信息的VO")
-public class PreAddOrderVO implements Serializable{
+@ApiModel(value = "ValidateRoomStoreVO",description = "验证房屋库存是否存足的VO")
+public class ValidateRoomStoreVO implements Serializable{
 
     @ApiModelProperty("[必填，注：接收数字类型 酒店ID")
     private Long hotelId;
@@ -23,18 +23,6 @@ public class PreAddOrderVO implements Serializable{
     private Date checkOutDate;
     @ApiModelProperty("[必填，默认请传1")
     private Integer count;
-
-    private String hotelName;
-    private Integer store;
-    private BigDecimal price;
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 
     public Long getHotelId() {
         return hotelId;
@@ -66,22 +54,6 @@ public class PreAddOrderVO implements Serializable{
 
     public void setCheckOutDate(Date checkOutDate) {
         this.checkOutDate = checkOutDate;
-    }
-
-    public String getHotelName() {
-        return hotelName;
-    }
-
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
-    }
-
-    public Integer getStore() {
-        return store;
-    }
-
-    public void setStore(Integer store) {
-        this.store = store;
     }
 
     public Integer getCount() {
