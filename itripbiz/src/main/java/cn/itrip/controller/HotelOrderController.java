@@ -128,13 +128,11 @@ public class HotelOrderController {
             "<p>错误码：</p>" +
             "<p>100505 : 生成订单失败 </p>" +
             "<p>100506 : 不能提交空，请填写订单信息 </p>" +
-            "<p>100507 : token失效，请重登录 </p>" +
-            "<p>100508 : 库存不足</p>")
+            "<p>100507 : 库存不足 </p>" +
+            "<p>100508 : token失效，请重登录</p>")
     @RequestMapping(value = "/addhotelorder", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Dto<Object> addHotelOrder(@RequestBody ItripAddHotelOrderVO itripAddHotelOrderVO, HttpServletRequest request) {
-        //ItripComment
-
         Dto<Object> dto = new Dto<Object>();
         String tokenString = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
@@ -145,14 +143,16 @@ public class HotelOrderController {
         validateStoreMap.put("hotelId", itripAddHotelOrderVO.getHotelId());
         validateStoreMap.put("roomId", itripAddHotelOrderVO.getRoomId());
         validateStoreMap.put("count", itripAddHotelOrderVO.getCount());
-        Boolean flag = false;
-        try {
-            flag = itripHotelTempStoreService.validateRoomStore(validateStoreMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (flag) {
-            if (null != currentUser && null != itripAddHotelOrderVO) {
+
+        if (null != currentUser) {
+            Boolean flag = false;
+            try {
+                //判断库存是否充足
+                flag = itripHotelTempStoreService.validateRoomStore(validateStoreMap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (flag && null != itripAddHotelOrderVO) {
                 //计算订单的预定天数
                 Integer days = DateUtil.getBetweenDates(
                         itripAddHotelOrderVO.getCheckInDate(), itripAddHotelOrderVO.getCheckOutDate()
@@ -175,6 +175,13 @@ public class HotelOrderController {
                 itripHotelOrder.setCreatedBy(currentUser.getId());
                 itripHotelOrder.setLinkUserName(itripAddHotelOrderVO.getLinkUserName());
                 itripHotelOrder.setBookingDays(days);
+                if(tokenString.startsWith("token:PC")){
+                    itripHotelOrder.setBookType(0);
+                }else if (tokenString.startsWith("token:MOBILE")){
+                    itripHotelOrder.setBookType(1);
+                }else{
+                    itripHotelOrder.setBookType(2);
+                }
                 //支付之前生成的订单的初始状态为未支付
                 itripHotelOrder.setOrderStatus(0);
                 try {
@@ -200,13 +207,13 @@ public class HotelOrderController {
                     e.printStackTrace();
                     dto = DtoUtil.returnFail("生成订单失败", "100505");
                 }
-            } else if (null != currentUser && null == itripAddHotelOrderVO) {
+            } else if (flag && null == itripAddHotelOrderVO) {
                 dto = DtoUtil.returnFail("不能提交空，请填写订单信息", "100506");
             } else {
-                dto = DtoUtil.returnFail("token失效，请重登录", "100507");
+                dto = DtoUtil.returnFail("库存不足", "100507");
             }
         } else {
-            dto = DtoUtil.returnFail("库存不足", "100508");
+            dto = DtoUtil.returnFail("token失效，请重登录", "100508");
         }
         return dto;
     }
