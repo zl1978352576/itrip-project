@@ -24,21 +24,23 @@ import cz.mallat.uasparser.UserAgentInfo;
 
 /**
  * Token相关业务服务实现
+ * 
  * @author hduser
  *
  */
 @Service("tokenService")
 public class TokenServiceImpl implements TokenService {
 
-	private Logger logger=Logger.getLogger(TokenServiceImpl.class);
-	
+	private Logger logger = Logger.getLogger(TokenServiceImpl.class);
+
 	/**
 	 * 调用RedisAPI时注意 token前缀:"token:"
 	 */
 	@Resource
 	private RedisAPI redisAPI;
 	private int expire = SESSION_TIMEOUT;// 2h
-	private String tokenPrefix="token:";
+	private String tokenPrefix = "token:";
+
 	public int getExpire() {
 		return expire;
 	}
@@ -55,7 +57,8 @@ public class TokenServiceImpl implements TokenService {
 	public String generateToken(String agent, ItripUser user) {
 		// TODO Auto-generated method stub
 		try {
-			UserAgentInfo userAgentInfo = UserAgentUtil.getUasParser().parse(agent);
+			UserAgentInfo userAgentInfo = UserAgentUtil.getUasParser().parse(
+					agent);
 			StringBuilder sb = new StringBuilder();
 			if (userAgentInfo.getDeviceType().equals(UserAgentInfo.UNKNOWN)) {
 				if (UserAgentUtil.CheckAgent(agent)) {
@@ -93,62 +96,89 @@ public class TokenServiceImpl implements TokenService {
 	@Override
 	public ItripUser load(String token) {
 		// TODO Auto-generated method stub
-		if(!token.startsWith(tokenPrefix)) 
-			token=tokenPrefix+token;
+		if (!token.startsWith(tokenPrefix))
+			token = tokenPrefix + token;
 		return JSON.parseObject(redisAPI.get(token), ItripUser.class);
 	}
 
 	@Override
 	public void delete(String token) {
 		// TODO Auto-generated method stub
-		if(!token.startsWith(tokenPrefix)) 
-			token=tokenPrefix+token;
+		if (!token.startsWith(tokenPrefix))
+			token = tokenPrefix + token;
 		if (redisAPI.exist(token))
 			redisAPI.delete(token);
 	}
 
-	private boolean exists(String token)
-	{
-		if(!token.startsWith(tokenPrefix)) 
-			token=tokenPrefix+token;
+	private boolean exists(String token) {
+		if (!token.startsWith(tokenPrefix))
+			token = tokenPrefix + token;
 		return redisAPI.exist(token);
 	}
-	
+
 	@Override
 	public String replaceToken(String agent, String token)
 			throws TokenValidationFailedException {
-		
-		// 验证旧token是否有效		
+
+		// 验证旧token是否有效
 		if (!exists(token)) {// token不存在
-			throw new TokenValidationFailedException("未知的token或 token已过期");//终止置换
-		} 
-		Date TokenGenTime;//token生成时间 
+			throw new TokenValidationFailedException("未知的token或 token已过期");// 终止置换
+		}
+		Date TokenGenTime;// token生成时间
 		try {
-			String[] tokenDetails=token.split("-");			
-			SimpleDateFormat formatter=new SimpleDateFormat("yyyyMMddHHmmss");
-			TokenGenTime=formatter.parse(tokenDetails[3]);
+			String[] tokenDetails = token.split("-");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+			TokenGenTime = formatter.parse(tokenDetails[3]);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			logger.error(e);
-			throw new TokenValidationFailedException("token格式错误:"+token);
+			throw new TokenValidationFailedException("token格式错误:" + token);
 		}
-		
-		long passed= Calendar.getInstance().getTimeInMillis()-TokenGenTime.getTime();//token已产生时间
-		if(passed<REPLACEMENT_PROTECTION_TIMEOUT*1000){//转换保护期内
-			throw new TokenValidationFailedException("token处于置换保护期内，剩余"+(REPLACEMENT_PROTECTION_TIMEOUT*1000-passed)/1000+"(s),禁止置换");
+
+		long passed = Calendar.getInstance().getTimeInMillis()
+				- TokenGenTime.getTime();// token已产生时间
+		if (passed < REPLACEMENT_PROTECTION_TIMEOUT * 1000) {// 转换保护期内
+			throw new TokenValidationFailedException("token处于置换保护期内，剩余"
+					+ (REPLACEMENT_PROTECTION_TIMEOUT * 1000 - passed) / 1000
+					+ "(s),禁止置换");
 		}
-		//置换token
-		String newToken="";
-		ItripUser user=this.load(token);
-		long ttl=redisAPI.ttl(tokenPrefix+token);//token有效期（剩余秒数 ）
-		if (ttl> 0 || ttl==-1) {// 兼容手机与PC端的token在有效期		
-			newToken=this.generateToken(agent, user);
-			this.save(newToken, user);//缓存新token
-			redisAPI.set(tokenPrefix+token, this.REPLACEMENT_DELAY, JSON.toJSONString(user));//2分钟后旧token过期，注意手机端由永久有效变为2分钟（REPLACEMENT_DELAY默认值）后失效			
-		}else{//其它未考虑情况，不予置换
+		// 置换token
+		String newToken = "";
+		ItripUser user = this.load(token);
+		long ttl = redisAPI.ttl(tokenPrefix + token);// token有效期（剩余秒数 ）
+		if (ttl > 0 || ttl == -1) {// 兼容手机与PC端的token在有效期
+			newToken = this.generateToken(agent, user);
+			this.save(newToken, user);// 缓存新token
+			redisAPI.set(tokenPrefix + token, this.REPLACEMENT_DELAY,
+					JSON.toJSONString(user));// 2分钟后旧token过期，注意手机端由永久有效变为2分钟（REPLACEMENT_DELAY默认值）后失效
+		} else {// 其它未考虑情况，不予置换
 			throw new TokenValidationFailedException("当前token的过期时间异常,禁止置换");
 		}
 		return newToken;
+	}
+
+	@Override
+	public boolean validate(String agent, String token) {
+		if (!exists(token)) {// token不存在
+			return false;
+		}
+		try {
+			Date TokenGenTime;// token生成时间
+			String agentMD5;
+			String[] tokenDetails = token.split("-");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+			TokenGenTime = formatter.parse(tokenDetails[3]);			
+			long passed = Calendar.getInstance().getTimeInMillis()
+					- TokenGenTime.getTime();
+			if(passed>this.SESSION_TIMEOUT*1000)
+					return false;
+			agentMD5 = tokenDetails[4];
+			if(MD5.getMd5(agent, 6).equals(agentMD5))
+				return true;
+		} catch (ParseException e) {
+			return false;
+		}
+		return false;
 	}
 
 }
