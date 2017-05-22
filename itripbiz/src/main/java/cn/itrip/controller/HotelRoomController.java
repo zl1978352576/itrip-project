@@ -19,10 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 酒店房间Controller
@@ -93,6 +90,7 @@ public class HotelRoomController {
     @RequestMapping(value = "/queryhotelroombyhotel", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Dto<List<ItripHotelRoomVO>> queryHotelRoomByHotel(@RequestBody SearchHotelRoomVO vo) {
+        List<List<ItripHotelRoomVO>> hotelRoomVOList=null;
         try{
             Map<String,Object> param=new HashMap();
             if(EmptyUtils.isEmpty(vo.getHotelId())){
@@ -116,9 +114,15 @@ public class HotelRoomController {
             param.put("isBook",vo.getIsBook());
             param.put("isHavingBreakfast",vo.getIsHavingBreakfast());
             param.put("isTimelyResponse",vo.getIsTimelyResponse());
-            param.put("roomBedTypeId",vo.getRoomBedTypeId());
-            List<ItripHotelRoomVO> temp=itripHotelRoomService.getItripHotelRoomListByMap(param);
-            return DtoUtil.returnSuccess("获取成功",temp);
+            param.put("roomBedTypeId", vo.getRoomBedTypeId());
+            List<ItripHotelRoomVO> originalRoomList=itripHotelRoomService.getItripHotelRoomListByMap(param);
+            hotelRoomVOList=new ArrayList();
+            for (ItripHotelRoomVO roomVO:originalRoomList){
+                List<ItripHotelRoomVO> tempList=new ArrayList<ItripHotelRoomVO>();
+                tempList.add(roomVO);
+                hotelRoomVOList.add(tempList);
+            }
+            return DtoUtil.returnSuccess("获取成功",hotelRoomVOList);
         }catch (Exception e){
             e.printStackTrace();
             return DtoUtil.returnFail("获取酒店房型列表失败", "100304");
