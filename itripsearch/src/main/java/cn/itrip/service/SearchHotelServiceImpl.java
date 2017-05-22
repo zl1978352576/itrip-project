@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class SearchHotelServiceImpl implements SearchHotelService {
 
-    public static String URL = PropertiesUtils.get("solr.properties","baseUrl");
+    public static String URL = PropertiesUtils.get("database.properties","baseUrl");
 
     private BaseQuery<ItripHotelVO> itripHotelVOBaseQuery = new BaseQuery(URL);
 
