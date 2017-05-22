@@ -71,7 +71,8 @@ public class TokenServiceImpl implements TokenService {
 				sb.append("PC-");
 			} else
 				sb.append("MOBILE-");
-			sb.append(user.getUserCode() + "-");
+//			sb.append(user.getUserCode() + "-");
+			sb.append(MD5.getMd5(user.getUserCode(),32) + "-");//加密用户名称
 			sb.append(user.getId() + "-");
 			sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
 					+ "-");
