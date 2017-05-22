@@ -230,43 +230,43 @@ public class HotelOrderController {
             "<p>100513 : 系统异常</p>")
     @RequestMapping(value = "/getpreorderinfo", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public Dto<PreAddOrderVO> getPreOrderInfo(@RequestBody PreAddOrderVO preAddOrderVO, HttpServletRequest request) {
+    public Dto<RoomStoreVO> getPreOrderInfo(@RequestBody ValidateRoomStoreVO validateRoomStoreVO, HttpServletRequest request) {
         String tokenString = request.getHeader("token");
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
         ItripHotel hotel = null;
         ItripHotelRoom room = null;
-        PreAddOrderVO preItripOrderVo = null;
+        RoomStoreVO roomStoreVO = null;
         try {
             if(EmptyUtils.isEmpty(currentUser)){
                 return DtoUtil.returnFail("token失效，请重登录","100509");
             }
-            if (EmptyUtils.isEmpty(preAddOrderVO.getHotelId())) {
+            if (EmptyUtils.isEmpty(validateRoomStoreVO.getHotelId())) {
                 return DtoUtil.returnFail("hotelId不能为空", "100510");
-            } else if (EmptyUtils.isEmpty(preAddOrderVO.getRoomId())) {
+            } else if (EmptyUtils.isEmpty(validateRoomStoreVO.getRoomId())) {
                 return DtoUtil.returnFail("roomId不能为空", "100511");
             } else {
-                preItripOrderVo = new PreAddOrderVO();
-                hotel = hotelService.getItripHotelById(preAddOrderVO.getHotelId());
-                room = roomService.getItripHotelRoomById(preAddOrderVO.getRoomId());
+                roomStoreVO = new RoomStoreVO();
+                hotel = hotelService.getItripHotelById(validateRoomStoreVO.getHotelId());
+                room = roomService.getItripHotelRoomById(validateRoomStoreVO.getRoomId());
                 Map param = new HashMap();
-                param.put("startTime", preAddOrderVO.getCheckInDate());
-                param.put("endTime", preAddOrderVO.getCheckOutDate());
-                param.put("roomId", preAddOrderVO.getRoomId());
-                param.put("hotelId", preAddOrderVO.getHotelId());
-                preItripOrderVo.setCheckInDate(preAddOrderVO.getCheckInDate());
-                preItripOrderVo.setCheckOutDate(preAddOrderVO.getCheckOutDate());
-                preItripOrderVo.setHotelName(hotel.getHotelName());
-                preItripOrderVo.setRoomId(room.getId());
-                preItripOrderVo.setPrice(room.getRoomPrice());
-                preItripOrderVo.setHotelId(preAddOrderVO.getHotelId());
+                param.put("startTime", validateRoomStoreVO.getCheckInDate());
+                param.put("endTime", validateRoomStoreVO.getCheckOutDate());
+                param.put("roomId", validateRoomStoreVO.getRoomId());
+                param.put("hotelId", validateRoomStoreVO.getHotelId());
+                roomStoreVO.setCheckInDate(validateRoomStoreVO.getCheckInDate());
+                roomStoreVO.setCheckOutDate(validateRoomStoreVO.getCheckOutDate());
+                roomStoreVO.setHotelName(hotel.getHotelName());
+                roomStoreVO.setRoomId(room.getId());
+                roomStoreVO.setPrice(room.getRoomPrice());
+                roomStoreVO.setHotelId(validateRoomStoreVO.getHotelId());
                 List<StoreVO> storeVOList = tempStoreService.queryRoomStore(param);
-                preItripOrderVo.setCount(1);
+                roomStoreVO.setCount(1);
                 if (EmptyUtils.isNotEmpty(storeVOList)) {
-                    preItripOrderVo.setStore(storeVOList.get(0).getStore());
+                    roomStoreVO.setStore(storeVOList.get(0).getStore());
                 } else {
                     return DtoUtil.returnFail("暂时无房", "100512");
                 }
-                return DtoUtil.returnSuccess("获取成功", preItripOrderVo);
+                return DtoUtil.returnSuccess("获取成功", roomStoreVO);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -285,24 +285,24 @@ public class HotelOrderController {
             "<p>100517 : 系统异常</p>")
     @RequestMapping(value = "/validateroomstore", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public Dto<Map<String, Boolean>> validateRoomStore(@RequestBody PreAddOrderVO preAddOrderVO,HttpServletRequest request) {
+    public Dto<Map<String, Boolean>> validateRoomStore(@RequestBody ValidateRoomStoreVO validateRoomStoreVO,HttpServletRequest request) {
         try {
             String tokenString = request.getHeader("token");
             ItripUser currentUser = validationToken.getCurrentUser(tokenString);
             if(EmptyUtils.isEmpty(currentUser)){
                 return DtoUtil.returnFail("token失效，请重登录","100514");
             }
-            if (EmptyUtils.isEmpty(preAddOrderVO.getHotelId())) {
+            if (EmptyUtils.isEmpty(validateRoomStoreVO.getHotelId())) {
                 return DtoUtil.returnFail("hotelId不能为空", "100515");
-            } else if (EmptyUtils.isEmpty(preAddOrderVO.getRoomId())) {
+            } else if (EmptyUtils.isEmpty(validateRoomStoreVO.getRoomId())) {
                 return DtoUtil.returnFail("roomId不能为空", "100516");
             } else {
                 Map param = new HashMap();
-                param.put("startTime", preAddOrderVO.getCheckInDate());
-                param.put("endTime", preAddOrderVO.getCheckOutDate());
-                param.put("roomId", preAddOrderVO.getRoomId());
-                param.put("hotelId", preAddOrderVO.getHotelId());
-                param.put("count", preAddOrderVO.getCount());
+                param.put("startTime", validateRoomStoreVO.getCheckInDate());
+                param.put("endTime", validateRoomStoreVO.getCheckOutDate());
+                param.put("roomId", validateRoomStoreVO.getRoomId());
+                param.put("hotelId", validateRoomStoreVO.getHotelId());
+                param.put("count", validateRoomStoreVO.getCount());
                 boolean flag = tempStoreService.validateRoomStore(param);
                 Map<String, Boolean> map = new HashMap<String, Boolean>();
                 map.put("flag", flag);
