@@ -346,38 +346,37 @@ public class SystemCommentController {
 		logger.debug("hotelId ================= " + hotelId);
 		Integer count = 0;
 		Map<String,Integer> countMap = new HashMap<String,Integer>();
-		Map<String,String> errorMap = new HashMap<String,String>();
 		Map<String,Object> param = new HashMap<String,Object>();
 		if(null != hotelId && !"".equals(hotelId)){
 			param.put("hotelId",hotelId);
 			count = getItripCommentCountByMap(param);
 			if(count != -1){
-				countMap.put("全部评论",count);
+				countMap.put("allcomment",count);
 			}else{
 				return DtoUtil.returnFail("获取酒店总评论数失败","100014");
-			}
-			param.put("isHavingImg",1);//0:无图片 1:有图片
-			count = getItripCommentCountByMap(param);
-			if(count != -1){
-				countMap.put("有图片",count);
-			}else{
-				return DtoUtil.returnFail("获取酒店有图片评论数失败","100015");
-			}
-			param.put("isHavingImg",null);
-			param.put("isOk",0);//0：有待改善 1：值得推荐
-			count = getItripCommentCountByMap(param);
-			if(count != -1){
-				countMap.put("有待改善",count);
-			}else{
-				return DtoUtil.returnFail("获取酒店有待改善评论数失败","100016");
 			}
 			param.put("isHavingImg",null);
 			param.put("isOk",1);//0：有待改善 1：值得推荐
 			count = getItripCommentCountByMap(param);
 			if(count != -1){
-				countMap.put("值得推荐",count);
+				countMap.put("isok",count);
 			}else{
 				return DtoUtil.returnFail("获取酒店值得推荐评论数失败","100017");
+			}
+			param.put("isHavingImg",null);
+			param.put("isOk",0);//0：有待改善 1：值得推荐
+			count = getItripCommentCountByMap(param);
+			if(count != -1){
+				countMap.put("improve",count);
+			}else{
+				return DtoUtil.returnFail("获取酒店有待改善评论数失败","100016");
+			}
+			param.put("isHavingImg",1);//0:无图片 1:有图片
+			count = getItripCommentCountByMap(param);
+			if(count != -1){
+				countMap.put("havingimg",count);
+			}else{
+				return DtoUtil.returnFail("获取酒店有图片评论数失败","100015");
 			}
 
 		}else{

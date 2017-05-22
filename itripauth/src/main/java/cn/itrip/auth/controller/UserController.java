@@ -40,11 +40,12 @@ public class UserController {
 
 	@ApiOperation(value="用户注册",httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",
-            response = Dto.class,notes="暂仅支持使用邮箱注册 ")
-	@ApiImplicitParam(name="user",value="用户实体",required=true,dataType="ItripUser")
+            response = Dto.class,notes="暂仅支持使用邮箱注册 ")	
 	@RequestMapping(value="/doregister",method=RequestMethod.POST,produces = "application/json")
 	public @ResponseBody
-	Dto doRegister(@RequestBody ItripUserVO userVO) {		
+	Dto doRegister(
+			@ApiParam(name="userVO",value="用户实体",required=true)
+			@RequestBody ItripUserVO userVO) {		
 		try {
 			ItripUser user=new ItripUser();
 			user.setUserCode(userVO.getUserCode());
