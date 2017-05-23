@@ -198,10 +198,10 @@
         WHERE
             roomId=#{roomId}
         AND
-            str_to_date(store.recordDate, '%Y-%m-%d')
+            DATE_FORMAT(recordDate, '%Y-%m-%d')
         BETWEEN
-            str_to_date(#{startTime}, '%Y-%m-%d')
+            DATE_FORMAT(#{startTime}, '%Y-%m-%d')
         AND
-            str_to_date(#{endTime}, '%Y-%m-%d')
+            DATE_FORMAT(#{endTime}, '%Y-%m-%d')
     </update>
 </mapper>

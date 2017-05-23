@@ -394,7 +394,8 @@ public class HotelOrderController {
         if (null != currentUser && null != itripModifyHotelOrderVO) {
             ItripHotelOrder itripHotelOrder = new ItripHotelOrder();
             itripHotelOrder.setId(itripModifyHotelOrderVO.getId());
-            itripHotelOrder.setOrderStatus(itripModifyHotelOrderVO.getOrderStatus());
+            //设置支付状态为：支付成功
+            itripHotelOrder.setOrderStatus(2);
             itripHotelOrder.setPayType(itripModifyHotelOrderVO.getPayType());
             itripHotelOrder.setModifiedBy(currentUser.getId());
             itripHotelOrder.setModifyDate(new Date(System.currentTimeMillis()));

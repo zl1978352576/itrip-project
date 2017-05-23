@@ -50,12 +50,19 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     public Integer addItripHotelOrder(ItripHotelOrder itripHotelOrder) throws Exception {
 
         itripHotelOrder.setCreationDate(new Date());
+        int i = 5/0;
         return itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder);
     }
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder) throws Exception {
+        ItripHotelOrder modifyItripHotelOrder = itripHotelOrderMapper.getItripHotelOrderById(itripHotelOrder.getId());
         //更新临时表的库存
-        updateRoomStore(itripHotelOrder);
+        Map<String, Object> roomStoreMap = new HashMap<String, Object>();
+        roomStoreMap.put("startTime", "2017-05-15 00:00:00");
+        roomStoreMap.put("endTime", "2017-05-19 00:00:00");
+        roomStoreMap.put("count", modifyItripHotelOrder.getCount());
+        roomStoreMap.put("roomId", modifyItripHotelOrder.getRoomId());
+        itripHotelTempStoreMapper.updateRoomStore(roomStoreMap);
         return itripHotelOrderMapper.updateItripHotelOrder(itripHotelOrder);
     }
 
@@ -119,46 +126,44 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
 
     /**
      * 订单支付成功之后，根据订单的信息去更新库存 add by donghai
-     * @param itripHotelOrder
+     * @param
      * @return
      * @throws Exception
      */
-    public int updateRoomStore(ItripHotelOrder itripHotelOrder) throws Exception{
-        ItripHotelOrder modifyItripHotelOrder = new ItripHotelOrder();
-        modifyItripHotelOrder = itripHotelOrderMapper.getItripHotelOrderById(itripHotelOrder.getId());
-        int result = 0;
-        //获取预定日期，并按天拆分
-        List<Date> dates = DateUtil.getBetweenDates(modifyItripHotelOrder.getCheckInDate(), modifyItripHotelOrder.getCheckOutDate());
-        ItripHotelTempStore tempStore = new ItripHotelTempStore();
-        //遍历日期，每个日期都对应一条库存记录
-        Long hotelId = modifyItripHotelOrder.getHotelId();
-        Long roomId = modifyItripHotelOrder.getRoomId();
-        Integer count = modifyItripHotelOrder.getCount();
-        List<ItripHotelTempStore> tempStoreList = null;
-        for(int i=0; i<dates.size(); i++){
-            tempStore.setHotelId(hotelId.intValue());
-            tempStore.setRoomId(roomId);
-            tempStore.setRecordDate(dates.get(i));
-            //根据日期和roomId去临时库存表判断有没有对应的记录，如果有则更新此记录的库存数量，
-            //否则根据日期和roomId去库存表查询对应的记录，并以此记录计算库存余量，此时临时库存表需新增记录
-            Map<String, Object> tempStoreMap = new HashMap<String, Object>();
-            tempStoreMap.put("roomId", roomId);
-            tempStoreMap.put("recordDate", dates.get(i));
-            try {
-                tempStoreList = itripHotelTempStoreMapper.getItripHotelTempStoreListByMap(tempStoreMap);
-                //临时库存表中有记录
-                if(null != tempStoreList && 1 == tempStoreList.size()){
-                    tempStore = tempStoreList.get(0);
-                    //设置临时库存数量为当前量减去订单消耗量
-                    tempStore.setStore(tempStore.getStore() - count);
-                    result = itripHotelTempStoreMapper.updateItripHotelTempStore(tempStore);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return result;
-    }
+//    public int updateRoomStore(ItripHotelOrder itripHotelOrder) throws Exception{
+//        ItripHotelOrder modifyItripHotelOrder = new ItripHotelOrder();
+//        modifyItripHotelOrder = itripHotelOrderMapper.getItripHotelOrderById(itripHotelOrder.getId());
+//        int result = 0;
+//        //获取预定日期，并按天拆分
+//        List<Date> dates = DateUtil.getBetweenDates(modifyItripHotelOrder.getCheckInDate(), modifyItripHotelOrder.getCheckOutDate());
+//        ItripHotelTempStore tempStore = new ItripHotelTempStore();
+//        //遍历日期，每个日期都对应一条库存记录
+//        Long hotelId = modifyItripHotelOrder.getHotelId();
+//        Long roomId = modifyItripHotelOrder.getRoomId();
+//        Integer count = modifyItripHotelOrder.getCount();
+//        List<ItripHotelTempStore> tempStoreList = null;
+//        for(int i=0; i<dates.size(); i++) {
+//            tempStore.setHotelId(hotelId.intValue());
+//            tempStore.setRoomId(roomId);
+//            tempStore.setRecordDate(dates.get(i));
+//            //根据日期和roomId去临时库存表判断有没有对应的记录，如果有则更新此记录的库存数量，
+//            //否则根据日期和roomId去库存表查询对应的记录，并以此记录计算库存余量，此时临时库存表需新增记录
+//            Map<String, Object> tempStoreMap = new HashMap<String, Object>();
+//            tempStoreMap.put("roomId", roomId);
+//            tempStoreMap.put("recordDate", dates.get(i));
+//            tempStoreList = itripHotelTempStoreMapper.getItripHotelTempStoreListByMap(tempStoreMap);
+//            //临时库存表中有记录
+//            if (null != tempStoreList && 1 == tempStoreList.size()) {
+//                tempStore = tempStoreList.get(0);
+//                //设置临时库存数量为当前量减去订单消耗量
+//                tempStore.setStore(tempStore.getStore() - count);
+//                result = itripHotelTempStoreMapper.updateItripHotelTempStore(tempStore);
+//
+//            }
+//        }
+//        return result;
+//    }
+
 
     public ItripPersonalOrderRoomVO getItripHotelOrderRoomInfoById(Long orderId)throws Exception{
         return itripHotelOrderMapper.getItripHotelOrderRoomInfoById(orderId);

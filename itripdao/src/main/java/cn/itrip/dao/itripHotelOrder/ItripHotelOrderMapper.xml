@@ -471,13 +471,13 @@
                     <if test="checkOutDate != null and checkOutDate!=''">
                         checkOutDate=#{checkOutDate},
                     </if>
-                    <if test="orderStatus != null and orderStatus!=''">
+                    <if test="orderStatus != null">
                         orderStatus=#{orderStatus},
                     </if>
                     <if test="payAmount != null and payAmount!=''">
                         payAmount=#{payAmount},
                     </if>
-                    <if test="payType != null and payType!=''">
+                    <if test="payType != null">
                         payType=#{payType},
                     </if>
                     <if test="noticePhone != null and noticePhone!=''">
