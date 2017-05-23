@@ -173,7 +173,7 @@
               SELECT
                     store.roomId,
                     store.recordDate,
-                    str_to_date(store.recordDate,'%Y-%m-%d'),
+                    DATE_FORMAT(store.recordDate,'%Y-%m-%d'),
 	                store.store - (
                             CASE
                             WHEN SUM(ord.count) IS NULL THEN
@@ -185,11 +185,10 @@
                     FROM
                         itrip_hotel_temp_store store
                     LEFT JOIN itrip_hotel_order ord ON store.roomId = ord.roomId AND ord.orderStatus = 0
-                    AND str_to_date(store.recordDate,'%Y-%m-%d') BETWEEN str_to_date(ord.checkInDate, '%Y-%m-%d') AND str_to_date(ord.checkOutDate,'%Y-%m-%d')
+                    AND DATE_FORMAT(store.recordDate,'%Y-%m-%d') BETWEEN DATE_FORMAT(ord.checkInDate, '%Y-%m-%d') AND DATE_FORMAT(ord.checkOutDate,'%Y-%m-%d')
                     WHERE   store.roomId = #{roomId}
                     GROUP BY  store.roomId,store.recordDate) AS A
-                    WHERE  A.recordDate BETWEEN str_to_date(#{startTime}, '%Y-%m-%d') AND str_to_date(#{endTime}, '%Y-%m-%d') ORDER by A.store ASC
-
+                    WHERE  A.recordDate BETWEEN DATE_FORMAT(#{startTime}, '%Y-%m-%d') AND DATE_FORMAT(#{endTime}, '%Y-%m-%d') ORDER by A.store ASC
     </select>
 
 
@@ -198,7 +197,7 @@
         WHERE
             roomId=#{roomId}
         AND
-            DATE_FORMAT(recordDate, '%Y-%m-%d')
+            DATE_FORMAT(recordDate, '%Y-%m-%d ')
         BETWEEN
             DATE_FORMAT(#{startTime}, '%Y-%m-%d')
         AND
