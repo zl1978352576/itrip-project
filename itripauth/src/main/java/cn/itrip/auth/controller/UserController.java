@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
@@ -46,17 +48,20 @@ public class UserController {
 	Dto doRegister(
 			@ApiParam(name="userVO",value="用户实体",required=true)
 			@RequestBody ItripUserVO userVO) {		
+		if(!validEmail(userVO.getUserCode()))
+			return  DtoUtil.returnFail("请使用正确的邮箱地址注册",ErrorCode.AUTH_ILLEGAL_USERCODE);
+		
 		try {
 			ItripUser user=new ItripUser();
 			user.setUserCode(userVO.getUserCode());
 			user.setUserPassword(userVO.getUserPassword());
-			user.setUserType(userVO.getUserType());
+			user.setUserType(0);
 			user.setUserName(userVO.getUserName());
-			user.setFlatID(userVO.getFlatID());
-			user.setWeChat(userVO.getWeChat());
-			user.setQQ(userVO.getQQ());
-			user.setWeibo(userVO.getWeibo());
-			user.setBaidu(userVO.getBaidu());
+//			user.setFlatID(userVO.getFlatID());
+//			user.setWeChat(userVO.getWeChat());
+//			user.setQQ(userVO.getQQ());
+//			user.setWeibo(userVO.getWeibo());
+//			user.setBaidu(userVO.getBaidu());
 			if (null == userService.findByUsername(user.getUserCode())) {
 				user.setUserPassword(MD5.getMd5(user.getUserPassword(), 32));				
 				userService.itriptxCreateUser(user);				
@@ -79,14 +84,16 @@ public class UserController {
 	Dto checkUser(
 			@ApiParam(name="name",value="被检查的用户名",defaultValue="test@bdqn.cn")
 			@RequestParam String name) {		
-		try {
+		try {	
+			if(!validEmail(name))
+				return  DtoUtil.returnFail("请使用正确的邮箱地址注册",ErrorCode.AUTH_ILLEGAL_USERCODE);
 			if (null == userService.findByUsername(name))
 			{			
 				return DtoUtil.returnSuccess("用户名可用");
 			}
 			else
 			{
-				return DtoUtil.returnSuccess("用户名不可用");
+				return DtoUtil.returnFail("用户已存在，注册失败", ErrorCode.AUTH_USER_ALREADY_EXISTS);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();			
@@ -116,4 +123,18 @@ public class UserController {
 			return DtoUtil.returnFail("激活失败", ErrorCode.AUTH_ACTIVATE_FAILED);
 		}		
 	} 
+	/**			 *
+	 * 合法E-mail地址：     
+	 * 1. 必须包含一个并且只有一个符号“@”    
+	 * 2. 第一个字符不得是“@”或者“.”
+	 * 3. 不允许出现“@.”或者.@   
+	 * 4. 结尾不得是字符“@”或者“.”    
+	 * 5. 允许“@”前的字符中出现“＋” 
+	 * 6. 不允许“＋”在最前面，或者“＋@” 
+	 */
+	private boolean validEmail(String email){
+		
+		String regex="^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$"  ;			
+		return Pattern.compile(regex).matcher(email).find();			
+	}
 }
