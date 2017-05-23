@@ -48,22 +48,22 @@
             <if test="hotelId != null and hotelId!=''">
                 and hotelId=#{hotelId}
             </if>
-            <if test="roomBedTypeId != null and roomBedTypeId!=''">
+            <if test="roomBedTypeId != null">
                 and roomBedTypeId=#{roomBedTypeId}
             </if>
-            <if test="isHavingBreakfast != null and isHavingBreakfast!=''">
+            <if test="isHavingBreakfast != null">
                 and isHavingBreakfast=#{isHavingBreakfast}
             </if>
-            <if test="payType != null and payType!=''">
+            <if test="payType != null">
                 and payType=#{payType}
             </if>
-            <if test="isBook != null and isBook!=''">
+            <if test="isBook != null">
                 and isBook=#{isBook}
             </if>
-            <if test="isCancel != null and isCancel!=''">
+            <if test="isCancel != null">
                 and isCancel=#{isCancel}
             </if>
-            <if test="isTimelyResponse != null and isTimelyResponse!=''">
+            <if test="isTimelyResponse != null">
                 and isTimelyResponse=#{isTimelyResponse}
             </if>
             <if test="timesList!=null and timesList!=''">
