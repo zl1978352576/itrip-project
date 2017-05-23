@@ -54,6 +54,7 @@ public class HotelController {
 
     private Logger logger = Logger.getLogger(HotelController.class);
 
+
     @Resource
     private ItripAreaDicService itripAreaDicService;
 
@@ -124,7 +125,8 @@ public class HotelController {
             "<p>错误码：</p>" +
             "<p>10203 : cityId不能为空 </p>" +
             "<p>10204 : 系统异常,获取失败</p>")
-    @RequestMapping(value = "/querytradearea/{cityId}", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/querytradearea/{cityId}" +
+            "", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
     public Dto<ItripAreaDicVO> queryTradeArea(@PathVariable Long cityId) {
         List<ItripAreaDic> itripAreaDics = null;

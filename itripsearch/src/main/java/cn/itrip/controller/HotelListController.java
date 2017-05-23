@@ -34,8 +34,6 @@ public class HotelListController {
     /***
      * 搜索酒店分页
      * @param vo
-     * @param pageSize
-     * @param pageNo
      * @return
      * @throws Exception
      */

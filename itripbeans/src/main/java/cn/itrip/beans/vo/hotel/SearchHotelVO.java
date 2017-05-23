@@ -38,6 +38,7 @@ public class SearchHotelVO implements Serializable {
     private Date checkOutDate;
 
     private Integer pageSize;
+
     private Integer pageNo;
 
     public Integer getPageSize() {
@@ -143,4 +144,5 @@ public class SearchHotelVO implements Serializable {
     public void setCheckOutDate(Date checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
+
 }

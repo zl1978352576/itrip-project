@@ -15,6 +15,7 @@
                 isHot as isHot,
                 level as level,
                 isChina as isChina,
+                pinyin as pinyin,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -38,6 +39,7 @@
                 isHot as isHot,
                 level as level,
                 isChina as isChina,
+                pinyin as pinyin,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -70,6 +72,9 @@
                     </if>
                     <if test="isChina != null and isChina!=''">
                         and isChina=#{isChina}
+                    </if>
+                    <if test="pinyin != null and pinyin!=''">
+                        and pinyin=#{pinyin}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         and creationDate=#{creationDate}
@@ -117,6 +122,9 @@
                 <if test="isChina != null and isChina!=''">
                     and isChina=#{isChina}
                 </if>
+                <if test="pinyin != null and pinyin!=''">
+                    and pinyin=#{pinyin}
+                </if>
                 <if test="creationDate != null and creationDate!=''">
                     and creationDate=#{creationDate}
                 </if>
@@ -132,7 +140,7 @@
         </trim>
     </select>
 
-    <insert id="insertItripAreaDic" parameterType="cn.itrip.beans.pojo.ItripAreaDic" >
+    <insert id="insertItripAreaDic" parameterType="cn.itrip.beans.pojo.ItripAreaDic">
         insert into itrip_area_dic(
                         name,
                         areaNo,
@@ -142,6 +150,7 @@
                         isHot,
                         level,
                         isChina,
+                        pinyin,
                         creationDate,
                         createdBy,
                         modifyDate,
@@ -155,6 +164,7 @@
                      #{isHot},
                      #{level},
                      #{isChina},
+                     #{pinyin},
                      #{creationDate},
                      #{createdBy},
                      #{modifyDate},
@@ -190,6 +200,9 @@
                     </if>
                     <if test="isChina != null and isChina!=''">
                         isChina=#{isChina},
+                    </if>
+                    <if test="pinyin != null and pinyin!=''">
+                        pinyin=#{pinyin},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         creationDate=#{creationDate},

@@ -29,6 +29,9 @@ public class SearchHotelServiceImpl implements SearchHotelService {
                 tempQuery.append(" destination :"+vo.getDestination());
                 tempFlag=1;
             }
+            if (EmptyUtils.isNotEmpty(vo.getCityId())) {
+                query.addFilterQuery("cityId:"+vo.getCityId()+"");
+            }
             if (EmptyUtils.isNotEmpty(vo.getHotelLevel())) {
                 query.addFilterQuery("hotelLevel:"+vo.getHotelLevel()+"");
             }
