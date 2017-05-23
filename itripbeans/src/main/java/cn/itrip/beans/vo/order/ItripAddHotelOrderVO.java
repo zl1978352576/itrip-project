@@ -1,10 +1,13 @@
 package cn.itrip.beans.vo.order;
 
+import cn.itrip.beans.pojo.ItripOrderLinkUser;
+import cn.itrip.beans.pojo.ItripUserLinkUser;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by donghai on 2017/5/16.
@@ -38,10 +41,20 @@ public class ItripAddHotelOrderVO {
     private Integer invoiceType;
     @ApiModelProperty("[非必填] 发票抬头")
     private String invoiceHead;
-    @ApiModelProperty("[必填] 入住人id，多个id之间用逗号隔开")
+   /* @ApiModelProperty("[必填] 入住人id，多个id之间用逗号隔开")
     private String linkUserIds;
     @ApiModelProperty("[必填] 入住人名称，多个名称之间用逗号隔开")
-    private String linkUserName;
+    private String linkUserName;*/
+    @ApiModelProperty("[必填] 入住人(只传递：id、linkUserName)")
+    private List<ItripUserLinkUser> linkUser;
+
+    public List<ItripUserLinkUser> getLinkUser() {
+        return linkUser;
+    }
+
+    public void setLinkUser(List<ItripUserLinkUser> linkUser) {
+        this.linkUser = linkUser;
+    }
 
     public Integer getOrderType() {
         return orderType;
@@ -147,19 +160,19 @@ public class ItripAddHotelOrderVO {
         this.invoiceHead = invoiceHead;
     }
 
-    public String getLinkUserIds() {
+  /*  public String getLinkUserIds() {
         return linkUserIds;
     }
 
     public void setLinkUserIds(String linkUserIds) {
         this.linkUserIds = linkUserIds;
-    }
+    }*/
 
-    public String getLinkUserName() {
+  /*  public String getLinkUserName() {
         return linkUserName;
     }
 
     public void setLinkUserName(String linkUserName) {
         this.linkUserName = linkUserName;
-    }
+    }*/
 }
