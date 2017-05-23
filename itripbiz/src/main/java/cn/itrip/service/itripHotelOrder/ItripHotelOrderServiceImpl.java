@@ -58,8 +58,8 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         ItripHotelOrder modifyItripHotelOrder = itripHotelOrderMapper.getItripHotelOrderById(itripHotelOrder.getId());
         //更新临时表的库存
         Map<String, Object> roomStoreMap = new HashMap<String, Object>();
-        roomStoreMap.put("startTime", "2017-05-15 00:00:00");
-        roomStoreMap.put("endTime", "2017-05-19 00:00:00");
+        roomStoreMap.put("startTime", modifyItripHotelOrder.getCheckInDate());
+        roomStoreMap.put("endTime", modifyItripHotelOrder.getCheckOutDate());
         roomStoreMap.put("count", modifyItripHotelOrder.getCount());
         roomStoreMap.put("roomId", modifyItripHotelOrder.getRoomId());
         itripHotelTempStoreMapper.updateRoomStore(roomStoreMap);
