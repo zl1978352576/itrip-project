@@ -305,7 +305,7 @@ CREATE TABLE `itrip_order_link_user` (
   `modifyDate` datetime DEFAULT NULL,
   `modifiedBy` bigint(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `itrip_order_link_user` */
 
