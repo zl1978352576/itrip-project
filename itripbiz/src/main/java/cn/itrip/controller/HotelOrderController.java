@@ -140,7 +140,11 @@ public class HotelOrderController {
         validateStoreMap.put("hotelId", itripAddHotelOrderVO.getHotelId());
         validateStoreMap.put("roomId", itripAddHotelOrderVO.getRoomId());
         validateStoreMap.put("count", itripAddHotelOrderVO.getCount());
-
+        List<ItripUserLinkUser> linkUserList = itripAddHotelOrderVO.getLinkUser();
+        for (ItripUserLinkUser linkUser:linkUserList) {
+            logger.debug("linkuser=========== > " + linkUser.getId() + " --- " + linkUser.getLinkUserName());
+        }
+/*
         if (null != currentUser) {
             Boolean flag = false;
             try {
@@ -225,7 +229,7 @@ public class HotelOrderController {
             }
         } else {
             dto = DtoUtil.returnFail("token失效，请重登录", "100508");
-        }
+        }*/
         return dto;
     }
 
