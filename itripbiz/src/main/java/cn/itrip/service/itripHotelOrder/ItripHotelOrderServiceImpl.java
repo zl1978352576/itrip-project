@@ -1,15 +1,13 @@
 package cn.itrip.service.itripHotelOrder;
 
-import cn.itrip.beans.pojo.ItripHotelRoom;
-import cn.itrip.beans.pojo.ItripHotelTempStore;
-import cn.itrip.beans.pojo.ItripProductStore;
+import cn.itrip.beans.pojo.*;
 import cn.itrip.beans.vo.order.ItripListHotelOrderVO;
 import cn.itrip.beans.vo.order.ItripPersonalOrderRoomVO;
 import cn.itrip.common.*;
 import cn.itrip.dao.itripHotelOrder.ItripHotelOrderMapper;
-import cn.itrip.beans.pojo.ItripHotelOrder;
 import cn.itrip.dao.itripHotelRoom.ItripHotelRoomMapper;
 import cn.itrip.dao.itripHotelTempStore.ItripHotelTempStoreMapper;
+import cn.itrip.dao.itripOrderLinkUser.ItripOrderLinkUserMapper;
 import cn.itrip.dao.itripProductStore.ItripProductStoreMapper;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +32,9 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     @Resource
     private ItripHotelRoomMapper itripHotelRoomMapper;
 
+    @Resource
+    private ItripOrderLinkUserMapper itripOrderLinkUserMapper;
+
 
     public ItripHotelOrder getItripHotelOrderById(Long id) throws Exception {
         return itripHotelOrderMapper.getItripHotelOrderById(id);
@@ -47,10 +48,22 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return itripHotelOrderMapper.getItripHotelOrderCountByMap(param);
     }
 
-    public Integer addItripHotelOrder(ItripHotelOrder itripHotelOrder) throws Exception {
-
-        itripHotelOrder.setCreationDate(new Date());
-        return itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder);
+    public Boolean itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripOrderLinkUser> itripOrderLinkUserList) throws Exception {
+        if(null != itripHotelOrder ) {
+            itripHotelOrder.setCreationDate(new Date());
+            if (itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder) > 0) {
+                Long orderId = itripHotelOrder.getId();
+                if (orderId > 0) {
+                    for (ItripOrderLinkUser itripOrderLinkUser : itripOrderLinkUserList) {
+                        itripOrderLinkUser.setOrderId(orderId);
+                        itripOrderLinkUser.setCreationDate(new Date());
+                        itripOrderLinkUserMapper.insertItripOrderLinkUser(itripOrderLinkUser);
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder) throws Exception {

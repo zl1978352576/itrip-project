@@ -9,6 +9,7 @@ import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripHotelOrder.ItripHotelOrderService;
 import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
 import cn.itrip.service.itripHotelTempStore.ItripHotelTempStoreService;
+import cn.itrip.service.itripOrderLinkUser.ItripOrderLinkUserService;
 import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by donghai on 2017/5/15.
@@ -58,7 +56,6 @@ public class HotelOrderController {
 
     @Resource
     private ItripHotelOrderService itripHotelOrderService;
-
 
     @ApiOperation(value = "根据个人订单列表，并分页显示", httpMethod = "POST",
             protocols = "HTTP",produces = "application/json",
@@ -184,6 +181,7 @@ public class HotelOrderController {
                 }
                 //支付之前生成的订单的初始状态为未支付
                 itripHotelOrder.setOrderStatus(0);
+
                 try {
                     //生成MD5
                     StringBuilder md5String = new StringBuilder();
@@ -201,7 +199,20 @@ public class HotelOrderController {
                     itripHotelOrder.setOrderNo(orderNo.toString());
                     //计算订单的总金额
                     itripHotelOrder.setPayAmount(itripHotelOrderService.getOrderPayAmount(days, itripAddHotelOrderVO.getRoomId()));
-                    itripHotelOrderService.addItripHotelOrder(itripHotelOrder);
+
+                    //往订单和联系人关联表中添加数据
+                    String ids[] =  itripAddHotelOrderVO.getLinkUserIds().replace("，", ",").split(",");
+                    String linkUserName[] = itripAddHotelOrderVO.getLinkUserName().replace("，", ",").split(",");
+                    List<ItripOrderLinkUser> itripOrderLinkUserList = new ArrayList<ItripOrderLinkUser>();
+                    for(int i=0; i< ids.length; i++){
+                        ItripOrderLinkUser itripOrderLinkUser = new ItripOrderLinkUser();
+                        itripOrderLinkUser.setLinkUserId(Long.parseLong(ids[i]));
+                        itripOrderLinkUser.setLinkUserName(linkUserName[i]);
+                        itripOrderLinkUser.setCreatedBy(currentUser.getId());
+                        itripOrderLinkUserList.add(itripOrderLinkUser);
+                    }
+                    itripHotelOrderService.itriptxAddItripHotelOrder(itripHotelOrder, itripOrderLinkUserList);
+
                     dto = DtoUtil.returnSuccess("生成订单成功");
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -38,7 +38,9 @@ public class ItripAddHotelOrderVO {
     private Integer invoiceType;
     @ApiModelProperty("[非必填] 发票抬头")
     private String invoiceHead;
-    @ApiModelProperty("[非必填] 入住人名称")
+    @ApiModelProperty("[必填] 入住人id，多个id之间用逗号隔开")
+    private String linkUserIds;
+    @ApiModelProperty("[必填] 入住人名称，多个名称之间用逗号隔开")
     private String linkUserName;
 
     public Integer getOrderType() {
@@ -143,6 +145,14 @@ public class ItripAddHotelOrderVO {
 
     public void setInvoiceHead(String invoiceHead) {
         this.invoiceHead = invoiceHead;
+    }
+
+    public String getLinkUserIds() {
+        return linkUserIds;
+    }
+
+    public void setLinkUserIds(String linkUserIds) {
+        this.linkUserIds = linkUserIds;
     }
 
     public String getLinkUserName() {
