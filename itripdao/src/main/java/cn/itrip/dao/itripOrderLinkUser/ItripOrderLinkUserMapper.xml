@@ -9,6 +9,7 @@
                 id as id,
                 orderId as orderId,
                 linkUserId as linkUserId,
+                linkUserName as linkUserName,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -26,6 +27,7 @@
                 id as id,
                 orderId as orderId,
                 linkUserId as linkUserId,
+                linkUserName as linkUserName,
                 creationDate as creationDate,
                 createdBy as createdBy,
                 modifyDate as modifyDate,
@@ -40,6 +42,9 @@
                     </if>
                     <if test="linkUserId != null and linkUserId!=''">
                         and linkUserId=#{linkUserId}
+                    </if>
+                    <if test="linkUserName != null and linkUserName!=''">
+                        and linkUserName=#{linkUserName}
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         and creationDate=#{creationDate}
@@ -69,6 +74,9 @@
                 <if test="linkUserId != null and linkUserId!=''">
                     and linkUserId=#{linkUserId}
                 </if>
+                <if test="linkUserName != null and linkUserName!=''">
+                    and linkUserName=#{linkUserName}
+                </if>
                 <if test="creationDate != null and creationDate!=''">
                     and creationDate=#{creationDate}
                 </if>
@@ -88,6 +96,7 @@
         insert into itrip_order_link_user(
                         orderId,
                         linkUserId,
+                        linkUserName,
                         creationDate,
                         createdBy,
                         modifyDate,
@@ -95,6 +104,7 @@
         values(
                      #{orderId},
                      #{linkUserId},
+                     #{linkUserName},
                      #{creationDate},
                      #{createdBy},
                      #{modifyDate},
@@ -112,6 +122,9 @@
                     </if>
                     <if test="linkUserId != null and linkUserId!=''">
                         linkUserId=#{linkUserId},
+                    </if>
+                    <if test="linkUserName != null and linkUserName!=''">
+                        linkUserName=#{linkUserName},
                     </if>
                     <if test="creationDate != null and creationDate!=''">
                         creationDate=#{creationDate},

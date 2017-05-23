@@ -7,6 +7,7 @@ public class ItripOrderLinkUser implements Serializable {
             private Long id;
             private Long orderId;
             private Long linkUserId;
+            private String linkUserName;
             private Date creationDate;
             private Long createdBy;
             private Date modifyDate;
@@ -32,6 +33,13 @@ public class ItripOrderLinkUser implements Serializable {
 
             public  Long getLinkUserId(){
                 return this.linkUserId;
+            }
+            public void setLinkUserName (String  linkUserName){
+                this.linkUserName=linkUserName;
+            }
+
+            public  String getLinkUserName(){
+                return this.linkUserName;
             }
             public void setCreationDate (Date  creationDate){
                 this.creationDate=creationDate;
