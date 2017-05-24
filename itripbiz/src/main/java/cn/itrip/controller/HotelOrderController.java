@@ -196,7 +196,7 @@ public class HotelOrderController {
                 itripHotelOrder.setOrderStatus(0);
 
                 try {
-                    //生成MD5
+                    //生成订单号：机器码 +日期+（MD5）（商品IDs+毫秒数+1000000的随机数）
                     StringBuilder md5String = new StringBuilder();
                     md5String.append(itripHotelOrder.getHotelId());
                     md5String.append(itripHotelOrder.getRoomId());
