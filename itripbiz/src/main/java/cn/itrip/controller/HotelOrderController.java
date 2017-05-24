@@ -141,10 +141,10 @@ public class HotelOrderController {
         validateStoreMap.put("roomId", itripAddHotelOrderVO.getRoomId());
         validateStoreMap.put("count", itripAddHotelOrderVO.getCount());
         List<ItripUserLinkUser> linkUserList = itripAddHotelOrderVO.getLinkUser();
-        for (ItripUserLinkUser linkUser:linkUserList) {
+
+        /*for (ItripUserLinkUser linkUser:linkUserList) {
             logger.debug("linkuser=========== > " + linkUser.getId() + " --- " + linkUser.getLinkUserName());
-        }
-/*
+        }*/
         if (null != currentUser) {
             Boolean flag = false;
             try {
@@ -174,7 +174,16 @@ public class HotelOrderController {
                 itripHotelOrder.setInvoiceHead(itripAddHotelOrderVO.getInvoiceHead());
                 itripHotelOrder.setInvoiceType(itripAddHotelOrderVO.getInvoiceType());
                 itripHotelOrder.setCreatedBy(currentUser.getId());
-                itripHotelOrder.setLinkUserName(itripAddHotelOrderVO.getLinkUserName());
+                StringBuilder linkUserName = new StringBuilder();
+                int size = linkUserList.size();
+                for(int i=0; i<size; i++){
+                    if(i != size - 1){
+                        linkUserName.append(linkUserList.get(i).getLinkUserName() + ",");
+                    }else{
+                        linkUserName.append(linkUserList.get(i).getLinkUserName());
+                    }
+                }
+                itripHotelOrder.setLinkUserName(linkUserName.toString());
                 itripHotelOrder.setBookingDays(days);
                 if(tokenString.startsWith("token:PC")){
                     itripHotelOrder.setBookType(0);
@@ -204,18 +213,7 @@ public class HotelOrderController {
                     //计算订单的总金额
                     itripHotelOrder.setPayAmount(itripHotelOrderService.getOrderPayAmount(days, itripAddHotelOrderVO.getRoomId()));
 
-                    //往订单和联系人关联表中添加数据
-                    String ids[] =  itripAddHotelOrderVO.getLinkUserIds().replace("，", ",").split(",");
-                    String linkUserName[] = itripAddHotelOrderVO.getLinkUserName().replace("，", ",").split(",");
-                    List<ItripOrderLinkUser> itripOrderLinkUserList = new ArrayList<ItripOrderLinkUser>();
-                    for(int i=0; i< ids.length; i++){
-                        ItripOrderLinkUser itripOrderLinkUser = new ItripOrderLinkUser();
-                        itripOrderLinkUser.setLinkUserId(Long.parseLong(ids[i]));
-                        itripOrderLinkUser.setLinkUserName(linkUserName[i]);
-                        itripOrderLinkUser.setCreatedBy(currentUser.getId());
-                        itripOrderLinkUserList.add(itripOrderLinkUser);
-                    }
-                    itripHotelOrderService.itriptxAddItripHotelOrder(itripHotelOrder, itripOrderLinkUserList);
+                    itripHotelOrderService.itriptxAddItripHotelOrder(itripHotelOrder, linkUserList);
 
                     dto = DtoUtil.returnSuccess("生成订单成功");
                 } catch (Exception e) {
@@ -229,7 +227,7 @@ public class HotelOrderController {
             }
         } else {
             dto = DtoUtil.returnFail("token失效，请重登录", "100508");
-        }*/
+        }
         return dto;
     }
 

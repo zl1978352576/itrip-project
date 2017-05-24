@@ -9,6 +9,7 @@ import java.util.Map;
 
 import cn.itrip.beans.pojo.ItripHotelRoom;
 import cn.itrip.beans.pojo.ItripOrderLinkUser;
+import cn.itrip.beans.pojo.ItripUserLinkUser;
 import cn.itrip.beans.vo.order.ItripListHotelOrderVO;
 import cn.itrip.beans.vo.order.ItripPersonalOrderRoomVO;
 import cn.itrip.common.Page;
@@ -23,7 +24,7 @@ public interface ItripHotelOrderService {
 
     public Integer getItripHotelOrderCountByMap(Map<String,Object> param)throws Exception;
 
-    public Boolean itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripOrderLinkUser> itripOrderLinkUserList)throws Exception;
+    public Boolean itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripUserLinkUser> itripOrderLinkUserList)throws Exception;
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
 
