@@ -27,6 +27,10 @@ public class SearchHotelRoomVO implements Serializable{
     private Date startDate;
     @ApiModelProperty("[必填] 退房日期")
     private Date endDate;
+    @ApiModelProperty("[非必填] 是否可取消(0:不可以 1:可以)")
+    private Integer isCancel;
+    @ApiModelProperty("[非必填] 支付类型(1:在线付 2:到店付 3:不限)")
+    private Integer payType;
 
     public Date getStartDate() {
         return startDate;
@@ -82,5 +86,21 @@ public class SearchHotelRoomVO implements Serializable{
 
     public void setRoomBedTypeId(Long roomBedTypeId) {
         this.roomBedTypeId = roomBedTypeId;
+    }
+
+    public Integer getIsCancel() {
+        return isCancel;
+    }
+
+    public void setIsCancel(Integer isCancel) {
+        this.isCancel = isCancel;
+    }
+
+    public Integer getPayType() {
+        return payType;
+    }
+
+    public void setPayType(Integer payType) {
+        this.payType = payType;
     }
 }
