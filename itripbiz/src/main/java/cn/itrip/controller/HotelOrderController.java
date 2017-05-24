@@ -207,7 +207,7 @@ public class HotelOrderController {
                     //生成订单编号
                     StringBuilder orderNo = new StringBuilder();
                     orderNo.append(systemConfig.getMachineCode());
-                    orderNo.append(DateUtil.format(new Date(), "yyyyMMddHHmmss"));
+                    orderNo.append(System.currentTimeMillis());
                     orderNo.append(md5);
                     itripHotelOrder.setOrderNo(orderNo.toString());
                     //计算订单的总金额
