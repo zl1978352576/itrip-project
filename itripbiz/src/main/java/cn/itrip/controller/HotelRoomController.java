@@ -90,40 +90,42 @@ public class HotelRoomController {
     @RequestMapping(value = "/queryhotelroombyhotel", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Dto<List<ItripHotelRoomVO>> queryHotelRoomByHotel(@RequestBody SearchHotelRoomVO vo) {
-        List<List<ItripHotelRoomVO>> hotelRoomVOList=null;
-        try{
-            Map<String,Object> param=new HashMap();
-            if(EmptyUtils.isEmpty(vo.getHotelId())){
-              return DtoUtil.returnFail("酒店ID不能为空", "100303");
+        List<List<ItripHotelRoomVO>> hotelRoomVOList = null;
+        try {
+            Map<String, Object> param = new HashMap();
+            if (EmptyUtils.isEmpty(vo.getHotelId())) {
+                return DtoUtil.returnFail("酒店ID不能为空", "100303");
             }
-            if(EmptyUtils.isEmpty(vo.getStartDate()) || EmptyUtils.isEmpty(vo.getEndDate())){
+            if (EmptyUtils.isEmpty(vo.getStartDate()) || EmptyUtils.isEmpty(vo.getEndDate())) {
                 return DtoUtil.returnFail("必须填写酒店入住及退房时间", "100303");
             }
-            if(EmptyUtils.isNotEmpty(vo.getStartDate()) && EmptyUtils.isNotEmpty(vo.getEndDate())){
-                if(vo.getStartDate().getTime()>vo.getEndDate().getTime()){
+            if (EmptyUtils.isNotEmpty(vo.getStartDate()) && EmptyUtils.isNotEmpty(vo.getEndDate())) {
+                if (vo.getStartDate().getTime() > vo.getEndDate().getTime()) {
                     return DtoUtil.returnFail("入住时间不能大于退房时间", "100303");
                 }
-                List<Date> dates= DateUtil.getBetweenDates(vo.getStartDate(),vo.getEndDate());
-                param.put("timesList",dates);
+                List<Date> dates = DateUtil.getBetweenDates(vo.getStartDate(), vo.getEndDate());
+                param.put("timesList", dates);
             }
-            //默认设置为可预订
-            if(EmptyUtils.isEmpty(vo.getIsBook())){
-                vo.setIsBook(1);
-            }
-            param.put("hotelId",vo.getHotelId());
-            param.put("isBook",vo.getIsBook());
-            param.put("isHavingBreakfast",vo.getIsHavingBreakfast());
-            param.put("isTimelyResponse",vo.getIsTimelyResponse());
+
+            vo.setIsHavingBreakfast(EmptyUtils.isEmpty(vo.getIsHavingBreakfast()) ? null : vo.getIsHavingBreakfast());
+            vo.setIsBook(EmptyUtils.isEmpty(vo.getIsBook()) ? null : vo.getIsBook());
+            vo.setIsTimelyResponse(EmptyUtils.isEmpty(vo.getIsTimelyResponse()) ? null : vo.getIsTimelyResponse());
+            vo.setRoomBedTypeId(EmptyUtils.isEmpty(vo.getRoomBedTypeId()) ? null : vo.getRoomBedTypeId());
+
+            param.put("hotelId", vo.getHotelId());
+            param.put("isBook", vo.getIsBook());
+            param.put("isHavingBreakfast", vo.getIsHavingBreakfast());
+            param.put("isTimelyResponse", vo.getIsTimelyResponse());
             param.put("roomBedTypeId", vo.getRoomBedTypeId());
-            List<ItripHotelRoomVO> originalRoomList=itripHotelRoomService.getItripHotelRoomListByMap(param);
-            hotelRoomVOList=new ArrayList();
-            for (ItripHotelRoomVO roomVO:originalRoomList){
-                List<ItripHotelRoomVO> tempList=new ArrayList<ItripHotelRoomVO>();
+            List<ItripHotelRoomVO> originalRoomList = itripHotelRoomService.getItripHotelRoomListByMap(param);
+            hotelRoomVOList = new ArrayList();
+            for (ItripHotelRoomVO roomVO : originalRoomList) {
+                List<ItripHotelRoomVO> tempList = new ArrayList<ItripHotelRoomVO>();
                 tempList.add(roomVO);
                 hotelRoomVOList.add(tempList);
             }
-            return DtoUtil.returnSuccess("获取成功",hotelRoomVOList);
-        }catch (Exception e){
+            return DtoUtil.returnSuccess("获取成功", hotelRoomVOList);
+        } catch (Exception e) {
             e.printStackTrace();
             return DtoUtil.returnFail("获取酒店房型列表失败", "100304");
         }
@@ -139,11 +141,11 @@ public class HotelRoomController {
     @ResponseBody
     public Dto<Object> queryHotelRoomBed() {
         try {
-            List<ItripLabelDicVO> itripLabelDicList=itripLabelDicService.getItripLabelDicByParentId(new Long(1));
-            return DtoUtil.returnSuccess("获取成功",itripLabelDicList);
+            List<ItripLabelDicVO> itripLabelDicList = itripLabelDicService.getItripLabelDicByParentId(new Long(1));
+            return DtoUtil.returnSuccess("获取成功", itripLabelDicList);
         } catch (Exception e) {
             e.printStackTrace();
-            return  DtoUtil.returnFail("获取床型失败", "100305");
+            return DtoUtil.returnFail("获取床型失败", "100305");
         }
     }
 }
