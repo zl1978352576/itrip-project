@@ -41,6 +41,7 @@ import java.util.Map;
  * 5、查询热门城市
  * 6、查询热门商圈列表（搜索-酒店列表）
  * 7、查询数据字典特色父级节点列表（搜索-酒店列表）
+ * 8、根据酒店id查询酒店特色、商圈、酒店名称（视频文字描述）
  * <p/>
  * 注：错误码（100201 ——100300）
  * <p/>
@@ -255,7 +256,7 @@ public class HotelController {
     }
 
     /***
-     * 根据酒店id查询酒店政策 -add by donghai
+     * 根据酒店id查询酒店特色和介绍 -add by donghai
      *
      * @return
      * @throws Exception
@@ -316,4 +317,34 @@ public class HotelController {
         }
         return dto;
     }
+
+    @ApiOperation(value = "根据酒店id查询酒店特色、商圈、酒店名称", httpMethod = "GET",
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class, notes = "根据酒店id查询酒店特色、商圈、酒店名称（视频文字描述）" +
+            "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
+            "<p>错误码：</p>" +
+            "<p>100214 : 获取酒店视频文字描述失败 </p>" +
+            "<p>100215 : 酒店id不能为空</p>")
+    @RequestMapping(value = "/getvideodesc/{hotelId}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Dto<Object> getVideoDescByHotelId(@ApiParam(required = true, name = "hotelId", value = "酒店ID")
+                                        @PathVariable String hotelId) {
+        Dto<Object> dto = new Dto<Object>();
+        logger.debug("getVideoDescByHotelId hotelId : " + hotelId);
+        if (null != hotelId && !"".equals(hotelId)) {
+            HotelVideoDescVO hotelVideoDescVO = null;
+            try {
+                hotelVideoDescVO = itripHotelService.getVideoDescByHotelId(Long.valueOf(hotelId));
+                dto = DtoUtil.returnSuccess("获取酒店视频文字描述成功", hotelVideoDescVO);
+            } catch (Exception e) {
+                e.printStackTrace();
+                dto = DtoUtil.returnFail("获取酒店视频文字描述失败", "100214");
+            }
+
+        } else {
+            dto = DtoUtil.returnFail("酒店id不能为空", "100215");
+        }
+        return dto;
+    }
+
 }

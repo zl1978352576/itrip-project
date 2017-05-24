@@ -1,5 +1,7 @@
 package cn.itrip.dao.itripHotel;
+import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.beans.pojo.ItripHotel;
+import cn.itrip.beans.pojo.ItripLabelDic;
 import cn.itrip.beans.vo.hotel.*;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -24,5 +26,22 @@ public interface ItripHotelMapper {
 	public Integer updateItripHotel(ItripHotel itripHotel)throws Exception;
 
 	public Integer deleteItripHotelById(@Param(value = "id") Long id)throws Exception;
+
+	/**
+	 *  根据酒店ID获取商圈
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItripAreaDic> getHotelAreaByHotelId(@Param(value = "id") Long id)throws Exception;
+
+	/**
+	 *  根据酒店ID获取特色
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItripLabelDic> getHotelFeatureByHotelId(@Param(value = "id") Long id)throws Exception;
+
 
 }

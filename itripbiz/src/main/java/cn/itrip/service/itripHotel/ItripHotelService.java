@@ -14,6 +14,14 @@ import org.apache.ibatis.annotations.Param;
 */
 public interface ItripHotelService {
 
+    /**
+     * 根据酒店id查询酒店特色、商圈、酒店名称
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public HotelVideoDescVO getVideoDescByHotelId(Long id)throws Exception;
+
     public ItripHotel getItripHotelById(Long id)throws Exception;
 
     /**

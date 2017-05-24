@@ -1,4 +1,6 @@
 package cn.itrip.service.itripHotel;
+import cn.itrip.beans.pojo.ItripAreaDic;
+import cn.itrip.beans.pojo.ItripLabelDic;
 import cn.itrip.beans.vo.hotel.*;
 import cn.itrip.dao.itripHotel.ItripHotelMapper;
 import cn.itrip.beans.pojo.ItripHotel;
@@ -19,6 +21,28 @@ public class ItripHotelServiceImpl implements ItripHotelService {
 
     public ItripHotel getItripHotelById(Long id)throws Exception{
         return itripHotelMapper.getItripHotelById(id);
+    }
+
+    public HotelVideoDescVO getVideoDescByHotelId(Long id)throws Exception{
+        HotelVideoDescVO hotelVideoDescVO = new HotelVideoDescVO();
+        List<ItripAreaDic> itripAreaDicList = new ArrayList<>();
+        itripAreaDicList = itripHotelMapper.getHotelAreaByHotelId(id);
+        List<String> tempList1 = new ArrayList<>();
+        for (ItripAreaDic itripAreaDic:itripAreaDicList) {
+            tempList1.add(itripAreaDic.getName());
+        }
+        hotelVideoDescVO.setTradingAreaNameList(tempList1);
+
+        List<ItripLabelDic> itripLabelDicList = new ArrayList<>();
+        itripLabelDicList = itripHotelMapper.getHotelFeatureByHotelId(id);
+        List<String> tempList2 = new ArrayList<>();
+        for (ItripLabelDic itripLabelDic:itripLabelDicList) {
+            tempList2.add(itripLabelDic.getName());
+        }
+        hotelVideoDescVO.setHotelFeatureList(tempList2);
+
+        hotelVideoDescVO.setHotelName(itripHotelMapper.getItripHotelById(id).getHotelName());
+        return hotelVideoDescVO;
     }
 
     @Override
