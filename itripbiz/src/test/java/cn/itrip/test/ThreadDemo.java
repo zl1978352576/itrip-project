@@ -27,8 +27,8 @@ public class ThreadDemo extends Thread {
         super.run();
         Map<String, Object> param = new HashMap<String, Object>();
         try {
-            param.put("startTime", DateUtil.parse("2012-01-01", "yyyy-MM-dd"));
-            param.put("endTime", DateUtil.parse("2012-01-10", "yyyy-MM-dd"));
+            param.put("startTime", DateUtil.parse("2018-09-01", "yyyy-MM-dd"));
+            param.put("endTime", DateUtil.parse("2018-09-10", "yyyy-MM-dd"));
             param.put("roomId", 1);
             param.put("hotelId", 1);
             param.put("count", 10);

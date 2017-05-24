@@ -25,16 +25,9 @@ public class HotelOrderTest {
     }
     @Test
     public void test() throws Exception {
-        for (int i = 0; i < 400; i++) {
+        for (int i = 0; i < 50; i++) {
             //new 开辟子线程 start：调用run，运行子线程
             new ThreadDemo("T" + i, hotelTempStoreService).start();
-            if (i == 1) {
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }

@@ -111,12 +111,17 @@ public class HotelRoomController {
             vo.setIsBook(EmptyUtils.isEmpty(vo.getIsBook()) ? null : vo.getIsBook());
             vo.setIsTimelyResponse(EmptyUtils.isEmpty(vo.getIsTimelyResponse()) ? null : vo.getIsTimelyResponse());
             vo.setRoomBedTypeId(EmptyUtils.isEmpty(vo.getRoomBedTypeId()) ? null : vo.getRoomBedTypeId());
+            vo.setIsCancel(EmptyUtils.isEmpty(vo.getIsCancel()) ? null : vo.getIsCancel());
+            vo.setPayType(EmptyUtils.isEmpty(vo.getPayType()) ? null : vo.getPayType());
 
             param.put("hotelId", vo.getHotelId());
             param.put("isBook", vo.getIsBook());
             param.put("isHavingBreakfast", vo.getIsHavingBreakfast());
             param.put("isTimelyResponse", vo.getIsTimelyResponse());
             param.put("roomBedTypeId", vo.getRoomBedTypeId());
+            param.put("isCancel", vo.getIsCancel());
+            param.put("payType", vo.getPayType());
+
             List<ItripHotelRoomVO> originalRoomList = itripHotelRoomService.getItripHotelRoomListByMap(param);
             hotelRoomVOList = new ArrayList();
             for (ItripHotelRoomVO roomVO : originalRoomList) {
