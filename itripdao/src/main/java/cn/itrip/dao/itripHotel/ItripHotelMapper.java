@@ -15,7 +15,7 @@ public interface ItripHotelMapper {
 
 	public ItripSearchPolicyHotelVO queryHotelPolicy(@Param(value="id") Long id) throws Exception;
 
-	public List<ItripSearchDetailsHotelVO> queryHotelDetails(@Param(value="id") Long id) throws Exception;
+	/*public List<ItripSearchDetailsHotelVO> queryHotelDetails(@Param(value="id") Long id) throws Exception;*/
 
 	public List<ItripHotel>	getItripHotelListByMap(Map<String,Object> param)throws Exception;
 

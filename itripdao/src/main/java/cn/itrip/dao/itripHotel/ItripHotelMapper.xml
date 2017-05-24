@@ -81,7 +81,7 @@
         </trim>
     </select>
 
-    <select id="queryHotelDetails" resultMap="hotelDetailsMap" >
+   <!-- <select id="queryHotelDetails" resultMap="hotelDetailsMap" >
         select
         '酒店介绍' as name,
         details as description
@@ -104,7 +104,7 @@
             </if>
         </trim>
         )
-    </select>
+    </select>-->
 
     <resultMap id="hotelDetailsMap" type="cn.itrip.beans.vo.hotel.ItripSearchDetailsHotelVO">
         <result property="name" column="name" />

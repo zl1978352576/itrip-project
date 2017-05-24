@@ -56,7 +56,20 @@ public class ItripHotelServiceImpl implements ItripHotelService {
 
     @Override
     public List<ItripSearchDetailsHotelVO> queryHotelDetails(Long id) throws Exception {
-        return itripHotelMapper.queryHotelDetails(id);
+        List<ItripLabelDic> itripLabelDicList = new ArrayList<>();
+        itripLabelDicList = itripHotelMapper.getHotelFeatureByHotelId(id);
+        ItripSearchDetailsHotelVO vo = new ItripSearchDetailsHotelVO();
+        List<ItripSearchDetailsHotelVO> list = new ArrayList<ItripSearchDetailsHotelVO>();
+        vo.setName("酒店介绍");
+        vo.setDescription(itripHotelMapper.getItripHotelById(id).getDetails());
+        list.add(vo);
+        for (ItripLabelDic itripLabelDic:itripLabelDicList) {
+            ItripSearchDetailsHotelVO vo2 = new ItripSearchDetailsHotelVO();
+            vo2.setName(itripLabelDic.getName());
+            vo2.setDescription(itripLabelDic.getDescription());
+            list.add(vo2);
+        }
+        return list;
     }
 
     public List<ItripHotel>	getItripHotelListByMap(Map<String,Object> param)throws Exception{
