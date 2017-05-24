@@ -383,8 +383,9 @@ public class HotelOrderController {
     @Scheduled(cron = "*/6000 * * * * ?")
     public void flushOrderStatus() {
         try {
+            logger.info("刷单程序开始执行.......");
             boolean flag = itripHotelOrderService.flushOrderStatus(2);
-            logger.info(flag?"刷取订单成功":"刷单失败");
+            logger.info("刷单程序执行完毕.......");
         } catch (Exception e) {
             e.printStackTrace();
         }
