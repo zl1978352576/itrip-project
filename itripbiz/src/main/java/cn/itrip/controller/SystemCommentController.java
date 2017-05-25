@@ -372,6 +372,7 @@ public class SystemCommentController {
 				return DtoUtil.returnFail("获取酒店有待改善评论数失败","100016");
 			}
 			param.put("isHavingImg",1);//0:无图片 1:有图片
+			param.put("isOk",null);
 			count = getItripCommentCountByMap(param);
 			if(count != -1){
 				countMap.put("havingimg",count);
