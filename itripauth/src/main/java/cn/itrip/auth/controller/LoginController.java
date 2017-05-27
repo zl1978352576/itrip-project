@@ -5,6 +5,7 @@ import java.util.Date;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.models.HttpMethod;
@@ -49,12 +50,16 @@ public class LoginController {
 	@ApiOperation(value = "用户登录",httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="根据用户名、密码进行统一认证")	
+	@ApiImplicitParams({
+		@ApiImplicitParam(paramType="form",required=true,value="用户名",name="name",defaultValue="yao.liu2015@bdqn.cn"),
+		@ApiImplicitParam(paramType="form",required=true,value="密码",name="password",defaultValue="111111"),
+	})
 	@RequestMapping(value="/dologin",method=RequestMethod.POST,produces= "application/json")
 	public @ResponseBody Dto dologin(
-			@ApiParam(required = true, name = "name", value = "用户名",defaultValue="yao.liu2015@bdqn.cn")
+//			@ApiParam(required = true, name = "name", value = "用户名",defaultValue="yao.liu2015@bdqn.cn")
 			@RequestParam
 			String name,
-			@ApiParam(required = true, name = "password", value = "密码",defaultValue="111111")
+//			@ApiParam(required = true, name = "password", value = "密码",defaultValue="111111")			
 			@RequestParam
 			String password,
 			HttpServletRequest request) {
