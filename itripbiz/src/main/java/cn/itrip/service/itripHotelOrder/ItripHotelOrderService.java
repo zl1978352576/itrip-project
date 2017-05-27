@@ -24,7 +24,7 @@ public interface ItripHotelOrderService {
 
     public Integer getItripHotelOrderCountByMap(Map<String,Object> param)throws Exception;
 
-    public Boolean itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripUserLinkUser> itripOrderLinkUserList)throws Exception;
+    public Map<String, String> itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripUserLinkUser> itripOrderLinkUserList)throws Exception;
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder)throws Exception;
 

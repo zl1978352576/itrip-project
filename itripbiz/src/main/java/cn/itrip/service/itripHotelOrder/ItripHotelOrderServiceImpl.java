@@ -48,7 +48,9 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return itripHotelOrderMapper.getItripHotelOrderCountByMap(param);
     }
 
-    public Boolean itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripUserLinkUser> linkUserList) throws Exception {
+    public Map<String, String> itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripUserLinkUser> linkUserList) throws Exception {
+//        ItripHotelOrder itripHotelOrderRet = new ItripHotelOrder();
+        Map<String, String> map = new HashMap<String, String>();
         if(null != itripHotelOrder ) {
             itripHotelOrder.setCreationDate(new Date());
             if (itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder) > 0) {
@@ -64,10 +66,13 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
                         itripOrderLinkUserMapper.insertItripOrderLinkUser(itripOrderLinkUser);
                     }
                 }
-                return true;
+                map.put("id", itripHotelOrder.getId().toString());
+                map.put("orderNo", itripHotelOrder.getOrderNo());
+//                itripHotelOrderRet.setOrderNo(itripHotelOrder.getOrderNo());
+                return map;
             }
         }
-        return false;
+        return null;
     }
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder) throws Exception {

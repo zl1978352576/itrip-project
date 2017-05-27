@@ -216,9 +216,9 @@ public class HotelOrderController {
                     //计算订单的总金额
                     itripHotelOrder.setPayAmount(itripHotelOrderService.getOrderPayAmount(days, itripAddHotelOrderVO.getRoomId()));
 
-                    itripHotelOrderService.itriptxAddItripHotelOrder(itripHotelOrder, linkUserList);
-
-                    dto = DtoUtil.returnSuccess("生成订单成功");
+                    Map<String, String>  map = itripHotelOrderService.itriptxAddItripHotelOrder(itripHotelOrder, linkUserList);
+                    DtoUtil.returnSuccess();
+                    dto = DtoUtil.returnSuccess("生成订单成功", map);
                 } catch (Exception e) {
                     e.printStackTrace();
                     dto = DtoUtil.returnFail("生成订单失败", "100505");
