@@ -113,10 +113,10 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return itripHotelOrderMapper.getRoomNumByRoomIdTypeAndDate(roomId, startDate, endDate);
     }
 
-    public BigDecimal getOrderPayAmount(int days, Long roomId) throws Exception {
+    public BigDecimal getOrderPayAmount(int count, Long roomId) throws Exception {
         BigDecimal payAmount = null;
         BigDecimal roomPrice = itripHotelRoomMapper.getItripHotelRoomById(roomId).getRoomPrice();
-        payAmount = BigDecimalUtil.OperationASMD(days, roomPrice,
+        payAmount = BigDecimalUtil.OperationASMD(count, roomPrice,
                 BigDecimalUtil.BigDecimalOprations.multiply,
                 2, ROUND_DOWN);
         return payAmount;

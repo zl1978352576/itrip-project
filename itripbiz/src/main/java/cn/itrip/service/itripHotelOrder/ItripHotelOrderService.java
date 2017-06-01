@@ -52,11 +52,11 @@ public interface ItripHotelOrderService {
 
     /**
      * 根据订单的预定天数和房间的单价计算订单总金额 -add by donghai
-     * @param days
+     * @param count ,roomId count为天数和房间数量的乘积
      * @return
      * @throws Exception
      */
-    public BigDecimal getOrderPayAmount(int days, Long roomId) throws Exception;
+    public BigDecimal getOrderPayAmount(int count, Long roomId) throws Exception;
 
     public Page<ItripListHotelOrderVO> queryOrderPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 
