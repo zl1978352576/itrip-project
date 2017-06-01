@@ -6,7 +6,7 @@ import cz.mallat.uasparser.UserAgentInfo;
 import java.io.IOException;
 
 /**
- * 本类通过分析user-agent信息判断当前Http请求的客户端浏览器类型
+ * 本类实现了UASparser的单例，该实例可通过分析user-agent信息判断当前Http请求的客户端浏览器类型
  * @author hduser
  *
  */
