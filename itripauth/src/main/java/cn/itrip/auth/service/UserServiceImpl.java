@@ -15,7 +15,11 @@ import java.util.*;
 
 import javax.annotation.Resource;
 
-
+/**
+ * 用户管理接口的实现
+ * @author hduser
+ *
+ */
 @Service("useService")
 public class UserServiceImpl implements UserService {
 

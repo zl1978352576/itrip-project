@@ -19,6 +19,11 @@ import cn.itrip.beans.vo.ItripTokenVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.ErrorCode;
 
+/**
+ * Token控制器
+ * @author hduser
+ *
+ */
 @Controller
 @RequestMapping(value = "/api")
 public class TokenController {

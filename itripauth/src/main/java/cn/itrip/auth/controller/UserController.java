@@ -23,6 +23,11 @@ import cn.itrip.beans.vo.userinfo.ItripUserVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.ErrorCode;
 
+/**
+ * 用户管理控制器
+ * @author hduser
+ *
+ */
 @Controller
 @RequestMapping(value = "/api")
 public class UserController {

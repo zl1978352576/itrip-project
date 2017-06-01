@@ -5,6 +5,11 @@ import java.util.Set;
 
 import cn.itrip.beans.pojo.ItripUser;
 
+/**
+ * 用户管理接口
+ * @author hduser
+ *
+ */
 public interface UserService {
 
 	public void itriptxCreateUser(ItripUser user) throws Exception;

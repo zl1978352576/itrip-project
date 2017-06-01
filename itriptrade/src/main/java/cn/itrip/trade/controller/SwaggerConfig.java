@@ -14,6 +14,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //@EnableWebMvc
 /**
+ * Swagger API文档生成工具初始化配置信息
+ * <br/>
  * 要求jdk8
  * @author hduser
  *

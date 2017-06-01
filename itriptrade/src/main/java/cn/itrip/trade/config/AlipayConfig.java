@@ -1,5 +1,10 @@
 package cn.itrip.trade.config;
 
+/**
+ *  支付宝手机网站接入配置信息
+ * @author hduser
+ *
+ */
 public class AlipayConfig {
 
 	/**

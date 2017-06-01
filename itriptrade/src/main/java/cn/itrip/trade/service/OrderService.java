@@ -2,6 +2,11 @@ package cn.itrip.trade.service;
 
 import cn.itrip.beans.pojo.ItripHotelOrder;
 
+/**
+ * 订单支付处理接口
+ * @author hduser
+ *
+ */
 public interface OrderService {
 
 	/**

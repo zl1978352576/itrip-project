@@ -13,6 +13,11 @@ import cn.itrip.beans.pojo.ItripHotelOrder;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.dao.itripHotelOrder.ItripHotelOrderMapper;
 
+/**
+ * 订单支付处理实现
+ * @author hduser
+ *
+ */
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 

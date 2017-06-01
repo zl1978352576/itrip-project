@@ -18,7 +18,13 @@ import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
+/**
+ * Swagger API文档生成工具初始化配置信息
+ * <br/>
+ * 要求jdk8
+ * @author hduser
+ *
+ */
 //@EnableWebMvc
 @EnableSwagger2
 @ComponentScan(basePackages = {"cn.itrip.auth.controller"})
