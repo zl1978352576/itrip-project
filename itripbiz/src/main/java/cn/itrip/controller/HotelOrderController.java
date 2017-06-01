@@ -214,7 +214,7 @@ public class HotelOrderController {
                     orderNo.append(md5);
                     itripHotelOrder.setOrderNo(orderNo.toString());
                     //计算订单的总金额
-                    itripHotelOrder.setPayAmount(itripHotelOrderService.getOrderPayAmount(days, itripAddHotelOrderVO.getRoomId()));
+                    itripHotelOrder.setPayAmount(itripHotelOrderService.getOrderPayAmount(days*itripAddHotelOrderVO.getCount(), itripAddHotelOrderVO.getRoomId()));
 
                     Map<String, String>  map = itripHotelOrderService.itriptxAddItripHotelOrder(itripHotelOrder, linkUserList);
                     DtoUtil.returnSuccess();
