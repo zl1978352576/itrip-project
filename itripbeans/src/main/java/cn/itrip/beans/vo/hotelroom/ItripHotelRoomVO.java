@@ -1,12 +1,10 @@
 package cn.itrip.beans.vo.hotelroom;
 
-import cn.itrip.beans.pojo.ItripHotelRoom;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
+ * 返回给前端的酒店房型列表VO
  * Created by hanlu on 2017/5/11.
  */
 public class ItripHotelRoomVO implements Serializable{
