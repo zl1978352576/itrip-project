@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import java.util.List;
 
 /**
+ * 酒店详情-酒店特色、商圈、酒店名称（视频文字描述）VO
  * Created by hanlu on 2017/5/24.
  */
 @ApiModel(value = "HotelVideoDescVO",description = "酒店特色、商圈、酒店名称（视频文字描述）")
