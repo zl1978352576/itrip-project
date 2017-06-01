@@ -1,12 +1,8 @@
 package cn.itrip.auth.controller;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-import java.util.Date;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
@@ -19,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import springfox.documentation.annotations.ApiIgnore;
-import cn.itrip.auth.service.MailService;
 import cn.itrip.auth.service.UserService;
 import cn.itrip.auth.util.MD5;
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.userinfo.ItripUserVO;
 import cn.itrip.common.DtoUtil;

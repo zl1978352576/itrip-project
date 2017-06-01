@@ -1,6 +1,6 @@
 package cn.itrip.controller;
 
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.pojo.ItripUserLinkUser;
 import cn.itrip.beans.vo.userinfo.ItripAddUserLinkUserVO;

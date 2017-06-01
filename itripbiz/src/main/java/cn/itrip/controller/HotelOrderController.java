@@ -1,6 +1,6 @@
 package cn.itrip.controller;
 
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.pojo.*;
 import cn.itrip.beans.vo.order.*;
 import cn.itrip.beans.vo.store.StoreVO;
@@ -9,7 +9,6 @@ import cn.itrip.service.itripHotel.ItripHotelService;
 import cn.itrip.service.itripHotelOrder.ItripHotelOrderService;
 import cn.itrip.service.itripHotelRoom.ItripHotelRoomService;
 import cn.itrip.service.itripHotelTempStore.ItripHotelTempStoreService;
-import cn.itrip.service.itripOrderLinkUser.ItripOrderLinkUserService;
 import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

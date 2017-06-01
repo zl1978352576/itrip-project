@@ -1,6 +1,6 @@
 package cn.itrip.controller;
 
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.pojo.ItripComment;
 import cn.itrip.beans.pojo.ItripHotel;
 import cn.itrip.beans.pojo.ItripImage;

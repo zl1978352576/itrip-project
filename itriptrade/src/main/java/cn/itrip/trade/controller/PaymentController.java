@@ -1,7 +1,5 @@
 package cn.itrip.trade.controller;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -32,7 +30,6 @@ import com.alipay.api.domain.AlipayTradeWapPayModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
 
-import cn.itrip.beans.dtos.Dto;
 import cn.itrip.beans.pojo.ItripHotelOrder;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.trade.config.AlipayConfig;

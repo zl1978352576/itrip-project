@@ -1,6 +1,6 @@
 package cn.itrip.common;
 
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 
 /**
  * Created by zezhong.shang on 17-5-8.

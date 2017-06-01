@@ -1,14 +1,10 @@
 package cn.itrip.auth.controller;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.models.HttpMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +20,7 @@ import cn.itrip.auth.exception.UserLoginFailedException;
 import cn.itrip.auth.service.TokenService;
 import cn.itrip.auth.service.UserService;
 import cn.itrip.auth.util.MD5;
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.ItripTokenVO;
 import cn.itrip.common.DtoUtil;

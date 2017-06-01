@@ -1,6 +1,6 @@
 package cn.itrip.controller;
 
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.beans.pojo.ItripLabelDic;
 import cn.itrip.beans.vo.ItripAreaDicVO;

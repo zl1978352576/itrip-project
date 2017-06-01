@@ -1,6 +1,6 @@
 package cn.itrip.controller;
 
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.vo.ItripImageVO;
 import cn.itrip.beans.vo.ItripLabelDicVO;
 import cn.itrip.beans.vo.hotelroom.ItripHotelRoomVO;

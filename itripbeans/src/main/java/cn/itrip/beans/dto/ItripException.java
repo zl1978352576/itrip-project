@@ -1,4 +1,4 @@
-package cn.itrip.beans.dtos;
+package cn.itrip.beans.dto;
 
 /**
  * Created by zezhong.shang on 17-5-9.

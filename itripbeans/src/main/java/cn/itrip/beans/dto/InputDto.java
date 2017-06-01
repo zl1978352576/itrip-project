@@ -1,4 +1,4 @@
-package cn.itrip.beans.dtos;
+package cn.itrip.beans.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 

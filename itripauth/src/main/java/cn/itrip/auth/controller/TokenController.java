@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.itrip.auth.exception.TokenValidationFailedException;
 import cn.itrip.auth.service.TokenService;
-import cn.itrip.beans.dtos.Dto;
+import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.vo.ItripTokenVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.ErrorCode;
