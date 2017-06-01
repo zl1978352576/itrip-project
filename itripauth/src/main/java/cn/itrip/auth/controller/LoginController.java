@@ -27,6 +27,11 @@ import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ErrorCode;
 
+/**
+ * 用户登录控制器
+ * @author hduser
+ *
+ */
 @Controller
 @RequestMapping(value = "/api")
 public class LoginController {

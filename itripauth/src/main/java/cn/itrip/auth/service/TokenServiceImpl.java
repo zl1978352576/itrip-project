@@ -23,7 +23,7 @@ import com.alibaba.fastjson.JSON;
 import cz.mallat.uasparser.UserAgentInfo;
 
 /**
- * Token相关业务服务实现
+ * Token管理接口相关业务服务实现
  * 
  * @author hduser
  *

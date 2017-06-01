@@ -7,7 +7,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import cn.itrip.common.RedisAPI;
-
+/**
+ * 邮件发送接口的实现
+ * @author hduser
+ *
+ */
 @Service("mailService")
 public class MailServiceImpl implements MailService {
 
