@@ -4,7 +4,7 @@ import net.sourceforge.pinyin4j.PinyinHelper;
 import org.apache.log4j.Logger;
 
 /**
- * Created by zezhong.shang on 17-5-23.
+ * 汉字转拼音的工具类
  */
 public class ChineseToEnglish {
 

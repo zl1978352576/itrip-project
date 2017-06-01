@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * <p>判断是否是空的 工具类</p>
- * @author zzshang
+ * @author XX
  * @version v1.0
  * @since 2015/5/5
  */

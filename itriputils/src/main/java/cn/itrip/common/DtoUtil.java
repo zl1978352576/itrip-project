@@ -3,7 +3,8 @@ package cn.itrip.common;
 import cn.itrip.beans.dto.Dto;
 
 /**
- * Created by zezhong.shang on 17-5-8.
+ * 用于返回Dto的工具类
+ * Created by XX on 17-5-8.
  */
 public class DtoUtil {
 

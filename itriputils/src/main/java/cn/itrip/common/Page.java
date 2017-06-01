@@ -7,7 +7,7 @@ import java.util.List;
  * <p>分页处理类 .</p>
  *
  * @version v1.0
- * @author dongdh
+ * @author XX
  * @date Sep 21, 2011
  *
  */

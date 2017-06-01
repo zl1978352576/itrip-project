@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * Created by zezhong.shang on 17-5-15.
+ * Created by XX on 17-5-15.
  */
 @ApiModel(value = "SearchHotCityVO",description = "搜索热门城市酒店VO")
 public class SearchHotCityVO implements Serializable{

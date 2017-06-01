@@ -354,7 +354,7 @@ CREATE TABLE `itrip_user` (
 
 /*Data for the table `itrip_user` */
 
-insert  into `itrip_user`(`id`,`userCode`,`userPassword`,`userType`,`flatID`,`userName`,`weChat`,`QQ`,`weibo`,`baidu`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`,`activated`) values (1,'admin','123456',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'zezhong.shang@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,'yao.liu2015@bdqn.cn','96e79218965eb72c92a549dd5a330112',0,8,'刘尧','13911565189','5495569','weibo账号','baidu账号','2017-05-09 15:28:30',1,'2017-05-09 15:28:49',1,1),(9,'test@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0);
+insert  into `itrip_user`(`id`,`userCode`,`userPassword`,`userType`,`flatID`,`userName`,`weChat`,`QQ`,`weibo`,`baidu`,`creationDate`,`createdBy`,`modifyDate`,`modifiedBy`,`activated`) values (1,'admin','123456',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'XX@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,'yao.liu2015@bdqn.cn','96e79218965eb72c92a549dd5a330112',0,8,'刘尧','13911565189','5495569','weibo账号','baidu账号','2017-05-09 15:28:30',1,'2017-05-09 15:28:49',1,1),(9,'test@bdqn.cn','96e79218965eb72c92a549dd5a330112',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `itrip_user_link_user` */
 

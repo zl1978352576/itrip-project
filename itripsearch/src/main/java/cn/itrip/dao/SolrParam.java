@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zezhong.shang on 17-5-11.
+ * Created by XX on 17-5-11.
  */
 public class SolrParam implements Serializable{
 

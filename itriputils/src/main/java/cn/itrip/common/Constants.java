@@ -1,4 +1,8 @@
 package cn.itrip.common;
+
+/***
+ * 常量类 放置一些常量
+ */
 public class Constants {
 
     //默认起始页

@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  *
  * 查询酒店房间的vo
- * Created by zezhong.shang on 17-5-11.
+ * Created by XX on 17-5-11.
  */
 @ApiModel(value = "SearchHotelRoomVO",description = "查询酒店房间的VO")
 public class SearchHotelRoomVO implements Serializable{

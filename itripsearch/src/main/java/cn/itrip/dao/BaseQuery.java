@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zezhong.shang on 17-5-5.
+ * Created by XX on 17-5-5.
  */
 public class BaseQuery<T> {
 

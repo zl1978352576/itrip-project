@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by zezhong.shang on 17-5-5.
+ * Created by XX on 17-5-5.
  */
 public class SolrjTest {
 

@@ -4,7 +4,7 @@ import org.apache.solr.client.solrj.beans.Field;
 import java.io.Serializable;
 
 /**
- * Created by zezhong.shang on 17-5-10.
+ * Created by XX on 17-5-10.
  */
 public class ItripHotelVO implements Serializable {
 

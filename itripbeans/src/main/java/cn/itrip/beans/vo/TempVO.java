@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * 用于给前端返回统一数据的VO 目前只有TestController再用
- * Created by zezhong.shang on 17-5-23.
+ * Created by XX on 17-5-23.
  */
 public class TempVO {
 
