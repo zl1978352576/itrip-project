@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 页面输入的评论搜索条件VO
+ * 前端输入-评论搜索条件VO
  * Created by hanlu on 2017/5/10.
  */
 @ApiModel(value = "ItripSearchCommentVO",description = "搜索评论VO")
