@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 返回给前端的酒店政策VO
+ * 返回前端-酒店政策VO（酒店详情页）
  * Created by donghai on 2017/5/11.
  */
 @ApiModel(value = "ItripSearchPolicyHotelVO",description = "查询酒店的政策")

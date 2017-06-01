@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * 返回给前端的酒店房型列表VO
+ * 返回前端-酒店房型列表VO（酒店详情页）
  * Created by hanlu on 2017/5/11.
  */
 public class ItripHotelRoomVO implements Serializable{

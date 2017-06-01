@@ -3,7 +3,7 @@ package cn.itrip.beans.vo;
 import java.io.Serializable;
 
 /**
- * 返回给前端的区域VO
+ * 返回前端-区域VO
  * Created by XX on 17-5-11.
  */
 public class ItripAreaDicVO implements Serializable{

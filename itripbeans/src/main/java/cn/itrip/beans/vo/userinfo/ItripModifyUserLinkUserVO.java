@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
+ * 前端输入-修改常用联系人VO
  * Created by donghai on 2017/5/10.
  */
 @ApiModel(value = "ItripModifyUserLinkUserVO",description = "修改常用联系人")

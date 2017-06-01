@@ -1,7 +1,7 @@
 package cn.itrip.beans.vo.comment;
 
 /**
- * 返回给前端的酒店相关信息（酒店名称、酒店星级）VO-（新增评论信息页面中使用）
+ * 返回前端-酒店相关信息（酒店名称、酒店星级）VO-（新增评论信息页面中使用）
  * Created by hanlu on 2017/5/15.
  */
 public class ItripHotelDescVO {

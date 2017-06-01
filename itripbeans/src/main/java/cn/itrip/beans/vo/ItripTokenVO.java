@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * 返回给前端的Token相关VO
+ * 返回前端-Token相关VO
  */
 @ApiModel(value="ItripTokenVO",description="用户认证凭据信息")
 public class ItripTokenVO implements Serializable {

@@ -1,7 +1,7 @@
 package cn.itrip.beans.vo;
 
 /**
- * 返回给前端的图片对象VO
+ * 返回前端-图片对象VO
  * Created by hanlu on 2017/5/10.
  */
 public class ItripImageVO {
