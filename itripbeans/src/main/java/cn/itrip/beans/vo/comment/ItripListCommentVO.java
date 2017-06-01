@@ -3,7 +3,7 @@ package cn.itrip.beans.vo.comment;
 import java.util.Date;
 
 /**
- * 点评列表页VO
+ * 返回给前端的点评列表VO
  *
  */
 public class ItripListCommentVO{

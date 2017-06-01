@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
+ * 页面输入的新增评论VO
  * Created by hanlu on 2017/5/7.
  */
 @ApiModel(value = "ItripAddCommentVO",description = "添加用户评论VO")

@@ -1,7 +1,7 @@
 package cn.itrip.beans.dto;
 
 /**
- * 数据传输对象
+ * 数据传输对象（后端输出对象）
  * @param <T>
  * Created by hanlu on 2017/5/7.
  */
