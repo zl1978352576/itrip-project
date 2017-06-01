@@ -37,12 +37,6 @@ public class LoginController {
 	@Resource
 	private TokenService tokenService;
 
-	@ApiIgnore
-	@RequestMapping("/login")
-	public String showLoginForm() {
-		return "login";
-	}
-
 	@ApiOperation(value = "用户登录",httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="根据用户名、密码进行统一认证")	
