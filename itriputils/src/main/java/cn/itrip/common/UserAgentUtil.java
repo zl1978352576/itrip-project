@@ -1,10 +1,15 @@
-package cn.itrip.auth.common;
+package cn.itrip.common;
 
 import cz.mallat.uasparser.OnlineUpdater;
 import cz.mallat.uasparser.UASparser;
 import cz.mallat.uasparser.UserAgentInfo;
 import java.io.IOException;
 
+/**
+ * 本类实现了UASparser的单例，该实例可通过分析user-agent信息判断当前Http请求的客户端浏览器类型
+ * @author hduser
+ *
+ */
 public class UserAgentUtil {
 
     private static UASparser uasParser = null;
