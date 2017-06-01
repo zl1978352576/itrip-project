@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
+ * 返回给前端的酒店特色和介绍VO
  * Created by donghai on 2017/5/11.
  */
 @ApiModel(value = "ItripSearchDetailsHotelVO",description = "查询酒店的特色和介绍")
