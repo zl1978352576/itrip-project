@@ -34,12 +34,12 @@ public class TokenServiceImpl implements TokenService {
 	private Logger logger = Logger.getLogger(TokenServiceImpl.class);
 
 	/**
-	 * 调用RedisAPI时注意 token前缀:"token:"
+	 * 调用RedisAPI
 	 */
 	@Resource
 	private RedisAPI redisAPI;
 	private int expire = SESSION_TIMEOUT;// 2h
-	private String tokenPrefix = "token:";
+	private String tokenPrefix = "token:";//统一加入 token前缀标识
 
 	public int getExpire() {
 		return expire;
@@ -49,9 +49,13 @@ public class TokenServiceImpl implements TokenService {
 		this.expire = expire;
 	}
 
-	/**
-	 * PC：PC-USERCODE-USERID-CREATIONDATE-RONDEM[6位]
-	 * Android：ANDROID-USERCODE-USERID-CREATIONDATE-RONDEM[6位]
+	/***
+	 * @param agent Http头中的user-agent信息
+	 * @param user 用户信息
+	 * @return Token格式<br/>
+	 * 	PC：“前缀PC-USERCODE-USERID-CREATIONDATE-RONDEM[6位]” 
+	 *  <br/>
+	 *  Android：“前缀ANDROID-USERCODE-USERID-CREATIONDATE-RONDEM[6位]”
 	 */
 	@Override
 	public String generateToken(String agent, ItripUser user) {
@@ -60,6 +64,7 @@ public class TokenServiceImpl implements TokenService {
 			UserAgentInfo userAgentInfo = UserAgentUtil.getUasParser().parse(
 					agent);
 			StringBuilder sb = new StringBuilder();
+			sb.append(tokenPrefix);//统一前缀
 			if (userAgentInfo.getDeviceType().equals(UserAgentInfo.UNKNOWN)) {
 				if (UserAgentUtil.CheckAgent(agent)) {
 					sb.append("MOBILE-");
@@ -77,7 +82,7 @@ public class TokenServiceImpl implements TokenService {
 			sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
 					+ "-");
 			sb.append(MD5.getMd5(agent, 6));// 识别客户端的简化实现——6位MD5码
-
+			
 			return sb.toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -89,31 +94,23 @@ public class TokenServiceImpl implements TokenService {
 	@Override
 	public void save(String token, ItripUser user) {
 		if (token.startsWith("PC-"))
-			redisAPI.set(tokenPrefix + token, expire, JSON.toJSONString(user));
+			redisAPI.set(token, expire, JSON.toJSONString(user));
 		else
-			redisAPI.set(tokenPrefix + token, JSON.toJSONString(user));// 手机认证信息永不失效
+			redisAPI.set(token, JSON.toJSONString(user));// 手机认证信息永不失效
 	}
 
 	@Override
-	public ItripUser load(String token) {
-		// TODO Auto-generated method stub
-		if (!token.startsWith(tokenPrefix))
-			token = tokenPrefix + token;
+	public ItripUser load(String token) {		
 		return JSON.parseObject(redisAPI.get(token), ItripUser.class);
 	}
 
 	@Override
 	public void delete(String token) {
-		// TODO Auto-generated method stub
-		if (!token.startsWith(tokenPrefix))
-			token = tokenPrefix + token;
 		if (redisAPI.exist(token))
 			redisAPI.delete(token);
 	}
 
 	private boolean exists(String token) {
-		if (!token.startsWith(tokenPrefix))
-			token = tokenPrefix + token;
 		return redisAPI.exist(token);
 	}
 
@@ -138,7 +135,7 @@ public class TokenServiceImpl implements TokenService {
 
 		long passed = Calendar.getInstance().getTimeInMillis()
 				- TokenGenTime.getTime();// token已产生时间
-		if (passed < REPLACEMENT_PROTECTION_TIMEOUT * 1000) {// 转换保护期内
+		if (passed < REPLACEMENT_PROTECTION_TIMEOUT * 1000) {// 置换保护期内
 			throw new TokenValidationFailedException("token处于置换保护期内，剩余"
 					+ (REPLACEMENT_PROTECTION_TIMEOUT * 1000 - passed) / 1000
 					+ "(s),禁止置换");
@@ -146,11 +143,11 @@ public class TokenServiceImpl implements TokenService {
 		// 置换token
 		String newToken = "";
 		ItripUser user = this.load(token);
-		long ttl = redisAPI.ttl(tokenPrefix + token);// token有效期（剩余秒数 ）
+		long ttl = redisAPI.ttl(token);// token有效期（剩余秒数 ）
 		if (ttl > 0 || ttl == -1) {// 兼容手机与PC端的token在有效期
 			newToken = this.generateToken(agent, user);
 			this.save(newToken, user);// 缓存新token
-			redisAPI.set(tokenPrefix + token, this.REPLACEMENT_DELAY,
+			redisAPI.set(token, this.REPLACEMENT_DELAY,
 					JSON.toJSONString(user));// 2分钟后旧token过期，注意手机端由永久有效变为2分钟（REPLACEMENT_DELAY默认值）后失效
 		} else {// 其它未考虑情况，不予置换
 			throw new TokenValidationFailedException("当前token的过期时间异常,禁止置换");
