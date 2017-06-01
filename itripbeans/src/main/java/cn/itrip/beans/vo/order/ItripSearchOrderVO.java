@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 
 /**
- * 查询个人订单的搜索条件VO
+ * 前端输入-查询个人订单搜索条件VO
  * Created by hanlu on 2017/5/17.
  */
 @ApiModel(value = "ItripSearchOrderVO",description = "搜索个人订单VO")

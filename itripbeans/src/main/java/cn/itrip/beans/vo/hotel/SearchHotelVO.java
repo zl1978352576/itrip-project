@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  *
- * 查询酒店的搜索条件
+ * 前端输入-查询酒店搜索条件VO
  * Created by XX on 17-5-10.
  */
 @ApiModel(value = "SearchHotelVO",description = "搜索酒店VO")

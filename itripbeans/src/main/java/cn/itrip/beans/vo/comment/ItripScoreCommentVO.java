@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 计算酒店评分
+ * 返回给前端的酒店各类评分VO
  */
 public class ItripScoreCommentVO {
 	private float avgPositionScore;//点评查询页面酒店的位置得分
