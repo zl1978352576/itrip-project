@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 通用的封装的查询solr的基础查询类
  * Created by XX on 17-5-5.
  */
 public class BaseQuery<T> {

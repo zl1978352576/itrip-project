@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
+ * 房间的库存VO
  * Created by XX on 17-5-16.
  */
 public class RoomStoreVO implements Serializable{

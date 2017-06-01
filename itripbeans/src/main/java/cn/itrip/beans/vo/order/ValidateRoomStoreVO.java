@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
+ * 验证房间库存的传入参数
  * Created by XX on 17-5-16.
  */
 @ApiModel(value = "ValidateRoomStoreVO",description = "验证房屋库存是否存足的VO")
