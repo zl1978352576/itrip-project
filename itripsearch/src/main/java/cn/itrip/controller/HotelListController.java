@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 查询酒店的controller
  * Created by XX on 17-5-10.
  */
 @Controller

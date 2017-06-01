@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * solr搜索酒店的Service 实现类
  * Created by XX on 17-5-7.
  */
 @Service

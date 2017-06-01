@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * solr搜索酒店的Service
  * Created by XX on 17-5-7.
  */
 public interface SearchHotelService {
