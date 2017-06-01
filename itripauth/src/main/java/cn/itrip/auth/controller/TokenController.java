@@ -34,7 +34,7 @@ public class TokenController {
 			protocols = "HTTP", produces = "application/json", 
 			response = Dto.class, 
 			notes = "提供客户端置换token操作，服务器需要获取客户端header中的token串")
-	@ApiImplicitParam(paramType="header",required=true,name="token",value="用户认证凭据",defaultValue="PC-yao.liu2015@bdqn.cn-8-20170516141821-d4f514")
+	@ApiImplicitParam(paramType="header",required=true,name="token",value="用户认证凭据",defaultValue="token:PC-21ec64d6e9cae0917ea4b54bc36809d8-8-20170601100121-699dfc")
 	@RequestMapping(value = "/retoken", method = RequestMethod.POST,produces= "application/json")
 	public @ResponseBody Dto replace(HttpServletRequest request) {
 		/*
