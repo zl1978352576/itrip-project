@@ -1,6 +1,7 @@
 package cn.itrip.beans.vo;
 
 /**
+ * 返回给前端的通用字典
  * Created by hanlu on 2017/5/11.
  */
 public class ItripLabelDicVO {
