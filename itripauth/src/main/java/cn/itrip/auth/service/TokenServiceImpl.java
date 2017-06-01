@@ -8,8 +8,9 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import cn.itrip.auth.common.UserAgentUtil;
 import cn.itrip.common.MD5;
+import cn.itrip.common.UserAgentUtil;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
