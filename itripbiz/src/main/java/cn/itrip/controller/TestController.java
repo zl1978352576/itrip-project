@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zezhong.shang on 17-4-25.
+ *
+ * 用于临时测试 以及完成一些非必要性功能的controller
+ * Created by XX on 17-4-25.
  */
 @Controller
 @RequestMapping("/test")
@@ -23,6 +25,11 @@ public class TestController {
     @Resource
     private ItripAreaDicService itripAreaDicService;
 
+    /***
+     * 将区域数据进行组合按照拼音分组输出
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/queryArea")
     @ResponseBody
     public List<TempVO> queryArea() throws Exception {
@@ -55,6 +62,10 @@ public class TestController {
         return areaDicTempVoList;
     }
 
+    /***
+     * 为区域表加上拼音
+     * @throws Exception
+     */
     @RequestMapping("/execute")
     public void execute() throws Exception {
         List<ItripAreaDic> itripAreaDicList = null;

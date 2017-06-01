@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  *
  * 查询酒店的搜索条件
- * Created by zezhong.shang on 17-5-10.
+ * Created by XX on 17-5-10.
  */
 @ApiModel(value = "SearchHotelVO",description = "搜索酒店VO")
 public class SearchHotelVO implements Serializable {

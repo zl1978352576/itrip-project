@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by zezhong.shang on 17-5-7.
+ * Created by XX on 17-5-7.
  */
 @Service
 public class SearchHotelServiceImpl implements SearchHotelService {

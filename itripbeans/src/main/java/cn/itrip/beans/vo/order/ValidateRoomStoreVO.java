@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created by zezhong.shang on 17-5-16.
+ * Created by XX on 17-5-16.
  */
 @ApiModel(value = "ValidateRoomStoreVO",description = "验证房屋库存是否存足的VO")
 public class ValidateRoomStoreVO implements Serializable{
