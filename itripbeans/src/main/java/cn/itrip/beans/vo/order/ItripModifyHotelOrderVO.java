@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
+ * 前端输入-修改订单VO
  * Created by donghai on 2017/5/18.
  */
 @ApiModel(value = "ItripModifyHotelOrderVO",description = "修改订单VO")

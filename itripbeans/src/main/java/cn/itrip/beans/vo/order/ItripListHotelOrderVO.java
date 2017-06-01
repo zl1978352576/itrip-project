@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
+ * 返回给前端的订单列表页VO
  * Created by hanlu on 2017/5/17.
  */
 public class ItripListHotelOrderVO {

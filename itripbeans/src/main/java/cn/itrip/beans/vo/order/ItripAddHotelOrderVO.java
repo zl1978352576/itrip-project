@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 前端输入-生成订单VO
  * Created by donghai on 2017/5/16.
  */
 @ApiModel(value = "ItripAddHotelOrderVO",description = "生成订单VO")
