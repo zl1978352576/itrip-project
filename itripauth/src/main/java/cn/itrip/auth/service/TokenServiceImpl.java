@@ -93,7 +93,7 @@ public class TokenServiceImpl implements TokenService {
 
 	@Override
 	public void save(String token, ItripUser user) {
-		if (token.startsWith("PC-"))
+		if (token.startsWith(tokenPrefix+"PC-"))
 			redisAPI.set(token, expire, JSON.toJSONString(user));
 		else
 			redisAPI.set(token, JSON.toJSONString(user));// 手机认证信息永不失效
