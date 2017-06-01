@@ -3,6 +3,7 @@ package cn.itrip.beans.vo.store;
 import java.util.Date;
 
 /**
+ * 验证房间库存时，返回的库存列表VO
  * Created by XX on 17-5-17.
  */
 public class StoreVO {

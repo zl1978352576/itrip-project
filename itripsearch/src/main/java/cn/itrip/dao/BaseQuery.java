@@ -25,12 +25,19 @@ public class BaseQuery<T> {
 
     static Logger logger = Logger.getLogger(BaseQuery.class);
 
+    /***
+     * 使用URL 初始化 httpSolrClient
+     * @param url
+     */
     public BaseQuery(String url) {
         httpSolrClient = new HttpSolrClient(url);
         httpSolrClient.setParser(new XMLResponseParser()); // 设置响应解析器
         httpSolrClient.setConnectionTimeout(500); // 建立连接的最长时间
     }
 
+    /***
+     * 使用SolrQuery 查询分页数据
+     */
     public Page<T> queryPage(SolrQuery query, Integer pageNo, Integer pageSize, Class clazz) throws Exception {
         //设置起始页数
         query.setStart(EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO - 1 : pageNo - 1);
@@ -44,6 +51,9 @@ public class BaseQuery<T> {
         return page;
     }
 
+    /***
+     * 使用SolrQuery 查询列表数据
+     */
     public List<T> queryList(SolrQuery query, Integer pageSize, Class clazz) throws Exception {
         //设置起始页数
         query.setStart(0);

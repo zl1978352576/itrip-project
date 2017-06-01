@@ -21,6 +21,14 @@ public class SearchHotelServiceImpl implements SearchHotelService {
 
     private BaseQuery<ItripHotelVO> itripHotelVOBaseQuery = new BaseQuery(URL);
 
+    /***
+     * 根据多个条件查询酒店分页
+     * @param vo
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
     @Override
     public Page<ItripHotelVO> searchItripHotelPage(SearchHotelVO vo, Integer pageNo, Integer pageSize) throws Exception {
         SolrQuery query = new SolrQuery("*:*");
@@ -93,6 +101,13 @@ public class SearchHotelServiceImpl implements SearchHotelService {
         return page;
     }
 
+    /***
+     * 根据热门城市查询酒店
+     * @param cityId
+     * @param count
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<ItripHotelVO> searchItripHotelListByHotCity(Integer cityId, Integer count) throws Exception {
         SolrQuery query = new SolrQuery("*:*");
