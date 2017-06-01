@@ -8,13 +8,12 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import cn.itrip.auth.common.UserAgentUtil;
+import cn.itrip.common.MD5;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import cn.itrip.auth.exception.TokenValidationFailedException;
-import cn.itrip.auth.util.MD5;
-import cn.itrip.auth.util.UserAgentUtil;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.common.RedisAPI;
 

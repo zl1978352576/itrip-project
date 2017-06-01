@@ -1,12 +1,11 @@
 package cn.itrip.auth.service;
 
 
+import cn.itrip.common.MD5;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.itrip.auth.exception.UserLoginFailedException;
-import cn.itrip.auth.util.MD5;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.RedisAPI;

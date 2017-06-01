@@ -1,5 +1,6 @@
 package cn.itrip.auth.controller;
 
+import cn.itrip.common.MD5;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import springfox.documentation.annotations.ApiIgnore;
 import cn.itrip.auth.service.UserService;
-import cn.itrip.auth.util.MD5;
 import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.vo.userinfo.ItripUserVO;
@@ -58,7 +58,7 @@ public class UserController {
 //			user.setWeibo(userVO.getWeibo());
 //			user.setBaidu(userVO.getBaidu());
 			if (null == userService.findByUsername(user.getUserCode())) {
-				user.setUserPassword(MD5.getMd5(user.getUserPassword(), 32));				
+				user.setUserPassword(MD5.getMd5(user.getUserPassword(), 32));
 				userService.itriptxCreateUser(user);				
 				return DtoUtil.returnSuccess();							
 			}else

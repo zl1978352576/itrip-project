@@ -2,12 +2,12 @@ package cn.itrip.auth.test;
 
 import java.util.Date;
 
+import cn.itrip.common.MD5;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.itrip.auth.service.MailService;
-import cn.itrip.auth.util.MD5;
 import junit.framework.TestCase;
 
 public class MailTestCase extends TestCase {
