@@ -49,12 +49,13 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     }
 
     public Map<String, String> itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripUserLinkUser> linkUserList) throws Exception {
-//        ItripHotelOrder itripHotelOrderRet = new ItripHotelOrder();
+        //定义变量map，里面存放订单的id和orderNo返回给前端
         Map<String, String> map = new HashMap<String, String>();
         if(null != itripHotelOrder ) {
             itripHotelOrder.setCreationDate(new Date());
             if (itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder) > 0) {
                 Long orderId = itripHotelOrder.getId();
+                //添加订单之后还需要往订单与常用联系人关联表中添加记录
                 if (orderId > 0) {
                     for (ItripUserLinkUser itripUserLinkUser : linkUserList) {
                         ItripOrderLinkUser itripOrderLinkUser = new ItripOrderLinkUser();
@@ -68,7 +69,6 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
                 }
                 map.put("id", itripHotelOrder.getId().toString());
                 map.put("orderNo", itripHotelOrder.getOrderNo());
-//                itripHotelOrderRet.setOrderNo(itripHotelOrder.getOrderNo());
                 return map;
             }
         }
