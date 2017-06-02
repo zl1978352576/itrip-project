@@ -2,18 +2,20 @@ package cn.itrip.common;
 
 import java.math.BigDecimal;
 
-
+/**
+ * BigDecimal的加减乘除
+ */
 public class BigDecimalUtil {
 
     /**
-     * BigDecimalOprations + - * /
+     * BigDecimal操作枚举定义
      */
     public enum BigDecimalOprations{
         add,subtract,multiply,divide
     }
 
     /**
-     * OperationASMD + - * / add substract multiiply divide
+     * Bigdecimal加减乘除运算
      * @param numOne [String Integer Long Double Bigdecimal]
      * @param numTwo [String Integer Long Double Bigdecimal]
      * @param bigDecimalOpration
@@ -32,13 +34,5 @@ public class BigDecimalUtil {
             case divide: return num1.divide(num2, scale, roundingMode);
         }
         return null;
-    }
-    /* Code Demo Exp */
-    public static void main(String[] args){
-        try {
-            System.out.println(BigDecimalUtil.OperationASMD(10,4, BigDecimalOprations.divide,2,BigDecimal.ROUND_DOWN));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

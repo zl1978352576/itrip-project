@@ -9,7 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by donghai on 2017/5/5.
+ * 处理日期类型变量的工具类
+ * @author donghai
+ * @version v1.0
+ * @since 2017/04/20
  */
 public class DateUtil {
     /**
