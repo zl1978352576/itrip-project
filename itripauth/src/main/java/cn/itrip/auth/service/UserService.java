@@ -40,5 +40,18 @@ public interface UserService {
 	 */
 	public boolean activate(String email,String code) throws Exception;
 
-	
+	/**
+	 * 使用手机号创建用户账号
+	 * @param user
+	 * @throws Exception 
+	 */
+	public void itriptxCreateUserByPhone(ItripUser user) throws Exception;
+
+	/**
+	 * 短信验证手机号
+	 * @param phoneNumber
+	 * @return
+	 * @throws Exception 
+	 */
+	public boolean validatePhone(String phoneNumber,String code) throws Exception;
 }
