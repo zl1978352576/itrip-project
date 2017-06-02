@@ -2,6 +2,7 @@ package cn.itrip.auth.service;
 
 
 import cn.itrip.common.MD5;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,20 @@ public class UserServiceImpl implements UserService {
 		String activationCode = MD5.getMd5(new Date().toLocaleString(), 32);
 		mailService.sendActivationMail(user.getUserCode(), activationCode);
     }
-
+    /**
+     * 创建手机账号
+     */
+    @Override
+	public void itriptxCreateUserByPhone(ItripUser user) throws Exception {		
+		itripUserMapper.insertItripUser(user);
+		//发送短信验证码
+		int code=MD5.getRandomCode();
+		
+		
+		//缓存验证码
+		String key="activation:"+user.getUserCode();
+		redisAPI.set(key, 60, String.valueOf(code));		
+	}
     public void updateUser(ItripUser user) throws Exception {
         itripUserMapper.updateItripUser(user);
     }
@@ -112,6 +126,9 @@ public class UserServiceImpl implements UserService {
 			return null;
 	}
 
+	/**
+	 * 激活邮箱用户
+	 */
 	@Override
 	public boolean activate(String email, String code) throws Exception {
 		String key="activation:"+email;		
@@ -131,6 +148,30 @@ public class UserServiceImpl implements UserService {
 				
 		return false;
 	}
+	/**
+	 * 短信验证手机号
+	 * @throws Exception 
+	 */
+	@Override
+	public boolean validatePhone(String phoneNumber, String code) throws Exception {
+		String key="activation:"+phoneNumber;
+		if(redisAPI.exist(key))
+			if(redisAPI.get(key).equals(code)){
+				ItripUser user=this.findByUsername(phoneNumber);
+				if(EmptyUtils.isNotEmpty(user))
+				{
+					logger.debug("用户手机验证已通过："+phoneNumber);
+					user.setActivated(1);//激活用户
+					user.setUserType(0);//自注册用户
+					user.setFlatID(user.getId());
+					itripUserMapper.updateItripUser(user);
+					return true;
+				}
+			}
+		return false;
+	}
+
+	
 
 	
 	

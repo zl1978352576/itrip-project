@@ -39,10 +39,15 @@ public class UserController {
 	public String showRegisterForm() {
 		return "register";
 	}
-
-	@ApiOperation(value="用户注册",httpMethod = "POST",
+	
+	/**
+	 * 使用邮箱注册 
+	 * @param userVO
+	 * @return
+	 */
+	@ApiOperation(value="使用邮箱注册",httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",
-            response = Dto.class,notes="暂仅支持使用邮箱注册 ")	
+            response = Dto.class,notes="使用邮箱注册 ")	
 	@RequestMapping(value="/doregister",method=RequestMethod.POST,produces = "application/json")
 	public @ResponseBody
 	Dto doRegister(
@@ -76,6 +81,48 @@ public class UserController {
 		}
 		
 	}
+	
+	/**
+	 * 使用手机注册
+	 * @param userVO
+	 * @return
+	 */
+	@ApiOperation(value="使用手机注册",httpMethod = "POST",
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class,notes="使用手机注册 ")	
+	public Dto registerByPhone(
+			@ApiParam(name="userVO",value="用户实体",required=true)
+			@RequestBody ItripUserVO userVO){
+		try {	
+			if(!validPhone(userVO.getUserCode()))
+				return  DtoUtil.returnFail("请使用正确的手机号注册",ErrorCode.AUTH_ILLEGAL_USERCODE);
+			
+			ItripUser user=new ItripUser();
+			user.setUserCode(userVO.getUserCode());
+			user.setUserPassword(userVO.getUserPassword());
+			user.setUserType(0);
+			user.setUserName(userVO.getUserName());
+			if (null == userService.findByUsername(user.getUserCode())) {
+				user.setUserPassword(MD5.getMd5(user.getUserPassword(), 32));
+				userService.itriptxCreateUserByPhone(user);				
+				return DtoUtil.returnSuccess();							
+			}else
+			{
+				return DtoUtil.returnFail("用户已存在，注册失败", ErrorCode.AUTH_USER_ALREADY_EXISTS);				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();			
+			return DtoUtil.returnFail(e.getMessage(), ErrorCode.AUTH_UNKNOWN);
+		}			
+	}
+	
+
+	/**
+	 * 检查用户是否已注册
+	 * @param name
+	 * @return
+	 */
 	@ApiOperation(value="用户名验证",httpMethod = "GET",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="验证是否已存在该用户名")	
@@ -85,8 +132,8 @@ public class UserController {
 			@ApiParam(name="name",value="被检查的用户名",defaultValue="test@bdqn.cn")
 			@RequestParam String name) {		
 		try {	
-			if(!validEmail(name))
-				return  DtoUtil.returnFail("请使用正确的邮箱地址注册",ErrorCode.AUTH_ILLEGAL_USERCODE);
+		/*	if(!validEmail(name))
+				return  DtoUtil.returnFail("请使用正确的邮箱地址注册",ErrorCode.AUTH_ILLEGAL_USERCODE);*/
 			if (null == userService.findByUsername(name))
 			{			
 				return DtoUtil.returnSuccess("用户名可用");
@@ -101,7 +148,7 @@ public class UserController {
 		}		
 	}
 	
-	@ApiOperation(value="注册用户激活",httpMethod = "PUT",
+	@ApiOperation(value="邮箱注册用户激活",httpMethod = "PUT",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="邮箱激活")	
 	@RequestMapping(value="/activate",method=RequestMethod.PUT,produces= "application/json")
@@ -123,6 +170,9 @@ public class UserController {
 			return DtoUtil.returnFail("激活失败", ErrorCode.AUTH_ACTIVATE_FAILED);
 		}		
 	} 
+	
+	
+	
 	/**			 *
 	 * 合法E-mail地址：     
 	 * 1. 必须包含一个并且只有一个符号“@”    
@@ -136,5 +186,14 @@ public class UserController {
 		
 		String regex="^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$"  ;			
 		return Pattern.compile(regex).matcher(email).find();			
+	}
+	/**
+	 * 验证是否合法的手机号
+	 * @param phone
+	 * @return
+	 */
+	private boolean validPhone(String phone) {
+		String regex="^1[3578]{1}\\d{9}$";
+		return Pattern.compile(regex).matcher(phone).find();
 	}
 }
