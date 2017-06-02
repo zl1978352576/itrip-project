@@ -31,31 +31,34 @@ public class UserServiceImpl implements UserService {
     private RedisAPI redisAPI;
     @Resource
 	private MailService mailService;
-
+    @Resource
+    private SmsService smsService;
+	private int expire=1;//过期时间（分钟）
     /**
      * 创建用户
      * @param user
      * @throws Exception 
      */
-    public void itriptxCreateUser(ItripUser user) throws Exception {        
-        itripUserMapper.insertItripUser(user);
+    public void itriptxCreateUser(ItripUser user) throws Exception { 
     	//发送激活邮件
 		String activationCode = MD5.getMd5(new Date().toLocaleString(), 32);
 		mailService.sendActivationMail(user.getUserCode(), activationCode);
+		//保存用户信息
+		itripUserMapper.insertItripUser(user);
     }
     /**
      * 创建手机账号
      */
     @Override
 	public void itriptxCreateUserByPhone(ItripUser user) throws Exception {		
-		itripUserMapper.insertItripUser(user);
 		//发送短信验证码
-		int code=MD5.getRandomCode();
-		
-		
+		String code=String.valueOf(MD5.getRandomCode());		
+		smsService.send(user.getUserCode(), "1", new String[]{code,String.valueOf(expire)});
 		//缓存验证码
 		String key="activation:"+user.getUserCode();
-		redisAPI.set(key, 60, String.valueOf(code));		
+		redisAPI.set(key, expire*60, code);	
+		//保存用户信息
+		itripUserMapper.insertItripUser(user);
 	}
     public void updateUser(ItripUser user) throws Exception {
         itripUserMapper.updateItripUser(user);

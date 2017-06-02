@@ -90,7 +90,8 @@ public class UserController {
 	@ApiOperation(value="使用手机注册",httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class,notes="使用手机注册 ")	
-	public Dto registerByPhone(
+	@RequestMapping(value="/registerbyphone",method=RequestMethod.POST,produces = "application/json")
+	public @ResponseBody Dto registerByPhone(
 			@ApiParam(name="userVO",value="用户实体",required=true)
 			@RequestBody ItripUserVO userVO){
 		try {	
@@ -171,6 +172,28 @@ public class UserController {
 		}		
 	} 
 	
+	@ApiOperation(value="手机注册用户短信验证",httpMethod = "PUT",
+            protocols = "HTTP", produces = "application/json",
+            response = Dto.class,notes="手机注册短信验证")	
+	@RequestMapping(value="/validatephone",method=RequestMethod.PUT,produces= "application/json")
+	public @ResponseBody Dto validatePhone(
+			@ApiParam(name="user",value="手机号码",defaultValue="13811565189")
+			@RequestParam String user,
+			@ApiParam(name="code",value="验证码",defaultValue="8888")
+			@RequestParam String code){			
+		try {
+			if(userService.validatePhone(user, code))
+			{	
+				return DtoUtil.returnSuccess("验证成功");
+			}else{
+				return DtoUtil.returnSuccess("验证失败");	
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
+			return DtoUtil.returnFail("验证失败", ErrorCode.AUTH_ACTIVATE_FAILED);
+		}		
+	} 
 	
 	
 	/**			 *
