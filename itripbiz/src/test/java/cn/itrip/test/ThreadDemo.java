@@ -1,8 +1,6 @@
 package cn.itrip.test;
 import cn.itrip.common.DateUtil;
-import cn.itrip.service.itripHotelTempStore.ItripHotelTempStoreService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import cn.itrip.service.hoteltempstore.ItripHotelTempStoreService;
 
 import java.util.HashMap;
 import java.util.Map;

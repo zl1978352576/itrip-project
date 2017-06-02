@@ -7,7 +7,7 @@ import cn.itrip.beans.vo.userinfo.ItripAddUserLinkUserVO;
 import cn.itrip.beans.vo.userinfo.ItripModifyUserLinkUserVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.ValidationToken;
-import cn.itrip.service.itripUserLinkUser.ItripUserLinkUserService;
+import cn.itrip.service.userlinkuser.ItripUserLinkUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;

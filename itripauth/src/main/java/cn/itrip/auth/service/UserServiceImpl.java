@@ -9,7 +9,7 @@ import cn.itrip.auth.exception.UserLoginFailedException;
 import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.RedisAPI;
-import cn.itrip.dao.itripUser.ItripUserMapper;
+import cn.itrip.dao.user.ItripUserMapper;
 
 import java.util.*;
 

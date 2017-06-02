@@ -3,7 +3,7 @@ import cn.itrip.beans.pojo.ItripAreaDic;
 import cn.itrip.beans.vo.TempVO;
 import cn.itrip.common.ChineseToEnglish;
 import cn.itrip.common.EmptyUtils;
-import cn.itrip.service.itripAreaDic.ItripAreaDicService;
+import cn.itrip.service.areadic.ItripAreaDicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

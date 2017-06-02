@@ -43,19 +43,20 @@ public class HotelListController {
             response = Dto.class,notes = "查询酒店分页(用于查询酒店列表)"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码: </p>"+
-            "<p>0003: 系统异常,获取失败</p>")
+            "<p>20001: 系统异常,获取失败</p>" +
+            "<p>20002: 目的地不能为空</p>")
     @RequestMapping(value = "/searchItripHotelPage",produces = "application/json",method = RequestMethod.POST)
     @ResponseBody
     public Dto<Page<ItripHotelVO>> searchItripHotelPage(@RequestBody SearchHotelVO vo){
         Page page= null;
         if(EmptyUtils.isEmpty(vo) || EmptyUtils.isEmpty(vo.getDestination())){
-            return  DtoUtil.returnFail("目的地不能为空","0002");
+            return  DtoUtil.returnFail("目的地不能为空","20002");
         }
         try {
             page = searchHotelService.searchItripHotelPage(vo, vo.getPageNo(),vo.getPageSize());
         } catch (Exception e) {
             e.printStackTrace();
-            return DtoUtil.returnFail("系统异常", "0003");
+            return DtoUtil.returnFail("系统异常,获取失败", "20001");
         }
         return DtoUtil.returnDataSuccess(page);
     }
@@ -65,12 +66,13 @@ public class HotelListController {
             response = Dto.class,notes = "根据热门城市查询酒店"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码: </p>"+
-            "<p>0003: 系统异常,获取失败</p>")
+            "<p>20003: 系统异常,获取失败</p>" +
+            "<p>20004: 城市id不能为空</p>")
     @RequestMapping(value = "/searchItripHotelListByHotCity",produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
     public Dto<Page<ItripHotelVO>> searchItripHotelListByHotCity(@RequestBody SearchHotCityVO vo)throws Exception{
         if(EmptyUtils.isEmpty(vo) || EmptyUtils.isEmpty(vo.getCityId())){
-            return  DtoUtil.returnFail("城市id不能为空","0002");
+            return  DtoUtil.returnFail("城市id不能为空","20004");
         }
         Map<String,Object> param=new HashMap<>();
         param.put("cityId", vo.getCityId());

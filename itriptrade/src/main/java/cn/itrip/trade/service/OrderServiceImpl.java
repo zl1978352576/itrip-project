@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import cn.itrip.beans.pojo.ItripHotelOrder;
 import cn.itrip.common.EmptyUtils;
-import cn.itrip.dao.itripHotelOrder.ItripHotelOrderMapper;
+import cn.itrip.dao.hotelorder.ItripHotelOrderMapper;
 
 /**
  * 订单支付处理实现
