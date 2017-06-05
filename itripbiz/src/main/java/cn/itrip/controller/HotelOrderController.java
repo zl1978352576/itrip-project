@@ -410,12 +410,6 @@ public class HotelOrderController {
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
         if (null != currentUser && null != itripModifyHotelOrderVO) {
             try {
-                Long roomId = itripModifyHotelOrderVO.getRoomId();
-                ItripHotelRoom itripHotelRoom = itripHotelRoomService.getItripHotelRoomById(roomId);
-                //如果房型支持的是在线付
-                if(1 == itripHotelRoom.getPayType()){
-                    return DtoUtil.returnFail("对不起，此房间不支持线下支付", "100521");
-                }
                 ItripHotelOrder itripHotelOrder = new ItripHotelOrder();
                 itripHotelOrder.setId(itripModifyHotelOrderVO.getId());
                 //设置支付状态为：支付成功

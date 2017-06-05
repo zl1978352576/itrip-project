@@ -14,8 +14,6 @@ public class ItripModifyHotelOrderVO {
     private Long id;
     @ApiModelProperty("[必填，注：接收数字类型] 支付方式(:1:支付宝 2:微信 3:到店付)")
     private Integer payType;
-    @ApiModelProperty("[必填，注：房型id]")
-    private Long roomId;
 
     public Long getId() {
         return id;
@@ -33,11 +31,4 @@ public class ItripModifyHotelOrderVO {
         this.payType = payType;
     }
 
-    public Long getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
-    }
 }
