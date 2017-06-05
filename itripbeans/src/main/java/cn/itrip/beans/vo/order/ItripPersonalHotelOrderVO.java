@@ -23,6 +23,8 @@ public class ItripPersonalHotelOrderVO {
 
     private Integer bookType;//预定方式（0:WEB端 1:手机端 2:其他客户端）
 
+    private Integer roomPayType;//房间支持的支付方式
+
     /**
      * 订单流程:
      * 1、待付款、待评价（已消费）、未出行（支付成功）
@@ -114,5 +116,13 @@ public class ItripPersonalHotelOrderVO {
 
     public void setBookType(Integer bookType) {
         this.bookType = bookType;
+    }
+
+    public Integer getRoomPayType() {
+        return roomPayType;
+    }
+
+    public void setRoomPayType(Integer roomPayType) {
+        this.roomPayType = roomPayType;
     }
 }

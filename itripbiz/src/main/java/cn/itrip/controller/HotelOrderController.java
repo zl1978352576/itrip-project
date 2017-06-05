@@ -444,6 +444,7 @@ public class HotelOrderController {
             "<p>订单流程：</p>" +
             "<p>订单状态(0：待支付 2:支付成功 3:已消费)的流程：{\"1\":\"订单提交\",\"2\":\"订单支付\",\"3\":\"支付成功\",\"4\":\"入住\",\"5\":\"订单点评\"}</p>" +
             "<p>订单状态(1:已取消)的流程：{\"1\":\"订单提交\",\"2\":\"订单支付\",\"3\":\"订单取消\"}</p>" +
+            "<p>支持支付类型(roomPayType)：{\"1\":\"在线付\",\"2\":\"线下付\",\"3\":\"不限\"}</p>" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
             "<p>100525 : 请传递参数：orderId </p>"+
@@ -472,6 +473,11 @@ public class HotelOrderController {
                     itripPersonalHotelOrderVO.setBookType(hotelOrder.getBookType());
                     itripPersonalHotelOrderVO.setCreationDate(hotelOrder.getCreationDate());
                     itripPersonalHotelOrderVO.setOrderNo(hotelOrder.getOrderNo());
+                    //查询预订房间的信息
+                    ItripHotelRoom room=roomService.getItripHotelRoomById(hotelOrder.getRoomId());
+                    if(EmptyUtils.isNotEmpty(room)){
+                        itripPersonalHotelOrderVO.setRoomPayType(room.getPayType());
+                    }
                     Integer orderStatus = hotelOrder.getOrderStatus();
                     itripPersonalHotelOrderVO.setOrderStatus(orderStatus);
                     //订单状态（0：待支付 1:已取消 2:支付成功 3:已消费）
