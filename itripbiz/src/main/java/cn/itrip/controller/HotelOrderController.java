@@ -519,6 +519,7 @@ public class HotelOrderController {
             "<p>100529 : 请传递参数：orderId </p>"+
             "<p>100530 : 没有相关订单房型信息 </p>"+
             "<p>100531 : 获取个人订单房型信息错误 </p>"+
+            "<p>支持支付类型(roomPayType)：{\"1\":\"在线付\",\"2\":\"线下付\",\"3\":\"不限\"}</p>" +
             "<p>100532 : token失效，请重登录 </p>")
     @RequestMapping(value = "/getpersonalorderroominfo/{orderId}",method=RequestMethod.GET,produces = "application/json")
     @ResponseBody

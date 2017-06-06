@@ -24,6 +24,15 @@ public class ItripPersonalOrderRoomVO {
     private String linkUserName;        //入住人
     private String specialRequirement;  //特殊需求
     private BigDecimal payAmount;       //支付金额
+    private Integer roomPayType;
+
+    public Integer getRoomPayType() {
+        return roomPayType;
+    }
+
+    public void setRoomPayType(Integer roomPayType) {
+        this.roomPayType = roomPayType;
+    }
 
     public BigDecimal getPayAmount() {
         return payAmount;

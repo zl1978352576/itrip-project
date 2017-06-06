@@ -7,25 +7,27 @@
 
     <select id="getItripHotelOrderRoomInfoById" resultType="cn.itrip.beans.vo.order.ItripPersonalOrderRoomVO" >
         select
-        id as id,
-        hotelId as hotelId,
-        hotelName as hotelName,
-        (select hotelLevel from itrip_hotel h where h.id = hotelId) as hotelLevel,
-        (select address from itrip_hotel h where h.id = hotelId) as address,
-        roomId as roomId,
-        (select roomTitle from itrip_hotel_room r where r.id = roomId) as roomTitle,
-        (select roomBedTypeId from itrip_hotel_room r where r.id = roomId) as roomBedTypeId,
-        count as count,
-        bookingDays as bookingDays,
-        checkInDate as checkInDate,
-        checkOutDate as checkOutDate,
-        specialRequirement as specialRequirement,
-        linkUserName as linkUserName,
-        payAmount as payAmount
-        from itrip_hotel_order
+            o.id as id,
+            o.hotelId as hotelId,
+            o.hotelName as hotelName,
+            h.hotelLevel as hotelLevel,
+            h.address as address,
+            o.roomId as roomId,
+            r.roomTitle as roomTitle,
+            r.roomBedTypeId as roomBedTypeId,
+            o.count as count,
+            o.bookingDays as bookingDays,
+            o.checkInDate as checkInDate,
+            o.checkOutDate as checkOutDate,
+            o.specialRequirement as specialRequirement,
+            o.linkUserName as linkUserName,
+            o.payAmount as payAmount,
+            r.payType as roomPayType
+        from itrip_hotel_order o,itrip_hotel h,itrip_hotel_room r
         <trim prefix="where" prefixOverrides="and | or">
+            o.hotelId=h.id and o.roomId=r.id
             <if test="id != null">
-                and id=#{id}
+                and o.id=#{id}
             </if>
         </trim>
     </select>
