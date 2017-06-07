@@ -42,8 +42,8 @@ public class ItripUserLinkUserServiceImpl implements ItripUserLinkUserService {
         return itripUserLinkUserMapper.updateItripUserLinkUser(itripUserLinkUser);
     }
 
-    public Integer deleteItripUserLinkUserById(Long id)throws Exception{
-        return itripUserLinkUserMapper.deleteItripUserLinkUserById(id);
+    public Integer deleteItripUserLinkUserByIds(Long[] ids)throws Exception{
+        return itripUserLinkUserMapper.deleteItripUserLinkUserByIds(ids);
     }
 
     public Page<ItripUserLinkUser> queryItripUserLinkUserPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{

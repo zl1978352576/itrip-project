@@ -177,7 +177,10 @@
         </trim>
     </update>
 
-    <delete id="deleteItripUserLinkUserById" parameterType="Long">
-        delete from itrip_user_link_user where id = #{id}
+    <delete id="deleteItripUserLinkUserByIds" parameterType="Long">
+        delete from itrip_user_link_user where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </delete>
 </mapper>
