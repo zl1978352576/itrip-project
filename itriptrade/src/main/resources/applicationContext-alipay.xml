@@ -22,7 +22,8 @@
 		<property name="alipayPublicKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxSlIxfFDdy8tLBPaNEeVKgRLNFuZGzsYsteUN+B0zOBEh8lGokm1Gd7PuPMrLP9iBAHGeHx/vqunxxFVM0yx7r1t82vK53AXWshxvUoobMpYmi7a/x43elsFBviWPOtXJLHNyDICcI+Xi3z9tE3Z2A6yr4NJnFqyVJKSJ+wXMW19N/o+ItbtutoHmZP/+coeBTfBYNOldAhUXl2kQ9fJYc5E2nvJ3yKQvP2+P0FuNQhrz3nXFNekSBrgLjfqG4VSu8mZW+34qBLLdbbKWBlSH+mjNI8UfXjUtYc7/EXDQgYDI4QQw1TGfpdqsgk9qwIxRKdR4NpDpuCjR/uFr2IMYwIDAQAB"/>
 		<property name="logPath" value="/logs"/>
 		<property name="signType" value="RSA2"/>
-		<property name="paymentSuccessUrl" value="/itriptrade/success.jsp"/>
+		<!-- <property name="paymentSuccessUrl" value="/itriptrade/success.jsp"/> -->
+		<property name="paymentSuccessUrl" value="http://localhost:3000/index.html#/orderpaystate?orderNo=%s&amp;id=%s"/>
 		<property name="paymentFailureUrl" value="/itriptrade/failure.jsp"/>
 	</bean>
 	

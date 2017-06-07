@@ -288,8 +288,10 @@ public class PaymentController {
 			boolean verify_result = AlipaySignature.rsaCheckV1(params, alipayConfig.getAlipayPublicKey(), alipayConfig.getCharset(), "RSA2");
 			
 			if(verify_result){//验证成功				
+				String id=orderService.loadItripHotelOrder(trade_no).getId().toString();
 				//提示支付成功
-				response.sendRedirect(alipayConfig.getPaymentSuccessUrl());
+				response.sendRedirect(
+						String.format(alipayConfig.getPaymentSuccessUrl(), trade_no,id));
 			}else{				
 				//提示支付失败
 				response.sendRedirect(alipayConfig.getPaymentFailureUrl());
