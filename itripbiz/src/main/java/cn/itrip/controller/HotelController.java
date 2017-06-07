@@ -55,7 +55,6 @@ public class HotelController {
 
     private Logger logger = Logger.getLogger(HotelController.class);
 
-
     @Resource
     private ItripAreaDicService itripAreaDicService;
 
