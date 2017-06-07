@@ -43,6 +43,55 @@ public class SystemConfig {
 	 * 云通信短信平台Server Port
 	 */
 	private String smsServerPort;
+	
+	/**
+	 * 在线支付交易完成通知后续处理接口的地址
+	 */
+	private String tradeEndsUrl;	
+
+	/**
+	 * 支付模块发送Get请求是否使用代理
+	 */
+	private Boolean tradeUseProxy;
+	/**
+	 * 代理主机
+	 */
+	private String tradeProxyHost;
+	/**
+	 * 代理端口
+	 */
+	private Integer tradeProxyPort;
+
+	public String getTradeEndsUrl() {
+		return tradeEndsUrl;
+	}
+
+	public void setTradeEndsUrl(String tradeEndsUrl) {
+		this.tradeEndsUrl = tradeEndsUrl;
+	}
+	public Boolean getTradeUseProxy() {
+		return tradeUseProxy;
+	}
+
+	public void setTradeUseProxy(Boolean tradeUseProxy) {
+		this.tradeUseProxy = tradeUseProxy;
+	}
+
+	public String getTradeProxyHost() {
+		return tradeProxyHost;
+	}
+
+	public void setTradeProxyHost(String tradeProxyHost) {
+		this.tradeProxyHost = tradeProxyHost;
+	}
+
+	public Integer getTradeProxyPort() {
+		return tradeProxyPort;
+	}
+
+	public void setTradeProxyPort(Integer tradeProxyPort) {
+		this.tradeProxyPort = tradeProxyPort;
+	}
 
 	public String getSmsAccountSid() {
 		return smsAccountSid;
