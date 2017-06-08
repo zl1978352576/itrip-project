@@ -5,6 +5,7 @@ import cn.itrip.beans.pojo.ItripUser;
 import cn.itrip.beans.pojo.ItripUserLinkUser;
 import cn.itrip.beans.vo.userinfo.ItripAddUserLinkUserVO;
 import cn.itrip.beans.vo.userinfo.ItripModifyUserLinkUserVO;
+import cn.itrip.beans.vo.userinfo.ItripSearchUserLinkUserVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ValidationToken;
@@ -60,12 +61,12 @@ public class UserInfoController {
             "<p>100402 : token失效，请重登录</p>")
     @RequestMapping(value = "/queryuserlinkuser",method= RequestMethod.POST)
     @ResponseBody
-    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestBody String linkUserName, HttpServletRequest request){
-        logger.debug("linkUserName : " + linkUserName);
+    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestBody ItripSearchUserLinkUserVO itripSearchUserLinkUserVO, HttpServletRequest request){
         String tokenString  = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
         List<ItripUserLinkUser> userLinkUserList = new ArrayList<ItripUserLinkUser>();
+        String linkUserName = (null == itripSearchUserLinkUserVO)?null:itripSearchUserLinkUserVO.getLinkUserName();
         Dto dto = null;
         if(null != currentUser){
             Map param = new HashMap();
