@@ -22,4 +22,10 @@ public interface ItripOrderLinkUserService {
 
     public Integer itriptxDeleteItripOrderLinkUserById(Long id)throws Exception;
 
+    /**
+     * 查询所有未支付的订单所关联的所有常用联系人
+     * @return
+     * @throws Exception
+     */
+    public List<Long> getItripOrderLinkUserIdsByOrder() throws Exception;
 }

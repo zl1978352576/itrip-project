@@ -22,6 +22,16 @@
         </trim>
     </select>
 
+    <select id="getItripOrderLinkUserIdsByOrder" resultType="Long" >
+        SELECT
+            linkUserId
+        FROM itrip_order_link_user
+        WHERE orderId IN(SELECT
+                             id
+                         FROM itrip_hotel_order
+                         WHERE orderStatus = '0')
+    </select>
+
     <select id="getItripOrderLinkUserListByMap" resultType="cn.itrip.beans.vo.order.ItripOrderLinkUserVo" parameterType="java.util.Map">
         select
                 linkUserId as linkUserId,

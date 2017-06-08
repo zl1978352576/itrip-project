@@ -9,6 +9,7 @@ import cn.itrip.beans.vo.userinfo.ItripSearchUserLinkUserVO;
 import cn.itrip.common.DtoUtil;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ValidationToken;
+import cn.itrip.service.orderlinkuser.ItripOrderLinkUserServiceImpl;
 import cn.itrip.service.userlinkuser.ItripUserLinkUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +46,9 @@ public class UserInfoController {
 
     @Resource
     private ValidationToken validationToken;
+
+    @Resource
+    private ItripOrderLinkUserServiceImpl itripOrderLinkUserService;
 
     /**
      * 根据UserId,联系人姓名查询常用联系人-add by donghai
@@ -165,27 +169,37 @@ public class UserInfoController {
             response = Dto.class,notes = "删除常用联系人信息"+
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
-            "<p>100431 : 删除常用联系人失败 </p>"+
-            "<p>100432 : 请选择要删除的常用联系人</p>"+
-            "<p>100433 : token失效，请重登录 </p>")
+            "<p>100431 : 所选的常用联系人中有与某条待支付的订单关联的项，无法删除 </p>"+
+            "<p>100432 : 删除常用联系人失败 </p>"+
+            "<p>100433 : 请选择要删除的常用联系人</p>"+
+            "<p>100434 : token失效，请重登录 </p>")
     @RequestMapping(value="/deluserlinkuser",method=RequestMethod.GET,produces = "application/json")
     @ResponseBody
     public Dto<Object> delUserLinkUser(Long[] ids, HttpServletRequest request) {
         String tokenString  = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
+        List<Long> idsList = new ArrayList<Long>();
         if(null != currentUser && EmptyUtils.isNotEmpty(ids)){
             try {
-                itripUserLinkUserService.deleteItripUserLinkUserByIds(ids);
+                List<Long> linkUserIds = itripOrderLinkUserService.getItripOrderLinkUserIdsByOrder();
+                Collections.addAll(idsList, ids);
+                idsList.retainAll(linkUserIds);
+                if(idsList.size() > 0)
+                {
+                    return DtoUtil.returnFail("所选的常用联系人中有与某条待支付的订单关联的项，无法删除","100431");
+                }else{
+                    itripUserLinkUserService.deleteItripUserLinkUserByIds(ids);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-                return DtoUtil.returnFail("删除常用联系人失败","100431");
+                return DtoUtil.returnFail("删除常用联系人失败","100432");
             }
             return DtoUtil.returnSuccess("删除常用联系人成功");
         }else if(null != currentUser && EmptyUtils.isEmpty(ids)){
-            return DtoUtil.returnFail("请选择要删除的常用联系人","100432");
+            return DtoUtil.returnFail("请选择要删除的常用联系人","100433");
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录","100433");
+            return DtoUtil.returnFail("token失效，请重新登录","100434");
         }
     }
 
