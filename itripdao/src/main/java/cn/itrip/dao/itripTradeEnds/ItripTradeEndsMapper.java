@@ -14,7 +14,7 @@ public interface ItripTradeEndsMapper {
 
 	public Integer insertItripTradeEnds(ItripTradeEnds itripTradeEnds)throws Exception;
 
-	public Integer updateItripTradeEnds(ItripTradeEnds itripTradeEnds)throws Exception;
+	public Integer updateItripTradeEnds(Map<String,Object> param)throws Exception;
 
 	public Integer deleteItripTradeEndsById(@Param(value = "id") Long id)throws Exception;
 

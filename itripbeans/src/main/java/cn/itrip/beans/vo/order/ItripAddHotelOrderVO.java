@@ -15,7 +15,8 @@ import java.util.List;
  */
 @ApiModel(value = "ItripAddHotelOrderVO",description = "生成订单VO")
 public class ItripAddHotelOrderVO {
-
+    @ApiModelProperty("[修改订单时为必填，注:订单id]")
+    private Long id;
     @ApiModelProperty("[必填，注：接收数字类型] 订单类型(0:旅游产品 1:酒店产品 2：机票产品)")
     private Integer orderType;
     @ApiModelProperty("[必填] 酒店ID")
@@ -161,19 +162,11 @@ public class ItripAddHotelOrderVO {
         this.invoiceHead = invoiceHead;
     }
 
-  /*  public String getLinkUserIds() {
-        return linkUserIds;
+    public Long getId() {
+        return id;
     }
 
-    public void setLinkUserIds(String linkUserIds) {
-        this.linkUserIds = linkUserIds;
-    }*/
-
-  /*  public String getLinkUserName() {
-        return linkUserName;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    public void setLinkUserName(String linkUserName) {
-        this.linkUserName = linkUserName;
-    }*/
 }

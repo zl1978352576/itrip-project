@@ -1,4 +1,5 @@
 package cn.itrip.service.orderlinkuser;
+import cn.itrip.beans.vo.order.ItripOrderLinkUserVo;
 import cn.itrip.dao.orderlinkuser.ItripOrderLinkUserMapper;
 import cn.itrip.beans.pojo.ItripOrderLinkUser;
 import cn.itrip.common.EmptyUtils;
@@ -19,7 +20,7 @@ public class ItripOrderLinkUserServiceImpl implements ItripOrderLinkUserService 
         return itripOrderLinkUserMapper.getItripOrderLinkUserById(id);
     }
 
-    public List<ItripOrderLinkUser>	getItripOrderLinkUserListByMap(Map<String,Object> param)throws Exception{
+    public List<ItripOrderLinkUserVo>	getItripOrderLinkUserListByMap(Map<String,Object> param)throws Exception{
         return itripOrderLinkUserMapper.getItripOrderLinkUserListByMap(param);
     }
 
@@ -40,17 +41,4 @@ public class ItripOrderLinkUserServiceImpl implements ItripOrderLinkUserService 
     public Integer itriptxDeleteItripOrderLinkUserById(Long id)throws Exception{
         return itripOrderLinkUserMapper.deleteItripOrderLinkUserById(id);
     }
-
-    public Page<ItripOrderLinkUser> queryItripOrderLinkUserPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception{
-        Integer total = itripOrderLinkUserMapper.getItripOrderLinkUserCountByMap(param);
-        pageNo = EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO : pageNo;
-        pageSize = EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
-        Page page = new Page(pageNo, pageSize, total);
-        param.put("beginPos", page.getBeginPos());
-        param.put("pageSize", page.getPageSize());
-        List<ItripOrderLinkUser> itripOrderLinkUserList = itripOrderLinkUserMapper.getItripOrderLinkUserListByMap(param);
-        page.setRows(itripOrderLinkUserList);
-        return page;
-    }
-
 }

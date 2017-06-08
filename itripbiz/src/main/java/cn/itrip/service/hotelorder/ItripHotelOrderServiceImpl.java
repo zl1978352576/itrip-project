@@ -51,9 +51,18 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     public Map<String, String> itriptxAddItripHotelOrder(ItripHotelOrder itripHotelOrder, List<ItripUserLinkUser> linkUserList) throws Exception {
         //定义变量map，里面存放订单的id和orderNo返回给前端
         Map<String, String> map = new HashMap<String, String>();
-        if(null != itripHotelOrder ) {
-            itripHotelOrder.setCreationDate(new Date());
-            if (itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder) > 0) {
+        if (null != itripHotelOrder) {
+            int flag=0;
+            if (EmptyUtils.isNotEmpty(itripHotelOrder.getId())) {
+                //删除联系人
+                itripOrderLinkUserMapper.deleteItripOrderLinkUserByOrderId(itripHotelOrder.getId());
+                itripHotelOrder.setModifyDate(new Date());
+                flag=itripHotelOrderMapper.updateItripHotelOrder(itripHotelOrder);
+            } else {
+                itripHotelOrder.setCreationDate(new Date());
+                flag=itripHotelOrderMapper.insertItripHotelOrder(itripHotelOrder);
+            }
+            if (flag > 0) {
                 Long orderId = itripHotelOrder.getId();
                 //添加订单之后还需要往订单与常用联系人关联表中添加记录
                 if (orderId > 0) {
@@ -72,7 +81,7 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
                 return map;
             }
         }
-        return null;
+        return map;
     }
 
     public Integer itriptxModifyItripHotelOrder(ItripHotelOrder itripHotelOrder) throws Exception {
@@ -137,16 +146,17 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     @Override
     public boolean flushOrderStatus(Integer type) throws Exception {
         Integer flag;
-        if(type==1){
-            flag= itripHotelOrderMapper.flushCancelOrderStatus();
-        }else{
-           flag= itripHotelOrderMapper.flushSuccessOrderStatus();
+        if (type == 1) {
+            flag = itripHotelOrderMapper.flushCancelOrderStatus();
+        } else {
+            flag = itripHotelOrderMapper.flushSuccessOrderStatus();
         }
         return flag > 0 ? true : false;
     }
 
     /**
      * 订单支付成功之后，根据订单的信息去更新库存 add by donghai
+     *
      * @param
      * @return
      * @throws Exception
@@ -184,9 +194,7 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
 //        }
 //        return result;
 //    }
-
-
-    public ItripPersonalOrderRoomVO getItripHotelOrderRoomInfoById(Long orderId)throws Exception{
+    public ItripPersonalOrderRoomVO getItripHotelOrderRoomInfoById(Long orderId) throws Exception {
         return itripHotelOrderMapper.getItripHotelOrderRoomInfoById(orderId);
     }
 }

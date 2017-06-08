@@ -3,6 +3,7 @@ import cn.itrip.beans.pojo.ItripOrderLinkUser;
 import java.util.List;
 import java.util.Map;
 
+import cn.itrip.beans.vo.order.ItripOrderLinkUserVo;
 import cn.itrip.common.Page;
 /**
 * Created by shang-pc on 2015/11/7.
@@ -11,7 +12,7 @@ public interface ItripOrderLinkUserService {
 
     public ItripOrderLinkUser getItripOrderLinkUserById(Long id)throws Exception;
 
-    public List<ItripOrderLinkUser>	getItripOrderLinkUserListByMap(Map<String,Object> param)throws Exception;
+    public List<ItripOrderLinkUserVo>	getItripOrderLinkUserListByMap(Map<String,Object> param)throws Exception;
 
     public Integer getItripOrderLinkUserCountByMap(Map<String,Object> param)throws Exception;
 
@@ -21,5 +22,4 @@ public interface ItripOrderLinkUserService {
 
     public Integer itriptxDeleteItripOrderLinkUserById(Long id)throws Exception;
 
-    public Page<ItripOrderLinkUser> queryItripOrderLinkUserPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
 }
