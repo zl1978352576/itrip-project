@@ -22,16 +22,10 @@
         </trim>
     </select>
 
-    <select id="getItripOrderLinkUserListByMap" resultType="cn.itrip.beans.pojo.ItripOrderLinkUser" parameterType="java.util.Map">
+    <select id="getItripOrderLinkUserListByMap" resultType="cn.itrip.beans.vo.order.ItripOrderLinkUserVo" parameterType="java.util.Map">
         select
-                id as id,
-                orderId as orderId,
                 linkUserId as linkUserId,
-                linkUserName as linkUserName,
-                creationDate as creationDate,
-                createdBy as createdBy,
-                modifyDate as modifyDate,
-                modifiedBy as modifiedBy
+                linkUserName as linkUserName
         from itrip_order_link_user
         <trim prefix="where" prefixOverrides="and | or">
                     <if test="id != null and id!=''">
@@ -143,5 +137,9 @@
 
     <delete id="deleteItripOrderLinkUserById" parameterType="Long">
         delete from itrip_order_link_user where id = #{id}
+    </delete>
+
+    <delete id="deleteItripOrderLinkUserByOrderId" parameterType="Long">
+        delete from itrip_order_link_user where orderId = #{orderId}
     </delete>
 </mapper>

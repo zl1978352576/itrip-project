@@ -18,7 +18,7 @@ public interface ItripTradeEndsService {
 
     public Integer itriptxAddItripTradeEnds(ItripTradeEnds itripTradeEnds)throws Exception;
 
-    public Integer itriptxModifyItripTradeEnds(ItripTradeEnds itripTradeEnds)throws Exception;
+    public Integer itriptxModifyItripTradeEnds(Map<String,Object> param)throws Exception;
 
     public Integer itriptxDeleteItripTradeEndsById(Long id)throws Exception;
 

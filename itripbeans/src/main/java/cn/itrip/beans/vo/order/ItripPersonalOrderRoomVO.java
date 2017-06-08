@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class ItripPersonalOrderRoomVO {
 
+
     private Long id;                    //订单ID
     private Long hotelId;               //酒店ID
     private String hotelName;           //酒店名称
@@ -25,6 +26,34 @@ public class ItripPersonalOrderRoomVO {
     private String specialRequirement;  //特殊需求
     private BigDecimal payAmount;       //支付金额
     private Integer roomPayType;
+    private Integer isHavingBreakfast;
+    private String roomBedTypeName;
+    private Integer checkInWeek;
+    private Integer checkOutWeek;
+
+    public Integer getCheckInWeek() {
+        return checkInWeek;
+    }
+
+    public void setCheckInWeek(Integer checkInWeek) {
+        this.checkInWeek = checkInWeek;
+    }
+
+    public Integer getCheckOutWeek() {
+        return checkOutWeek;
+    }
+
+    public void setCheckOutWeek(Integer checkOutWeek) {
+        this.checkOutWeek = checkOutWeek;
+    }
+
+    public Integer getIsHavingBreakfast() {
+        return isHavingBreakfast;
+    }
+
+    public void setIsHavingBreakfast(Integer isHavingBreakfast) {
+        this.isHavingBreakfast = isHavingBreakfast;
+    }
 
     public Integer getRoomPayType() {
         return roomPayType;
@@ -152,5 +181,13 @@ public class ItripPersonalOrderRoomVO {
 
     public void setSpecialRequirement(String specialRequirement) {
         this.specialRequirement = specialRequirement;
+    }
+
+    public String getRoomBedTypeName() {
+        return roomBedTypeName;
+    }
+
+    public void setRoomBedTypeName(String roomBedTypeName) {
+        this.roomBedTypeName = roomBedTypeName;
     }
 }

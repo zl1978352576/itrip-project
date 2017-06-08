@@ -32,8 +32,8 @@ public class ItripTradeEndsServiceImpl implements ItripTradeEndsService {
             return itripTradeEndsMapper.insertItripTradeEnds(itripTradeEnds);
     }
 
-    public Integer itriptxModifyItripTradeEnds(ItripTradeEnds itripTradeEnds)throws Exception{
-        return itripTradeEndsMapper.updateItripTradeEnds(itripTradeEnds);
+    public Integer itriptxModifyItripTradeEnds(Map<String,Object> param)throws Exception{
+        return itripTradeEndsMapper.updateItripTradeEnds(param);
     }
 
     public Integer itriptxDeleteItripTradeEndsById(Long id)throws Exception{
