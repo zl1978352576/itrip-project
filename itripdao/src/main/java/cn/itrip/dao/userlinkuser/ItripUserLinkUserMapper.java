@@ -24,6 +24,6 @@ public interface ItripUserLinkUserMapper {
 
 	public Integer updateItripUserLinkUser(ItripUserLinkUser itripUserLinkUser)throws Exception;
 
-	public Integer deleteItripUserLinkUserById(@Param(value = "id") Long id)throws Exception;
+	public Integer deleteItripUserLinkUserByIds(@Param(value = "ids") Long[] ids)throws Exception;
 
 }

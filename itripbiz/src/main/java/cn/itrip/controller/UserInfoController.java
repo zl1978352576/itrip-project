@@ -6,6 +6,7 @@ import cn.itrip.beans.pojo.ItripUserLinkUser;
 import cn.itrip.beans.vo.userinfo.ItripAddUserLinkUserVO;
 import cn.itrip.beans.vo.userinfo.ItripModifyUserLinkUserVO;
 import cn.itrip.common.DtoUtil;
+import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.ValidationToken;
 import cn.itrip.service.userlinkuser.ItripUserLinkUserService;
 import io.swagger.annotations.Api;
@@ -59,7 +60,7 @@ public class UserInfoController {
             "<p>100402 : token失效，请重登录</p>")
     @RequestMapping(value = "/queryuserlinkuser",method= RequestMethod.POST)
     @ResponseBody
-    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestParam(required = false) String linkUserName, HttpServletRequest request){
+    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestBody String linkUserName, HttpServletRequest request){
         logger.debug("linkUserName : " + linkUserName);
         String tokenString  = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
@@ -168,19 +169,19 @@ public class UserInfoController {
             "<p>100433 : token失效，请重登录 </p>")
     @RequestMapping(value="/deluserlinkuser",method=RequestMethod.GET,produces = "application/json")
     @ResponseBody
-    public Dto<Object> delUserLinkUser(Long id, HttpServletRequest request) {
+    public Dto<Object> delUserLinkUser(Long[] ids, HttpServletRequest request) {
         String tokenString  = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
-        if(null != currentUser && null != id){
+        if(null != currentUser && EmptyUtils.isNotEmpty(ids)){
             try {
-                itripUserLinkUserService.deleteItripUserLinkUserById(id);
+                itripUserLinkUserService.deleteItripUserLinkUserByIds(ids);
             } catch (Exception e) {
                 e.printStackTrace();
                 return DtoUtil.returnFail("删除常用联系人失败","100431");
             }
             return DtoUtil.returnSuccess("删除常用联系人成功");
-        }else if(null != currentUser && null == id){
+        }else if(null != currentUser && EmptyUtils.isEmpty(ids)){
             return DtoUtil.returnFail("请选择要删除的常用联系人","100432");
         }else{
             return DtoUtil.returnFail("token失效，请重新登录","100433");
