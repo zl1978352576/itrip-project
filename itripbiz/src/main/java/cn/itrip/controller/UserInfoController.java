@@ -60,7 +60,7 @@ public class UserInfoController {
             "<p>100402 : token失效，请重登录</p>")
     @RequestMapping(value = "/queryuserlinkuser",method= RequestMethod.POST)
     @ResponseBody
-    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestParam(required = false) String linkUserName, HttpServletRequest request){
+    public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestBody String linkUserName, HttpServletRequest request){
         logger.debug("linkUserName : " + linkUserName);
         String tokenString  = request.getHeader("token");
         logger.debug("token name is from header : " + tokenString);
