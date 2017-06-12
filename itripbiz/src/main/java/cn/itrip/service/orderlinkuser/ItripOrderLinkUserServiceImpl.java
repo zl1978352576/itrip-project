@@ -41,4 +41,8 @@ public class ItripOrderLinkUserServiceImpl implements ItripOrderLinkUserService 
     public Integer itriptxDeleteItripOrderLinkUserById(Long id)throws Exception{
         return itripOrderLinkUserMapper.deleteItripOrderLinkUserById(id);
     }
+
+    public List<Long> getItripOrderLinkUserIdsByOrder() throws Exception{
+        return itripOrderLinkUserMapper.getItripOrderLinkUserIdsByOrder();
+    }
 }

@@ -20,4 +20,6 @@ public interface ItripOrderLinkUserMapper {
 	public Integer deleteItripOrderLinkUserById(@Param(value = "id") Long id)throws Exception;
 
 	public Integer deleteItripOrderLinkUserByOrderId(@Param(value = "orderId") Long orderId)throws Exception;
+
+	public List<Long> getItripOrderLinkUserIdsByOrder() throws Exception;
 }
