@@ -41,12 +41,15 @@ public class BaseQuery<T> {
      */
     public Page<T> queryPage(SolrQuery query, Integer pageNo, Integer pageSize, Class clazz) throws Exception {
         //设置起始页数
-        query.setStart(EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO - 1 : pageNo - 1);
+        Integer rows=EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize;
+        Integer currPage=(EmptyUtils.isEmpty(pageNo) ? Constants.DEFAULT_PAGE_NO - 1 : pageNo - 1);
+        Integer start=currPage*rows;
+        query.setStart(start);
         //一页显示多少条
-        query.setRows(EmptyUtils.isEmpty(pageSize) ? Constants.DEFAULT_PAGE_SIZE : pageSize);
+        query.setRows(rows);
         QueryResponse queryResponse = httpSolrClient.query(query);
         SolrDocumentList docs = queryResponse.getResults();
-        Page<T> page = new Page(query.getStart(), query.getRows(), new Long(docs.getNumFound()).intValue());
+        Page<T> page = new Page(currPage+1, query.getRows(), new Long(docs.getNumFound()).intValue());
         List<T> list = queryResponse.getBeans(clazz);
         page.setRows(list);
         return page;
