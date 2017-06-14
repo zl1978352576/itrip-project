@@ -54,8 +54,14 @@
             <if test="isHavingBreakfast != null">
                 and isHavingBreakfast=#{isHavingBreakfast}
             </if>
-            <if test="payType != null">
-                and payType=#{payType}
+            <if test="payType == 1">
+                and (payType=1 or payType=3)
+            </if>
+            <if test="payType == 2">
+                and (payType=2 or payType=3)
+            </if>
+            <if test="payType == 3">
+                and payType=3
             </if>
             <if test="isBook != null">
                 and isBook=#{isBook}

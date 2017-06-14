@@ -326,8 +326,6 @@ public class SystemCommentController {
 		return dto;
 	}
 
-
-
 	@ApiOperation(value = "根据酒店id查询各类评论数量", httpMethod = "GET",
 			protocols = "HTTP",produces = "application/json",
 			response = Dto.class,notes = "根据酒店id查询评论数量（全部评论、值得推荐、有待改善、有图片）"+
@@ -355,7 +353,6 @@ public class SystemCommentController {
 			}else{
 				return DtoUtil.returnFail("获取酒店总评论数失败","100014");
 			}
-			param.put("isHavingImg",null);
 			param.put("isOk",1);//0：有待改善 1：值得推荐
 			count = getItripCommentCountByMap(param);
 			if(count != -1){
@@ -363,7 +360,6 @@ public class SystemCommentController {
 			}else{
 				return DtoUtil.returnFail("获取酒店值得推荐评论数失败","100017");
 			}
-			param.put("isHavingImg",null);
 			param.put("isOk",0);//0：有待改善 1：值得推荐
 			count = getItripCommentCountByMap(param);
 			if(count != -1){
