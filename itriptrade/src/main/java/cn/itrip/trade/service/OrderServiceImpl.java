@@ -19,7 +19,7 @@ import cn.itrip.beans.pojo.ItripTradeEnds;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.SystemConfig;
 import cn.itrip.dao.hotelorder.ItripHotelOrderMapper;
-import cn.itrip.dao.itripTradeEnds.ItripTradeEndsMapper;
+import cn.itrip.dao.tradeends.ItripTradeEndsMapper;
 
 /**
  * 订单支付处理实现

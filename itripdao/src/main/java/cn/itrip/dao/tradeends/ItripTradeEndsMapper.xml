@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.itrip.dao.itripTradeEnds.ItripTradeEndsMapper">
+<mapper namespace="cn.itrip.dao.tradeends.ItripTradeEndsMapper">
 
     <select id="getItripTradeEndsById" resultType="cn.itrip.beans.pojo.ItripTradeEnds">
         select
