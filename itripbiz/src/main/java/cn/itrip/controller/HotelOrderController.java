@@ -149,18 +149,12 @@ public class HotelOrderController {
         validateStoreMap.put("roomId", itripAddHotelOrderVO.getRoomId());
         validateStoreMap.put("count", itripAddHotelOrderVO.getCount());
         List<ItripUserLinkUser> linkUserList = itripAddHotelOrderVO.getLinkUser();
-
-        /*for (ItripUserLinkUser linkUser:linkUserList) {
-            logger.debug("linkuser=========== > " + linkUser.getId() + " --- " + linkUser.getLinkUserName());
-        }*/
-        if (null != currentUser) {
-            Boolean flag = false;
-            try {
-                //判断库存是否充足
-                flag = itripHotelTempStoreService.validateRoomStore(validateStoreMap);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if(EmptyUtils.isEmpty(currentUser)){
+            return DtoUtil.returnFail("token失效，请重登录", "100508");
+        }
+        try {
+            //判断库存是否充足
+            Boolean flag = itripHotelTempStoreService.validateRoomStore(validateStoreMap);
             if (flag && null != itripAddHotelOrderVO) {
                 //计算订单的预定天数
                 Integer days = DateUtil.getBetweenDates(
@@ -203,7 +197,6 @@ public class HotelOrderController {
                 }
                 //支付之前生成的订单的初始状态为未支付
                 itripHotelOrder.setOrderStatus(0);
-
                 try {
                     //生成订单号：机器码 +日期+（MD5）（商品IDs+毫秒数+1000000的随机数）
                     StringBuilder md5String = new StringBuilder();
@@ -234,10 +227,11 @@ public class HotelOrderController {
             } else {
                 dto = DtoUtil.returnFail("库存不足", "100507");
             }
-        } else {
-            dto = DtoUtil.returnFail("token失效，请重登录", "100508");
+            return dto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return DtoUtil.returnFail("系统异常", "100508");
         }
-        return dto;
     }
 
     @ApiOperation(value = "生成订单前,获取预订信息", httpMethod = "POST",
