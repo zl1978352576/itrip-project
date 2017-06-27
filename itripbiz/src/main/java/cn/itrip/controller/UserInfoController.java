@@ -62,7 +62,7 @@ public class UserInfoController {
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
             "<p>错误码：</p>"+
             "<p>100401 : 获取常用联系人信息失败 </p>"+
-            "<p>100402 : token失效，请重登录</p>")
+            "<p>100000 : token失效，请重登录</p>")
     @RequestMapping(value = "/queryuserlinkuser",method= RequestMethod.POST)
     @ResponseBody
     public Dto<ItripUserLinkUser> queryUserLinkUser(@RequestBody ItripSearchUserLinkUserVO itripSearchUserLinkUserVO, HttpServletRequest request){
@@ -85,7 +85,7 @@ public class UserInfoController {
                 return DtoUtil.returnFail("获取常用联系人信息失败","100401");
             }
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录","100402");
+            return DtoUtil.returnFail("token失效，请重新登录","100000");
         }
     }
 
@@ -96,7 +96,7 @@ public class UserInfoController {
             "<p>错误码：</p>"+
             "<p>100411 : 新增常用联系人失败 </p>"+
             "<p>100412 : 不能提交空，请填写常用联系人信息</p>"+
-            "<p>100413 : token失效，请重登录 </p>")
+            "<p>100000 : token失效，请重登录 </p>")
     @RequestMapping(value="/adduserlinkuser",method=RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public Dto<Object> addUserLinkUser(@RequestBody ItripAddUserLinkUserVO itripAddUserLinkUserVO, HttpServletRequest request){
@@ -122,7 +122,7 @@ public class UserInfoController {
         }else if(null != currentUser && null == itripAddUserLinkUserVO){
             return DtoUtil.returnFail("不能提交空，请填写常用联系人信息","100412");
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录", "100413");
+            return DtoUtil.returnFail("token失效，请重新登录", "100000");
         }
     }
 
@@ -133,7 +133,7 @@ public class UserInfoController {
             "<p>错误码：</p>"+
             "<p>100421 : 修改常用联系人失败 </p>"+
             "<p>100422 : 不能提交空，请填写常用联系人信息</p>"+
-            "<p>100423 : token失效，请重登录 </p>")
+            "<p>100000 : token失效，请重登录 </p>")
     @RequestMapping(value="/modifyuserlinkuser",method=RequestMethod.POST,produces = "application/json")
     @ResponseBody
     public Dto<Object> updateUserLinkUser(@RequestBody ItripModifyUserLinkUserVO itripModifyUserLinkUserVO, HttpServletRequest request){
@@ -160,7 +160,7 @@ public class UserInfoController {
         }else if(null != currentUser && null == itripModifyUserLinkUserVO){
             return DtoUtil.returnFail("不能提交空，请填写常用联系人信息","100422");
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录", "100423");
+            return DtoUtil.returnFail("token失效，请重新登录", "100000");
         }
     }
 
@@ -172,7 +172,7 @@ public class UserInfoController {
             "<p>100431 : 所选的常用联系人中有与某条待支付的订单关联的项，无法删除 </p>"+
             "<p>100432 : 删除常用联系人失败 </p>"+
             "<p>100433 : 请选择要删除的常用联系人</p>"+
-            "<p>100434 : token失效，请重登录 </p>")
+            "<p>100000 : token失效，请重登录 </p>")
     @RequestMapping(value="/deluserlinkuser",method=RequestMethod.GET,produces = "application/json")
     @ResponseBody
     public Dto<Object> delUserLinkUser(Long[] ids, HttpServletRequest request) {

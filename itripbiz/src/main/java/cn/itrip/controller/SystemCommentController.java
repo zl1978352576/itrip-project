@@ -118,7 +118,7 @@ public class SystemCommentController {
 			"<p>错误码：</p>"+
 			"<p>100003 : 新增评论失败 </p>"+
 			"<p>100004 : 不能提交空，请填写评论信息</p>"+
-			"<p>100005 : token失效，请重登录 </p>")
+			"<p>100000 : token失效，请重登录 </p>")
 	@RequestMapping(value = "/add",method=RequestMethod.POST,produces = "application/json")
 	@ResponseBody
 	public Dto<Object> addComment(@RequestBody ItripAddCommentVO itripAddCommentVO, HttpServletRequest request){
@@ -168,7 +168,7 @@ public class SystemCommentController {
 		}else if(null != currentUser && null == itripAddCommentVO){
 			dto = DtoUtil.returnFail("不能提交空，请填写评论信息","100004");
 		}else{
-			dto = DtoUtil.returnFail("token失效，请重登录","100005");
+			dto = DtoUtil.returnFail("token失效，请重登录","100000");
 		}
 		return dto;
 	}
@@ -266,7 +266,7 @@ public class SystemCommentController {
 					"<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
 					"<p>错误码：</p>"+
 					"<p>100010 : 文件不存在，删除失败 </p>"+
-					"<p>100011 : token失效，请重登录 </p>")
+					"<p>100000 : token失效，请重登录 </p>")
 	public Dto<Object> delPic(@RequestParam String imgName,HttpServletRequest request) throws IllegalStateException, IOException {
 /*	public Dto<Object> delPic(
     		@RequestBody InputDto inputDto) throws IllegalStateException, IOException {*/
@@ -288,7 +288,7 @@ public class SystemCommentController {
 				dto = DtoUtil.returnFail("文件不存在，删除失败","100010");
 			}
 		}else{
-			dto = DtoUtil.returnFail("token失效，请重登录","100011");
+			dto = DtoUtil.returnFail("token失效，请重登录","100000");
 		}
 		return dto;
 	}
