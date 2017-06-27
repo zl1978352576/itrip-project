@@ -287,14 +287,15 @@ public class PaymentController {
 			//boolean AlipaySignature.rsaCheckV1(Map<String, String> params, String publicKey, String charset, String sign_type)
 			boolean verify_result = AlipaySignature.rsaCheckV1(params, alipayConfig.getAlipayPublicKey(), alipayConfig.getCharset(), "RSA2");
 			
-			if(verify_result){//验证成功				
-				String id=orderService.loadItripHotelOrder(out_trade_no).getId().toString();
+			String id=orderService.loadItripHotelOrder(out_trade_no).getId().toString();
+			if(verify_result){//验证成功
 				//提示支付成功
 				response.sendRedirect(
 						String.format(alipayConfig.getPaymentSuccessUrl(), out_trade_no,id));
 			}else{				
 				//提示支付失败
-				response.sendRedirect(alipayConfig.getPaymentFailureUrl());
+				response.sendRedirect(
+						String.format(alipayConfig.getPaymentFailureUrl(), out_trade_no,id));
 			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block

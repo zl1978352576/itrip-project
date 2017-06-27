@@ -24,7 +24,8 @@
 		<property name="signType" value="RSA2"/>
 		<!-- <property name="paymentSuccessUrl" value="/itriptrade/success.jsp"/> -->
 		<property name="paymentSuccessUrl" value="http://localhost:3000/index.html#/orderpaystate?orderNo=%s&amp;id=%s"/>
-		<property name="paymentFailureUrl" value="/itriptrade/failure.jsp"/>
+		<!-- <property name="paymentFailureUrl" value="/itriptrade/failure.jsp"/> -->
+		<property name="paymentFailureUrl" value="http://localhost:3000/index.html#/orderpaystate?orderNo=%s&amp;id=%s&amp;state=0"/>
 	</bean>
 	
 	
