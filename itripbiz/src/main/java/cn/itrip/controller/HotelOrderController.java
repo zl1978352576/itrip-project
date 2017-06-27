@@ -134,7 +134,7 @@ public class HotelOrderController {
             "<p>100505 : 生成订单失败 </p>" +
             "<p>100506 : 不能提交空，请填写订单信息 </p>" +
             "<p>100507 : 库存不足 </p>" +
-            "<p>100508 : token失效，请重登录</p>")
+            "<p>100000 : token失效，请重登录</p>")
     @RequestMapping(value = "/addhotelorder", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Dto<Object> addHotelOrder(@RequestBody ItripAddHotelOrderVO itripAddHotelOrderVO, HttpServletRequest request) {
@@ -150,7 +150,7 @@ public class HotelOrderController {
         validateStoreMap.put("count", itripAddHotelOrderVO.getCount());
         List<ItripUserLinkUser> linkUserList = itripAddHotelOrderVO.getLinkUser();
         if(EmptyUtils.isEmpty(currentUser)){
-            return DtoUtil.returnFail("token失效，请重登录", "100508");
+            return DtoUtil.returnFail("token失效，请重登录", "100000");
         }
         try {
             //判断库存是否充足
@@ -306,7 +306,7 @@ public class HotelOrderController {
             String tokenString = request.getHeader("token");
             ItripUser currentUser = validationToken.getCurrentUser(tokenString);
             if (EmptyUtils.isEmpty(currentUser)) {
-                return DtoUtil.returnFail("token失效，请重登录", "100514");
+                return DtoUtil.returnFail("token失效，请重登录", "100000");
             }
             if (EmptyUtils.isEmpty(validateRoomStoreVO.getHotelId())) {
                 return DtoUtil.returnFail("hotelId不能为空", "100515");
@@ -344,7 +344,7 @@ public class HotelOrderController {
         String tokenString = request.getHeader("token");
         ItripUser currentUser = validationToken.getCurrentUser(tokenString);
         if (EmptyUtils.isEmpty(currentUser)) {
-            return DtoUtil.returnFail("token失效，请重登录", "100518");
+            return DtoUtil.returnFail("token失效，请重登录", "100000");
         }
         if (EmptyUtils.isEmpty(id)) {
             return DtoUtil.returnFail("id不能为空", "100519");
@@ -429,7 +429,7 @@ public class HotelOrderController {
         } else if (null != currentUser && null == itripModifyHotelOrderVO) {
             return DtoUtil.returnFail("不能提交空，请填写订单信息", "100523");
         } else {
-            return DtoUtil.returnFail("token失效，请重新登录", "100524");
+            return DtoUtil.returnFail("token失效，请重新登录", "100000");
         }
     }
 
@@ -447,7 +447,7 @@ public class HotelOrderController {
             "<p>100525 : 请传递参数：orderId </p>" +
             "<p>100526 : 没有相关订单信息 </p>" +
             "<p>100527 : 获取个人订单信息错误 </p>" +
-            "<p>100528 : token失效，请重登录 </p>")
+            "<p>100000 : token失效，请重登录 </p>")
     @RequestMapping(value = "/getpersonalorderinfo/{orderId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Dto<Object> getPersonalOrderInfo(@ApiParam(required = true, name = "orderId", value = "订单ID")
@@ -550,7 +550,7 @@ public class HotelOrderController {
                 dto = DtoUtil.returnFail("获取个人订单房型信息错误", "100531");
             }
         } else {
-            dto = DtoUtil.returnFail("token失效，请重登录", "100532");
+            dto = DtoUtil.returnFail("token失效，请重登录", "100000");
         }
         return dto;
     }
@@ -572,7 +572,7 @@ public class HotelOrderController {
             logger.debug("token name is from header : " + tokenString);
             ItripUser currentUser = validationToken.getCurrentUser(tokenString);
             if(EmptyUtils.isEmpty(currentUser)){
-                return DtoUtil.returnFail("token失效，请重登录", "100532");
+                return DtoUtil.returnFail("token失效，请重登录", "100000");
             }
             ItripHotelOrder order = itripHotelOrderService.getItripHotelOrderById(orderId);
             if (EmptyUtils.isEmpty(order)) {

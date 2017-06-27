@@ -199,7 +199,7 @@ public class UserInfoController {
         }else if(null != currentUser && EmptyUtils.isEmpty(ids)){
             return DtoUtil.returnFail("请选择要删除的常用联系人","100433");
         }else{
-            return DtoUtil.returnFail("token失效，请重新登录","100434");
+            return DtoUtil.returnFail("token失效，请重新登录","100000");
         }
     }
 
