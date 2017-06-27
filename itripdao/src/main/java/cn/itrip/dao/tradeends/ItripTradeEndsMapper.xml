@@ -53,12 +53,7 @@
     </select>
 
     <insert id="insertItripTradeEnds" parameterType="cn.itrip.beans.pojo.ItripTradeEnds">
-        insert into itrip_trade_ends(
-                        orderNo,
-                        flag)
-        values(
-                     #{orderNo},
-                    #{flag})
+        insert into itrip_trade_ends(id,orderNo) values(#{id},#{orderNo})
     </insert>
 
     <update id="updateItripTradeEnds" parameterType="java.util.Map">

@@ -37,6 +37,7 @@ public class TestController {
         List<ItripAreaDic> itripAreaDicList = null;
         Map<String, Object> param = new HashMap<>();
         param.put("level", 2);
+        param.put("isChina",2);
         itripAreaDicList = itripAreaDicService.getItripAreaDicListByMap(param);
         Character [] array = new Character[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
         for (int i = 0; i < array.length; i++) {
