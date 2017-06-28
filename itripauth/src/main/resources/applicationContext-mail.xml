@@ -27,7 +27,7 @@
 	</bean>
 	
 	<bean id="activationMailMessage"  class="org.springframework.mail.SimpleMailMessage" scope="prototype">
-		<property name="from" value="itripmaster@163.cn"></property>
+		<property name="from" value="itripmaster@163.com"></property>
 		<property name="subject" value="【i旅行】请激活您的账户"></property>
 		<property name="text" value=""></property>		
 	</bean>
