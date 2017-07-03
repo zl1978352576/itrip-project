@@ -159,7 +159,10 @@ public class HotelOrderController {
                 //计算订单的预定天数
                 Integer days = DateUtil.getBetweenDates(
                         itripAddHotelOrderVO.getCheckInDate(), itripAddHotelOrderVO.getCheckOutDate()
-                ).size();
+                ).size()-1;
+                if(days<=0){
+                    return DtoUtil.returnFail("退房日期必须大于入住日期", "100505");
+                }
                 ItripHotelOrder itripHotelOrder = new ItripHotelOrder();
                 itripHotelOrder.setId(itripAddHotelOrderVO.getId());
                 itripHotelOrder.setUserId(currentUser.getId());
