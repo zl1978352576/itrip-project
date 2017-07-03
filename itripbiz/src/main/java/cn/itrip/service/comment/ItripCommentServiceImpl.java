@@ -1,4 +1,5 @@
 package cn.itrip.service.comment;
+import cn.itrip.beans.pojo.ItripHotelOrder;
 import cn.itrip.beans.pojo.ItripImage;
 import cn.itrip.beans.vo.comment.ItripScoreCommentVO;
 import cn.itrip.beans.vo.comment.ItripListCommentVO;
@@ -7,6 +8,7 @@ import cn.itrip.dao.comment.ItripCommentMapper;
 import cn.itrip.beans.pojo.ItripComment;
 import cn.itrip.common.EmptyUtils;
 import cn.itrip.common.Page;
+import cn.itrip.dao.hotelorder.ItripHotelOrderMapper;
 import cn.itrip.dao.image.ItripImageMapper;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class ItripCommentServiceImpl implements ItripCommentService {
     private ItripCommentMapper itripCommentMapper;
     @Resource
     private ItripImageMapper itripImageMapper;
+    @Resource
+    private ItripHotelOrderMapper itripHotelOrderMapper;
+
 
     public ItripComment getItripCommentById(Long id)throws Exception{
         return itripCommentMapper.getItripCommentById(id);
@@ -45,7 +50,6 @@ public class ItripCommentServiceImpl implements ItripCommentService {
      */
     public boolean itriptxAddItripComment(ItripComment obj, List<ItripImage> itripImages)throws Exception{
         if(null != obj ){
-
             //计算综合评分，综合评分=(设施+卫生+位置+服务)/4
             float score = 0;
             int sum = obj.getFacilitiesScore()+obj.getHygieneScore()+obj.getPositionScore()+obj.getServiceScore();
@@ -62,6 +66,8 @@ public class ItripCommentServiceImpl implements ItripCommentService {
                         itripImageMapper.insertItripImage(itripImage);
                     }
                 }
+                //更新订单表-订单状态为4（已评论）
+                itripHotelOrderMapper.updateHotelOrderStatus(obj.getOrderId());
                 return true;
             }
         }

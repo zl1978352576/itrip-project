@@ -69,7 +69,7 @@ public class HotelOrderController {
             protocols = "HTTP", produces = "application/json",
             response = Dto.class, notes = "根据条件查询个人订单列表，并分页显示" +
             "<p>订单类型(orderType)（-1：全部订单 0:旅游订单 1:酒店订单 2：机票订单）：</p>" +
-            "<p>订单状态(orderStatus)（0：待支付 1:已取消 2:支付成功 3:已消费）：</p>" +
+            "<p>订单状态(orderStatus)（0：待支付 1:已取消 2:支付成功 3:已消费 4：已点评）：</p>" +
             "<p>对于页面tab条件：</p>" +
             "<p>全部订单（orderStatus：-1）</p>" +
             "<p>未出行（orderStatus：2）</p>" +
@@ -440,9 +440,9 @@ public class HotelOrderController {
     @ApiOperation(value = "根据订单ID查看个人订单详情", httpMethod = "GET",
             protocols = "HTTP", produces = "application/json",
             response = Dto.class, notes = "根据订单ID查看个人订单详情" +
-            "<p>订单状态(orderStatus)（0：待支付 1:已取消 2:支付成功 3:已消费）：</p>" +
+            "<p>订单状态(orderStatus)（0：待支付 1:已取消 2:支付成功 3:已消费 4：已点评）：</p>" +
             "<p>订单流程：</p>" +
-            "<p>订单状态(0：待支付 2:支付成功 3:已消费)的流程：{\"1\":\"订单提交\",\"2\":\"订单支付\",\"3\":\"支付成功\",\"4\":\"入住\",\"5\":\"订单点评\"}</p>" +
+            "<p>订单状态(0：待支付 2:支付成功 3:已消费 4:已点评)的流程：{\"1\":\"订单提交\",\"2\":\"订单支付\",\"3\":\"支付成功\",\"4\":\"入住\",\"5\":\"订单点评\",\"6\":\"订单完成\"}</p>" +
             "<p>订单状态(1:已取消)的流程：{\"1\":\"订单提交\",\"2\":\"订单支付\",\"3\":\"订单取消\"}</p>" +
             "<p>支持支付类型(roomPayType)：{\"1\":\"在线付\",\"2\":\"线下付\",\"3\":\"不限\"}</p>" +
             "<p>成功：success = ‘true’ | 失败：success = ‘false’ 并返回错误码，如下：</p>" +
@@ -480,8 +480,8 @@ public class HotelOrderController {
                     }
                     Integer orderStatus = hotelOrder.getOrderStatus();
                     itripPersonalHotelOrderVO.setOrderStatus(orderStatus);
-                    //订单状态（0：待支付 1:已取消 2:支付成功 3:已消费）
-                    //{"1":"订单提交","2":"订单支付","3":"支付成功","4":"入住","5":"订单点评"}
+                    //订单状态（0：待支付 1:已取消 2:支付成功 3:已消费 4:已点评）
+                    //{"1":"订单提交","2":"订单支付","3":"支付成功","4":"入住","5":"订单点评","6":"订单完成"}
                     //{"1":"订单提交","2":"订单支付","3":"订单取消"}
                     if (orderStatus == 1) {
                         itripPersonalHotelOrderVO.setOrderProcess(JSONArray.parse(systemConfig.getOrderProcessCancel()));
@@ -495,6 +495,9 @@ public class HotelOrderController {
                     } else if (orderStatus == 3) {
                         itripPersonalHotelOrderVO.setOrderProcess(JSONArray.parse(systemConfig.getOrderProcessOK()));
                         itripPersonalHotelOrderVO.setProcessNode("5");//订单点评
+                    } else if (orderStatus == 4) {
+                        itripPersonalHotelOrderVO.setOrderProcess(JSONArray.parse(systemConfig.getOrderProcessOK()));
+                        itripPersonalHotelOrderVO.setProcessNode("6");//订单完成
                     } else {
                         itripPersonalHotelOrderVO.setOrderProcess(null);
                         itripPersonalHotelOrderVO.setProcessNode(null);

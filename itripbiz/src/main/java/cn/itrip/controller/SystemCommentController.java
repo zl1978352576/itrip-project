@@ -118,6 +118,7 @@ public class SystemCommentController {
 			"<p>错误码：</p>"+
 			"<p>100003 : 新增评论失败 </p>"+
 			"<p>100004 : 不能提交空，请填写评论信息</p>"+
+			"<p>100005 : 新增评论，订单ID不能为空</p>"+
 			"<p>100000 : token失效，请重登录 </p>")
 	@RequestMapping(value = "/add",method=RequestMethod.POST,produces = "application/json")
 	@ResponseBody
@@ -128,6 +129,12 @@ public class SystemCommentController {
 		logger.debug("token name is from header : " + tokenString);
 		ItripUser currentUser = validationToken.getCurrentUser(tokenString);
 		if(null != currentUser && null != itripAddCommentVO){
+			//新增评论，订单id不能为空
+			if(itripAddCommentVO.getOrderId() != null
+					&& itripAddCommentVO.getOrderId() != 0 ){
+				return DtoUtil.returnFail("新增评论，订单ID不能为空","100005");
+
+			}
 			List<ItripImage> itripImages = null;
 			ItripComment itripComment = new ItripComment();
 			itripComment.setContent(itripAddCommentVO.getContent());
@@ -159,7 +166,9 @@ public class SystemCommentController {
 						i++;
 					}
 				}
+
 				itripCommentService.itriptxAddItripComment(itripComment,(null == itripImages?new ArrayList<ItripImage>():itripImages));
+
 				dto = DtoUtil.returnSuccess("新增评论成功");
 			} catch (Exception e) {
 				e.printStackTrace();

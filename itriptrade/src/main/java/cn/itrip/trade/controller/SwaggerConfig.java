@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *
  */
 @EnableSwagger2
-@ComponentScan(basePackages = {"cn.itrip.auth.controller"})
+@ComponentScan(basePackages = {"cn.itrip.trade.controller"})
 @Configuration
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 

@@ -23,7 +23,7 @@ public interface ItripHotelOrderMapper {
 
 	public Integer deleteItripHotelOrderById(@Param(value = "id") Long id)throws Exception;
 
-	public Integer updateHotelOrderStatus(Integer id) throws Exception;
+	public Integer updateHotelOrderStatus(@Param(value = "id")Long id) throws Exception;
 
 	public int getRoomNumByRoomIdTypeAndDate(Integer roomId, String startDate, String endDate) throws Exception;
 

@@ -112,7 +112,7 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
         return page;
     }
 
-    public boolean updateHotelOrderStatus(Integer id) throws Exception {
+    public boolean updateHotelOrderStatus(Long id) throws Exception {
         return itripHotelOrderMapper.updateHotelOrderStatus(id) > 0 ? true : false;
     }
 

@@ -34,7 +34,7 @@ public interface ItripHotelOrderService {
      * @return
      * @throws Exception
      */
-    public boolean updateHotelOrderStatus(Integer id) throws Exception;
+    public boolean updateHotelOrderStatus(Long id) throws Exception;
 
     /**
      * 根据房间id和用户所需预定的开始日期和结束日期来查询所选择的房间的剩余可预定数量 -add by donghai

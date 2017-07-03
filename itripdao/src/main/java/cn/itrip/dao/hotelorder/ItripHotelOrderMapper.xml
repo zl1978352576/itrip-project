@@ -525,4 +525,9 @@
         update itrip_hotel_order set orderStatus=3 where orderStatus=2 and timestampdiff(SECOND, checkOutDate, NOW()) >= 0
     </update>
 
+    <update id="updateHotelOrderStatus" parameterType="Long">
+        update itrip_hotel_order SET  orderStatus = 4 where where id=#{id}
+    </update>
+
+
 </mapper>
