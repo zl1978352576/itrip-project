@@ -12,22 +12,24 @@
 
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.163.com"></property>
-		<property name="port" value="25"></property>
-		<property name="username" value="itripmaster"></property>
-		<property name="password" value="abcd1234"></property>
-		<property name="protocol" value="smtp"></property>
+		<property name="host" value="smtp.aliyun.com"></property>
+		<property name="port" value="465"></property>
+		<property name="username" value="itripmgr@aliyun.com"></property>
+		<property name="password" value="abcd-1234"></property>
+		<!--<property name="protocol" value="smtp"></property>-->
 		<property name="defaultEncoding" value="UTF-8"></property>
 		<property name="javaMailProperties">
 			<props>
 				<!-- 设置SMTP服务器需要用户验证 -->
 				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>  
+				<prop key="mail.smtp.socketFactory.port">465</prop>  
 			</props>
 		</property>
 	</bean>
 	
 	<bean id="activationMailMessage"  class="org.springframework.mail.SimpleMailMessage" scope="prototype">
-		<property name="from" value="itripmaster@163.cn"></property>
+		<property name="from" value="itripmgr@aliyun.com"></property>
 		<property name="subject" value="【i旅行】请激活您的账户"></property>
 		<property name="text" value=""></property>		
 	</bean>
