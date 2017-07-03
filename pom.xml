@@ -18,6 +18,7 @@
         <module>itripauth</module>
     </modules>
 
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.1</junit.version>
@@ -286,15 +287,19 @@
     </dependencies>
     <repositories>
         <repository>
-            <id>bdqn-nexus</id>
-            <name>bdqn-nexus</name>
-            <url>http://nexus.project.bdqn.cn:8081/nexus/content/groups/public</url>
+            <id>nexus</id>
+            <name>Nexus Repository</name>
+            <url> http://nexus.okeysky.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>http://nexus.okeysky.com/nexus/content/repositories/snapshots</url>
         </repository>
     </repositories>
     <build>
@@ -348,17 +353,14 @@
         </pluginManagement>
     </build>
 
-    <!-- 自主开发的jar需要上传到nexus的时候需要使用下面代码进行自动打包上传
     <distributionManagement>
         <repository>
             <id>thirdparty</id>
-            &lt;!&ndash;<url>http://nexus.okeysky.com/nexus/content/repositories/thirdparty</url>&ndash;&gt;
-            <url>http://nexus.project.bdqn.cn:8081/nexus/content/repositories/thirdparty</url>
+            <url>http://nexus.okeysky.com/nexus/content/repositories/thirdparty</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
-            &lt;!&ndash;<url>http://nexus.okeysky.com/nexus/content/repositories/snapshots</url>&ndash;&gt;
-            <url>http://nexus.project.bdqn.cn:8081/nexus/content/repositories/snapshots</url>
+            <url>http://nexus.okeysky.com/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
-    </distributionManagement>-->
+    </distributionManagement>
 </project>
