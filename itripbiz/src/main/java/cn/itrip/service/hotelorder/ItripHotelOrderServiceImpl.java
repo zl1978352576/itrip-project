@@ -113,7 +113,7 @@ public class ItripHotelOrderServiceImpl implements ItripHotelOrderService {
     }
 
     public boolean updateHotelOrderStatus(Long id) throws Exception {
-        return itripHotelOrderMapper.updateHotelOrderStatus(id) > 0 ? true : false;
+        return itripHotelOrderMapper.updateHotelOrderStatus(id,null) > 0 ? true : false;
     }
 
     public int getRoomNumByRoomIdTypeAndDate(Integer roomId, String startDate, String endDate) throws Exception {

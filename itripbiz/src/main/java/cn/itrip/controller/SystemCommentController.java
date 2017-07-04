@@ -130,8 +130,8 @@ public class SystemCommentController {
 		ItripUser currentUser = validationToken.getCurrentUser(tokenString);
 		if(null != currentUser && null != itripAddCommentVO){
 			//新增评论，订单id不能为空
-			if(itripAddCommentVO.getOrderId() != null
-					&& itripAddCommentVO.getOrderId() != 0 ){
+			if(itripAddCommentVO.getOrderId() == null
+					|| itripAddCommentVO.getOrderId() == 0 ){
 				return DtoUtil.returnFail("新增评论，订单ID不能为空","100005");
 
 			}

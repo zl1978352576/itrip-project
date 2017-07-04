@@ -67,7 +67,7 @@ public class ItripCommentServiceImpl implements ItripCommentService {
                     }
                 }
                 //更新订单表-订单状态为4（已评论）
-                itripHotelOrderMapper.updateHotelOrderStatus(obj.getOrderId());
+                itripHotelOrderMapper.updateHotelOrderStatus(obj.getOrderId(),obj.getCreatedBy());
                 return true;
             }
         }
