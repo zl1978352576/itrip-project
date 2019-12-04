@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class SearchHotelServiceImpl implements SearchHotelService {
 
-    public static String URL = "http://localhost:6060/solr/";
+    public static String URL = "http://localhost:6060/solr/hotel";
 
     private BaseQuery<ItripHotelVO> itripHotelVOBaseQuery = new BaseQuery(URL);
 
