@@ -24,10 +24,30 @@ public class ItripHotel implements Serializable {
             private Long createdBy;
             private Date modifyDate;
             private Long modifiedBy;
+            //价格表
+            private ItripHotelRoom hotelRoom;
+            //图片表
+            private ItripImage hotelImage;
+
+            public ItripHotelRoom getHotelRoom() {
+                return hotelRoom;
+            }
+
+            public void setHotelRoom(ItripHotelRoom hotelRoom) {
+                this.hotelRoom = hotelRoom;
+            }
+
+            public ItripImage getHotelImage() {
+                return hotelImage;
+            }
+
+            public void setHotelImage(ItripImage hotelImage) {
+                this.hotelImage = hotelImage;
+            }
 
             public void setId (Long  id){
-                this.id=id;
-            }
+                        this.id=id;
+                    }
 
             public  Long getId(){
                 return this.id;

@@ -13,7 +13,7 @@ public class HotelOrderTest {
     }
     private  ItripHotelTempStoreService hotelTempStoreService;
     {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybati.xml");
         hotelTempStoreService = (ItripHotelTempStoreService) context.getBean("itripHotelTempStoreServiceImpl");
     }
     @Test

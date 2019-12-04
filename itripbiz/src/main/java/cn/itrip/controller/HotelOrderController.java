@@ -256,9 +256,9 @@ public class HotelOrderController {
         ItripHotelRoom room = null;
         RoomStoreVO roomStoreVO = null;
         try {
-            if (EmptyUtils.isEmpty(currentUser)) {
+            /*if (EmptyUtils.isEmpty(currentUser)) {
                 return DtoUtil.returnFail("token失效，请重登录", "100000");
-            }
+            }*/
             if (EmptyUtils.isEmpty(validateRoomStoreVO.getHotelId())) {
                 return DtoUtil.returnFail("hotelId不能为空", "100510");
             } else if (EmptyUtils.isEmpty(validateRoomStoreVO.getRoomId())) {
@@ -372,32 +372,32 @@ public class HotelOrderController {
         }
     }
 
-    /***
-     * 10分钟执行一次 刷新订单的状态 不对外公布
-     */
-    @Scheduled(cron = "*/600 * * * * ?")
-    public void flushCancelOrderStatus() {
-        try {
-            boolean flag = itripHotelOrderService.flushOrderStatus(1);
-            logger.info(flag ? "刷取订单成功" : "刷单失败");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /***
-     * 100分钟执行一次 刷新订单的状态 不对外公布
-     */
-    @Scheduled(cron = "*/6000 * * * * ?")
-    public void flushOrderStatus() {
-        try {
-            logger.info("刷单程序开始执行.......");
-            boolean flag = itripHotelOrderService.flushOrderStatus(2);
-            logger.info("刷单程序执行完毕.......");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    /***
+//     * 10分钟执行一次 刷新订单的状态 不对外公布
+//     */
+//    @Scheduled(cron = "*/600 * * * * ?")
+//    public void flushCancelOrderStatus() {
+//        try {
+//            boolean flag = itripHotelOrderService.flushOrderStatus(1);
+//            logger.info(flag ? "刷取订单成功" : "刷单失败");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    /***
+//     * 100分钟执行一次 刷新订单的状态 不对外公布
+//     */
+//    @Scheduled(cron = "*/6000 * * * * ?")
+//    public void flushOrderStatus() {
+//        try {
+//            logger.info("刷单程序开始执行.......");
+//            boolean flag = itripHotelOrderService.flushOrderStatus(2);
+//            logger.info("刷单程序执行完毕.......");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @ApiOperation(value = "修改订单的支付方式和状态", httpMethod = "POST",
             protocols = "HTTP", produces = "application/json",

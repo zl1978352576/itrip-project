@@ -20,9 +20,8 @@ public class SmsServiceImpl implements SmsService {
 	private SystemConfig systemConfig;
 	@Override
 	public void send(String to, String templateId, String[] datas) throws Exception {
-		HashMap<String, Object> result = null;
 
-		//初始化SDK
+		/*//初始化SDK
 		CCPRestSmsSDK restAPI = new CCPRestSmsSDK();
 		
 		//******************************注释*********************************************
@@ -62,8 +61,12 @@ public class SmsServiceImpl implements SmsService {
 		//*result = restAPI.sendTemplateSMS("13800000000","1" ,new String[]{"6532","5"});																		  *
 		//*则13800000000手机号收到的短信内容是：【云通讯】您使用的是云通讯短信模板，您的验证码是6532，请于5分钟内正确输入     *
 		//*********************************************************************************************************************
-		result = restAPI.sendTemplateSMS(to,templateId,datas);
-		
+		result = restAPI.sendTemplateSMS(to,templateId,datas);*/
+		CCPRestSmsSDK sdk = new CCPRestSmsSDK();
+		sdk.init("app.cloopen.com", "8883");
+		sdk.setAccount("8aaf07086d62068d016d7f92b13b1842", "a243a9df6a4142ada4dfa8b6d957f935");
+		sdk.setAppId("8aaf07086d62068d016d7f92b1921849");
+		HashMap result = sdk.sendTemplateSMS(to, templateId, datas);
 		System.out.println("SDKTestGetSubAccounts result=" + result);
 		if("000000".equals(result.get("statusCode"))){
 			//正常返回输出data包体信息（map）

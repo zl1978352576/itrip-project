@@ -21,7 +21,7 @@ public class CommentTest {
 
 //    @Test
 //    public void testAddItripComment() {
-//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybati.xml"");
 //        ItripCommentService itripCommentServiceImpl =
 //                (ItripCommentService) context.getBean("itripCommentServiceImpl");
 //        ItripComment comment = new ItripComment();
@@ -67,7 +67,7 @@ public class CommentTest {
 //    @Test
 //    public void testQueryItripCommentList() {
 //
-//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybati.xml"");
 //        IClientCommentService clientCommentServiceImpl =
 //                (IClientCommentService) context.getBean("clientCommentServiceImpl");
 //        Page<ITripCommentVo> commentList = new Page<ITripCommentVo>();
@@ -90,7 +90,7 @@ public class CommentTest {
 //
 //    @Test
 //    public void testGetAvgAndTotalScore() {
-//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybati.xml"");
 //        IClientCommentService clientCommentServiceImpl =
 //                (IClientCommentService) context.getBean("clientCommentServiceImpl");
 //        ItripComment comment = new ItripComment();
@@ -109,7 +109,7 @@ public class CommentTest {
 //    }
 //	@Test
 //	public void testGetItripCommentCountByMap() {
-//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybati.xml"");
 //        ItripCommentService itripCommentServiceImpl =
 //                (ItripCommentService) context.getBean("itripCommentServiceImpl");
 //        Map<String, Object> param = new HashMap<String, Object>();
@@ -124,7 +124,7 @@ public class CommentTest {
 
 //    @Test
 //	public void testItriptxAddItripComment() {
-//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybati.xml"");
 //        ItripCommentService itripCommentServiceImpl =
 //                (ItripCommentService) context.getBean("itripCommentServiceImpl");
 //        ItripComment itripComment = new ItripComment();

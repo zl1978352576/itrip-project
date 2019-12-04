@@ -16,9 +16,15 @@ import cn.itrip.common.Constants;
 @Service
 public class ItripHotelServiceImpl implements ItripHotelService {
 
+
+
     @Resource
     private ItripHotelMapper itripHotelMapper;
 
+    @Override
+    public List<ItripHotel> getItripHotelList(int countryId, int cityId)throws Exception {
+        return itripHotelMapper.getItripHotelList(countryId,cityId);
+    }
     public ItripHotel getItripHotelById(Long id)throws Exception{
         return itripHotelMapper.getItripHotelById(id);
     }

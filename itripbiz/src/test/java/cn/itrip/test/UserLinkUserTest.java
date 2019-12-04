@@ -18,7 +18,7 @@
 //
 //	@Test
 //	public void testQueryItripUserLinkUserListByUserId(){
-//		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//		ApplicationContext context = new ClassPathXmlApplicationContext("aapplicationContext-mybati.xml");
 //		IClientUserLinkUserService clientUserLinkUserServiceImpl =
 //				(IClientUserLinkUserService)context.getBean("clientUserLinkUserServiceImpl");
 //		List<ItripUserLinkUser> userLinkUserList;
@@ -41,7 +41,7 @@
 //
 //	@Test
 //	public void testDelUserLinkUser(){
-//		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//		ApplicationContext context = new ClassPathXmlApplicationContext("aapplicationContext-mybati.xml");
 //		IClientUserLinkUserService clientUserLinkUserServiceImpl =
 //				(IClientUserLinkUserService)context.getBean("clientUserLinkUserServiceImpl");
 //		ItripUserLinkUser userLinkUser = new ItripUserLinkUser();
@@ -55,7 +55,7 @@
 //
 //	@Test
 //	public void testAddUserLinkUser(){
-//		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+//		ApplicationContext context = new ClassPathXmlApplicationContext("aapplicationContext-mybati.xml");
 //		IClientUserLinkUserService clientUserLinkUserServiceImpl =
 //				(IClientUserLinkUserService)context.getBean("clientUserLinkUserServiceImpl");
 //		ItripUserLinkUser userLinkUser = new ItripUserLinkUser();

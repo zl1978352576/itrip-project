@@ -43,5 +43,10 @@ public interface ItripHotelMapper {
 	 */
 	public List<ItripLabelDic> getHotelFeatureByHotelId(@Param(value = "id") Long id)throws Exception;
 
+	/**
+	 * 查询国内和海外酒店
+	 *
+	 */
+	public List<ItripHotel> getItripHotelList(@Param(value = "countryId") int countryId,@Param(value = "cityId") int cityId );
 
 }

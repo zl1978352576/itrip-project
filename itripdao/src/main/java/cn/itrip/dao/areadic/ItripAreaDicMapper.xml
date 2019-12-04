@@ -92,6 +92,7 @@
         </if>
     </select>
 
+
     <select id="getItripAreaDicCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_area_dic
         <trim prefix="where" prefixOverrides="and | or">

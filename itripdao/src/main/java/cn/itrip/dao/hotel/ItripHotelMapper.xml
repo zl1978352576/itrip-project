@@ -199,6 +199,44 @@
         </if>
     </select>
 
+    <resultMap id="hotel" type="cn.itrip.beans.pojo.ItripHotel">
+        <id property="id" column="id"/>
+        <result property="hotelName" column="hotelName"/>
+        <result property="redundantCityName" column="redundantCityName"/>
+        <result property="cityId" column="cityId"/>
+        <!--价格表-->
+        <association property="hotelRoom" javaType="ItripHotelRoom">
+            <id property="id" column="id"/>
+            <result property="roomPrice" column="roomPrice"/>
+        </association>
+
+        <!--图片表-->
+        <association property="hotelImage" javaType="ItripImage">
+            <id property="id" column="id"/>
+            <result property="imgUrl" column="imgUrl"/>
+        </association>
+
+    </resultMap>
+
+    <select id="getItripHotelList" resultMap="hotel">
+        SELECT h.id,hotelName,cityId, MIN(roomPrice) AS roomPrice,imgUrl,redundantCityName
+        FROM itrip_hotel AS h,
+        itrip_hotel_room AS r,
+        itrip_image  AS i
+        WHERE h.id=r.hotelId AND h.id = i.targetId
+        AND h.countryId =#{countryId}
+        <if test="cityId!=0">
+            AND h.cityId=#{cityId}
+            GROUP BY hotelName
+        </if>
+        <if test="cityId==0">
+            GROUP BY redundantCityName
+        </if>
+        ORDER BY h.id
+        LIMIT 0,6
+    </select>
+
+
     <select id="getItripHotelCountByMap" resultType="Integer"  parameterType="java.util.Map">
         select count(*) from itrip_hotel
         <trim prefix="where" prefixOverrides="and | or">

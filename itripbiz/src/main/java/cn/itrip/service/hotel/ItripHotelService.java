@@ -5,11 +5,12 @@ import java.util.Map;
 
 import cn.itrip.beans.vo.hotel.*;
 import cn.itrip.common.Page;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * Created by shang-pc on 2015/11/7.
 */
-public interface ItripHotelService {
+public interface ItripHotelService  {
 
     /**
      * 根据酒店id查询酒店特色、商圈、酒店名称
@@ -56,4 +57,9 @@ public interface ItripHotelService {
     public Integer itriptxDeleteItripHotelById(Long id)throws Exception;
 
     public Page<ItripHotel> queryItripHotelPageByMap(Map<String,Object> param,Integer pageNo,Integer pageSize)throws Exception;
+    /**
+     * 查询国内和海外酒店
+     *
+     */
+    public List<ItripHotel> getItripHotelList(@Param(value = "countryId") int countryId, @Param(value = "cityId") int cityId )throws  Exception;
 }

@@ -2,6 +2,7 @@ package cn.itrip.controller;
 
 import cn.itrip.beans.dto.Dto;
 import cn.itrip.beans.pojo.ItripAreaDic;
+import cn.itrip.beans.pojo.ItripHotel;
 import cn.itrip.beans.pojo.ItripLabelDic;
 import cn.itrip.beans.vo.ItripAreaDicVO;
 import cn.itrip.beans.vo.ItripImageVO;
@@ -19,10 +20,7 @@ import io.swagger.annotations.ApiParam;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -100,7 +98,6 @@ public class HotelController {
                         itripAreaDicVOs.add(vo);
                     }
                 }
-
             } else {
                 DtoUtil.returnFail("type不能为空", "10201");
             }
@@ -110,7 +107,29 @@ public class HotelController {
         }
         return DtoUtil.returnDataSuccess(itripAreaDicVOs);
     }
-
+    @RequestMapping(value = "/queryhocity",produces = "application/json",method = RequestMethod.GET
+     )
+    @ResponseBody
+    public Object queryHocity(@RequestParam int countryId,@RequestParam int cityId){
+        List<ItripHotel> itripHotels = null;
+        Map param = new HashMap();
+        try{
+            if (EmptyUtils.isEmpty(countryId)) {
+                return DtoUtil.returnFail("countryId不能为空","10333");
+            }
+            if (EmptyUtils.isEmpty(cityId)) {
+                return DtoUtil.returnFail("cityId不能为空","10334");
+            }else{
+                param.put("countryId",countryId);
+                param.put("cityId",cityId);
+                itripHotels=itripHotelService.getItripHotelList(countryId,cityId);
+                return  itripHotels;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return  DtoUtil.returnFail(e.getMessage(),"10335");
+        }
+    }
     /***
      * 查询商圈的接口
      *

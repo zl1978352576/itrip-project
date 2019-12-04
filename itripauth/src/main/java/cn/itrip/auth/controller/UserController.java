@@ -35,6 +35,7 @@ public class UserController {
 	private UserService userService;
 	
 	@ApiIgnore
+	@ResponseBody
 	@RequestMapping("/register")
 	public String showRegisterForm() {
 		return "register";
@@ -62,11 +63,6 @@ public class UserController {
 			user.setUserPassword(userVO.getUserPassword());
 			user.setUserType(0);
 			user.setUserName(userVO.getUserName());
-//			user.setFlatID(userVO.getFlatID());
-//			user.setWeChat(userVO.getWeChat());
-//			user.setQQ(userVO.getQQ());
-//			user.setWeibo(userVO.getWeibo());
-//			user.setBaidu(userVO.getBaidu());
 			if (null == userService.findByUsername(user.getUserCode())) {
 				user.setUserPassword(MD5.getMd5(user.getUserPassword(), 32));
 				userService.itriptxCreateUser(user);				

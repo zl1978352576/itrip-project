@@ -12,19 +12,25 @@
 
 	<!-- 支付宝手机网站支付 -->
 	<bean class="cn.itrip.trade.config.AlipayConfig">
-		<property name="appID" value="2016080600177878"/>
-		<property name="rsaPrivateKey" value="MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDXpUHGi8u3QlkVR4tcxWvnEdoPF9e0FF6z9N4VZq4hwcqJZb0zq8XO40OsUU4gevMrkW4xutYcrkMhexy287ULTMU6KLQJXhf3zE/5AOv3sKykhozJ2vZkXSR7JwxGekRQioi517sFo4ho6gDzkN0e3Q8SEPV88C8x0Ydo1WeAiIrwg5a/Qx96EOmUx/K1luQM7ANsR/qbLaSb+4ZMGeIwCTr/TAKZsIwmj7BHqZ4HxcLfmYHQW5tK7QUfpS0GY3OspmNv5f6ZuVPk+mJeZqD1pA9339x1l9Q7ztNHY0Pmf4XSGWXCVetbiGOc4vptgeadSpWPu34jZY1mY1U3r12XAgMBAAECggEAIN/xqhoPwW1c9VCF32u9ammfS6O/35UnZtnSrYKM01qezNl0wZbTPhoJbBCtD2iO/7pZCT3JfG/Yjhcdpop6tDFM8/PWloMAtmcwXe6VCpqlhyN3/SHjZCOK9zdZuLjVB05HT8WinlZy6kOaR4dzHkxnCsMJGbXoC/k8Ym/+Kmres7d8ygV/yPTuQoVBI07W56ypvOUgva8+Uv6UKp0ghC/emGNeuk3xoyLStTmC3xBalI/NvMZ6kgAIJ8i1ynLIXhz8zTeBWzh2+6mqjJBi7d/Nop8NFhkDSYJlCniPbvifIf1nMxKX18DrrDvIpmxU5N83hsati1f+oEoj+eCBsQKBgQD6NZEGwpgzWBnur+JrcwrK4M4exgRJof1Acm1mUuPLm+jmdpDYU6/aViJxIsTA8HA3uDwFymJZRdDJzU88Nva7re5oZwKMOkz+1N25nquCMJh2X8QwEqBDrg2O/APtfBnT+dG009yGkaDTBC+M84mqcS1cyBJTrjRj5KbCH1ER7wKBgQDcouiBV9pN7JlmKpQBKPncsFE0oV+05gX8IGkEwcFlvu66w3XGYKIsMBdp1La9WuV6OBZSUd0W28PNdGRnKLti4LsILJLSaj2dwJZCw2WNWicaqLuRm09DNb91hQ9lZDh+Mt6UmxohG/s08Fh+j80NVAGkJAbV5rA6SFjRNH122QKBgQCb48P38kXht4JwtCTdzU9sF6RUiAsj1Ul0XdbLadmDgiAZdsXIAlwOLJxI4OC1VRiVnrPG59FezaDIGqLDYXtYc4WWhpePxsMyAm4iuDkjZCOZnREe4nv3rvnDnEDWNfvhlkSR5W4AabtJvdHif9nF173rkLvaZy89DbjYOarJAQKBgHexRNLONxao8Pr0xD/w28O2Pwd/N+1qD/scFfzHo8QvlVDqMl1BFRlFqZ33EH+e7Pilrq5PzNHWvN0bdFBmT2mvoqcnjyrpCa4nyRxE5jWNn8MdoEu4ZoJ+iPQXECgf+2my7P7POZiWlmu8qzVVi5bcaNuD09V8hUPI9a3gfOPZAoGBAOTmbOuwo1e8AvwNaGRIi11/wxH2Z8lg5bv4FlWZT/SgPSDE7eFBa9qT6Mn3CRKtvq2692xVk5KtZR92Cus9Mgk7W0IEnR5f9OYP3138jPWvL6eXcirE1XxlgtShq+RKpWwV+L91BR9wIZvHxBktHNtQ/6Y0va9ldBfE0KArfrse"/>
-		<property name="notifyUrl" value="http://itrip.project.bdqn.cn/trade/api/notify"/>
-		<property name="returnUrl" value="http://itrip.project.bdqn.cn/trade/api/return"/>
+	<!-- 支付宝手机网站支付 -->
+
+		<!--APPID-->
+		<property name="appID" value="2016101300674556"/>
+		<!--应用私钥-->
+		<property name="rsaPrivateKey" value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCTnyiXJKFq3Iwuqtvori8hN5cDbCpkihiPJXMBE/AI6OcfDUXcPGU/jQcgN9F45B0R6GXNJco5NOg/jInIcvxQ+0vITfZohE28tNbgZu4VIV7LHWRv5axkTLTc3M5eYm0JPuERWwz6AZvQJrOmoKkDGzCW5Olm97yNQyb4d4rXRlLlKH4FNcQkfDo3l2oobDM1YDDzCaAhO+Xq8/LzhaCEyNicFZvGFMkCTauWYYxIuUHr+Kw/NlFZloMyMybZy7T9JTl+l/aJGUj3JXfmoRuzxSH1wwkILZwdcplc6qvhBM01JikzrEq9VZ6phl/ElSSoMZr3aIVwYJnwW9hyNZZ3AgMBAAECggEAesm4CX/+g9RPBcI4iKHZsdd7VO1zlY0IQIj1z7+1uLOBCuMPaNETpni3pKTJJ7UWOP8FLk5wloTbaYCMWp7KINHlhwbSHr1tq7j/wkfbYNgQ8QHRuQFhE0x6Y/uF7BwSdc5HhxglAw6ze7+1TrPz4RGMqPZe7bbCrv1cPO+yHLynpbdbCU8CXlcnttyuAMd9fgN4Eku1UG8rXhNCVJzrwbT36BvE66GJrTLQhzrXvp0MLAwiBo/o/qiNadqLk+kOIE8Smrpfryhv43iUAPbMNdl7SgU+rSERgN6/bQB8/TWbA4BeqZXs9kP0X6KCVGr5cAG6iZ30l3F4p8XQd9BQAQKBgQDuiiIp9uAUXfBquRkESKS2wSrMYv/dxb6RphkB+psKfoWATT66GUlh9PQodKHNO4rysr6vJ7jDmgG54E1d/Zm8yXIAs3eZ4QN8zzxkvPnkczB5LCYsqJcsSVWfu+3Ggxx8Srkce5QAHxU/LPALPy1+9rc/joHGgXF5yVzX0Fzq9wKBgQCebV0JI41PYlcvOyXvndsuSHkQmtcnlppth1wt35kO2ud6vEzdSDpIjS2kOJz2KM9IV9gqidfy0U6Mq81Wuwl1t0hI5wRvsn3Lf7VrQaWmsyQ+0xPqfQsigEGkSlo/UcxAHesMXy7z7NfN2YCbC2QgMbBB9Zj8JYgvIwVZwjpQgQKBgBIz1kGPhi/nrzXlpAQQqwkLGoH4OAArW8xveU8OWZBmcTeGLXgz/8aK06rWo5Yuqf61JxnklRPQB7uwYxb+CCJA2QM2rrS+V+7JPZmOVh9ZruRAOzWDM+38Np120MEqNh1B8ng68eNEe/GTM0oYaxdaKkeeT0bfj9I0THJngv+nAoGALGND392gKA/LkaYm2N4HnQ4dLXPUuHjPx8RXJVsyjSD0HkVH2+/ytIUptotOHwIMIZ7LKA/6+0N9mJhCLfy1h8/UZuijK5B9AllDwUthWDV1AE0vlVF3nzEEMz3Jz1fhvE0loA/DHgDL7hb0m3wzj3mcgr6HII57e4l6ZE2w/QECgYEAp7KwMI5pPSLLzzBk0Sr2HGnZZNZ09aNtGNEwDJmgxynaOj1mgA1Nukmr72d9faYi+kWukqglKtjK0BnefosIkwk8egXIsi81bbyhnFA8z6VrV23t0ra9v0Z7ZC3Wu11BXYjReE7h9W1YC39DDntSzOmajrTQZH/eht+bxwowzMo="/>
+
+		<property name="notifyUrl" value="http://localhost:8080/trade/api/notify"/>
+		<property name="returnUrl" value="http://localhost:8080/trade/api/return"/>
+		<!--支付宝网关-->
 		<property name="url" value="https://openapi.alipaydev.com/gateway.do"/>
 		<property name="charset" value="UTF-8"/>
 		<property name="format" value="json"/>
-		<property name="alipayPublicKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxSlIxfFDdy8tLBPaNEeVKgRLNFuZGzsYsteUN+B0zOBEh8lGokm1Gd7PuPMrLP9iBAHGeHx/vqunxxFVM0yx7r1t82vK53AXWshxvUoobMpYmi7a/x43elsFBviWPOtXJLHNyDICcI+Xi3z9tE3Z2A6yr4NJnFqyVJKSJ+wXMW19N/o+ItbtutoHmZP/+coeBTfBYNOldAhUXl2kQ9fJYc5E2nvJ3yKQvP2+P0FuNQhrz3nXFNekSBrgLjfqG4VSu8mZW+34qBLLdbbKWBlSH+mjNI8UfXjUtYc7/EXDQgYDI4QQw1TGfpdqsgk9qwIxRKdR4NpDpuCjR/uFr2IMYwIDAQAB"/>
+		<!--支付宝公钥-->
+		<property name="alipayPublicKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk58olyShatyMLqrb6K4vITeXA2wqZIoYjyVzARPwCOjnHw1F3DxlP40HIDfReOQdEehlzSXKOTToP4yJyHL8UPtLyE32aIRNvLTW4GbuFSFeyx1kb+WsZEy03NzOXmJtCT7hEVsM+gGb0CazpqCpAxswluTpZve8jUMm+HeK10ZS5Sh+BTXEJHw6N5dqKGwzNWAw8wmgITvl6vPy84WghMjYnBWbxhTJAk2rlmGMSLlB6/isPzZRWZaDMjMm2cu0/SU5fpf2iRlI9yV35qEbs8Uh9cMJCC2cHXKZXOqr4QTNNSYpM6xKvVWeqYZfxJUkqDGa92iFcGCZ8FvYcjWWdwIDAQAB"/>
 		<property name="logPath" value="/logs"/>
 		<property name="signType" value="RSA2"/>
-		<!-- <property name="paymentSuccessUrl" value="/itriptrade/success.jsp"/> -->
-		<property name="paymentSuccessUrl" value="http://itrip.project.bdqn.cn/index.html#/orderpaystate?orderNo=%s&amp;id=%s"/>
-		<property name="paymentFailureUrl" value="http://itrip.project.bdqn.cn/index.html#/orderpaystate?orderNo=%s&amp;id=%s&amp;state=0"/>
+		<property name="paymentSuccessUrl" value="/trade/success.jsp"/>
+		<property name="paymentFailureUrl" value="/trade/fail.jsp"/>
 	</bean>
 	
 	
